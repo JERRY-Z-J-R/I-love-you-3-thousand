@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《JERRY Hexo &amp; GitHub 静态网站搭建说明》 | JERRY</title><meta name="keywords" content="README"><meta name="author" content="周吉瑞"><meta name="copyright" content="周吉瑞"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JERRY-Hexo-GitHub《JERRY Hexo &amp; GitHub 静态网站搭建说明》  原创内容，转载请注明出处！  一、前言1.1 什么是 Hexo？一个基于 Node.js 设计的快速、简洁且高效的博客框架  超快速度 支持 Markdown 一键部署 插件和可扩展性 免费开源  1.2 什么是 GitHub？一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JERRY Hexo &amp; GitHub 静态网站搭建说明》">
+<meta property="og:url" content="https://jerry-z-j-r.github.io/2021/02/26/JERRY-Hexo-GitHub/index.html">
+<meta property="og:site_name" content="JERRY">
+<meta property="og:description" content="JERRY-Hexo-GitHub《JERRY Hexo &amp; GitHub 静态网站搭建说明》  原创内容，转载请注明出处！  一、前言1.1 什么是 Hexo？一个基于 Node.js 设计的快速、简洁且高效的博客框架  超快速度 支持 Markdown 一键部署 插件和可扩展性 免费开源  1.2 什么是 GitHub？一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-02-25T16:45:03.000Z">
+<meta property="article:modified_time" content="2021-02-26T15:30:15.787Z">
+<meta property="article:author" content="周吉瑞">
+<meta property="article:tag" content="README">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="https://img-blog.csdnimg.cn/20210227015617972.png"><link rel="canonical" href="https://jerry-z-j-r.github.io/2021/02/26/JERRY-Hexo-GitHub/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-26 23:30:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://img-blog.csdnimg.cn/20210227015617972.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JERRY</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《JERRY Hexo &amp; GitHub 静态网站搭建说明》</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-02-25T16:45:03.000Z" title="发表于 2021-02-26 00:45:03">2021-02-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-02-26T15:30:15.787Z" title="更新于 2021-02-26 23:30:15">2021-02-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="JERRY-Hexo-GitHub"><a href="#JERRY-Hexo-GitHub" class="headerlink" title="JERRY-Hexo-GitHub"></a>JERRY-Hexo-GitHub</h1><p><strong>《JERRY Hexo &amp; GitHub 静态网站搭建说明》</strong></p>
+<blockquote>
+<p>原创内容，转载请注明出处！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><h2 id="1-1-什么是-Hexo？"><a href="#1-1-什么是-Hexo？" class="headerlink" title="1.1 什么是 Hexo？"></a>1.1 什么是 Hexo？</h2><p><strong>一个基于 <code>Node.js</code> 设计的快速、简洁且高效的博客框架</strong></p>
+<ul>
+<li>超快速度</li>
+<li>支持 Markdown</li>
+<li>一键部署</li>
+<li>插件和可扩展性</li>
+<li>免费开源</li>
+</ul>
+<h2 id="1-2-什么是-GitHub？"><a href="#1-2-什么是-GitHub？" class="headerlink" title="1.2 什么是 GitHub？"></a>1.2 什么是 GitHub？</h2><p><strong>一个面向开源及私有软件项目的托管平台，因为只支持 <code>Git</code> 作为唯一的版本库格式，故名 GitHub</strong></p>
+<ul>
+<li>全球最活跃开源社区</li>
+<li>开源社交平台</li>
+<li>企业项目管理平台</li>
+</ul>
+<h2 id="1-3-什么是静态网站？"><a href="#1-3-什么是静态网站？" class="headerlink" title="1.3 什么是静态网站？"></a>1.3 什么是静态网站？</h2><p><strong>通俗的讲静态网站指：只有 <code>前端</code> 没有 <code>后端</code> 的网站，静态网站的所有页面内容在没有被修改的前提下都是固定不变的</strong></p>
+<p>适用于博客、固定页面展示等网站。</p>
+<h2 id="1-4-Hexo-与-GitHub-搭配建站的优缺点"><a href="#1-4-Hexo-与-GitHub-搭配建站的优缺点" class="headerlink" title="1.4 Hexo 与 GitHub 搭配建站的优缺点"></a>1.4 Hexo 与 GitHub 搭配建站的优缺点</h2><p><strong>（1）优点</strong></p>
+<ul>
+<li>简单稳定</li>
+<li>开源免费</li>
+<li>社区活跃利于交流</li>
+</ul>
+<p><strong>（2）缺点：</strong></p>
+<ul>
+<li>国内访问速度慢</li>
+<li>不支持动态网站搭建</li>
+</ul>
+<h1 id="二、安装-Git"><a href="#二、安装-Git" class="headerlink" title="二、安装 Git"></a>二、安装 Git</h1><h2 id="2-1-什么是-Git？"><a href="#2-1-什么是-Git？" class="headerlink" title="2.1 什么是 Git？"></a>2.1 什么是 Git？</h2><p><strong><code>Git</code> 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目</strong></p>
+<p>使用 GitHub 必须有 Git。</p>
+<h2 id="2-2-Git-的下载安装与配置"><a href="#2-2-Git-的下载安装与配置" class="headerlink" title="2.2 Git 的下载安装与配置"></a>2.2 Git 的下载安装与配置</h2><p><strong>（1）下载安装</strong></p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git官网</a></p>
+<p>选择对应系统版本下载，安装默认下一步即可。</p>
+<p><strong>（2）配置</strong></p>
+<p>打开终端键入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 git 版本号</span></span><br><span class="line"><span class="comment"># 若成功识别即为 git 安装成功</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;xxx&quot;</span></span><br><span class="line">$ git config --global user.email xxx@xxx.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置个人的用户名称和电子邮件地址</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># user.name=xxx</span></span><br><span class="line"><span class="comment"># user.email=xxx@xxx.com</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查已有的配置信息</span></span><br><span class="line"><span class="comment"># 若配置信息中出现正确用户名及邮箱即为配置成功</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="三、安装-Node-js"><a href="#三、安装-Node-js" class="headerlink" title="三、安装 Node.js"></a>三、安装 Node.js</h1><h2 id="3-1-什么是-Node-js？"><a href="#3-1-什么是-Node-js？" class="headerlink" title="3.1 什么是 Node.js？"></a>3.1 什么是 Node.js？</h2><p>一个基于 <code>Chrome V8</code> 引擎的 <code>JavaScript</code> 运行环境，使用了一个事件驱动 、非阻塞式 I/O 模型，让 JavaScript 运行在服务端的开发平台，它让 JavaScript 成为与 <code>PHP</code>、<code>Python</code>、<code>Perl</code>、<code>Ruby</code> 等服务端语言平起平坐的 <code>脚本语言</code>。</p>
+<h2 id="3-2-Node-js-的下载安装与配置"><a href="#3-2-Node-js-的下载安装与配置" class="headerlink" title="3.2 Node.js 的下载安装与配置"></a>3.2 Node.js 的下载安装与配置</h2><p><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">Node.js官网</a></p>
+<p>选择对应系统的长期支持版下载，安装默认下一步即可。</p>
+<p>安装完成，打开终端键入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Node.js 版本</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 npm 包管理器版本</span></span><br></pre></td></tr></table></figure>
+
+<p>若以上两个命令都成功识别，那么 Node.js 便安装成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用 npm 下载国内淘宝镜像 cnpm</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 cnpm 版本</span></span><br><span class="line"><span class="comment"># 若以上命令成功识别，那么 cnpm 便安装成功</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>什么是 npm 和 cnpm ?</strong></p>
+<ul>
+<li><p><code>npm</code> (node package manager)：Node.js 的包管理器，用于 node 插件管理（包括安装、卸载、管理依赖等）。</p>
+</li>
+<li><p><code>cnpm</code>：因为 npm 安装插件是从国外服务器下载，受网络的影响比较大，可能会出现异常，所以乐于分享的淘宝团队解决了这事。来自官网：“这是一个完整 npmjs.org 镜像，你可以用此代替官方版本(只读)，同步频率目前为 10分钟 一次以保证尽量与官方服务同步”。</p>
+</li>
+</ul>
+<h1 id="四、安装-Hexo"><a href="#四、安装-Hexo" class="headerlink" title="四、安装 Hexo"></a>四、安装 Hexo</h1><h2 id="4-1-Hexo-的下载安装与配置"><a href="#4-1-Hexo-的下载安装与配置" class="headerlink" title="4.1 Hexo 的下载安装与配置"></a>4.1 Hexo 的下载安装与配置</h2><p><strong>下载安装：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">可以参考Hexo官网</a></p>
+<p>打开终端键入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待一会，安装完毕</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 hexo 版本</span></span><br><span class="line"><span class="comment"># 若以上命令成功识别，那么 hexo 便安装成功</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="五、搭建静态网站"><a href="#五、搭建静态网站" class="headerlink" title="五、搭建静态网站"></a>五、搭建静态网站</h1><h2 id="5-1-新建一个网站"><a href="#5-1-新建一个网站" class="headerlink" title="5.1 新建一个网站"></a>5.1 新建一个网站</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果没有设置 folder，Hexo 默认在当前的文件夹建立网站</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2-生成静态文件"><a href="#5-2-生成静态文件" class="headerlink" title="5.2 生成静态文件"></a>5.2 生成静态文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 该命令可以简写为 $ hexo g</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3-启动服务器"><a href="#5-3-启动服务器" class="headerlink" title="5.3 启动服务器"></a>5.3 启动服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 该命令可以简写为 $ hexo s</span></span><br><span class="line"><span class="comment"># 默认情况下，访问端口为：http://localhost:4000/</span></span><br><span class="line"><span class="comment"># 在浏览器中访问 http://localhost:4000/ 即可打开本地搭建好的网站</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-4-新建一篇文章"><a href="#5-4-新建一篇文章" class="headerlink" title="5.4 新建一篇文章"></a>5.4 新建一篇文章</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &lt;title&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果标题包含空格的话，请使用引号括起来 $ hexo new &quot;first blog&quot;</span></span><br><span class="line"><span class="comment"># 生成的 Markdown 文章放在 source 内的 _posts 下</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="六、利用-GitHub-部署网站"><a href="#六、利用-GitHub-部署网站" class="headerlink" title="六、利用 GitHub 部署网站"></a>六、利用 GitHub 部署网站</h1><h2 id="6-1-注册用户"><a href="#6-1-注册用户" class="headerlink" title="6.1 注册用户"></a>6.1 注册用户</h2><p><a target="_blank" rel="noopener" href="https://github.com/">GitHub官网</a></p>
+<p>点击右上角注册即可。</p>
+<h2 id="6-2-创建同名仓库"><a href="#6-2-创建同名仓库" class="headerlink" title="6.2 创建同名仓库"></a>6.2 创建同名仓库</h2><ul>
+<li><p>点击右上的 <code>+</code>，选择 <code>New repository</code> 新建一个仓库</p>
+</li>
+<li><p>仓库名称设为 <code>用户名.github.io</code></p>
+</li>
+<li><p>仓库类型为 <code>Public</code> 公共类型</p>
+</li>
+<li><p>复制仓库 <code>HTTPS</code> URL</p>
+</li>
+</ul>
+<h2 id="6-3-更改-Hexo-配置文件"><a href="#6-3-更改-Hexo-配置文件" class="headerlink" title="6.3 更改 Hexo 配置文件"></a>6.3 更改 Hexo 配置文件</h2><p>修改根目录 <code>_config.yml</code> 内的 <code>deploy</code>。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/用户名/用户名.github.io.git</span>	<span class="comment"># HTTPS URL</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-4-安装-hexo-git-部署工具"><a href="#6-4-安装-hexo-git-部署工具" class="headerlink" title="6.4 安装 hexo - git 部署工具"></a>6.4 安装 hexo - git 部署工具</h2><p>在 Hexo 博客根目录下，打开终端键入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 hexo-deployer-git 工具</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-5-远程部署到-GitHub-Pages-服务器"><a href="#6-5-远程部署到-GitHub-Pages-服务器" class="headerlink" title="6.5 远程部署到 GitHub Pages 服务器"></a>6.5 远程部署到 GitHub Pages 服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 该命令可以简写为 $ hexo d</span></span><br></pre></td></tr></table></figure>
+
+<p>部署成功后即使用 <code>https://用户名.github.io/</code> 在浏览器中访问网站。</p>
+<h1 id="七、结束语"><a href="#七、结束语" class="headerlink" title="七、结束语"></a>七、结束语</h1><h2 id="7-1-美化-Hexo-网站"><a href="#7-1-美化-Hexo-网站" class="headerlink" title="7.1 美化 Hexo 网站"></a>7.1 美化 Hexo 网站</h2><p>Hexo 支持主题自定义，并且有一个活跃的 <a target="_blank" rel="noopener" href="https://hexo.io/themes/">主题社区</a>。</p>
+<p>切换主题方法：下载主题到 <code>themes</code> 文件夹内并修改根目录 <code>_config.yml</code> 内的 <code>theme</code> 设定，即可切换主题。</p>
+<p>修改配置主题请查阅相应主题的文档。</p>
+<p>目前比较热门的几个主题：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">NexT GitHub</a> </li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia">Yilia GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">Matery GitHub</a></li>
+</ul>
+<h2 id="7-2-使用-Hexo-插件"><a href="#7-2-使用-Hexo-插件" class="headerlink" title="7.2 使用 Hexo 插件"></a>7.2 使用 Hexo 插件</h2><p>Hexo 是一个支持插件的可扩展框架，具体插件类型及安装方法请前往 <a target="_blank" rel="noopener" href="https://hexo.io/plugins/">Hexo 官网查看</a> 或在搜索引擎求助。</p>
+<h2 id="7-3-帮助文档"><a href="#7-3-帮助文档" class="headerlink" title="7.3 帮助文档"></a>7.3 帮助文档</h2><p>Hexo 提供了全面的 Hexo <a target="_blank" rel="noopener" href="https://hexo.io/docs/index.html">使用文档</a>（中英文版）及 <a target="_blank" rel="noopener" href="https://hexo.io/api/">API 文档</a>，在使用及开发优化 Hexo 的过程中，建议以官方文档为基准。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">周吉瑞</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://jerry-z-j-r.github.io/2021/02/26/JERRY-Hexo-GitHub/">https://jerry-z-j-r.github.io/2021/02/26/JERRY-Hexo-GitHub/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://jerry-z-j-r.github.io" target="_blank">JERRY</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/README/">README</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/null" target="_blank"><img class="post-qr-code-img" src="/null" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/null" target="_blank"><img class="post-qr-code-img" src="/null" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/26/JERRY-PicGo-Gitee/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《JERRY PicGo &amp; Gitee 网站图床搭建说明》</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/25/hello-world/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/02/26/JERRY-PicGo-Gitee/" title="《JERRY PicGo & Gitee 网站图床搭建说明》"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-26</div><div class="title">《JERRY PicGo & Gitee 网站图床搭建说明》</div></div></a></div><div><a href="/2021/02/26/JERRY-Document-Style-Guide/" title="《JERRY 中文技术文档的写作规范》"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-26</div><div class="title">《JERRY 中文技术文档的写作规范》</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://img-blog.csdnimg.cn/20210227015617972.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周吉瑞</div><div class="author-info__description">printf("不要多想 早點睡覺\n");</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JERRY-Z-J-R" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhoujirui54@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JERRY-Hexo-GitHub"><span class="toc-number">1.</span> <span class="toc-text">JERRY-Hexo-GitHub</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">一、前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF-Hexo%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 什么是 Hexo？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%BB%80%E4%B9%88%E6%98%AF-GitHub%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 什么是 GitHub？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 什么是静态网站？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Hexo-%E4%B8%8E-GitHub-%E6%90%AD%E9%85%8D%E5%BB%BA%E7%AB%99%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">2.4.</span> <span class="toc-text">1.4 Hexo 与 GitHub 搭配建站的优缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85-Git"><span class="toc-number">3.</span> <span class="toc-text">二、安装 Git</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AF-Git%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 什么是 Git？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Git-%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 Git 的下载安装与配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85-Node-js"><span class="toc-number">4.</span> <span class="toc-text">三、安装 Node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%BB%80%E4%B9%88%E6%98%AF-Node-js%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 什么是 Node.js？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Node-js-%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 Node.js 的下载安装与配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">5.</span> <span class="toc-text">四、安装 Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Hexo-%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 Hexo 的下载安装与配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99"><span class="toc-number">6.</span> <span class="toc-text">五、搭建静态网站</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 新建一个网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 生成静态文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">6.3.</span> <span class="toc-text">5.3 启动服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E6%96%B0%E5%BB%BA%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0"><span class="toc-number">6.4.</span> <span class="toc-text">5.4 新建一篇文章</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%88%A9%E7%94%A8-GitHub-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99"><span class="toc-number">7.</span> <span class="toc-text">六、利用 GitHub 部署网站</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E6%B3%A8%E5%86%8C%E7%94%A8%E6%88%B7"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 注册用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%88%9B%E5%BB%BA%E5%90%8C%E5%90%8D%E4%BB%93%E5%BA%93"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 创建同名仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E6%9B%B4%E6%94%B9-Hexo-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">7.3.</span> <span class="toc-text">6.3 更改 Hexo 配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-%E5%AE%89%E8%A3%85-hexo-git-%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7"><span class="toc-number">7.4.</span> <span class="toc-text">6.4 安装 hexo - git 部署工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2%E5%88%B0-GitHub-Pages-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">7.5.</span> <span class="toc-text">6.5 远程部署到 GitHub Pages 服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="toc-number">8.</span> <span class="toc-text">七、结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E7%BE%8E%E5%8C%96-Hexo-%E7%BD%91%E7%AB%99"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 美化 Hexo 网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E4%BD%BF%E7%94%A8-Hexo-%E6%8F%92%E4%BB%B6"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 使用 Hexo 插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-number">8.3.</span> <span class="toc-text">7.3 帮助文档</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/26/JERRY-Document-Style-Guide/" title="《JERRY 中文技术文档的写作规范》"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《JERRY 中文技术文档的写作规范》"/></a><div class="content"><a class="title" href="/2021/02/26/JERRY-Document-Style-Guide/" title="《JERRY 中文技术文档的写作规范》">《JERRY 中文技术文档的写作规范》</a><time datetime="2021-02-26T09:35:30.000Z" title="发表于 2021-02-26 17:35:30">2021-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/26/JERRY-PicGo-Gitee/" title="《JERRY PicGo &amp; Gitee 网站图床搭建说明》"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《JERRY PicGo &amp; Gitee 网站图床搭建说明》"/></a><div class="content"><a class="title" href="/2021/02/26/JERRY-PicGo-Gitee/" title="《JERRY PicGo &amp; Gitee 网站图床搭建说明》">《JERRY PicGo &amp; Gitee 网站图床搭建说明》</a><time datetime="2021-02-25T16:48:23.000Z" title="发表于 2021-02-26 00:48:23">2021-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/26/JERRY-Hexo-GitHub/" title="《JERRY Hexo &amp; GitHub 静态网站搭建说明》"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《JERRY Hexo &amp; GitHub 静态网站搭建说明》"/></a><div class="content"><a class="title" href="/2021/02/26/JERRY-Hexo-GitHub/" title="《JERRY Hexo &amp; GitHub 静态网站搭建说明》">《JERRY Hexo &amp; GitHub 静态网站搭建说明》</a><time datetime="2021-02-25T16:45:03.000Z" title="发表于 2021-02-26 00:45:03">2021-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/25/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/02/25/hello-world/" title="Hello World">Hello World</a><time datetime="2021-02-25T07:17:58.434Z" title="发表于 2021-02-25 15:17:58">2021-02-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 周吉瑞</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
