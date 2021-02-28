@@ -1,6 +1,6 @@
 # 周周的个人博客 Jerry's Blog :smiley:
 
-- 平日会记录一些学习笔记、思维导图、知识教程和分享一些有意思的视频​ :cupid:……
+- 平日会记录一些学习笔记、思维导图、知识教程和分享一些有意思的事 :cupid:……
 
 - :rocket: [点击访问](https://jerry-z-j-r.github.io/) :see_no_evil:
 
