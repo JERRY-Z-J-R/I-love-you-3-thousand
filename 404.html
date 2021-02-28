@@ -12,8 +12,8 @@
 <meta name="twitter:image" content="https://jerry-z-j-r.github.io/img/jerry.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://jerry-z-j-r.github.io/404"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   noticeOutdate: undefined,
   highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
   copy: {
@@ -25,7 +25,7 @@
     homepage: false,
     post: false
   },
-  runtime: '',
+  runtime: '天',
   date_suffix: {
     just: '刚刚',
     min: '分钟前',
@@ -55,7 +55,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2021-03-01 01:18:09'
+  postUpdate: '2021-03-01 03:59:13'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -137,9 +137,14 @@
           document.documentElement.classList.remove('hide-aside')
         }
       }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
     })(window)</script><meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="error-wrap"><div class="error-content"><div class="error-img" style="background-image: url('https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png')"></div><div class="error-info"><h1 class="error_title">404</h1><div class="error_subtitle">页面没有找到</div><a class="button--animated" href="/"><i class="fas fa-rocket"></i>回到主页</a></div></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="error-wrap"><div class="error-content"><div class="error-img" style="background-image: url('https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png')"></div><div class="error-info"><h1 class="error_title">404</h1><div class="error_subtitle">页面没有找到</div><a class="button--animated" href="/"><i class="fas fa-rocket"></i>回到主页</a></div></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
   endLoading: () => {
     document.body.style.overflow = 'auto';
     document.getElementById('loading-box').classList.add("loaded")
