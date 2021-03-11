@@ -53,7 +53,7 @@
       <link href="2021/03/09/JERRY-Linux-Cheat-Sheet/"/>
       <url>2021/03/09/JERRY-Linux-Cheat-Sheet/</url>
       
-        <content type="html"><![CDATA[<h1 id="《JERRY-Linux-小抄》"><a href="#《JERRY-Linux-小抄》" class="headerlink" title="《JERRY Linux-小抄》"></a>《JERRY Linux-小抄》</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="《JERRY-Linux-小抄》"><a href="#《JERRY-Linux-小抄》" class="headerlink" title="《JERRY Linux-小抄》"></a>《JERRY Linux-小抄》</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><blockquote><p>说明：以下内容基于 VMware 16 Player &amp; Ubuntu 20.04.2.0 LTS 环境</p></blockquote><h1 id="一、认识-Linux"><a href="#一、认识-Linux" class="headerlink" title="一、认识 Linux"></a>一、认识 Linux</h1><h2 id="1-1-1-Linux-的由来"><a href="#1-1-1-Linux-的由来" class="headerlink" title="1.1.1 Linux 的由来"></a>1.1.1 Linux 的由来</h2><h2 id="1-1-2-Linux-的内核"><a href="#1-1-2-Linux-的内核" class="headerlink" title="1.1.2 Linux 的内核"></a>1.1.2 Linux 的内核</h2><h2 id="1-1-3-Linux-的特点"><a href="#1-1-3-Linux-的特点" class="headerlink" title="1.1.3 Linux 的特点"></a>1.1.3 Linux 的特点</h2><h2 id="1-1-4-Linux-的用途"><a href="#1-1-4-Linux-的用途" class="headerlink" title="1.1.4 Linux 的用途"></a>1.1.4 Linux 的用途</h2><h2 id="1-2-1-Ubuntu-简介"><a href="#1-2-1-Ubuntu-简介" class="headerlink" title="1.2.1 Ubuntu 简介"></a>1.2.1 Ubuntu 简介</h2><h2 id="1-3-1-Linux-系统结构"><a href="#1-3-1-Linux-系统结构" class="headerlink" title="1.3.1 Linux 系统结构"></a>1.3.1 Linux 系统结构</h2><h2 id="1-4-1-Linux-文件结构"><a href="#1-4-1-Linux-文件结构" class="headerlink" title="1.4.1 Linux 文件结构"></a>1.4.1 Linux 文件结构</h2><h2 id="1-5-1-说明"><a href="#1-5-1-说明" class="headerlink" title="1.5.1 说明"></a>1.5.1 说明</h2>]]></content>
       
       
       <categories>
