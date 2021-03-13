@@ -1,0 +1,641 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Eclipse IDE使用总结--Java小抄(9) | JERRY</title><meta name="keywords" content="Java,Eclipse"><meta name="author" content="周吉瑞"><meta name="copyright" content="周吉瑞"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta property="og:type" content="article">
+<meta property="og:title" content="Eclipse IDE使用总结--Java小抄(9)">
+<meta property="og:url" content="https://jerry-z-j-r.github.io/2021/01/04/Java-Supplement-9/index.html">
+<meta property="og:site_name" content="JERRY">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210314000054599.png">
+<meta property="article:published_time" content="2021-01-04T14:29:47.000Z">
+<meta property="article:modified_time" content="2021-03-13T16:14:40.867Z">
+<meta property="article:author" content="周吉瑞">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Eclipse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210314000054599.png"><link rel="shortcut icon" href="https://img-blog.csdnimg.cn/2021030114565195.png"><link rel="canonical" href="https://jerry-z-j-r.github.io/2021/01/04/Java-Supplement-9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//s4.cnzz.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f9efe2ae773f7dfd8ead1d46177d37ad";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" data-pjax="data-pjax" src="https://s4.cnzz.com/z_stat.php?id=1279722931&amp;web_id=1279722931"></script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-14 00:14:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2395865_44r7felzpiw.css"><meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://img-blog.csdnimg.cn/20210301145651100.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 年轮</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-headphones-alt"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fab fa-instagram"></i><span> ins照</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-qianmoney113"></i><span> 打赏</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/alipay/"><i class="fa-fw iconfont icon-zhifubao"></i><span> 支付宝</span></a></li><li><a class="site-page" href="/weixinpay/"><i class="fa-fw iconfont icon-weixinzhifu"></i><span> 微信支付</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img-blog.csdnimg.cn/20210314000054599.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JERRY</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 年轮</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-headphones-alt"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fab fa-instagram"></i><span> ins照</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-qianmoney113"></i><span> 打赏</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/alipay/"><i class="fa-fw iconfont icon-zhifubao"></i><span> 支付宝</span></a></li><li><a class="site-page" href="/weixinpay/"><i class="fa-fw iconfont icon-weixinzhifu"></i><span> 微信支付</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Eclipse IDE使用总结--Java小抄(9)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-04T14:29:47.000Z" title="发表于 2021-01-04 22:29:47">2021-01-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-13T16:14:40.867Z" title="更新于 2021-03-14 00:14:40">2021-03-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201221190150382.png" alt="在这里插入图片描述"></p>
+<span id="more"></span>
+
+<h1 id="【Eclipse-IDE使用总结–Java小抄-9-】"><a href="#【Eclipse-IDE使用总结–Java小抄-9-】" class="headerlink" title="【Eclipse IDE使用总结–Java小抄(9)】"></a>【Eclipse IDE使用总结–Java小抄(9)】</h1><blockquote>
+<p>原创内容，转载请注明出处！</p>
+</blockquote>
+<h1 id="一、Java开发常见工具介绍"><a href="#一、Java开发常见工具介绍" class="headerlink" title="一、Java开发常见工具介绍"></a>一、Java开发常见工具介绍</h1><ul>
+<li><p>A:操作系统自带的记事本软件</p>
+</li>
+<li><p>B:高级记事本软件</p>
+</li>
+<li><p>C:集成开发环境 IDE(Integrated Development Environment)</p>
+<ul>
+<li>这种软件是用于程序开发环境的应用程序，一般包括代码编辑器，编译器，调试器和图形界面工具</li>
+<li>集成了代码编写功能，分析功能，编译功能，调试功能等一体化的开发软件</li>
+</ul>
+</li>
+</ul>
+<h1 id="二、Eclipse概述"><a href="#二、Eclipse概述" class="headerlink" title="二、Eclipse概述"></a>二、Eclipse概述</h1><ul>
+<li><p>Eclipse是一种可扩展的开放源代码的IDE。</p>
+</li>
+<li><p>Eclipse的特点描述</p>
+<ul>
+<li>免费</li>
+<li>纯Java语言编写</li>
+<li>免安装</li>
+<li>扩展性强</li>
+</ul>
+</li>
+<li><p>MyEclipse</p>
+<ul>
+<li>在Eclipse基础上追加的功能性插件，对插件收费</li>
+<li>在Web开发中提供强大的系统架构平台</li>
+</ul>
+</li>
+</ul>
+<h1 id="三、Eclipse的下载，安装及卸载"><a href="#三、Eclipse的下载，安装及卸载" class="headerlink" title="三、Eclipse的下载，安装及卸载"></a>三、Eclipse的下载，安装及卸载</h1><ul>
+<li><p>下载 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://eclipse.org/">http://eclipse.org/</a></p>
+</li>
+<li><p>安装</p>
+<ul>
+<li>压缩版    解压就可以使用(eclipse.exe)</li>
+<li>安装版   双击运行,一路next即可(JDK)</li>
+</ul>
+</li>
+<li><p>卸载</p>
+<ul>
+<li>压缩版 直接删除文件夹即可</li>
+<li>安装版 专业卸载软件或者控制面板添加删除程序</li>
+</ul>
+</li>
+</ul>
+<h1 id="四、Eclipse的基本使用"><a href="#四、Eclipse的基本使用" class="headerlink" title="四、Eclipse的基本使用"></a>四、Eclipse的基本使用</h1><ul>
+<li><p>选择工作空间</p>
+<ul>
+<li>工作空间  其实就是我们写的源代码所在的目录（不选择会默认指定为eclipse-workspace）</li>
+</ul>
+</li>
+<li><p>用Eclipse来完成一个HelloWorld案例</p>
+<ul>
+<li>代码以项目为基本单位</li>
+<li>创建项目</li>
+<li>创建包</li>
+<li>创建类</li>
+<li>编写代码</li>
+</ul>
+</li>
+<li><p>如何配置编译和运行环境</p>
+<ul>
+<li>Window-&gt;preferences-&gt;java-&gt;compiler编译环境设置</li>
+<li>Window-&gt;preferences-&gt;java-&gt;Installed JREs编译环境设置</li>
+<li>JDK与JRE版本最好一致（优选1.8）</li>
+</ul>
+</li>
+<li><p>编译</p>
+<ul>
+<li>自动编译，在保存的那一刻帮你做好了（自动语法检查的前提）</li>
+</ul>
+</li>
+<li><p>运行</p>
+<ul>
+<li>点击虫子后面的绿色内在三角形按钮</li>
+<li>点击Run菜单下的run，也可以使用快捷键Ctrl+F11</li>
+<li>选择要运行的文件或者在要运行的文件内容中<ul>
+<li>右键 – Run as - Java Application即可</li>
+</ul>
+</li>
+<li>看到Console即可，它就是Eclipse自带的控制台</li>
+</ul>
+</li>
+<li><p>源代码语法检查</p>
+<ul>
+<li>红色波浪线（报错，必须解决）</li>
+<li>黄色波浪线（警告，隐患提示）</li>
+</ul>
+</li>
+</ul>
+<h1 id="五、Eclipse主题设置"><a href="#五、Eclipse主题设置" class="headerlink" title="五、Eclipse主题设置"></a>五、Eclipse主题设置</h1><ul>
+<li>自带主题<ul>
+<li>Windows——&gt;Preferences——&gt;General——&gt;Appearance——&gt;Theme</li>
+</ul>
+</li>
+<li>导入主题<ul>
+<li>File——&gt;Import——&gt;General——&gt;Preferences——&gt;导入.epf——&gt;Finish</li>
+</ul>
+</li>
+</ul>
+<h1 id="六、Eclipse组成之视窗与视图"><a href="#六、Eclipse组成之视窗与视图" class="headerlink" title="六、Eclipse组成之视窗与视图"></a>六、Eclipse组成之视窗与视图</h1><ul>
+<li><p>视窗  每一个基本的窗体被称为视窗</p>
+<ul>
+<li>PackageExplorer  显示项目结构，包，类，及资源</li>
+<li>Outline   显示类的结构，方便查找，识别，修改</li>
+<li>Console  程序运行的结果在该窗口显示</li>
+<li>Problems 显示所有语法及错误所在的位置</li>
+<li>Hierarchy 显示Java继承层次结构，选中类后F4</li>
+</ul>
+</li>
+<li><p>视图  是由某些视窗的组合而成的。举例</p>
+<ul>
+<li>Java视图</li>
+<li>Debug视图</li>
+<li>Eclipse右上角可以点击按钮切换</li>
+</ul>
+</li>
+</ul>
+<h1 id="七、代码风格设置"><a href="#七、代码风格设置" class="headerlink" title="七、代码风格设置"></a>七、代码风格设置</h1><ul>
+<li>花括号偏好设置<ul>
+<li>Windows—preference—java—codestyle—formatter<ul>
+<li>新建一个Active profile</li>
+<li>Braces选项卡中选择next line</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="八、Eclipse中工作空间的基本配置"><a href="#八、Eclipse中工作空间的基本配置" class="headerlink" title="八、Eclipse中工作空间的基本配置"></a>八、Eclipse中工作空间的基本配置</h1><ul>
+<li>程序的编译和运行的环境配置</li>
+<li>如何去掉默认注释</li>
+<li>行号的显示和隐藏</li>
+<li>字体大小及颜色</li>
+<li>窗体布局重置</li>
+<li>控制台显示</li>
+<li>均位于Window——&gt;Preferences内设置</li>
+</ul>
+<h1 id="九、程序的编译和运行的环境配置"><a href="#九、程序的编译和运行的环境配置" class="headerlink" title="九、程序的编译和运行的环境配置"></a>九、程序的编译和运行的环境配置</h1><ul>
+<li>window – Preferences – Java<ul>
+<li>编译环境：Compiler默认</li>
+<li>认选中的就是最高版本</li>
+<li>运行环境：Installed JREs默认会找你安装的那个JDK，建议配置了Java的环境变量<ul>
+<li>低编译，高运行，可以</li>
+<li>高编译，低运行，不可以</li>
+</ul>
+</li>
+<li>建议，编译和运行的版本一致</li>
+</ul>
+</li>
+</ul>
+<h1 id="十、字体大小及颜色"><a href="#十、字体大小及颜色" class="headerlink" title="十、字体大小及颜色"></a>十、字体大小及颜色</h1><ul>
+<li><p>Java代码区域的字体大小和颜色：</p>
+<ul>
+<li>window – Preferences – General – Appearance – Colors And Fonts – Java修改 – Java Edit Text Font</li>
+</ul>
+</li>
+<li><p>控制台</p>
+<ul>
+<li>window – Preferences – General – Appearance – Colors And Fonts – Debug – Console font</li>
+</ul>
+</li>
+<li><p>其他文件</p>
+<ul>
+<li>window – Preferences – General – Appearance – Colors And Fonts – Basic – Text Font</li>
+</ul>
+</li>
+</ul>
+<h1 id="十一、窗体设置"><a href="#十一、窗体设置" class="headerlink" title="十一、窗体设置"></a>十一、窗体设置</h1><ul>
+<li><p>行号的显示和隐藏</p>
+<ul>
+<li>显示：在代码区域的最左边的空白区域，右键 – Show Line Numbers即可</li>
+<li>隐藏：把上面的动作再做一次</li>
+</ul>
+</li>
+<li><p>窗体布局重置</p>
+<ul>
+<li>Window – Reset Perspective    </li>
+</ul>
+</li>
+<li><p>控制台显示</p>
+<ul>
+<li>Window–Show View—Console</li>
+</ul>
+</li>
+</ul>
+<h1 id="十二、Eclipse中快捷键的使用"><a href="#十二、Eclipse中快捷键的使用" class="headerlink" title="十二、Eclipse中快捷键的使用"></a>十二、Eclipse中快捷键的使用</h1><ul>
+<li><p>内容辅助键</p>
+<ul>
+<li>Alt+/ 起提示作用</li>
+<li>main+alt+/,syso+alt+/,给出其他提示</li>
+</ul>
+</li>
+<li><p>常用快捷键</p>
+<ul>
+<li>删除行 ctrl+d</li>
+<li>格式化  ctrl+shift+f</li>
+<li>导入包  ctrl+shift+o </li>
+<li>注释  ctrl+/,ctrl+shift+/,ctrl+shift+\</li>
+<li>代码上下移动 选中代码alt+上/下箭头</li>
+<li>查看源码  选中类名(F3或者Ctrl+鼠标点击)</li>
+</ul>
+</li>
+</ul>
+<h1 id="十三、注释"><a href="#十三、注释" class="headerlink" title="十三、注释"></a>十三、注释</h1><ul>
+<li><p>单行注释：</p>
+<ul>
+<li>选中需要被注释的内容：ctrl+/</li>
+<li>想取消注释，再次选中，然后ctrl+/</li>
+</ul>
+</li>
+<li><p>多行注释：</p>
+<ul>
+<li>选中需要被注释的内容：ctrl+shift+/    </li>
+<li>想取消注释，再次选中，然后ctrl+shift+\</li>
+</ul>
+</li>
+</ul>
+<h1 id="十四、导包"><a href="#十四、导包" class="headerlink" title="十四、导包"></a>十四、导包</h1><ul>
+<li><p>导入方式：</p>
+<ul>
+<li>手动写完代码，需要导入包：ctrl+shift+o</li>
+<li>通过alt+/提示的类，会自动把包导入</li>
+</ul>
+</li>
+<li><p>有些类在多个包下都有</p>
+<ul>
+<li>按了提示后，会把所有的包给出显示，让用户选择</li>
+</ul>
+</li>
+</ul>
+<h1 id="十五、自动生成方法"><a href="#十五、自动生成方法" class="headerlink" title="十五、自动生成方法"></a>十五、自动生成方法</h1><ul>
+<li><p>自动生成构造方法</p>
+<ul>
+<li>无参构造方法 在代码区域右键–source–Generate Constructors from Superclass. (Alt + Shift + S + C)</li>
+<li>带参构造方法 在代码区域右键–source–Generate Constructors using fields. (Alt + Shift + S + O)</li>
+</ul>
+</li>
+<li><p>自动生成get/set方法</p>
+<ul>
+<li>在代码区域右键–source–Generate Getters and Setters. (Alt + Shift + S + R)</li>
+</ul>
+</li>
+</ul>
+<h1 id="十六、继承抽象类和实现接口"><a href="#十六、继承抽象类和实现接口" class="headerlink" title="十六、继承抽象类和实现接口"></a>十六、继承抽象类和实现接口</h1><ul>
+<li><p>以前先写类，然后在类中在去继承类或者实现接口</p>
+</li>
+<li><p>现在在创建类的时候，选择要继承的类或者实现的接口</p>
+</li>
+<li><p>Object是所有类的父类，所有类都直接或者间接的继承自Object</p>
+</li>
+</ul>
+<h1 id="十七、Eclipse中打jar包并使用jar包"><a href="#十七、Eclipse中打jar包并使用jar包" class="headerlink" title="十七、Eclipse中打jar包并使用jar包"></a>十七、Eclipse中打jar包并使用jar包</h1><ul>
+<li><p>jar是什么?</p>
+<ul>
+<li>jar是多个class文件的压缩包</li>
+</ul>
+</li>
+<li><p>jar有什么用?</p>
+<ul>
+<li>用别人写好的东西，直接拿过来使用</li>
+<li>代码封装实现代码匿藏（只提供.class文件，无.java文件）</li>
+</ul>
+</li>
+<li><p>打jar包</p>
+<ul>
+<li>选中项目–右键–Export–Java–Jar–自己指定一个路径和一个名称.jar–Finish</li>
+</ul>
+</li>
+<li><p>使用jar包</p>
+<ul>
+<li>复制jar包，粘贴到要使用的项目路径下（先点击项目名——&gt;然后右键：选择paste粘贴）</li>
+<li>选中jar包，右键Build path – add to build path</li>
+</ul>
+</li>
+</ul>
+<h1 id="十八、Eclipse中如何删除项目和导入项目"><a href="#十八、Eclipse中如何删除项目和导入项目" class="headerlink" title="十八、Eclipse中如何删除项目和导入项目"></a>十八、Eclipse中如何删除项目和导入项目</h1><ul>
+<li><p>删除项目</p>
+<ul>
+<li>选中项目 – 右键 – 删除<ul>
+<li>从项目区域中删除</li>
+<li>从硬盘上删除</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>导入项目</p>
+<ul>
+<li>在项目区域右键找到import</li>
+<li>找到General，展开，并找到<ul>
+<li>Existing Projects into Workspace</li>
+</ul>
+</li>
+<li>点击next,然后选择你要导入的项目<ul>
+<li>注意：这里选择的是项目名称</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="十九、Eclipse中几个常见小问题"><a href="#十九、Eclipse中几个常见小问题" class="headerlink" title="十九、Eclipse中几个常见小问题"></a>十九、Eclipse中几个常见小问题</h1><ul>
+<li><p>如何查看项目所在路径</p>
+</li>
+<li><p>选中 – 右键 – Properties – Resource – Location</p>
+</li>
+<li><p>导入项目要注意的问题</p>
+<ul>
+<li>项目区域中不可能出现同名的项目(新建或者导入)</li>
+<li>自己随意建立的文件夹是不能作为项目导入的</li>
+</ul>
+</li>
+<li><p>修改项目问题</p>
+<ul>
+<li>不要随意修改项目名称</li>
+<li>如果真要修改，不要忘记了配置文件.project中的<ul>
+<li>&lt;name&gt;把这里改为你改后的名称&lt;/name&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="二十、Eclipse中代码的高级-Debug-调试"><a href="#二十、Eclipse中代码的高级-Debug-调试" class="headerlink" title="二十、Eclipse中代码的高级(Debug)调试"></a>二十、Eclipse中代码的高级(Debug)调试</h1><ul>
+<li><p>Debug的作用</p>
+<ul>
+<li>调试程序</li>
+<li>查看程序执行流程</li>
+</ul>
+</li>
+<li><p>如何查看程序执行流程</p>
+<ul>
+<li>什么是断点（就是一个标记，表示从哪里开始看程序）</li>
+<li>如何设置断点（在语句的最左边，双击即可）</li>
+<li>在哪里设置断点（哪里不会加哪里）</li>
+<li>能设置几个断点（没有限制，但建议5个以内）</li>
+<li>如何运行设置断点后的程序（在代码区域–右键–Debug as–Java Appliaction）</li>
+<li>看哪些地方<ul>
+<li>看源代码：对照看程序的执行步骤<ul>
+<li>step into, step over, step return的区别<ul>
+<li>step into就是单步执行，遇到子函数就进入并且继续单步执行（F5）</li>
+<li>step over是在单步执行时，在函数内遇到子函数时不会进入子函数内单步执行，而是将子函数整个执行完再停止，也就是把子函数整个作为一步（F6）</li>
+<li>step return就是单步执行到子函数内时，用step return就可以执行完子函数余下部分，并返回到上一层函数（F7）</li>
+<li>step into：进入子函数</li>
+<li>step over：越过子函数，但子函数会执行</li>
+<li>step return：跳出子函数 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>看Debug界面：对照看程序的执行步骤，特别关注其中的线程！</li>
+<li>看Variables界面：看变量的产生、赋值、变化、及消失</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>如何去除断点（a:把添加的动作再做一遍   b:Breakpoints界面点击双叉一键清除）</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">周吉瑞</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://jerry-z-j-r.github.io/2021/01/04/Java-Supplement-9/">https://jerry-z-j-r.github.io/2021/01/04/Java-Supplement-9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://jerry-z-j-r.github.io" target="_blank">JERRY</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Eclipse/">Eclipse</a></div><div class="post_share"><div class="social-share" data-image="https://img-blog.csdnimg.cn/20210314000054599.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/weixin.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/weixin.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/08/Java-Supplement-10/"><img class="prev-cover" data-lazy-src="https://img-blog.csdnimg.cn/20210314000054599.png" onerror="onerror=null;src='/img/404.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java基础注意事项归纳——Java小抄(10)</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/24/3D-Printing-And-Industry-Manufacturing-Reading-Notes/"><img class="next-cover" data-lazy-src="https://img-blog.csdnimg.cn/20201129222403393.jpg" onerror="onerror=null;src='/img/404.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《3D打印与工业制造》—— 读书笔记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/02/24/Head-First-Java-Reading-Notes/" title="《Head First Java》—— 读书笔记"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210224151452149.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-24</div><div class="title">《Head First Java》—— 读书笔记</div></div></a></div><div><a href="/2020/08/30/Java-Directory-Meaning/" title="Java JDK 安装目录及其子目录含义"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210313235551778.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="title">Java JDK 安装目录及其子目录含义</div></div></a></div><div><a href="/2020/09/18/Java-JDK-Environment-Setup/" title="Java JDK 环境搭建"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210313223823976.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-18</div><div class="title">Java JDK 环境搭建</div></div></a></div><div><a href="/2020/12/21/Java-Supplement-1/" title="Java标识符命名规则——Java小抄(1)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210314000054599.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Java标识符命名规则——Java小抄(1)</div></div></a></div><div><a href="/2021/01/08/Java-Supplement-10/" title="Java基础注意事项归纳——Java小抄(10)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210314000054599.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-08</div><div class="title">Java基础注意事项归纳——Java小抄(10)</div></div></a></div><div><a href="/2020/12/21/Java-Supplement-2/" title="Java修饰符总结归纳——Java小抄(2)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210314000054599.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Java修饰符总结归纳——Java小抄(2)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://img-blog.csdnimg.cn/20210301145651100.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周吉瑞</div><div class="author-info__description">printf("不要多想 早點睡覺\n");</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/JERRY-Z-J-R/JERRY-Z-J-R.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JERRY-Z-J-R" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://img-blog.csdnimg.cn/20210302210642250.jpg" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="https://img-blog.csdnimg.cn/20210302210642367.jpg" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-weixin1"></i></a><a class="social-icon" href="https://weibo.com/u/6001560045" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-weibo"></i></a><a class="social-icon" href="https://www.zhihu.com/people/JERRY-Z-J-R" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/505277890" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-bilibili"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Jerry's Blog (✪ω✪) “歡迎光臨，恭喜發財！”</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90Eclipse-IDE%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%E2%80%93Java%E5%B0%8F%E6%8A%84-9-%E3%80%91"><span class="toc-number">1.</span> <span class="toc-text">【Eclipse IDE使用总结–Java小抄(9)】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Java%E5%BC%80%E5%8F%91%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">一、Java开发常见工具介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Eclipse%E6%A6%82%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text">二、Eclipse概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81Eclipse%E7%9A%84%E4%B8%8B%E8%BD%BD%EF%BC%8C%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%B8%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">三、Eclipse的下载，安装及卸载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Eclipse%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">四、Eclipse的基本使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Eclipse%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">五、Eclipse主题设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81Eclipse%E7%BB%84%E6%88%90%E4%B9%8B%E8%A7%86%E7%AA%97%E4%B8%8E%E8%A7%86%E5%9B%BE"><span class="toc-number">7.</span> <span class="toc-text">六、Eclipse组成之视窗与视图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E8%AE%BE%E7%BD%AE"><span class="toc-number">8.</span> <span class="toc-text">七、代码风格设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81Eclipse%E4%B8%AD%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">9.</span> <span class="toc-text">八、Eclipse中工作空间的基本配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">10.</span> <span class="toc-text">九、程序的编译和运行的环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E5%8F%8A%E9%A2%9C%E8%89%B2"><span class="toc-number">11.</span> <span class="toc-text">十、字体大小及颜色</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%AA%97%E4%BD%93%E8%AE%BE%E7%BD%AE"><span class="toc-number">12.</span> <span class="toc-text">十一、窗体设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81Eclipse%E4%B8%AD%E5%BF%AB%E6%8D%B7%E9%94%AE%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">13.</span> <span class="toc-text">十二、Eclipse中快捷键的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%B3%A8%E9%87%8A"><span class="toc-number">14.</span> <span class="toc-text">十三、注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E5%AF%BC%E5%8C%85"><span class="toc-number">15.</span> <span class="toc-text">十四、导包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%94%E3%80%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E6%96%B9%E6%B3%95"><span class="toc-number">16.</span> <span class="toc-text">十五、自动生成方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E7%BB%A7%E6%89%BF%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3"><span class="toc-number">17.</span> <span class="toc-text">十六、继承抽象类和实现接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%83%E3%80%81Eclipse%E4%B8%AD%E6%89%93jar%E5%8C%85%E5%B9%B6%E4%BD%BF%E7%94%A8jar%E5%8C%85"><span class="toc-number">18.</span> <span class="toc-text">十七、Eclipse中打jar包并使用jar包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%85%AB%E3%80%81Eclipse%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E9%A1%B9%E7%9B%AE%E5%92%8C%E5%AF%BC%E5%85%A5%E9%A1%B9%E7%9B%AE"><span class="toc-number">19.</span> <span class="toc-text">十八、Eclipse中如何删除项目和导入项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B9%9D%E3%80%81Eclipse%E4%B8%AD%E5%87%A0%E4%B8%AA%E5%B8%B8%E8%A7%81%E5%B0%8F%E9%97%AE%E9%A2%98"><span class="toc-number">20.</span> <span class="toc-text">十九、Eclipse中几个常见小问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E5%8D%81%E3%80%81Eclipse%E4%B8%AD%E4%BB%A3%E7%A0%81%E7%9A%84%E9%AB%98%E7%BA%A7-Debug-%E8%B0%83%E8%AF%95"><span class="toc-number">21.</span> <span class="toc-text">二十、Eclipse中代码的高级(Debug)调试</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/03/10/A-Diary-Of-Jerry/" title="一个 Jerry 的日记"><img data-lazy-src="https://img-blog.csdnimg.cn/20210310143140862.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="一个 Jerry 的日记"/></a><div class="content"><a class="title" href="/2021/03/10/A-Diary-Of-Jerry/" title="一个 Jerry 的日记">一个 Jerry 的日记</a><time datetime="2021-03-10T06:24:43.000Z" title="发表于 2021-03-10 14:24:43">2021-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/03/09/JERRY-Linux-Cheat-Sheet/" title="《JERRY Linux-小抄》"><img data-lazy-src="https://img-blog.csdnimg.cn/20210309102537718.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="《JERRY Linux-小抄》"/></a><div class="content"><a class="title" href="/2021/03/09/JERRY-Linux-Cheat-Sheet/" title="《JERRY Linux-小抄》">《JERRY Linux-小抄》</a><time datetime="2021-03-09T02:22:26.000Z" title="发表于 2021-03-09 10:22:26">2021-03-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/03/07/JERRY-Algorithm-Cheat-Sheet/" title="《JERRY 算法小抄》"><img data-lazy-src="https://img-blog.csdnimg.cn/20210307143758493.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="《JERRY 算法小抄》"/></a><div class="content"><a class="title" href="/2021/03/07/JERRY-Algorithm-Cheat-Sheet/" title="《JERRY 算法小抄》">《JERRY 算法小抄》</a><time datetime="2021-03-07T06:27:12.000Z" title="发表于 2021-03-07 14:27:12">2021-03-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/24/Head-First-Java-Reading-Notes/" title="《Head First Java》—— 读书笔记"><img data-lazy-src="https://img-blog.csdnimg.cn/20210224151452149.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="《Head First Java》—— 读书笔记"/></a><div class="content"><a class="title" href="/2021/02/24/Head-First-Java-Reading-Notes/" title="《Head First Java》—— 读书笔记">《Head First Java》—— 读书笔记</a><time datetime="2021-02-24T05:51:41.000Z" title="发表于 2021-02-24 13:51:41">2021-02-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/06/JERRY-The-art-of-graphical-programming-in-my-eyes/" title="《复兴时代：计算机技术+》我眼中的图形化编程艺术"><img data-lazy-src="https://img-blog.csdnimg.cn/20210301144743146.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="《复兴时代：计算机技术+》我眼中的图形化编程艺术"/></a><div class="content"><a class="title" href="/2021/02/06/JERRY-The-art-of-graphical-programming-in-my-eyes/" title="《复兴时代：计算机技术+》我眼中的图形化编程艺术">《复兴时代：计算机技术+》我眼中的图形化编程艺术</a><time datetime="2021-02-06T14:35:04.000Z" title="发表于 2021-02-06 22:35:04">2021-02-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-blog.csdnimg.cn/20210314000054599.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 周吉瑞</div><div class="footer_custom_text">服务 GitHub | 框架 Hexo</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'https://blog-comment-api.vercel.app/',
+      avatar: 'wavatar',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: "",
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="6643303282" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-lrctype="1" data-theme="#000000" data-mutex="true" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="恭喜發財,早生貴子,大吉大利" data-fontsize="14px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
