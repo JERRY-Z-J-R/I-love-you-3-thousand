@@ -860,6 +860,35 @@
     
     
     <entry>
+      <title>自制壁纸——有趣的Code</title>
+      <link href="2021/01/08/Wallpaper-Interesting-Code/"/>
+      <url>2021/01/08/Wallpaper-Interesting-Code/</url>
+      
+        <content type="html"><![CDATA[<h1 id="【自制壁纸——有趣的Code】"><a href="#【自制壁纸——有趣的Code】" class="headerlink" title="【自制壁纸——有趣的Code】"></a>【自制壁纸——有趣的Code】</h1><blockquote><p>原创内容，转载请注明出处，请勿用于商业用途！</p></blockquote><h1 id="版本一"><a href="#版本一" class="headerlink" title="版本一"></a>版本一</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317183054567.jpg"></p><h1 id="版本二"><a href="#版本二" class="headerlink" title="版本二"></a>版本二</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317183055492.jpg"></p><h1 id="版本三"><a href="#版本三" class="headerlink" title="版本三"></a>版本三</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317183053831.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 其他 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Code </tag>
+            
+            <tag> 壁纸 </tag>
+            
+            <tag> 程序员 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Java基础注意事项归纳——Java小抄(10)</title>
       <link href="2021/01/08/Java-Supplement-10/"/>
       <url>2021/01/08/Java-Supplement-10/</url>
@@ -1464,6 +1493,128 @@
         <tags>
             
             <tag> README </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Windows10优化右键菜单栏选项 入门详解 - 精简归纳</title>
+      <link href="2020/10/29/Windows10%E4%BC%98%E5%8C%96%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%A0%8F%E9%80%89%E9%A1%B9%20%E5%85%A5%E9%97%A8%E8%AF%A6%E8%A7%A3%20-%20%E7%B2%BE%E7%AE%80%E5%BD%92%E7%BA%B3/"/>
+      <url>2020/10/29/Windows10%E4%BC%98%E5%8C%96%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%A0%8F%E9%80%89%E9%A1%B9%20%E5%85%A5%E9%97%A8%E8%AF%A6%E8%A7%A3%20-%20%E7%B2%BE%E7%AE%80%E5%BD%92%E7%BA%B3/</url>
+      
+        <content type="html"><![CDATA[<p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029102816319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><span id="more"></span><h1 id="Windows10优化右键菜单栏选项-入门详解-精简归纳"><a href="#Windows10优化右键菜单栏选项-入门详解-精简归纳" class="headerlink" title="Windows10优化右键菜单栏选项 入门详解 - 精简归纳"></a>Windows10优化右键菜单栏选项 入门详解 - 精简归纳</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><hr><!-- START doctoc generated TOC please keep comment here to allow auto update --><!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --><p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc">DocToc</a></em></p><ul><li><a href="#windows10%E4%BC%98%E5%8C%96%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%A0%8F%E9%80%89%E9%A1%B9-%E5%85%A5%E9%97%A8%E8%AF%A6%E8%A7%A3---%E7%B2%BE%E7%AE%80%E5%BD%92%E7%BA%B3">Windows10优化右键菜单栏选项 入门详解 - 精简归纳</a></li><li><a href="#%E4%B8%80%E8%AF%B4%E6%98%8E">一、说明</a></li><li><a href="#%E4%BA%8C%E6%89%93%E5%BC%80%E6%B3%A8%E5%86%8C%E8%A1%A8">二、打开注册表</a></li><li><a href="#%E4%B8%89%E8%BF%9B%E5%85%A5hkey_classes_root%5Cdirectory%5Cbackground%5Cshell">三、进入HKEY_CLASSES_ROOT\Directory\Background\shell</a></li><li><a href="#%E5%9B%9B%E4%BF%AE%E6%94%B9shell">四、修改shell</a></li><li><a href="#%E4%BA%94%E6%96%B0%E5%BB%BA%E9%A1%B9">五、新建项</a><ul><li><a href="#1open-cmd-here">(1)、Open CMD Here</a></li><li><a href="#2open-vscode-here">(2)、Open VSCode Here</a></li></ul></li></ul><!-- END doctoc generated TOC please keep comment here to allow auto update --><hr><h1 id="一、说明"><a href="#一、说明" class="headerlink" title="一、说明"></a>一、说明</h1><p>许多软件在安装之后会自动修改Windows10注册表的内容，从而在右键菜单栏中添加一些该软件的快捷功能，但实际上大部分情况却是：我们需要的软件快捷功能没有，我们不需要的软件快捷功能却有一大堆……，看着密密麻麻却没有任何用的Windows10右键菜单栏选项，该怎么办呢？凉拌是不可能的，当然要去Windows10注册表修改相关内容啊！（注：下面以添加CMD和VSCode的快捷入口举例）</p><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029102816319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><hr><h1 id="二、打开注册表"><a href="#二、打开注册表" class="headerlink" title="二、打开注册表"></a>二、打开注册表</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029102921881.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><hr><h1 id="三、进入HKEY-CLASSES-ROOT-Directory-Background-shell"><a href="#三、进入HKEY-CLASSES-ROOT-Directory-Background-shell" class="headerlink" title="三、进入HKEY_CLASSES_ROOT\Directory\Background\shell"></a>三、进入HKEY_CLASSES_ROOT\Directory\Background\shell</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103057655.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><hr><h1 id="四、修改shell"><a href="#四、修改shell" class="headerlink" title="四、修改shell"></a>四、修改shell</h1><p>当我们需要清除右键菜单栏的相关快捷功能时就直接删除shell中的相关项即可……<br>当我们需要添加右键菜单栏的相关快捷功能时就在shell下新建项，并在该项的下面在新建command项……再在项内新建相关类型的量并编辑相关值……</p><hr><h1 id="五、新建项"><a href="#五、新建项" class="headerlink" title="五、新建项"></a>五、新建项</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103117961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><h2 id="1-、Open-CMD-Here"><a href="#1-、Open-CMD-Here" class="headerlink" title="(1)、Open CMD Here"></a>(1)、Open CMD Here</h2><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103146464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103319270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103334936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103348725.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><h2 id="2-、Open-VSCode-Here"><a href="#2-、Open-VSCode-Here" class="headerlink" title="(2)、Open VSCode Here"></a>(2)、Open VSCode Here</h2><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103423946.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103442861.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103506638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201029103520136.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 个人教程 </category>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+            <tag> 菜单栏 </tag>
+            
+            <tag> 优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何用编程实现终端命令打开一个网址？ 简简单单 - 快快乐乐</title>
+      <link href="2020/10/01/%E5%A6%82%E4%BD%95%E7%94%A8%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E7%BD%91%E5%9D%80%EF%BC%9F%20%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%20-%20%E5%BF%AB%E5%BF%AB%E4%B9%90%E4%B9%90/"/>
+      <url>2020/10/01/%E5%A6%82%E4%BD%95%E7%94%A8%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E7%BD%91%E5%9D%80%EF%BC%9F%20%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%20-%20%E5%BF%AB%E5%BF%AB%E4%B9%90%E4%B9%90/</url>
+      
+        <content type="html"><![CDATA[<p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201001191558704.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><span id="more"></span><h1 id="如何用编程实现终端命令打开一个网址？-简简单单-快快乐乐"><a href="#如何用编程实现终端命令打开一个网址？-简简单单-快快乐乐" class="headerlink" title="如何用编程实现终端命令打开一个网址？ 简简单单 - 快快乐乐"></a>如何用编程实现终端命令打开一个网址？ 简简单单 - 快快乐乐</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><hr><!-- START doctoc generated TOC please keep comment here to allow auto update --><!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --><p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc">DocToc</a></em></p><ul><li><a href="#%E5%A6%82%E4%BD%95%E7%94%A8%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E7%BD%91%E5%9D%80-%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95---%E5%BF%AB%E5%BF%AB%E4%B9%90%E4%B9%90">如何用编程实现终端命令打开一个网址？ 简简单单 - 快快乐乐</a></li><li><a href="#%E4%B8%80%E5%A6%82%E4%BD%95%E6%89%8D%E8%83%BD%E8%AE%A9%E7%BB%88%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4">一、如何才能让终端识别一个命令</a></li><li><a href="#%E4%BA%8Cexe%E6%96%87%E4%BB%B6%E7%9A%84%E8%AE%BE%E8%AE%A1">二、.exe文件的设计</a></li><li><a href="#%E4%B8%89%E9%85%8D%E7%BD%AEpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">三、配置path环境变量</a></li><li><a href="#%E5%9B%9B%E6%9C%80%E7%BB%88%E6%B5%8B%E8%AF%95">四、最终测试</a></li></ul><!-- END doctoc generated TOC please keep comment here to allow auto update --><hr><h1 id="一、如何才能让终端识别一个命令"><a href="#一、如何才能让终端识别一个命令" class="headerlink" title="一、如何才能让终端识别一个命令"></a>一、如何才能让终端识别一个命令</h1><p>一种常用的方法，那就是：配置path环境变量<br>但有一个问题！path环境变量里添加的只能是.exe文件的路径！<br>所以问题在于如何设计一个.exe文件打开一个指定的网址呢？</p><hr><h1 id="二、-exe文件的设计"><a href="#二、-exe文件的设计" class="headerlink" title="二、.exe文件的设计"></a>二、.exe文件的设计</h1><p>我们知道当我们编写一个.c文件并编译后可以生成一个.exe文件，所以我们就来编写一个打开指定网址的C程序吧！</p><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Author: your name</span></span><br><span class="line"><span class="comment"> * @Date: 2020-10-01 17:56:53</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-10-01 17:56:55</span></span><br><span class="line"><span class="comment"> * @LastEditors: Please set LastEditors</span></span><br><span class="line"><span class="comment"> * @Description: In User Settings Edit</span></span><br><span class="line"><span class="comment"> * @FilePath: \undefinede:\MyCode\MyBlog\JERRY_Blog_Link\JERRY.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    ShellExecute(<span class="literal">NULL</span>, <span class="string">"open"</span>, <span class="string">"http://cnblogs.com/JERRY-Z-J-R/"</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, SW_SHOWNORMAL);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"><span class="comment">//将网址替换为你需要打开的网址，这里以我的个人博客http://cnblogs.com/JERRY-Z-J-R/为例</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure><p>编译.c文件，成功得到.exe文件<br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201001191225632.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><hr><h1 id="三、配置path环境变量"><a href="#三、配置path环境变量" class="headerlink" title="三、配置path环境变量"></a>三、配置path环境变量</h1><p>复制粘贴.exe文件的路径到系统path环境变量里<br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201001191338534.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><hr><h1 id="四、最终测试"><a href="#四、最终测试" class="headerlink" title="四、最终测试"></a>四、最终测试</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201001191534502.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20201001191558704.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Rfc2lfR29k,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>成功啦！！！哈哈，是不是很酷，很便捷呢！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C </category>
+          
+          <category> 个人教程 </category>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C </tag>
+            
+            <tag> Windows </tag>
+            
+            <tag> cmd </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python 安装与环境配置</title>
+      <link href="2020/09/24/Python-Install/"/>
+      <url>2020/09/24/Python-Install/</url>
+      
+        <content type="html"><![CDATA[<h1 id="【Python-安装与环境配置】"><a href="#【Python-安装与环境配置】" class="headerlink" title="【Python 安装与环境配置】"></a>【Python 安装与环境配置】</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><h1 id="一、下载-Python"><a href="#一、下载-Python" class="headerlink" title="一、下载 Python"></a>一、下载 Python</h1><ul><li><a href="http://www.python.org/">Python 官网链接</a></li><li>点击 Downloads</li><li>选择版本下载</li></ul><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317185408339.jpg"><br><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317185408362.jpg"></p><h1 id="二、安装-Python"><a href="#二、安装-Python" class="headerlink" title="二、安装 Python"></a>二、安装 Python</h1><ul><li>双击安装包</li><li>勾选<ul><li> <code>Install launcher for all users (recommended)</code></li><li> <code>Add Python 3.8 to PATH</code></li></ul></li><li>点击 <code>Customize installation</code></li><li>勾选<ul><li> <code>Documentation</code></li><li><code>pip</code> </li><li><code>tcl/tk and IDLE</code></li><li>``Python test suite`</li><li><code>py launcher</code></li><li><code>for all users (requires elevation)</code></li></ul></li><li>点击 Next</li><li>勾选<ul><li><code>Install for all users</code></li><li><code>Associate files with Python (requires the py launcher)</code></li><li><code>Create shortcuts for installed applications</code></li><li><code>Add Python to environment variables</code></li><li><code>Precompile standard library</code></li></ul></li><li>修改安装路径</li><li>点击 Install</li><li>安装完成</li></ul><h1 id="三、配置-Python-与-pip"><a href="#三、配置-Python-与-pip" class="headerlink" title="三、配置 Python 与 pip"></a>三、配置 Python 与 pip</h1><p><code>python.exe</code> 位于 python 安装根目录。</p><p><code>pip.exe</code> 位于 python 安装根目录里的 Scripts 目录内。</p><p>将以上路径的全局路径分别添加到系统的 Path 环境变量中。</p><p>打开 命令行 分别键入 <code>python</code>，<code>pip</code> 成功识别即为配置成功。</p><h1 id="四、配置-IDLE"><a href="#四、配置-IDLE" class="headerlink" title="四、配置 IDLE"></a>四、配置 IDLE</h1><p><code>idle.bat/idle.py</code> 位于 python 安装根目录里的 Lib\idlelib 目录内。</p><p>将以上路径的全局路径添加到系统的 Path 环境变量中。</p><p>打开 命令行 键入 <code>IDLE</code> 成功识别即为配置成功。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> IDLE </tag>
+            
+            <tag> 环境配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>为何需要配置环境变量？如何配置环境变量？</title>
+      <link href="2020/08/27/%E4%B8%BA%E4%BD%95%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%9F%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%9F%E7%90%86%E8%A7%A3%E5%85%A5%E9%97%A8%20-%20%E7%B2%BE%E7%AE%80%E5%BD%92%E7%BA%B3/"/>
+      <url>2020/08/27/%E4%B8%BA%E4%BD%95%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%9F%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%9F%E7%90%86%E8%A7%A3%E5%85%A5%E9%97%A8%20-%20%E7%B2%BE%E7%AE%80%E5%BD%92%E7%BA%B3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="【为何需要配置环境变量？如何配置环境变量？】"><a href="#【为何需要配置环境变量？如何配置环境变量？】" class="headerlink" title="【为何需要配置环境变量？如何配置环境变量？】"></a>【为何需要配置环境变量？如何配置环境变量？】</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><h1 id="一、什么是环境变量？"><a href="#一、什么是环境变量？" class="headerlink" title="一、什么是环境变量？"></a>一、什么是环境变量？</h1><h2 id="1-1-百度百科"><a href="#1-1-百度百科" class="headerlink" title="1.1 百度百科"></a>1.1 百度百科</h2><p>环境变量（environment variables）一般是指在<a href="https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/192">操作系统</a>中用来指定操作系统运行环境的一些参数，如：<a href="https://baike.baidu.com/item/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%A4%B9/1061467">临时文件夹</a>位置和<a href="https://baike.baidu.com/item/%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E5%A4%B9/5328647">系统文件夹</a>位置等。</p><p>环境<a href="https://baike.baidu.com/item/%E5%8F%98%E9%87%8F">变量</a>是在操作系统中一个具有特定名字的对象，它包含了一个或者多个应用<a href="https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F">程序</a>所将使用到的信息。例如 Windows 和 DOS 操作系统中的 path 环境变量，当要求系统运行一个<a href="https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F/71525">程序</a>而没有告诉它程序所在的完整路径时，系统除了在<a href="https://baike.baidu.com/item/%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95/7205107">当前目录</a>下面寻找此程序外，还应到 path 中指定的路径去找。用户通过设置环境<a href="https://baike.baidu.com/item/%E5%8F%98%E9%87%8F">变量</a>，来更好的运行进程。</p><blockquote><p>以上概念来自：百度百科</p></blockquote><h2 id="1-2-关键概念"><a href="#1-2-关键概念" class="headerlink" title="1.2 关键概念"></a>1.2 关键概念</h2><p>Path 路径：用来指定可执行文件的绝对路径。</p><p>可执行文件：.exe 文件，打开快捷方式就是间接打开 .exe 文件。</p><h2 id="1-3-举例（QQ）"><a href="#1-3-举例（QQ）" class="headerlink" title="1.3 举例（QQ）"></a>1.3 举例（QQ）</h2><p>假如我们要在电脑上打开 QQ 这个程序，我们通常会在电脑桌面上找到 QQ 的快捷方式然后双击打开。之所以可以这样，是因为快捷方式不过是换个地方间接打开 QQ.exe 这个文件，而 QQ.exe 这个可执行文件放在 QQ 下载时的安装路径下。所以本质上要打开 QQ 这个应用程序的步骤应该是：打开我的电脑；找到 QQ 安装时的文件夹；在文件夹中找到 QQ.exe ；最后双击打开 。那有没有一种既不用快捷方式，又不用去找 QQ.exe 文件的方法还能打开 QQ 呢？当然有！那就是配置环境变量，然后利用终端命令直接打开……</p><h1 id="二、具体操作步骤"><a href="#二、具体操作步骤" class="headerlink" title="二、具体操作步骤"></a>二、具体操作步骤</h1><blockquote><p>说明：虽然，一般情况下对于普通电脑用户而言，直接使用快捷方式就好了，但是对于需要用计算机进行程序开发的同学来说，配置环境变量的意义绝对不止 “打开 QQ” 这么简单，在利用各种开发工具时我们经常需要配置相应的环境变量，在卸载开发工具后也应清理相关的环境变量，所以本文虽是以 “打开 QQ” 这个不太有实际意义的例子来讲解，但根本目的在于讲清楚 环境变量背后的意义！</p></blockquote><blockquote><p><em>下文以：Windows 10 为例</em></p></blockquote><h2 id="2-1-打开-命令行终端"><a href="#2-1-打开-命令行终端" class="headerlink" title="2.1 打开 命令行终端"></a>2.1 打开 命令行终端</h2><p>快捷键：Win + R 打开运行，在输入框中输入：cmd，回车</p><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317231825902.png"></p><h2 id="2-2-在终端输入-QQ-命令"><a href="#2-2-在终端输入-QQ-命令" class="headerlink" title="2.2 在终端输入 QQ 命令"></a>2.2 在终端输入 QQ 命令</h2><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224142692.png"></p><p>此时你会发现，系统提示：“ 这TM是啥？老子找不到鸭！”</p><p>这是因为我们还没配置过 QQ.exe 可执行文件的环境变量，系统自然是找不到。</p><p>我们可以先进入 QQ 安装包 所在文件夹下，再使用 QQ 命令。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/2021031722414224.png"></p><p>此时 QQ 命令就生效了，成功打开了 QQ。</p><p>下面我们来配置环境变量，让 QQ 命令无论在何处都能被识别……</p><h2 id="2-3-开始配置环境变量"><a href="#2-3-开始配置环境变量" class="headerlink" title="2.3 开始配置环境变量"></a>2.3 开始配置环境变量</h2><h3 id="2-3-1-我的电脑、右键、属性"><a href="#2-3-1-我的电脑、右键、属性" class="headerlink" title="2.3.1 我的电脑、右键、属性"></a>2.3.1 我的电脑、右键、属性</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224139632.png"></p><h3 id="2-3-2-高级系统设置"><a href="#2-3-2-高级系统设置" class="headerlink" title="2.3.2 高级系统设置"></a>2.3.2 高级系统设置</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224140121.png"></p><h3 id="2-3-3-高级——环境变量"><a href="#2-3-3-高级——环境变量" class="headerlink" title="2.3.3 高级——环境变量"></a>2.3.3 高级——环境变量</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224138862.png"></p><h3 id="2-3-4-此时会有两种环境变量"><a href="#2-3-4-此时会有两种环境变量" class="headerlink" title="2.3.4 此时会有两种环境变量"></a>2.3.4 此时会有两种环境变量</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224139631.png"></p><p>从上图我们可以看到环境变量包括 用户变量 和 系统变量：</p><ul><li>用户变量 是指我们当前登入这台电脑的用户，比如管理员用户，普通用户。在里面配置的环境变量，只对这个用户有效，一旦用户进行了更换，这环境变量将改为新登录用户的环境变量</li><li>系统变量 是指这这台电脑的配置的环境变量，对所有用户都生效，不管你换哪个用户，都是生效的</li></ul><p>像我这种电脑不可能有第二个用户的人来说，两个其实都一样，我习惯直接设置系统变量，下面以系统变量为例……</p><h3 id="2-3-5-找到-path-并点击编辑"><a href="#2-3-5-找到-path-并点击编辑" class="headerlink" title="2.3.5 找到 path 并点击编辑"></a>2.3.5 找到 path 并点击编辑</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224139585.png"></p><h3 id="2-3-6-新建路径"><a href="#2-3-6-新建路径" class="headerlink" title="2.3.6 新建路径"></a>2.3.6 新建路径</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224138915.png"></p><h3 id="2-3-7-复制粘贴-QQ-exe-文件路径"><a href="#2-3-7-复制粘贴-QQ-exe-文件路径" class="headerlink" title="2.3.7 复制粘贴 QQ.exe 文件路径"></a>2.3.7 复制粘贴 QQ.exe 文件路径</h3><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224139442.png"></p><h3 id="2-3-8-完成、保存"><a href="#2-3-8-完成、保存" class="headerlink" title="2.3.8 完成、保存"></a>2.3.8 完成、保存</h3><h2 id="2-4-重新打开终端输入-QQ-命令"><a href="#2-4-重新打开终端输入-QQ-命令" class="headerlink" title="2.4 重新打开终端输入 QQ 命令"></a>2.4 重新打开终端输入 QQ 命令</h2><p>如图，在没有切换到 QQ 安装包路径的情况下 QQ 命令可以识别了，并且成功打开 QQ。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317224138230.png"></p><blockquote><p>环境变量的相关知识及意义便讲完了，希望对大家有所帮助！</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+            <tag> 环境变量 </tag>
+            
+            <tag> Path </tag>
             
         </tags>
       
