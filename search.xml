@@ -1254,6 +1254,60 @@
     
     
     <entry>
+      <title>Hello Go</title>
+      <link href="2020/12/01/Hello-Go/"/>
+      <url>2020/12/01/Hello-Go/</url>
+      
+        <content type="html"><![CDATA[<h1 id="【Hello-Go】"><a href="#【Hello-Go】" class="headerlink" title="【Hello Go】"></a>【Hello Go】</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><h1 id="一、Go-语言开发基本结构"><a href="#一、Go-语言开发基本结构" class="headerlink" title="一、Go 语言开发基本结构"></a>一、Go 语言开发基本结构</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317175437338.png" alt="在这里插入图片描述"></p><h1 id="二、VSCode-amp-Go"><a href="#二、VSCode-amp-Go" class="headerlink" title="二、VSCode &amp; Go"></a>二、VSCode &amp; Go</h1><p><strong>请先在 VSCode 中安装 Golang 插件</strong></p><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/20210317175437486.jpg" alt="在这里插入图片描述"></p><figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** JERRY_Z 2020/10/29</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main<span class="comment">// 表示该.go文件在main这个包中，go文件都必须归属于一个包中</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span><span class="comment">// 表示导入fmt这个包，导入这个包后就可以使用该包内的函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {<span class="comment">// func是一个关键字，表示这是一个函数，main为函数名，main为主函数，即程序的入口</span></span><br><span class="line">fmt.Println(<span class="string">"Hello,World! Hello,Go!"</span>)<span class="comment">// 调用fmt包中的Println函数，用于输出</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go bulid x.go   <span class="comment"># 编译.go文件（编译成功后生成同名.exe文件）</span></span><br><span class="line">$ x.exe<span class="comment"># 运行.exe文件</span></span><br><span class="line"></span><br><span class="line">$ go run x.go<span class="comment"># 编译.go文件并运行.exe文件（不推荐）</span></span><br></pre></td></tr></tbody></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Go </tag>
+            
+            <tag> VSCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>GoSDK 安装及环境配置</title>
+      <link href="2020/12/01/GoSDK-Install/"/>
+      <url>2020/12/01/GoSDK-Install/</url>
+      
+        <content type="html"><![CDATA[<h1 id="【GoSDK-安装及环境配置】"><a href="#【GoSDK-安装及环境配置】" class="headerlink" title="【GoSDK 安装及环境配置】"></a>【GoSDK 安装及环境配置】</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><h1 id="一、进入-Go-官网"><a href="#一、进入-Go-官网" class="headerlink" title="一、进入 Go 官网"></a>一、进入 Go 官网</h1><p><a href="https://golang.google.cn/">Go 官网</a></p><h1 id="二、点击-Download-Go"><a href="#二、点击-Download-Go" class="headerlink" title="二、点击 Download Go"></a>二、点击 Download Go</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/2021031718060739.jpg"></p><h1 id="三、选择系统版本下载"><a href="#三、选择系统版本下载" class="headerlink" title="三、选择系统版本下载"></a>三、选择系统版本下载</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/2021031718060799.jpg"></p><h1 id="四、安装-GoSDK"><a href="#四、安装-GoSDK" class="headerlink" title="四、安装 GoSDK"></a>四、安装 GoSDK</h1><p>原则：一律下一步直到安装成功。</p><h1 id="五、打开安装包进入-bin-目录"><a href="#五、打开安装包进入-bin-目录" class="headerlink" title="五、打开安装包进入 bin 目录"></a>五、打开安装包进入 bin 目录</h1><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/2021031718132267.png"></p><p>当我们进入到 sdk 的 bin 目录中，可以发现有两个 .exe 文件（<code>go.exe</code>，<code>gofmt.exe</code>），其中 <code>go.exe</code> 就是 go 的编译器，我们在稍后要将他配置到环境变量中，以方便全局调用。</p><h1 id="六、配置环境变量"><a href="#六、配置环境变量" class="headerlink" title="六、配置环境变量"></a>六、配置环境变量</h1><ol><li>进入系统属性，环境变量，系统变量</li><li>新建 <code>GOROOT</code>，变量值：<code>sdk 目录全局路径</code></li><li>编辑 <code>Path</code>，变量值：<code>%GOROOT%\bin</code></li><li>新建 <code>GOPATH</code>，变量值：<code>E:code\go\goproject</code></li><li>逐步确定退出</li><li>打开命令行键入 <code>go</code>，成功识别即为成功</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Go </tag>
+            
+            <tag> SDK </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>为什么较少选择C++作为Web后端开发？</title>
       <link href="2020/12/01/Cpp-Web-Analyse/"/>
       <url>2020/12/01/Cpp-Web-Analyse/</url>
