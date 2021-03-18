@@ -1868,19 +1868,21 @@
     
     <entry>
       <title>Python游戏编程之——我杀我自己</title>
-      <link href="2020/08/09/Python%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E2%80%94%E2%80%94%E6%88%91%E6%9D%80%E6%88%91%E8%87%AA%E5%B7%B1/"/>
-      <url>2020/08/09/Python%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E2%80%94%E2%80%94%E6%88%91%E6%9D%80%E6%88%91%E8%87%AA%E5%B7%B1/</url>
+      <link href="2020/08/09/Python-Pygame/"/>
+      <url>2020/08/09/Python-Pygame/</url>
       
-        <content type="html"><![CDATA[<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="//player.bilibili.com/player.html?aid=796743174&amp;bvid=BV1MC4y1t7e3&amp;cid=222484684&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">  </iframe></div><span id="more"></span><blockquote><p><strong>与我交流 &gt;_^</strong></p><p><strong>QQ：</strong> 1846334075</p><p><strong>WeChat：</strong> zhoujirui54</p><p><strong>个人网站：</strong> <a href="http://jerry-z-j-r.github.io/">http://jerry-z-j-r.github.io</a>    </p><p><strong>CSDN：</strong> <a href="https://blog.csdn.net/D_si_God">https://blog.csdn.net/D_si_God</a></p><p><strong>Cnblogs：</strong> <a href="https://www.cnblogs.com/JERRY-Z-J-R/">https://www.cnblogs.com/JERRY-Z-J-R/</a></p><p><strong>GitHub：</strong> <a href="https://github.com/JERRY-Z-J-R">https://github.com/JERRY-Z-J-R</a></p><p><strong>Gitee：</strong> <a href="https://gitee.com/JERRY-Z-J-R">https://gitee.com/JERRY-Z-J-R</a></p><p><strong>bilibili：</strong> <a href="https://space.bilibili.com/505277890">https://space.bilibili.com/505277890</a></p><p><strong>微博：</strong> <a href="https://weibo.com/JERRY2454">https://weibo.com/JERRY2454</a></p><p><strong>知乎：</strong> <a href="https://www.zhihu.com/people/JERRY-Z-J-R">https://www.zhihu.com/people/JERRY-Z-J-R</a></p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="【Python游戏编程之——我杀我自己】"><a href="#【Python游戏编程之——我杀我自己】" class="headerlink" title="【Python游戏编程之——我杀我自己】"></a>【Python游戏编程之——我杀我自己】</h1><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="//player.bilibili.com/player.html?aid=796743174&amp;bvid=BV1MC4y1t7e3&amp;cid=222484684&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">  </iframe></div>]]></content>
       
       
       <categories>
+          
+          <category> 项目作品 </category>
           
           <category> bilibili </category>
           
           <category> Python </category>
           
-          <category> My Project </category>
+          <category> 游戏开发 </category>
           
       </categories>
       
@@ -1889,11 +1891,11 @@
             
             <tag> bilibili </tag>
             
+            <tag> 项目作品 </tag>
+            
             <tag> Python </tag>
             
             <tag> pip </tag>
-            
-            <tag> Project </tag>
             
             <tag> Pygame </tag>
             
