@@ -8,7 +8,7 @@
       <link href="2021/04/01/More-Yes/"/>
       <url>2021/04/01/More-Yes/</url>
       
-        <content type="html"><![CDATA[<h1 id="《JERRY-解决方案小抄》"><a href="#《JERRY-解决方案小抄》" class="headerlink" title="《JERRY 解决方案小抄》"></a>《JERRY 解决方案小抄》</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="《JERRY-解决方案小抄》"><a href="#《JERRY-解决方案小抄》" class="headerlink" title="《JERRY 解决方案小抄》"></a>《JERRY 解决方案小抄》</h1><blockquote><p>原创内容，转载请注明出处！</p></blockquote><h1 id="一、如何访问本地域名？"><a href="#一、如何访问本地域名？" class="headerlink" title="一、如何访问本地域名？"></a>一、如何访问本地域名？</h1><p>在本地测试 Web 系统的时候，如果为系统设置了一个本地虚拟域名（例如：<a href="http://www.my.com).此时若直接用浏览器来访问该域名一般是不会成功的,因为浏览器会把域名默认当作外部系统的地址.从而会返回一个与该域名相同域名的站点,或是返回/">www.my.com)。此时若直接用浏览器来访问该域名一般是不会成功的，因为浏览器会把域名默认当作外部系统的地址。从而会返回一个与该域名相同域名的站点，或是返回</a> DNS 找不到域名的错误提示。此时我们就要将该域名添加到本地地址，让浏览器在本地打开该服务。</p><ul><li><p>管理员模式下 cmd：<code>C:\Windows\System32\drivers\etc</code></p></li><li><p>利用 vim 编辑器修改 hosts 文件：<code>vim hosts</code></p></li><li><p>在最后一行后添加：<code>127.0.0.0 www.my.com</code></p></li><li><p>保存退出，成功访问域名</p></li></ul>]]></content>
       
       
       <categories>
