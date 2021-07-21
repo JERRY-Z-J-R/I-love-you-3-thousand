@@ -31,5 +31,5 @@ int main()
 
 # 技术栈
 
-<img src="https://img-blog.csdnimg.cn/20210304171028900.jpg" style="center">
+<img src="https://img-blog.csdnimg.cn/20210304171028900.jpg">
 
