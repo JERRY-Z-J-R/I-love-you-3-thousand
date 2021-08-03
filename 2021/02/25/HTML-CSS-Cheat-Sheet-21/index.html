@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【移动端Web开发之vw和vh布局】前端小抄(21) | JERRY</title><meta name="keywords" content="HTML,CSS,Pink"><meta name="author" content="周吉瑞"><meta name="copyright" content="周吉瑞"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="【移动端Web开发之vw和vh布局】前端小抄(21) 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！  一、vw和vh1.1 移动端布局移动端布局 — flex 布局 为了实现可以适配移动端，页面元素可以宽度和高度等比例缩放 需要移动端适配有如下方案： （1）rem 市场比较常见：  需要不断修改 html 文字大小 需要媒体查询 media 需要 flexible.js  （">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【移动端Web开发之vw和vh布局】前端小抄(21)">
+<meta property="og:url" content="https://jerry-z-j-r.github.io/2021/02/25/HTML-CSS-Cheat-Sheet-21/index.html">
+<meta property="og:site_name" content="JERRY">
+<meta property="og:description" content="【移动端Web开发之vw和vh布局】前端小抄(21) 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！  一、vw和vh1.1 移动端布局移动端布局 — flex 布局 为了实现可以适配移动端，页面元素可以宽度和高度等比例缩放 需要移动端适配有如下方案： （1）rem 市场比较常见：  需要不断修改 html 文字大小 需要媒体查询 media 需要 flexible.js  （">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316084735288.jpg">
+<meta property="article:published_time" content="2021-02-25T08:36:22.000Z">
+<meta property="article:modified_time" content="2021-08-03T15:10:56.039Z">
+<meta property="article:author" content="周吉瑞">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="Pink">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210316084735288.jpg"><link rel="shortcut icon" href="https://img-blog.csdnimg.cn/2021030114565195.png"><link rel="canonical" href="https://jerry-z-j-r.github.io/2021/02/25/HTML-CSS-Cheat-Sheet-21/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//s4.cnzz.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f9efe2ae773f7dfd8ead1d46177d37ad";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" data-pjax="data-pjax" src="https://s4.cnzz.com/z_stat.php?id=1279722931&amp;web_id=1279722931"></script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-08-03 23:10:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2395865_44r7felzpiw.css"><meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://img-blog.csdnimg.cn/20210301145651100.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">78</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">107</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 年轮</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-headphones-alt"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fab fa-instagram"></i><span> ins照</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-qianmoney113"></i><span> 打赏</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/alipay/"><i class="fa-fw iconfont icon-zhifubao"></i><span> 支付宝</span></a></li><li><a class="site-page" href="/weixinpay/"><i class="fa-fw iconfont icon-weixinzhifu"></i><span> 微信支付</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img-blog.csdnimg.cn/20210316084735288.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JERRY</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 年轮</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-headphones-alt"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fab fa-instagram"></i><span> ins照</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-qianmoney113"></i><span> 打赏</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/alipay/"><i class="fa-fw iconfont icon-zhifubao"></i><span> 支付宝</span></a></li><li><a class="site-page" href="/weixinpay/"><i class="fa-fw iconfont icon-weixinzhifu"></i><span> 微信支付</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【移动端Web开发之vw和vh布局】前端小抄(21)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-02-25T08:36:22.000Z" title="发表于 2021-02-25 16:36:22">2021-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-08-03T15:10:56.039Z" title="更新于 2021-08-03 23:10:56">2021-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML/">HTML</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS/">CSS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">624</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="【移动端Web开发之vw和vh布局】前端小抄-21"><a href="#【移动端Web开发之vw和vh布局】前端小抄-21" class="headerlink" title="【移动端Web开发之vw和vh布局】前端小抄(21)"></a>【移动端Web开发之vw和vh布局】前端小抄(21)</h1><blockquote>
+<p>本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！</p>
+</blockquote>
+<h1 id="一、vw和vh"><a href="#一、vw和vh" class="headerlink" title="一、vw和vh"></a>一、vw和vh</h1><h2 id="1-1-移动端布局"><a href="#1-1-移动端布局" class="headerlink" title="1.1 移动端布局"></a>1.1 移动端布局</h2><p>移动端布局 — flex 布局</p>
+<p>为了实现可以适配移动端，页面元素可以宽度和高度等比例缩放</p>
+<p>需要移动端适配有如下方案：</p>
+<p>（1）rem</p>
+<p>市场比较常见：</p>
+<ol>
+<li>需要不断修改 html 文字大小</li>
+<li>需要媒体查询 media</li>
+<li>需要 flexible.js</li>
+</ol>
+<p>（2）vw / vh</p>
+<p>未来的趋势：</p>
+<ol>
+<li>省去各种判断和修改</li>
+<li>代表：B站……</li>
+</ol>
+<h2 id="1-2-vw-vh是什么？"><a href="#1-2-vw-vh是什么？" class="headerlink" title="1.2 vw/vh是什么？"></a>1.2 vw/vh是什么？</h2><ul>
+<li>vw/vh 是一个相对单位（类似 em 和 rem 相对单位）<ul>
+<li>vw 是：viewport width 视口宽度单位</li>
+<li>vh 是：viewport height 视口高度单位</li>
+</ul>
+</li>
+<li>相对视口的尺寸计算结果<ul>
+<li>1vw = 1/100 视口宽度</li>
+<li>1vh = 1/100 视口高度</li>
+</ul>
+</li>
+</ul>
+<p>例如：</p>
+<p>当前屏幕视口是 375px，则 1vw 就是 3.75px，如果当前屏幕视口为 414px，则 1vw 就是 4.14px。</p>
+<p>注意：和百分比有区别，百分比是相对于父元素来说的，而 vw 和 vh 总是针对于当前视口来说的。</p>
+<h2 id="1-3-vw-vh怎么用？"><a href="#1-3-vw-vh怎么用？" class="headerlink" title="1.3 vw/vh怎么用？"></a>1.3 vw/vh怎么用？</h2><ul>
+<li>超级简单，元素单位直接使用新单位 vw/vh 即可</li>
+<li>因为 vw/vh 是相对单位，所以不同视口（屏幕）下，宽高一起变化完成适配</li>
+</ul>
+<blockquote>
+<p>直接使用即可！</p>
+</blockquote>
+<p>【案例】</p>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> {</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">10vw</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">10vh</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: pink;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p> <strong>如何还原设计稿？</strong></p>
+<p>前提：我们设计稿按照 iPhone 6/7/8 来设计，有个盒子是 50px * 50px 的，如何使用 vw 呢？</p>
+<p>分析：</p>
+<ol>
+<li><p>设计稿参照 iPhone 6/7/8，所以视口宽度尺寸是 375px（像素大厨切换到 2x 模式，因为 UI 设计图是 750px 的）</p>
+</li>
+<li><p>那么 1vw 是多少像素？</p>
+<p>375px / 100 = 3.75px</p>
+</li>
+<li><p>我们元素的目标是多少像素？</p>
+<p>50px * 50px</p>
+</li>
+<li><p>那么 50 * 50 是多少个 vw？</p>
+<p>50 / 3.75 = 13.3333vw</p>
+</li>
+</ol>
+<blockquote>
+<p>在像素大厨等 UI 软件中，直接选择 vw 单位然后测量即可，不用人工计算。</p>
+</blockquote>
+<h2 id="1-4-vw注意事项"><a href="#1-4-vw注意事项" class="headerlink" title="1.4 vw注意事项"></a>1.4 vw注意事项</h2><ul>
+<li>因为涉及到大量除法，还是适应 LESS 搭配更好点</li>
+<li>我们本质是根据视口宽度来等比例缩放页面元素高度和宽度的，所以开发中使用 vw 就基本够用了。vh 很少使用。（高度变化时，我们一般不需要元素大小进行变化，所以用不到 vh）</li>
+<li>兼容性，网站：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://caniuse.com/">https://caniuse.com/</a></li>
+</ul>
+<h2 id="1-5-VSCode-px-gt-vw-插件"><a href="#1-5-VSCode-px-gt-vw-插件" class="headerlink" title="1.5 VSCode px->vw 插件"></a>1.5 VSCode px-&gt;vw 插件</h2><p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/415a42d4c6244380b0bb6565c5467514.png"></p>
+<p>记得进行设置：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img-blog.csdnimg.cn/f736d42ebcae42fd8aaf845841dcdbed.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">周吉瑞</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://jerry-z-j-r.github.io/2021/02/25/HTML-CSS-Cheat-Sheet-21/">https://jerry-z-j-r.github.io/2021/02/25/HTML-CSS-Cheat-Sheet-21/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://jerry-z-j-r.github.io" target="_blank">JERRY</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HTML/">HTML</a><a class="post-meta__tags" href="/tags/CSS/">CSS</a><a class="post-meta__tags" href="/tags/Pink/">Pink</a></div><div class="post_share"><div class="social-share" data-image="https://img-blog.csdnimg.cn/20210316084735288.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/weixin.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/weixin.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/07/JERRY-Algorithm-Cheat-Sheet/"><img class="prev-cover" data-lazy-src="https://img-blog.csdnimg.cn/20210307143758493.jpg" onerror="onerror=null;src='/img/404.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《JERRY 算法小抄》</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/24/HTML-CSS-Cheat-Sheet-20/"><img class="next-cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" onerror="onerror=null;src='/img/404.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【移动端Web开发之响应式布局】前端小抄(20)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/02/12/HTML-CSS-Cheat-Sheet-12/" title="【布局技巧：margin负值、文字围绕浮动、行内快、CSS三角、CSS初始化】前端小抄(12)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-12</div><div class="title">【布局技巧：margin负值、文字围绕浮动、行内快、CSS三角、CSS初始化】前端小抄(12)</div></div></a></div><div><a href="/2021/01/21/HTML-CSS-Cheat-Sheet-4/" title="【Emmet语法】前端小抄(4)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-21</div><div class="title">【Emmet语法】前端小抄(4)</div></div></a></div><div><a href="/2021/01/21/HTML-CSS-Cheat-Sheet-5/" title="【CSS三大特性】前端小抄(5)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-21</div><div class="title">【CSS三大特性】前端小抄(5)</div></div></a></div><div><a href="/2021/01/31/HTML-CSS-Cheat-Sheet-7/" title="【圆角边框、盒子阴影、文字阴影】前端小抄(7)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-31</div><div class="title">【圆角边框、盒子阴影、文字阴影】前端小抄(7)</div></div></a></div><div><a href="/2021/02/11/HTML-CSS-Cheat-Sheet-11/" title="【CSS精灵图、字体图标、鼠标样式、溢出省略号、用户界面技巧】前端小抄(11)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-11</div><div class="title">【CSS精灵图、字体图标、鼠标样式、溢出省略号、用户界面技巧】前端小抄(11)</div></div></a></div><div><a href="/2021/02/16/HTML-CSS-Cheat-Sheet-13/" title="【HTML5&CSS3提高】前端小抄(13)"><img class="cover" data-lazy-src="https://img-blog.csdnimg.cn/20210316084735288.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-16</div><div class="title">【HTML5&CSS3提高】前端小抄(13)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://img-blog.csdnimg.cn/20210301145651100.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周吉瑞</div><div class="author-info__description">printf("人类的悲欢并不相通\n");</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">78</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">107</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/JERRY-Z-J-R/JERRY-Z-J-R.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JERRY-Z-J-R" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://img-blog.csdnimg.cn/20210302210642250.jpg" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="https://img-blog.csdnimg.cn/20210302210642367.jpg" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-weixin1"></i></a><a class="social-icon" href="https://weibo.com/u/6001560045" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-weibo"></i></a><a class="social-icon" href="https://www.zhihu.com/people/JERRY-Z-J-R" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/505277890" rel="external nofollow noreferrer" target="_blank" title=""><i class="iconfont icon-bilibili"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Jerry's Blog (✪ω✪) “歡迎光臨，恭喜發財！”</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E7%A7%BB%E5%8A%A8%E7%AB%AFWeb%E5%BC%80%E5%8F%91%E4%B9%8Bvw%E5%92%8Cvh%E5%B8%83%E5%B1%80%E3%80%91%E5%89%8D%E7%AB%AF%E5%B0%8F%E6%8A%84-21"><span class="toc-number">1.</span> <span class="toc-text">【移动端Web开发之vw和vh布局】前端小抄(21)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81vw%E5%92%8Cvh"><span class="toc-number">2.</span> <span class="toc-text">一、vw和vh</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 移动端布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-vw-vh%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 vw&#x2F;vh是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-vw-vh%E6%80%8E%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 vw&#x2F;vh怎么用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-vw%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.4.</span> <span class="toc-text">1.4 vw注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-VSCode-px-gt-vw-%E6%8F%92%E4%BB%B6"><span class="toc-number">2.5.</span> <span class="toc-text">1.5 VSCode px-&gt;vw 插件</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-Else/" title="【其他】MySQL小抄（6）"><img data-lazy-src="https://img-blog.csdnimg.cn/20210509203331324.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="【其他】MySQL小抄（6）"/></a><div class="content"><a class="title" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-Else/" title="【其他】MySQL小抄（6）">【其他】MySQL小抄（6）</a><time datetime="2021-05-09T12:39:58.000Z" title="发表于 2021-05-09 20:39:58">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-TCL/" title="【TCL语言】MySQL小抄（5）"><img data-lazy-src="https://img-blog.csdnimg.cn/20210509203331324.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="【TCL语言】MySQL小抄（5）"/></a><div class="content"><a class="title" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-TCL/" title="【TCL语言】MySQL小抄（5）">【TCL语言】MySQL小抄（5）</a><time datetime="2021-05-09T12:39:03.000Z" title="发表于 2021-05-09 20:39:03">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-DDL/" title="【DDL语言】MySQL小抄（4）"><img data-lazy-src="https://img-blog.csdnimg.cn/20210509203331324.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="【DDL语言】MySQL小抄（4）"/></a><div class="content"><a class="title" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-DDL/" title="【DDL语言】MySQL小抄（4）">【DDL语言】MySQL小抄（4）</a><time datetime="2021-05-09T12:38:55.000Z" title="发表于 2021-05-09 20:38:55">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-DML/" title="【DML语言】MySQL小抄（3）"><img data-lazy-src="https://img-blog.csdnimg.cn/20210509203331324.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="【DML语言】MySQL小抄（3）"/></a><div class="content"><a class="title" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-DML/" title="【DML语言】MySQL小抄（3）">【DML语言】MySQL小抄（3）</a><time datetime="2021-05-09T12:38:45.000Z" title="发表于 2021-05-09 20:38:45">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-DQL/" title="【DQL语言】MySQL小抄（2）"><img data-lazy-src="https://img-blog.csdnimg.cn/20210509203331324.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="【DQL语言】MySQL小抄（2）"/></a><div class="content"><a class="title" href="/2021/05/09/JERRY-MySQL-Cheat-Sheet-DQL/" title="【DQL语言】MySQL小抄（2）">【DQL语言】MySQL小抄（2）</a><time datetime="2021-05-09T12:38:32.000Z" title="发表于 2021-05-09 20:38:32">2021-05-09</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-blog.csdnimg.cn/20210316084735288.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 周吉瑞</div><div class="footer_custom_text">服务 GitHub | 框架 Hexo</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'https://blog-comment-api.vercel.app/',
+      avatar: 'wavatar',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: "",
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="6643303282" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-lrctype="1" data-theme="#000000" data-mutex="true" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="恭喜發財,早生貴子,大吉大利" data-fontsize="14px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
