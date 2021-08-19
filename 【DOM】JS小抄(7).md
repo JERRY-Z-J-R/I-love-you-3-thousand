@@ -2222,3 +2222,527 @@ oBox.onmousemove = function(e) {
 
 在一些场合，非常有必要切断事件继续传播，否则会造成页面特效显示出 bug。
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <button id="btn">按我</button>
+    </div>
+    <script>
+        var oBox = document.getElementById('box');
+        var oBtn = document.getElementById('btn');
+
+        oBox.onclick = function () {
+            console.log('我是盒子');
+        };
+
+        oBtn.onclick = function () {
+            console.log('我是按钮');
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/c1b81c5b9a5c4dc98adda42fee50173e.png" style="zoom:50%;" />
+
+【阻止冒泡】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <button id="btn">按我</button>
+    </div>
+    <script>
+        var oBox = document.getElementById('box');
+        var oBtn = document.getElementById('btn');
+
+        oBox.onclick = function () {
+            console.log('我是盒子');
+        };
+
+        oBtn.onclick = function (e) {
+            // 阻止事件继续传播
+            e.stopPropagation();
+            console.log('我是按钮');
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/28487ac4a75644d4a968196ebd516961.png" style="zoom:50%;" />
+
+【阻止传播】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <button id="btn">按我</button>
+    </div>
+    <script>
+        var oBox = document.getElementById('box');
+        var oBtn = document.getElementById('btn');
+
+        oBox.addEventListener('click', function (e) {
+            // 阻止事件继续传播
+            e.stopPropagation();
+            console.log('我是盒子');
+        }, true);
+
+        oBtn.addEventListener('click', function () {
+            console.log('我是按钮');
+        }, true);
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/1d37cdf849424fb5b3eaa0efcee9f424.png" style="zoom:50%;" />
+
+【小案例】
+
+制作一个弹出层：点击按钮显示弹出层，点击网页任意地方，弹出层关闭。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .modal {
+            width: 400px;
+            height: 140px;
+            background-color: #333;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -70px;
+            margin-left: -200px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按我弹出弹出层</button>
+    <div class="modal" id="modal"></div>
+
+    <script>
+        var oBtn = document.getElementById('btn');
+        var oModal = document.getElementById('modal');
+
+        // 点击按钮的时候，弹出层显示
+        oBtn.onclick = function (e) {
+            // 阻止事件继续传播到document身上
+            e.stopPropagation();
+            oModal.style.display = 'block';
+        };
+
+        // 点击页面任何部分的时候，弹出层关闭
+        document.onclick = function () {
+            oModal.style.display = 'none';
+        };
+
+        // 点击弹出层内部的时候，不能关闭弹出层的，所以应该阻止事件继续传播
+        oModal.onclick = function (e) {
+            // 阻止事件继续传播到document身上
+            e.stopPropagation();
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/8f0ca4fd795748cf8140bc3b59409d3d.gif" style="zoom:50%;" />
+
+# 十二、事件委托
+
+## 12.1 批量添加事件监听
+
+题目：页面上有一个无序列表 `<ul>`，它内部共有 20 个 `<li>` 元素，请批量给它们添加事件监听，实现效果：点击哪个 `<li>` 元素，哪个 `<li>` 元素就变红。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="list">
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+    </ul>
+
+    <script>
+        var oList = document.getElementById('list');
+        var lis = oList.getElementsByTagName('li');
+
+        // 书写循环语句，批量给元素添加监听
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].onclick = function () {
+                // 在这个函数中，this表示点击的这个元素，this涉及函数上下文的相关知识，我们在“面向对象”课程中介绍
+                this.style.color = 'red';
+            };
+        }
+    </script>
+</body>
+
+</html>
+```
+
+## 12.2 批量添加事件监听的性能问题
+
+每一个事件监听注册都会消耗一定的系统内存，而批量添加事件会导致监听数量太多，内存消耗会非常大。
+
+实际上，每个 `<li>` 的事件处理函数都是不同的函数，这些函数本身也会占用内存。
+
+## 12.3 新增元素动态绑定事件
+
+题目：页面上有一个无序列表 `<ul>`，它内部没有 `<li>` 元素，请制作一个按钮，点击这个按钮就能增加一个 `<li>` 元素。并且要求每个增加的 `<li>` 元素也要有点击事件监听，实现效果：点击哪个 `<li>` 元素，哪个 `<li>` 元素就变红。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按我添加新的li列表项</button>
+    <ul id="list"></ul>
+
+    <script>
+        var oBtn = document.getElementById('btn');
+        var oList = document.getElementById('list');
+        var lis = oList.getElementsByTagName('li');
+
+        // 按钮的点击事件
+        oBtn.onclick = function () {
+            // 创建一个新的li列表项，孤儿节点
+            var oLi = document.createElement('li');
+            oLi.innerHTML = '我是列表项';
+            // 上树
+            oList.appendChild(oLi);
+            // 给新创建的这个li节点添加onclick事件监听
+            oLi.onclick = function () {
+                this.style.color = 'red';
+            };
+        };
+        // 注意：此处不能使用上一次循环的方式，因为在 var lis = oList.getElementsByTagName('li'); 的时候还没有得到任何东西，后面添加的 li 是监测不到的。
+    </script>
+</body>
+
+</html>
+```
+
+## 12.4 动态绑定事件的问题
+
+新增元素必须分别添加事件监听，不能自动获得事件监听。
+
+大量事件监听、大量事件处理函数都会产生大量的内存消耗。
+
+## 12.5 事件委托
+
+利用事件冒泡机制，将后代元素事件委托给祖先元素。
+
+![](https://img-blog.csdnimg.cn/ca442d80a9424d399391760d58060803.png)
+
+## 12.6 e.target和e.currentTarget属性
+
+事件委托通常需要结合使用 e.target 属性。
+
+| 属性            | 属性描述                             |
+| --------------- | ------------------------------------ |
+| `target`        | 触发此事件的最早元素，即“事件源元素” |
+| `currentTarget` | 事件处理程序附加到的元素             |
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按我创建一个新列表项</button>
+    <ul id="list">
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+    </ul>
+    <script>
+        var oList = document.getElementById('list');
+        var oBtn = document.getElementById('btn');
+
+        oList.onclick = function (e) {
+            // e.target表示用户真正点击的那个元素
+            e.target.style.color = 'red';
+        };
+
+        oBtn.onclick = function () {
+            // 创建新的li元素
+            var oLi = document.createElement('li');
+            // 写内容
+            oLi.innerText = '我是新来的';
+            // 上树
+            oList.appendChild(oLi);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/ee71ffa8650645779a52081ad329d2a7.gif" style="zoom: 67%;" />
+
+## 12.7 事件委托的使用场景
+
+当有大量类似元素需要批量添加事件监听时，使用事件委托可以减少内存开销。
+
+当有动态元素节点上树时，使用事件委托可以让新上树的元素具有事件监听。
+
+## 12.8 使用事件委托时需要注意的事项
+
+（1）`onmouseenter` 和 `onmouseover` 都表示“鼠标进入”，它们有什么区别呢？
+
+答：`onmouseenter` 不冒泡，`onmouseover` 冒泡。
+
+- 使用事件委托时要注意：不能委托不冒泡的事件给祖先元素。
+
+【onmouseenter】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按我创建一个新列表项</button>
+    <ul id="list">
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+    </ul>
+    <script>
+        var oList = document.getElementById('list');
+        var oBtn = document.getElementById('btn');
+
+        // onmouseenter这个属性天生就是“不冒泡”的，相当于你事件处理函数附加给了那个DOM节点
+        // 就是哪个DOM节点自己触发的事件,没有冒泡过程
+        // 再因为继承性，所以所有 li 会一起变色
+        oList.onmouseenter = function (e) {
+            // e.target表示用户真正点击的那个元素
+            e.target.style.color = 'red';
+        };
+
+        // oList.onmouseover = function (e) {
+        //     // e.target表示用户真正点击的那个元素，即：那个 li
+        //     e.target.style.color = 'red';
+        // };
+
+        oBtn.onclick = function () {
+            // 创建新的li元素
+            var oLi = document.createElement('li');
+            // 写内容
+            oLi.innerText = '我是新来的';
+            // 上树
+            oList.appendChild(oLi);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/f53b135d49874c24965c6b525aef3f9e.gif" style="zoom:67%;" />
+
+【onmouseover】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按我创建一个新列表项</button>
+    <ul id="list">
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+    </ul>
+    <script>
+        var oList = document.getElementById('list');
+        var oBtn = document.getElementById('btn');
+
+        // onmouseenter这个属性天生就是“不冒泡”的，相当于你事件处理函数附加给了那个DOM节点
+        // 就是哪个DOM节点自己触发的事件,没有冒泡过程
+        // 再因为继承性，所以所有 li 会一起变色
+        // oList.onmouseenter = function (e) {
+        //     // e.target表示用户真正点击的那个元素
+        //     e.target.style.color = 'red';
+        // };
+
+        oList.onmouseover = function (e) {
+            // e.target表示用户真正点击的那个元素，即：那个 li
+            e.target.style.color = 'red';
+        };
+
+        oBtn.onclick = function () {
+            // 创建新的li元素
+            var oLi = document.createElement('li');
+            // 写内容
+            oLi.innerText = '我是新来的';
+            // 上树
+            oList.appendChild(oLi);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/1ea54cba540d46efa5eb9bcffab9ec99.gif" style="zoom:67%;" />
+
+（2）最内层元素不能再有额外的内层元素了，比如：
+
+![](https://img-blog.csdnimg.cn/9619f89a852d40b2881d7cac91e9fc7f.png)
+
+这会导致点击 li 时效果正常，但是点击 span 时，只有 span 会变色。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按我创建一个新列表项</button>
+    <ul id="list">
+        <li><span>我是span</span>列表项</li>
+        <li><span>我是span</span>列表项</li>
+        <li><span>我是span</span>列表项</li>
+        <li><span>我是span</span>列表项</li>
+        <li><span>我是span</span>列表项</li>
+    </ul>
+    <script>
+        var oList = document.getElementById('list');
+        var oBtn = document.getElementById('btn');
+
+        oList.onmouseover = function (e) {
+            // e.target表示用户真正点击的那个元素，即：那个 li
+            e.target.style.color = 'red';
+        };
+
+        oBtn.onclick = function () {
+            // 创建新的li元素
+            var oLi = document.createElement('li');
+            // 写内容
+            oLi.innerText = '我是新来的';
+            // 上树
+            oList.appendChild(oLi);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/6ea82efcbc0e431e994f6109e48a3043.gif" style="zoom:67%;" />
+
