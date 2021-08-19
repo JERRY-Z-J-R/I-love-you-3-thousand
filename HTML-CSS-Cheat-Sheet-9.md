@@ -1,0 +1,751 @@
+---
+title: 【学成在线案例】前端小抄(9)
+date: 2021-01-31 22:35:45
+categories:
+- [前端]
+- [HTML]
+- [CSS]
+tags:
+- HTML
+- CSS
+- Pink
+cover: https://img-blog.csdnimg.cn/20210316084735288.jpg
+---
+
+# 【学成在线案例】前端小抄(9)
+
+> 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
+
+![](https://img-blog.csdnimg.cn/20210410162006136.png)
+
+# 一、准备素材和工具
+
+- 学成在线 `PSD` 源文件
+
+- 开发工具 = `PS`（切图）+ `VSCode`（代码）+ `Chrome`（测试）
+
+# 二、案例准备工作
+
+**我们本次采取结构与样式相分离思想：**
+
+1. 创建 `study` 目录文件夹（用于存放我们这个页面的相关内容）
+2. `study` 目录内新建 `images` 文件夹，用于保存图片
+3. 新建首页文件 `index.html`（以后我们网站首页统一规定为 `index.html`）
+4. 新建 `style.css` 样式文件作为我们本次采用的外链样式表
+5. 将样式引入到我们的 `HTML` 页面文件中
+6. 样式表写入清除内外边距的样式，来检测样式表是否引入成功
+
+# 三、CSS属性书写顺序
+
+**建议遵循以下顺序：**
+
+1. 布局定位属性：`display / position / float / clear / visibility / overflow`（建议 `display` 第一个写，毕竟关系到模式）
+
+2. 自身属性：`width / height / margin / padding / border / background`
+
+3. 文本属性：`color / font / text-decoration / text-align / vertical-align / white- space / break-word`
+
+4. 其他属性（CSS3）：`content / cursor / border-radius / box-shadow / text-shadow / background:linear-gradient …`
+
+```css
+.jdc {
+	display: block;
+	position: relative;
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: 0 10px;
+	padding: 20px 0;
+	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+	color: #333;
+	background: rgba(0,0,0,.5);
+	border-radius: 10px;
+}
+```
+
+# 四、页面布局分析
+
+**为了提高网页制作的效率，布局时通常有以下的布局流程：**
+
+1. 必须确定页面的版心（可视区），我们测量可得知
+
+2. 分析页面中的行模块，以及每个行模块中的列模块。其实页面布局，就是一行行罗列而成的
+
+3. 制作 `HTML` 结构。我们还是遵循，先有结构，后有样式的原则。结构永远最重要
+
+4. 开始运用盒子模型的原理，通过 `div` + `CSS` 布局来控制网页的各个模块
+
+# 五、确定版心
+
+**这个页面的版心是 1200 像素，每个版心都要水平居中对齐，可以定义版心为公共类：**
+
+```css
+.w {
+	width: 1200px;
+	margin: auto;
+}
+```
+
+# 六、头部制作
+
+![](https://img-blog.csdnimg.cn/20210410161950579.png)
+
+- 1 号是版心盒子 `header` `1200 * 42` 的盒子水平居中对齐，上下给一个 `margin` 值就可以
+- 版心盒子里面包含 2 号盒子 `logo`
+- 版心盒子里面包含 3 号盒子 `nav` 导航栏
+- 版心盒子里面包含 4 号盒子 `search` 搜索框
+- 版心盒子里面包含 5 号盒子 `user` 个人信息
+- 注意：要求里面的 4 个盒子必须都是浮动
+
+导航栏注意点：
+
+实际开发中，我们不会直接用链接 a 而是用 li 包含链接（li + a）的做法。
+
+1. li + a 语义更清晰，一看这就是有条理的列表型内容
+2. 如果直接用 a，搜索引擎容易辨别为有堆砌关键字嫌疑（故意堆砌关键字有被搜索引擎降权的风险），从而影响网站排名
+
+# 七、banner 制作
+
+![](https://img-blog.csdnimg.cn/2021041016195915.png)
+
+- 1 号盒子是通栏的大盒子 `banner`，不给宽度，给高度，给一个蓝色背景
+- 2 号盒子是版心，要水平居中对齐
+- 3 号盒子版心内，左对齐 `subnav` 侧导航栏
+- 4 号盒子版心内，右对齐 `course` 课程
+
+# 八、精品推荐小模块
+
+![](https://img-blog.csdnimg.cn/20210410161950563.png)
+
+- 大盒子水平居中 `goods` 精品，注意此处有个盒子阴影
+- 1 号盒子是标题 `h3` 左侧浮动
+- 2 号盒子里面放链接左侧浮动， `goods-item` 距离可以控制链接的左右外边距（注意行内元素只给左右内外边距）
+- 3 号盒子右浮动 `mod` 修改
+
+# 九、精品推荐大模块
+
+![](https://img-blog.csdnimg.cn/20210410162003767.png)
+
+- 1 号盒子为最大的盒子， `box` 版心水平居中对齐
+- 2 号盒子为上面部分，`box-hd` 里面左侧标题 `h3` 左浮动，右侧链接 `a` 右浮动
+- 3 号盒子为底下部分，`box-bd` 里面是无序列表，有 10 个小 `li` 组成
+- 小 `li` 最右侧外边距的问题，这里有个小技巧：给 `box-bd` 宽度为 `1215` 就可以一行装开 `5` 个 `li`
+
+复习点：我们用到清除浮动，因为 `box-hd` 里面的盒子个数不一定是多少，所以我们就不给高度了，但是里面的盒子浮动会影响下面的布局，因此需要清除浮动。
+
+# 十、底部模块
+
+![](https://img-blog.csdnimg.cn/20210410161951341.png)
+
+- 1 号盒子是通栏大盒子，底部 `footer` 给高度，底色是白色
+- 2 号盒子版心水平居中
+- 3 号盒子版权 `copyright` 左对齐
+- 4 号盒子链接组 `links` 右对齐
+
+# 十一、代码
+
+- `index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学车在线首页</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 1.头部区域开始啦 -->
+    <div class="header w">
+        <!-- logo部分 -->
+        <div class="logo">
+            <img src="images/logo.png" alt="">
+        </div>
+        <!-- 导航栏部分 nav -->
+        <div class="nav">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">课程</a></li>
+                <li><a href="#">职业规划</a></li>
+            </ul>
+        </div>
+        <!-- 搜索模块 -->
+        <div class="search">
+            <input type="text" value="输入关键词">
+            <button></button>
+        </div>
+        <!-- 用户模块 -->
+        <div class="user">
+            <img src="images/user.png" alt="" style="vertical-align: middle;">
+            qq-lilei
+        </div>
+    </div>
+    <!-- 头部区域结束啦 -->
+    <!-- 2. banner部分start -->
+    <div class="banner">
+        <!-- 版心 -->
+        <div class="w">
+            <div class="subnav">
+                <ul>
+                    <li><a href="#">前端开发 <span> &gt; </span></a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                    <li><a href="#">前端开发 <span> &gt; </span> </a></li>
+                </ul>
+            </div>
+
+            <!-- course 课程表模块 -->
+            <div class="course">
+                <h2>我的课程表</h2>
+                <div class="bd">
+                    <ul>
+                        <li>
+                            <h4>继续学习 程序语言设计</h4>
+                            <p>正在学习-使用对象</p>
+                        </li>
+                        <li>
+                            <h4>继续学习 程序语言设计</h4>
+                            <p>正在学习-使用对象</p>
+                        </li>
+                        <li>
+                            <h4>继续学习 程序语言设计</h4>
+                            <p>正在学习-使用对象</p>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="more">全部课程</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner部分end -->
+    <!-- 3.精品推荐模块开始 -->
+    <div class="goods w">
+        <h3>精品推荐</h3>
+        <ul>
+            <li><a href="#">jQuery</a></li>
+            <li><a href="#">jQuery</a></li>
+            <li><a href="#">jQuery</a></li>
+            <li><a href="#">jQuery</a></li>
+            <li><a href="#">jQuery</a></li>
+        </ul>
+        <a href="#" class="mod">修改兴趣</a>
+    </div>
+    <!-- 精品推荐模块结束 -->
+    <!-- 4. box核心内容区域开始 -->
+    <div class="box w">
+        <div class="box-hd">
+            <h3>精品推荐</h3>
+            <a href="#">查看全部</a>
+        </div>
+        <div class="box-bd">
+            <ul class="clearfix">
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+                <li>
+                    <img src="images/pic.png" alt="">
+                    <h4>
+                        Think PHP 5.0 博客系统实战项目演练
+                    </h4>
+                    <div class="info">
+                        <span>高级</span> • 1125人在学习
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- 4. box核心内容区域结束 -->
+
+    <!-- 5. footer 模块制作 -->
+    <div class="footer">
+        <div class="w clearfix">
+            <div class="copyright">
+                <img src="images/logo.png" alt="">
+                <p>学成在线致力于普及中国最好的教育它与中国一流大学和机构合作提供在线课程。<br>
+                    © 2017年XTCG Inc.保留所有权利。-沪ICP备15025210号</p>
+                <a href="#" class="app">下载APP</a>
+            </div>
+            <div class="links">
+                <dl>
+                    <dt>关于学成网</dt>
+                    <dd><a href="#">关于</a></dd>
+                    <dd><a href="#">管理团队</a></dd>
+                    <dd><a href="#">工作机会</a></dd>
+                    <dd><a href="#">客户服务</a></dd>
+                    <dd><a href="#">帮助</a></dd>
+                </dl>
+                <dl>
+                    <dt>关于学成网</dt>
+                    <dd><a href="#">关于</a></dd>
+                    <dd><a href="#">管理团队</a></dd>
+                    <dd><a href="#">工作机会</a></dd>
+                    <dd><a href="#">客户服务</a></dd>
+                    <dd><a href="#">帮助</a></dd>
+                </dl>
+                <dl>
+                    <dt>关于学成网</dt>
+                    <dd><a href="#">关于</a></dd>
+                    <dd><a href="#">管理团队</a></dd>
+                    <dd><a href="#">工作机会</a></dd>
+                    <dd><a href="#">客户服务</a></dd>
+                    <dd><a href="#">帮助</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+```
+
+- `style.css`
+
+```css
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.w {
+    width: 1200px;
+    margin: auto;
+}
+
+body {
+    background-color: #f3f5f7;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.header {
+    height: 42px;
+    /* background-color: pink; */
+    /* 注意此地方会层叠 w 里面的 margin，所以要把 auto 也加上 */
+    margin: 30px auto;
+}
+
+.logo {
+    float: left;
+    width: 198px;
+    height: 42px;
+}
+
+.nav {
+    float: left;
+    margin-left: 60px;
+}
+
+/* 此处给 li 里面的 a 设置边距，又给 li 设置边距，
+    原因是为了使 a:hover 的下划线长度合理
+    下划线长度占据 a 标签的宽度+内边距宽度 */
+
+.nav ul li {
+    float: left;
+    margin: 0 15px;
+}
+
+.nav ul li a {
+    display: block;
+    height: 42px;
+    padding: 0 10px;
+    line-height: 42px;
+    font-size: 18px;
+    color: #050505;
+}
+
+.nav ul li a:hover {
+    border-bottom: 2px solid #00a4ff;
+    color: #00a4ff;
+}
+
+/* search搜索模块 */
+.search {
+    float: left;
+    width: 412px;
+    height: 42px;
+    margin-left: 70px;
+}
+
+.search input {
+    float: left;
+    width: 345px;
+    height: 40px;
+    border: 1px solid #00a4ff;
+    border-right: 0;
+    color: #bfbfbf;
+    font-size: 14px;
+    padding-left: 15px;
+}
+
+.search button {
+    float: left;
+    width: 50px;
+    height: 42px;
+    /* 按钮button默认有个边框需要我们手动去掉 */
+    border: 0;
+    background: url(images/btn.png);
+}
+
+.user {
+    float: right;
+    /* 行高 = header 高度，使文本上下居中 */
+    line-height: 42px;
+    margin-right: 30px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* banner区域 */
+.banner {
+    height: 421px;
+    background-color: #1c036c;
+}
+
+.banner .w {
+    height: 421px;
+    background: url(images/banner2.png) no-repeat top center;
+}
+
+.subnav {
+    float: left;
+    width: 190px;
+    height: 421px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.subnav ul li {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 20px;
+}
+
+.subnav ul li a {
+    font-size: 14px;
+    color: #fff;
+}
+
+.subnav ul li a span {
+    float: right;
+}
+
+.subnav ul li a:hover {
+    color: #00a4ff;
+}
+
+.course {
+    float: right;
+    width: 230px;
+    height: 300px;
+    background-color: #fff;
+    /* 浮动的盒子不会有外边距合并的问题 */
+    margin-top: 50px;
+}
+
+.course h2 {
+    height: 48px;
+    background-color: #9bceea;
+    text-align: center;
+    line-height: 48px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.bd {
+    padding: 0 20px;
+}
+
+.bd ul li {
+    padding: 14px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.bd ul li h4 {
+    font-size: 16px;
+    color: #4e4e4e;
+}
+
+.bd ul li p {
+    font-size: 12px;
+    color: #a5a5a5;
+}
+
+.bd .more {
+    display: block;
+    height: 38px;
+    border: 1px solid #00a4ff;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 38px;
+    color: #00a4ff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* 精品推荐模块 */
+.goods {
+    height: 60px;
+    background-color: #fff;
+    margin-top: 10px;
+    box-shadow: 0px 20px 20px -15px rgba(0, 0, 0, 0.1);
+    /* 行高会继承， 会继承给3个孩子 */
+    line-height: 60px;
+}
+
+.goods h3 {
+    float: left;
+    margin-left: 30px;
+    font-size: 16px;
+    color: #00a4ff;
+}
+
+.goods ul {
+    float: left;
+    margin-left: 30px;
+}
+
+.goods ul li {
+    float: left;
+}
+
+.goods ul li a {
+    padding: 0 30px;
+    font-size: 16px;
+    color: #050505;
+    border-left: 1px solid #ccc;
+}
+
+.mod {
+    float: right;
+    margin-right: 30px;
+    font-size: 14px;
+    color: #00a4ff;
+}
+
+.box {
+    margin-top: 30px;
+}
+
+.box-hd {
+    height: 45px;
+}
+
+.box-hd h3 {
+    float: left;
+    font-size: 20px;
+    color: #494949;
+}
+
+.box-hd a {
+    float: right;
+    font-size: 12px;
+    color: #a5a5a5;
+    margin-top: 10px;
+    margin-right: 30px;
+}
+
+/* 把 li 的父亲 ul 修改的足够宽一行能装开 5 个盒子就不会换行了，
+    这样的方式有效的解决了每行最后一个盒子右边距的问题 */
+.box-bd ul {
+    width: 1225px;
+}
+
+.box-bd ul li {
+    float: left;
+    width: 228px;
+    height: 270px;
+    background-color: #fff;
+    margin-right: 15px;
+    margin-bottom: 15px;
+
+}
+
+.box-bd ul li img {
+    width: 100%;
+}
+
+.box-bd ul li h4 {
+    margin: 20px 20px 20px 25px;
+    font-size: 14px;
+    color: #050505;
+    font-weight: 400;
+}
+
+.box-bd .info {
+    margin: 0 20px 0 25px;
+    font-size: 12px;
+    color: #999;
+}
+
+.box-bd .info span {
+    color: #ff7c2d;
+}
+
+/* footer 模块 */
+.footer {
+    height: 415px;
+    background-color: #fff;
+}
+
+.footer .w {
+    /* 注意：此处对 footer 里的 w 设置 margin 会发生外边距塌陷， 
+    因为，w 包含在 footer 中，w 的上外边距为 35px，footer 的外边距为 0px， 
+    此时发生外边距塌陷，父元素塌陷较大的外边距值 35px
+    /* margin-top: 35px; */
+    padding-top: 35px;
+    /* padding 不会发生边距合并 */
+}
+
+.copyright {
+    float: left;
+}
+
+.copyright p {
+    font-size: 12px;
+    color: #666;
+    margin: 20px 0 15px 0;
+}
+
+.copyright .app {
+    display: block;
+    width: 118px;
+    height: 33px;
+    border: 1px solid #00a4ff;
+    text-align: center;
+    line-height: 33px;
+    color: #00a4ff;
+    font-size: 16px;
+}
+
+.links {
+    float: right;
+}
+
+.links dl {
+    float: left;
+    margin-left: 100px;
+}
+
+.links dl dt {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.links dl dd a {
+    color: #333;
+    font-size: 12px;
+}
+```
+
+- 效果图
+
+![](https://img-blog.csdnimg.cn/20210410194901435.png)
