@@ -4,8 +4,6 @@
 
 - 平日会记录一些学习笔记、思维导图、知识教程和分享一些有意思的事​ :cupid:……
 
-- :rocket: [点击访问](https://jerry-z-j-r.github.io/) :see_no_evil:
-
 - 玛卡巴卡 :no_mouth: 阿巴巴
 
 ```c
@@ -18,5 +16,5 @@ int main()
 }
 ```
 
-> 如果你喜欢本博客，请点击 [star](https://github.com/JERRY-Z-J-R/JERRY-Z-J-R.github.io) 收藏，Thanks ♪(･ω･)ﾉ
+> 如果你喜欢本博客，请点击 [star](https://github.com/JERRY-Z-J-R/JERRY-Z-J-R.github.io) 收藏，Thanks ♪(･ω･)ﾉ:see_no_evil:
 
