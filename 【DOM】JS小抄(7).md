@@ -2746,3 +2746,795 @@ oBox.onmousemove = function(e) {
 
 <img src="https://img-blog.csdnimg.cn/6ea82efcbc0e431e994f6109e48a3043.gif" style="zoom:67%;" />
 
+# 十三、定时器和延时器
+
+## 13.1 定时器
+
+`setInterval()` 函数可以重复调用一个函数，在每次调用之间有固定的时间间隔。
+
+![](https://img-blog.csdnimg.cn/4d70d6d2a23e430cb7825498629929bf.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = 0;
+
+        setInterval(function () {
+            console.log(++a);
+        }, 1000);
+    </script>
+</body>
+
+</html>
+```
+
+<img src="https://img-blog.csdnimg.cn/75e9d6efb7cf4e0daf0bfbb959bfe9ff.gif" style="zoom:67%;" />
+
+## 13.2 函数的参数
+
+`setInterval()` 函数可以接收第 3、4、…… 个参数，它们将按顺序传入函数。
+
+![](https://img-blog.csdnimg.cn/7af3cab742ca4aa3a12f10f166438cf6.png)
+
+## 13.3 具名函数也可以传入setInterval
+
+具名函数也可以传入 `setInterval`。
+
+> 具名函数：有名称的函数。
+>
+> 匿名函数：无名称的函数。
+
+![](https://img-blog.csdnimg.cn/c99d6095b3c941538c8db2a2c1d75fe3.png)
+
+## 13.4 清除定时器
+
+`clearInterval()` 函数可以清除一个定时器。
+
+![](https://img-blog.csdnimg.cn/8e6c49ba5a044ddfa7c54741bd69d800.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="info">0</h1>
+    <button id="btn1">开始</button>
+    <button id="btn2">暂停</button>
+
+    <script>
+        var oInfo = document.getElementById('info');
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+
+        var a = 0;
+
+        // 全局变量
+        var timer;
+
+        oBtn1.onclick = function () {
+            // 更改全局变量timer的值为一个定时器实体
+            timer = setInterval(function () {
+                oInfo.innerText = ++a;
+            }, 1000);
+        };
+
+        oBtn2.onclick = function () {
+            clearInterval(timer);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+![](https://img-blog.csdnimg.cn/29a4a59f27474586835c03a03161e6c2.gif)
+
+但是，此时有一个 BUG，那就是当重复点击时，会发生定时器叠加。
+
+> 定时器叠加：同一时间有多个定时器在同时工作。
+
+![](https://img-blog.csdnimg.cn/91287644df004f6e9a212bba504d5c24.gif)
+
+改进：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="info">0</h1>
+    <button id="btn1">开始</button>
+    <button id="btn2">暂停</button>
+
+    <script>
+        var oInfo = document.getElementById('info');
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+
+        var a = 0;
+
+        // 全局变量
+        var timer;
+
+        oBtn1.onclick = function () {
+            // 为了防止定时器叠加，我们应该在设置定时器之前先清除定时器
+            clearInterval(timer);
+            // 更改全局变量timer的值为一个定时器实体
+            timer = setInterval(function () {
+                oInfo.innerText = ++a;
+            }, 1000);
+        };
+
+        oBtn2.onclick = function () {
+            clearInterval(timer);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+![](https://img-blog.csdnimg.cn/bda8b440190f4de690e33cedc1bd8d4d.gif)
+
+## 13.5 延时器
+
+`setTimeout()` 函数可以设置一个延时器，当指定时间到了之后，会执行函数一次，不再重复执行。
+
+![](https://img-blog.csdnimg.cn/fddf2a5fc5af41d3892796071e325dbe.png)
+
+## 13.6 清除延时器
+
+`clearTimeout()` 函数可以清除延时器，和 `clearInterval()` 非常类似。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">2秒后弹出你好</button>
+    <button id="btn2">取消弹出</button>
+
+    <script>
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+        var timer;
+
+        btn1.onclick = function () {
+            timer = setTimeout(function () {
+                alert('你好');
+            }, 2000);
+        }
+
+        btn2.onclick = function () {
+            clearTimeout(timer);
+        }
+    </script>
+</body>
+
+</html>
+```
+
+## 13.7 初步认识异步语句
+
+`setInterval()` 和 `setTimeout()` 是两个异步语句。
+
+异步（asynchronous）：不会阻塞 CPU 继续执行其他语句，当异步完成时，会执行“回调函数”（callback）。
+
+![](https://img-blog.csdnimg.cn/e3423b0d66af49b5a113b2fce2c1dc62.png)
+
+## 13.8 使用定时器实现动画
+
+动画是网页上非常常见的业务需求。
+
+使用定时器实现动画就是利用“视觉暂留”原理。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">开始运动</button>
+    <div id="box"></div>
+
+    <script>
+        // 得到元素
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+
+        // 全局变量盒子的left值
+        var left = 100;
+
+        // 按钮监听
+        btn.onclick = function () {
+            var timer = setInterval(function () {
+                // 改变全局变量
+                left += 10;
+                if (left >= 1000) {
+                    clearInterval(timer);
+                }
+                // 设置left属性
+                box.style.left = left + 'px';
+            }, 20);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+![](https://img-blog.csdnimg.cn/9cdd8fb6242143858bd1a9df1899ce6f.gif)
+
+使用定时器实现动画较为不便：
+
+1. 不方便根据动画总时间计算步长
+2. 运动方向要设置正负
+3. 多种运动进行叠加较为困难
+
+> 所以实际开发中是利用：
+>
+> JQuery 等 JS 库（目前利用得越来越少）
+>
+> JS + CSS3 的模式制作动画
+
+# 十四、JS和CSS3结合实现动画
+
+## 14.1 JS和CSS3结合实现动画
+
+- 我们知道，CSS3 的 `transition` 过渡属性可以实现动画。
+- JS 可以利用 CSS3 的 transition 属性轻松实现元素动画。
+- JS 和 CSS3 结合实现动画规避了定时器制作动画的缺点。
+
+## 14.2 函数节流
+
+函数节流：一个函数执行一次后，只有大于设定的执行周期后才允许执行第二次。
+
+函数节流的意义：在许多 JS + CSS3 实现的动画中，如果没有函数节流，那么当一个动画还没有执行完时，如果用户再次要求执行动画，则动画会直接中断还未执行完的动画，然后执行新的动画。我们要通过函数节流来避免这种情况，比如：轮播图中就要避免用户高频地点击轮播图切换按钮时轮播图飞快切换的问题，而应该做到无论用户点击多块，轮播图的切换速度始终是平稳的。
+
+函数节流非常容易实现，只需借助 `setTimeout` 延时器。
+
+【函数节流模板】
+
+```javascript
+// 声明节流锁
+var lock = true;
+
+function 需要节流的函数() {
+    // 如果锁是关闭状态，则不执行
+    if (!lock) {
+        return;
+    }
+    
+    // 函数核心语句
+    // ……
+    // 函数核心语句
+    
+    // 关锁
+    lock = false;
+    
+    // 指定毫秒数后将锁打开
+    setTimeout(function() {
+        lock = true;
+    }, 2000);
+}
+```
+
+【案例】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按我运动</button>
+    <div id="box"></div>
+
+    <script>
+        // 得到元素
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+
+        // 标识量，指示当前盒子在左边还是右边
+        var pos = 1; // 1左边，2右边
+
+        // 函数节流锁
+        var lock = true;
+
+        // 事件监听
+        btn.onclick = function () {
+            // 首先检查锁是否是关闭
+            if (!lock) return;
+
+            // 把过渡加上
+            box.style.transition = 'all 2s linear 0s';
+            if (pos == 1) {
+                // 瞬间移动，但是由于有过渡，所以是动画
+                box.style.left = '1100px';
+                pos = 2;
+            } else if (pos == 2) {
+                // 瞬间移动，但是由于有过渡，所以是动画
+                box.style.left = '100px';
+                pos = 1;
+            }
+
+            // 关锁
+            lock = false;
+            // 指定时间后，将锁打开
+            setTimeout(function () {
+                lock = true;
+            }, 2000);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+![](https://img-blog.csdnimg.cn/cd2d762739b64d9b9aeca7bb69a1874b.gif)
+
+# 十五、常见动画制作
+
+## 15.1 动画效果开发1-无缝连续滚动特效
+
+![](https://img-blog.csdnimg.cn/ec75f87bc4aa4922aecb45262157b4b7.gif)
+
+原理:
+
+![](https://img-blog.csdnimg.cn/e97c8629d8a748aba71398b87638d4a3.gif)
+
+代码：
+
+> 此动画利用定时器反而比 JS + CSS3 更方便。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 1000px;
+            height: 130px;
+            border: 1px solid #000;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        .box ul {
+            list-style: none;
+            /* 设置大一点，这样li才能浮动 */
+            width: 5000px;
+            position: relative;
+        }
+
+        .box ul li {
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" class="box">
+        <ul id="list">
+            <li><img src="images/number/0.png" alt=""></li>
+            <li><img src="images/number/1.png" alt=""></li>
+            <li><img src="images/number/2.png" alt=""></li>
+            <li><img src="images/number/3.png" alt=""></li>
+            <li><img src="images/number/4.png" alt=""></li>
+            <li><img src="images/number/5.png" alt=""></li>
+        </ul>
+    </div>
+    <script>
+        var box = document.getElementById('box');
+        var list = document.getElementById('list');
+
+        // 复制多一遍所有的li
+        list.innerHTML += list.innerHTML;
+
+        // 全局变量，表示当前list的left值
+        var left = 0;
+
+        // 定时器，全局变量
+        var timer;
+
+        move();
+
+        // 动画封装成函数
+        function move() {
+            // 设表先关，防止动画积累
+            clearInterval(timer);
+
+            timer = setInterval(function () {
+                left -= 4;
+                // 验收
+                if (left <= -1260) {
+                    left = 0;
+                }
+                list.style.left = left + 'px';
+            }, 20);
+        }
+
+        // 鼠标进入停止定时器
+        box.onmouseenter = function () {
+            clearInterval(timer);
+        };
+
+        // 鼠标离开继续定时器
+        box.onmouseleave = function () {
+            move();
+        };
+    </script>
+</body>
+
+</html>
+```
+
+## 15.2 动画效果开发2-跑马灯轮播图特效
+
+> 跑马灯轮播图，又叫：滑动轮播图。此种轮播图需要将图片排成一行，并在最后一张图片后克隆一份第一张图片（当到达最后一张时，实现瞬间轮回效果）。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel {
+            width: 650px;
+            height: 360px;
+            border: 1px solid #000;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel ul {
+            list-style: none;
+            width: 6000px;
+            position: relative;
+            left: 0px;
+            transition: left .5s ease 0s;
+        }
+
+        .carousel ul li {
+            float: left;
+        }
+
+        .carousel .leftbtn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(28, 180, 226);
+            border-radius: 50%;
+        }
+
+        .carousel .rightbtn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(28, 180, 226);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel">
+        <ul id="list">
+            <li><img src="images/beijing/0.jpg" alt=""></li>
+            <li><img src="images/beijing/1.jpg" alt=""></li>
+            <li><img src="images/beijing/2.jpg" alt=""></li>
+            <li><img src="images/beijing/3.jpg" alt=""></li>
+            <li><img src="images/beijing/4.jpg" alt=""></li>
+        </ul>
+        <a href="javascript:;" class="leftbtn" id="leftbtn"></a>
+        <a href="javascript:;" class="rightbtn" id="rightbtn"></a>
+    </div>
+    <script>
+        // 得到按钮和ul，ul整体进行运动
+        var leftbtn = document.getElementById('leftbtn');
+        var rightbtn = document.getElementById('rightbtn');
+        var list = document.getElementById('list');
+
+        // 克隆第一张图片
+        var cloneli = list.firstElementChild.cloneNode(true); // 记得要写true，不然就只会克隆li而不会克隆img
+        list.appendChild(cloneli);
+
+        // 当前ul显示到第几张了，从0开始数
+        var idx = 0;
+
+        // 节流锁
+        var lock = true;
+
+        // 右边按钮监听
+        rightbtn.onclick = function () {
+            // 判断锁的状态
+            if (!lock) return;
+
+            lock = false;
+
+            // 给list加过渡，为什么要加？？css中不是已经加了么？？这是因为最后一张图片会把过渡去掉
+            list.style.transition = 'left .5s ease 0s';
+            idx++;
+            if (idx > 4) {
+                // 设置一个延时器，延时器的功能就是将ul瞬间拉回0的位置，延时器的目的就是让过渡动画结束之后
+                setTimeout(function () {
+                    // 取消掉过渡，因为要的是瞬间移动，不是“咕噜”回去
+                    list.style.transition = 'none';
+                    list.style.left = 0;
+                    idx = 0;
+                }, 500);
+            }
+            list.style.left = -idx * 650 + 'px';
+
+            // 函数节流
+            setTimeout(function () {
+                lock = true;
+            }, 500);
+        }
+
+        // 左边按钮监听
+        leftbtn.onclick = function () {
+            if (!lock) return;
+
+            lock = false;
+
+            // 判断是不是第0张，如果是，就要瞬间用假的替换真的
+            if (idx == 0) {
+                // 取消掉过渡，因为要的是瞬间移动，不是“咕噜”过去
+                list.style.transition = 'none';
+                // 直接瞬间移动到最后的假图片上
+                list.style.left = -5 * 650 + 'px';
+                // 设置一个延时器，这个延时器的延时时间可以是0毫秒，虽然是0毫秒，但是可以让我们过渡先是瞬间取消，然后再加上
+                setTimeout(function () {
+                    // 加过渡
+                    list.style.transition = 'left .5s ease 0s';
+                    // idx改为真正的最后一张
+                    idx = 4;
+                    list.style.left = -idx * 650 + 'px';
+                }, 0);
+            } else {
+                idx--;
+                list.style.left = -idx * 650 + 'px';
+            }
+
+            // 函数节流
+            setTimeout(function () {
+                lock = true;
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>
+```
+
+![](https://img-blog.csdnimg.cn/73872995bfae4c37bae88638ca30aea9.gif)
+
+原理：
+
+![](https://img-blog.csdnimg.cn/410afbfa99594640bf979eff8a62dd9b.gif)
+
+![](https://img-blog.csdnimg.cn/7bd01d838eae44a3ac0e07f2e4b2e013.gif)
+
+## 15.3 动画效果开发3-呼吸灯轮播图特效
+
+> 呼吸灯轮播图，又叫：淡入淡出轮播图。此种轮播图需要将图片叠到一起。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel {
+            width: 650px;
+            height: 360px;
+            border: 1px solid #000;
+            margin: 50px auto;
+            position: relative;
+
+        }
+
+        .carousel ul {
+            list-style: none;
+        }
+
+        .carousel ul li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* 透明度都是0 */
+            opacity: 0;
+            transition: opacity 1s ease 0s;
+        }
+
+        /* 只有第一张透明度是1 */
+        .carousel ul li:first-child {
+            opacity: 1;
+        }
+
+        .carousel .leftbtn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(28, 180, 226);
+            border-radius: 50%;
+        }
+
+        .carousel .rightbtn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(28, 180, 226);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel">
+        <ul id="list">
+            <li><img src="images/beijing/0.jpg" alt=""></li>
+            <li><img src="images/beijing/1.jpg" alt=""></li>
+            <li><img src="images/beijing/2.jpg" alt=""></li>
+            <li><img src="images/beijing/3.jpg" alt=""></li>
+            <li><img src="images/beijing/4.jpg" alt=""></li>
+        </ul>
+        <a href="javascript:;" class="leftbtn" id="leftbtn"></a>
+        <a href="javascript:;" class="rightbtn" id="rightbtn"></a>
+    </div>
+    <script>
+        // 得到按钮和ul，ul整体进行运动
+        var leftbtn = document.getElementById('leftbtn');
+        var rightbtn = document.getElementById('rightbtn');
+        var list = document.getElementById('list');
+        var lis = list.getElementsByTagName('li');
+
+        // 当前是第几张图显示
+        var idx = 0;
+
+        // 节流
+        var lock = true;
+
+        // 右按钮
+        rightbtn.onclick = function () {
+            // 判断节流
+            if (!lock) return;
+
+            lock = false;
+
+            // 还没有改idx，此时的idx这个图片就是老图，老图淡出
+            lis[idx].style.opacity = 0;
+            idx++;
+            if (idx > 4) idx = 0;
+            // 改了idx，此时的idx这个图片就是新图，新图淡入
+            lis[idx].style.opacity = 1;
+
+            // 动画结束之后，开锁
+            setTimeout(function () {
+                lock = true;
+            }, 1000);
+        }
+
+        // 左按钮
+        leftbtn.onclick = function () {
+            // 判断节流
+            if (!lock) return;
+
+            lock = false;
+
+            // 还没有改idx，此时的idx这个图片就是老图，老图淡出
+            lis[idx].style.opacity = 0;
+            idx--;
+            if (idx < 0) idx = 4;
+            // 改了idx，此时的idx这个图片就是新图，新图淡入
+            lis[idx].style.opacity = 1;
+
+            // 动画结束之后，开锁
+            setTimeout(function () {
+                lock = true;
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
+```
+
+![](https://img-blog.csdnimg.cn/6ce3942a0d204578b8025195c37f48aa.gif)
