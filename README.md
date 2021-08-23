@@ -16,7 +16,7 @@ int main()
 }
 ```
 
-> 如果你喜欢本博客，请点击 `Star` 收藏，Thanks ♪(･ω･)ﾉ:see_no_evil:
+> 如果你喜欢本博客，请点击 `Star` 收藏，Thanks ♪(･ω･)ﾉ :see_no_evil:
 
 > 【与我联系 - 周吉瑞（JERRY）】
 >
