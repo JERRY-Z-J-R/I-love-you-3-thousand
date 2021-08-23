@@ -18,3 +18,12 @@ int main()
 
 > 如果你喜欢本博客，请点击 [star](https://github.com/JERRY-Z-J-R/JERRY-Z-J-R.github.io) 收藏，Thanks ♪(･ω･)ﾉ:see_no_evil:
 
+> 【与我联系 - 周吉瑞（JERRY）】
+>
+> - QQ：1846334075
+>
+> - 微信：zhoujirui54
+>
+> - 邮箱：www.zjr1846334075@foxmail.com
+>
+> - GitHub：https://github.com/JERRY-Z-J-R
