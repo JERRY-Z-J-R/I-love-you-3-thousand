@@ -43,7 +43,7 @@ console.log(window.setInterval == setInterval);	// true
 | `outerHeight` | 浏览器窗口的外部高度                                     |
 | `outerWidth`  | 浏览器窗口的外部宽度                                     |
 
-获得不包含滚动条的窗口宽度，要用：
+获得不包含滚动条的窗口宽度要用：
 
 `document.documentElement.clientWidth`
 
