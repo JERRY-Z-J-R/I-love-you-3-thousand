@@ -325,3 +325,88 @@ obj1.c[2].p.push(999);
 console.log(obj2);                  // obj2不变的，因为没有“藕断丝连”的现象
 ```
 
+# 四、认识上下文
+
+## 4.1 什么是上下文
+
+垃圾分类，`这` 是非常好的习惯，值得表扬。
+
+随手关灯，`这` 是非常好的习惯，值得表扬。
+
+课后复习，`这` 是非常好的习惯，值得表扬。
+
+早睡早起，`这` 是非常好的习惯，值得表扬。
+
+## 4.2 函数的上下文
+
+函数中可以使用 this 关键字，它表示函数的上下文。
+
+与中文中“这”类似，函数中的 this 具体指代什么必须通过调用函数时的“前言后语”来判断。
+
+## 4.3 函数中的 this
+
+```javascript
+var xiaoming = {
+    nickname: '小明',
+    age: 12,
+    sayHello: function () {
+        console.log('我是' + this.nickname + '，我' + this.age + '岁了');
+    }
+};
+xiaoming.sayHello();
+
+// 我是小明，我12岁了
+```
+
+```javascript
+var xiaoming = {
+    nickname: '小明',
+    age: 12,
+    sayHello: function () {
+        console.log('我是' + this.nickname + '，我' + this.age + '岁了');
+    }
+};
+var sayHello = xiaoming.sayHello;	// 将函数“提”出来，单独存为变量
+sayHello();		// 直接圆括号调用这个函数，而不是对象打点调用了
+
+// 我是undefined，我undefined岁了
+```
+
+## 4.4 函数的上下文由调用方式决定
+
+同一个函数，用不同的形式调用它，则函数的上下文不同。
+
+- 情形1：对象打点调用函数，函数中的 this 指代这个打点的对象
+
+```javascript
+xiaoming.sayHello();
+```
+
+- 情形2：圆括号直接调用函数，函数中的 this 指代 window 对象
+
+```javascript
+var sayHello = xiaoming.sayHello;
+sayHello();
+```
+
+【案例】
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    fn: function() {
+        console.log(this.a + this.b);
+        /*
+        请问，这里的两个 this 指代什么？
+        正确答案：不知道！
+        原因：函数只有被调用时，它的上下文才能被确定。
+    }
+};
+
+obj.fn();	//3
+
+var fn = obj.fn;	// 提炼的是函数本身，而不是函数执行结果，所以不能加()
+fn();		//NaN
+```
+
