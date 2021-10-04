@@ -410,3 +410,253 @@ var fn = obj.fn;	// 提炼的是函数本身，而不是函数执行结果，所
 fn();		//NaN
 ```
 
+# 五、上下文规则
+
+## 5.1 函数的上下文由调用函数的方式决定
+
+函数的上下文（this 关键字）由调用函数的方式决定，function 是“运行时上下文”策略。
+
+函数如果不调用，则不能确定函数的上下文。
+
+## 5.2 规则1
+
+规则1：对象打点调用它的方法函数，则函数的上下文是这个打点的对象。
+
+```javascript
+对象.方法()
+```
+
+【规则1题目举例 - 第1小题】
+
+```javascript
+function fn() {
+    console.log(this.a + this.b);
+}
+
+var obj = {
+    a: 66,
+    b: 33,
+    fn: fn
+};
+
+obj.fn();	// 构成对象.方法() 的形式，适用规则1
+```
+
+【规则1题目举例 - 第2小题】
+
+```javascript
+var obj1 = {
+    a: 1,
+    b: 2,
+    fn: function() {
+        console.log(this.a + this.b);
+    }
+};
+
+var obj2 = {
+    a: 3,
+    b: 4,
+    fn: obj1.fn
+};
+
+obj.fn();	// 构成对象.方法()的形式，使用规则1
+```
+
+【规则1题目举例 - 第3小题】
+
+```javascript
+function outer() {
+    var a = 11;
+    var b = 22;
+    return {
+        a: 33,
+        b: 44,
+        fn: funtion() {
+        	console.log(this.a + this.b);
+    	}
+    };
+}
+
+outer().fn();	// 构成对象.方法() 的形式，适用规则1
+```
+
+【规则1题目举例 - 第4小题】
+
+```javascript
+funtion fun() {
+    console.log(this.a + this.b);
+}
+var obj = {
+    a: 1,
+    b: 2,
+    c: [{
+        a: 3,
+        b: 4,
+        c: fun
+    }]
+};
+var a = 5;
+obj.c[0].c();	// 构成对象.方法()的形式，适用规则1
+```
+
+## 5.3 规则2
+
+规则2：圆括号直接调用函数，则函数的上下文是 window 对象。
+
+```javascript
+函数()
+```
+
+【规则2题目举例 - 第1小题】
+
+```javascript
+var obj1 = {
+    a: 1,
+    b: 2,
+    fn: function() {
+        console.log(this.a + this.b);
+    }
+};
+
+var a = 3;
+var b = 4;
+
+var fn = obj1.fn;
+fn();	// 构成函数()的形式，适用规则2
+```
+
+【规则2题目举例 - 第2小题】
+
+```javascript
+function fun() {
+    return this.a + this.b;
+}
+var a = 1;
+var b = 2;
+var obj = {
+    a: 3,
+    b: fun(),	// 	适用规则2
+    fun: fun
+};
+var resulr = obj.fun();		// 适用规则1
+console.log(result);
+```
+
+## 5.4 规则3
+
+规则3：数组（类数组对象）枚举出函数进行调用，上下文是这个数组（类数组对象）。
+
+```javascript
+数组[下标]()
+```
+
+【规则3题目举例 - 第1小题】
+
+```javascript
+var arr = ['A' , 'B', 'C', function() {
+    console.log(this[0]);
+}];
+arr[3]();	// 适用规则3
+```
+
+【类数组对象】
+
+什么是类数组对象：所有键名为自然数序列（从0开始），且有 length 属性的对象。
+
+arguments 对象是最常见的类数组对象，它是函数的实参列表。
+
+【规则3题目举例 - 第2小题】
+
+```javascript
+function fun() {
+    arguments[3]();	// 适用规则3
+}
+fun('A', 'B', 'C', function() {
+    console.log(this[1]);
+});
+```
+
+## 5.5 规则4
+
+规则4：IIFE 中的函数，上下文是 window 对象。
+
+```javascript
+(function() {
+ })();
+```
+
+【规则4题目 - 举例】
+
+```javascript
+var a = 1;
+var obj = {
+    a: 2,
+    fun: (funciton() {
+          var a = this.a;
+          return function() {
+    	  	  console.log(a + this.a);
+		  }
+     })()	// 适用规则4
+};
+obj.fun();	// 适用规则1
+```
+
+## 5.6 规则5
+
+规则5：定时器、延时器调用函数，上下文是 window 对象。
+
+```javascript
+setInterval(函数, 时间);
+setTimeout(函数, 时间);
+```
+
+【规则5题目举例 - 第1小题】
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    fun: funciton() {
+    	console.log(this.a + this.b);
+	}
+}
+var a = 3;
+var b = 4;
+
+setTimeout(obj.fun, 2000);	// 适用规则5
+```
+
+【规则5题目举例 - 第2小题】
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    fun: function() {
+        console.log(this.a + this.b);
+    }
+}
+var a = 3;
+var b = 4;
+setTimeout(funciton() {
+		obj.fun(); // 适用规则1
+}, 2000);
+```
+
+## 5.7 规则6
+
+规则6：事件处理函数的上下文是绑定事件的 DOM 元素。
+
+```javascript
+DOM元素.onclick = function() {
+};
+```
+
+【规则6 - 小案例1】
+
+请实现效果：点击哪个盒子，哪个盒子就变红，要求使用同一个事件处理函数实现。
+
+【规则6 - 小案例2】
+
+请实现效果：点击哪个盒子，哪个盒子在 2000 毫秒后就变红，要求使用同一个事件处理函数实现。
+
