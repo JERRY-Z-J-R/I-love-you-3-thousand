@@ -541,11 +541,11 @@ var a = 1;
 var b = 2;
 var obj = {
     a: 3,
-    b: fun(),	// 	适用规则2
-    fun: fun
+    b: fun(),	// fun函数的执行结果赋给b，适用规则2
+    fun: fun	// fun函数的引用
 };
 var resulr = obj.fun();		// 适用规则1
-console.log(result);
+console.log(result);	// 6
 ```
 
 ## 5.4 规则3
@@ -559,10 +559,11 @@ console.log(result);
 【规则3题目举例 - 第1小题】
 
 ```javascript
-var arr = ['A' , 'B', 'C', function() {
+var arr = ['A', 'B', 'C', function() {
     console.log(this[0]);
 }];
-arr[3]();	// 适用规则3
+arr[3]();	// A
+// 适用规则3
 ```
 
 【类数组对象】
@@ -580,6 +581,7 @@ function fun() {
 fun('A', 'B', 'C', function() {
     console.log(this[1]);
 });
+// B
 ```
 
 ## 5.5 规则4
@@ -600,11 +602,12 @@ var obj = {
     fun: (funciton() {
           var a = this.a;
           return function() {
-    	  	  console.log(a + this.a);
+    	  	  console.log(a + this.a);	// 1 + 2
 		  }
      })()	// 适用规则4
 };
 obj.fun();	// 适用规则1
+// 3
 ```
 
 ## 5.6 规则5
@@ -629,7 +632,8 @@ var obj = {
 var a = 3;
 var b = 4;
 
-setTimeout(obj.fun, 2000);	// 适用规则5
+setTimeout(obj.fun, 2000);	// 7
+// 适用规则5
 ```
 
 【规则5题目举例 - 第2小题】
@@ -645,7 +649,7 @@ var obj = {
 var a = 3;
 var b = 4;
 setTimeout(funciton() {
-		obj.fun(); // 适用规则1
+		obj.fun(); // 适用规则1，原因：此时setTimeout没有直接调用obj.fun()，而是直接调用了匿名函数
 }, 2000);
 ```
 
@@ -662,7 +666,112 @@ DOM元素.onclick = function() {
 
 请实现效果：点击哪个盒子，哪个盒子就变红，要求使用同一个事件处理函数实现。
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            float: left;
+            border: 1px solid #000;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+<div id="box3"></div>
+
+<script>
+    function setColorToRed() {
+        this.style.backgroundColor = 'red';
+    }
+
+    var box1 = document.getElementById('box1');
+    var box2 = document.getElementById('box2');
+    var box3 = document.getElementById('box3');
+
+    box1.onclick = setColorToRed;
+    box2.onclick = setColorToRed;
+    box3.onclick = setColorToRed;
+</script>
+</body>
+</html>
+```
+
 【规则6 - 小案例2】
 
 请实现效果：点击哪个盒子，哪个盒子在 2000 毫秒后就变红，要求使用同一个事件处理函数实现。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            float: left;
+            border: 1px solid #000;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+<div id="box3"></div>
+
+<script>
+    function setColorToRed() {
+        // 备份上下文（因为：定时器、延时器调用函数，上下文是 window 对象，所以要先备份上下文，用self或that或_this）
+        var self = this;
+        setTimeout(function () {
+            self.style.backgroundColor = 'red';
+        }, 2000);
+    }
+
+    var box1 = document.getElementById('box1');
+    var box2 = document.getElementById('box2');
+    var box3 = document.getElementById('box3');
+
+    box1.onclick = setColorToRed;
+    box2.onclick = setColorToRed;
+    box3.onclick = setColorToRed;
+</script>
+</body>
+</html>
+```
+
+# 六、call和apply
+
+## 6.1 call和apply能指定函数的上下文
+
+```javascript
+function sum() 
+    alert(this.chinese + this.math + this.english);
+}
+
+var xiaoming = {
+    chinese: 80,
+    math: 95,
+    english: 93
+};
+```
+
+`sum.call(xiaoming);`
+
+`sum.apply(xiaoming);`
+
+- `函数.call(上下文);`
+- `函数.apply(上下文);`
 
