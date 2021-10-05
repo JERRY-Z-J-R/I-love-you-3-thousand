@@ -913,3 +913,88 @@ console.log(obj);
 | `call和apply`     | 任意指定         |
 | `用new调用函数`   | 秘密创建出的对象 |
 
+# 八、构造函数
+
+## 8.1 什么是构造函数
+
+我们将之前书写的函数进行一下小改进：
+
+```javascript
+// 接收三个参数
+function People(name, age, sex) {
+    // this上绑定同名属性
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}
+
+// 传入三个参数
+var xiaoming = new People('小明', 12, '男');
+var xiaohong = new People('小红', 10, '女');
+var xiaogang = new People('小刚', 13, '男');
+
+console.log(xiaoming);	// People { name: '小明', age: 12, sex: '男' }
+console.log(xiaohong);	// People { name: '小红', age: 10, sex: '女' }
+console.log(xiaogang);	// People { name: '小刚', age: 13, sex: '男' }
+```
+
+- 用 new 调用一个函数，这个函数就被称为“构造函数”，任何函数都可以是构造函数，只需要用 new 调用它
+- 顾名思义，构造函数用来“构造新对象”，它内部的语句将为新对象添加若干属性和方法，完成对象的初始化
+- 构造函数必须用 new 关键字调用，否则不能正常工作，正因如此，开发者约定构造函数命名时首字母要大写
+
+> 注意：一个函数是不是构造函数，要看它是否用 new 调用，而至于名称首字母大写，完全是开发者的习惯约定。
+
+## 8.2 如果不用new调用构造函数
+
+```javascript
+function People(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}
+
+People('小明', 12, '男');
+People('小红', 10, '女');
+People('小刚', 13, '男');
+```
+
+## 8.3 构造函数中的this不是函数本身
+
+```javascript
+function People(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}
+
+var xiaoming = new People('小明', 12, '男');
+var xiaohong = new People('小红', 10, '女');
+var xiaogang = new People('小刚', 13, '男');
+```
+
+## 8.4 尝试为对象添加方法
+
+```javascript
+function People(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+    this.sayHello = function() {
+        console.log('我是' + this.name + '，我' + this.age + '岁了');
+    };
+}
+
+var xiaoming = new People('小明', 12, '男');
+var xiaohong = new People('小红', 10, '女');
+var xiaogang = new People('小刚', 13, '男');
+xiaoming.sayHello();
+xiaohong.sayHello();
+xiaogang.sayHello();
+
+/*
+我是小明，我12岁了
+我是小红，我10岁了
+我是小刚，我13岁了
+*/
+```
+
