@@ -768,10 +768,148 @@ var xiaoming = {
 };
 ```
 
-`sum.call(xiaoming);`
-
-`sum.apply(xiaoming);`
+`sum.call(xiaoming);` 或 `sum.apply(xiaoming);`
 
 - `函数.call(上下文);`
 - `函数.apply(上下文);`
+
+> 当然这样也行：
+>
+> ```javascript
+> function sum() {
+>     alert(this.chinese + this.math + this.english);
+> }
+> 
+> var xiaoming = {
+>     chinese: 80,
+>     math: 95,
+>     english: 93,
+>     sum: sum
+> };
+> 
+> xiaoming.sum();
+> ```
+
+## 6.2 call和apply的区别
+
+```javascript
+function sum(b1, b2) {
+    alert(this.c + this.m + this.e + b1 + b2);
+}
+
+var xiaoming = {
+    c: 80,
+    m: 95,
+    e: 93
+};
+
+sum.call(xiaoming, 5, 3);		// call 要用逗号罗列参数
+sum.apply(xiaoming, [5, 3]);	// apply 要把参数写到数组中
+```
+
+## 6.3 到底使用call还是apply？
+
+```javascript
+function fun1() {
+    fun2.apply(this, arguments);	// arguments是数组，只能用apply
+}
+
+function fun2(a, b) {
+    alert(a + b);
+}
+
+fun1(33, 44);	// 77
+```
+
+## 6.4 上下文规则总结
+
+| 规则              | 上下文        |
+| ----------------- | ------------- |
+| `对象.函数()`     | 对象          |
+| `函数()`          | window        |
+| `数组[下标]()`    | 数组          |
+| `IIFE`            | window        |
+| `定时器`          | window        |
+| `DOM事件处理函数` | 绑定DOM的元素 |
+| `call和apply`     | 任意指定      |
+
+# 七、用new操作符调用函数
+
+现在，我们学习一种新的函数调用方式：`new 函数()`
+
+你可能知道 new 操作符和“面向对象”息息相关，但是现在我们先不探讨它的“面向对象”意义，而是先把用 new 调用函数的执行步骤和它上下文弄清楚。
+
+## 7.1 用new调用函数的四步走
+
+JS 规定，使用 new 操作符调用函数会进行“四步走”：
+
+1. 函数体内会自动创建出一个空白对象
+2. 函数的上下文（this）会指向这个对象
+3. 函数体内的语句会执行
+4. 函数会自动返回上下文对象，即使函数没有 return 语句
+
+## 7.2 四步走详解
+
+```javascript
+function fun() {
+    this.a = 3;
+    this.b = 5;
+}
+
+var obj = new fun();
+console.log(obj);
+```
+
+【第一步：函数体内会自动创建出一个空白对象】
+
+![](https://img-blog.csdnimg.cn/734f6064b1274f0ba011d8a7a8e7dfd4.png)
+
+【第二步：函数的上下文（this）会指向这个对象】
+
+![](https://img-blog.csdnimg.cn/2346ce01c7264015a9890fd2317e01e1.png)
+
+【第三步：执行函数体中的语句】
+
+> 之后这个对象就不再是空对象了。
+
+![](https://img-blog.csdnimg.cn/bf74b71cb8f24789b0c9e4baee7a8704.png)
+
+【第四步：函数会自动返回上下文对象，即使函数没有 return 语句】
+
+> 执行结果为：{a: 3, b: 5}
+
+![](https://img-blog.csdnimg.cn/3aab18d93cc04d0a82ce3db482135cd1.png)
+
+【案例】
+
+```javascript
+function fun() {
+    this.a = 3;
+    this.b = 6;
+    var m = 34;
+    if (this.a > this.b) {
+        this.c = m;
+    } else {
+        this.c = m + 2;
+    }
+}
+
+var obj = new fun();
+console.log(obj);
+
+// fun { a: 3, b: 6, c: 36 }
+```
+
+## 7.3 上下文规则总结
+
+| 规则              | 上下文           |
+| ----------------- | ---------------- |
+| `对象.函数()`     | 对象             |
+| `函数()`          | window           |
+| `数组[下标]()`    | 数组             |
+| `IIFE`            | window           |
+| `定时器`          | window           |
+| `DOM事件处理函数` | 绑定DOM的元素    |
+| `call和apply`     | 任意指定         |
+| `用new调用函数`   | 秘密创建出的对象 |
 
