@@ -960,6 +960,8 @@ People('小刚', 13, '男');
 
 ## 8.3 构造函数中的this不是函数本身
 
+> 四步走原理！！！
+
 ```javascript
 function People(name, age, sex) {
     this.name = name;
@@ -972,7 +974,7 @@ var xiaohong = new People('小红', 10, '女');
 var xiaogang = new People('小刚', 13, '男');
 ```
 
-## 8.4 尝试为对象添加方法
+## 8.4 尝试为对象添加方法 
 
 ```javascript
 function People(name, age, sex) {
@@ -997,4 +999,22 @@ xiaogang.sayHello();
 我是小刚，我13岁了
 */
 ```
+
+# 九、类与实例
+
+![](https://img-blog.csdnimg.cn/0c5272275c614edaa9bb5698780bffff.png)
+
+【类好比是“蓝图”】
+
+如同“蓝图”一样，类只描述对象会拥有哪些属性和方法，但是并不具体指明属性的值。
+
+【实例是具体的对象】
+
+![](https://img-blog.csdnimg.cn/ac0233152c1c4be08ac08fefa0a77e73.png)
+
+【构造函数和“类”】
+
+- Java、C++等是“面向对象”语言
+- JavaScript是“基于对象”语言
+- JavaScript中的构造函数可以类比于OO语言中的“类”，写法的确类似，但和真正OO语言还是有本质不同，在后续课程还将看见JS和其他OO语言完全不同的、特有的原型特性。
 
