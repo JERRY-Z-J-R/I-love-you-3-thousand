@@ -1018,3 +1018,106 @@ xiaogang.sayHello();
 - JavaScript是“基于对象”语言
 - JavaScript中的构造函数可以类比于OO语言中的“类”，写法的确类似，但和真正OO语言还是有本质不同，在后续课程还将看见JS和其他OO语言完全不同的、特有的原型特性。
 
+# 十、prototype和原型链查找
+
+## 10.1 什么是prototype
+
+任何函数都有 prototype 属性，prototype 是英语“原型”的意思。
+
+prototype 属性值是个对象，它默认拥有 constructor 属性指回函数。
+
+![](https://img-blog.csdnimg.cn/52a1d4d63a1f469eb4c3ef508e2de141.png)
+
+普通函数来说的 prototype 属性没有任何用处，而构造函数的 prototype 属性非常有用。
+
+构造函数的 prototype 属性是它的实例的原型。
+
+## 10.2 构造函数的prototype是实例的原型
+
+![](https://img-blog.csdnimg.cn/2d1fb514299f49e69428be08ea7d9b07.png)
+
+## 10.3 原型链查找
+
+JavaScript 规定：实例可以打点访问它的原型的属性和方法，这被称为“原型链查找”。
+
+![](https://img-blog.csdnimg.cn/0f7e64a1e8e9413baac44796047887a2.png)
+
+![](https://img-blog.csdnimg.cn/332b6b06736d4a59b6f2df9a7f42d52e.png)
+
+![](https://img-blog.csdnimg.cn/eb7937d314024951922741fe0b0a3d97.png)
+
+## 10.4 hasOwnProperty
+
+hasOwnProperty 方法可以检查对象是否真正“自己拥有”某属性或者方法。
+
+```javascript
+xiaoming.hasOwnProperty('name');		// true
+xiaoming.hasOwnProperty('age');			// true
+xiaoming.hasOwnProperty('sex');			// true
+xiaoming.hasOwnProperty('nationality');	// false
+```
+
+## 10.5 in
+
+in 运算符只能检查某个属性或方法是否可以被对象访问，不能检查是否是自己的属性或方法。
+
+```javascript
+'name' in xiaoming			// true
+'age' in xiaoming			// true
+'sex' in xiaoming			// true
+'nationality' in xiaoming	// true
+```
+
+# 十一、在prototype上添加方法
+
+## 11.1 之前，我们将方法写到了对象身上
+
+在之前的课程中，我们把方法都是直接添加到实例身上：
+
+```javascript
+function People(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+    this.sayHello = function() {	// 方法直接添加到实例身上
+        console.log('我是' + this.name);
+    }
+}
+```
+
+![](https://img-blog.csdnimg.cn/faf93b02816b4912a72ca2f09ad4760a.png)
+
+把方法直接添加到实例身上的缺点：每个实例和每个实例的方法函数都是内存中不同的函数，造成了内存的浪费。
+
+解决办法：将方法写到 prototype 上。
+
+## 11.2 方法要写到 prototype 上
+
+![](https://img-blog.csdnimg.cn/a2ddf61a4d254ed59ee4a5b34b23001a.png)
+
+```javascript
+function People(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}
+
+People.prototype.sayHello = function() {
+    console.log('我是' + this.name);
+}
+
+People.prototype.sleep = function() {
+    console.log(this.name + '开始睡觉.zzzz');
+}
+```
+
+# 11.3 原型链的终点
+
+【原型链的终点】
+
+![](https://img-blog.csdnimg.cn/29344d84587445a3a94a354a95e998d0.png)
+
+【关于数组的原型链】
+
+![](https://img-blog.csdnimg.cn/4605f0ce53db4bf6a87dbb9032487e24.png)
+
