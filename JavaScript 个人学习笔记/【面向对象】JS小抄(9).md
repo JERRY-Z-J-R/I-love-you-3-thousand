@@ -1111,7 +1111,7 @@ People.prototype.sleep = function() {
 }
 ```
 
-# 11.3 原型链的终点
+## 11.3 原型链的终点
 
 【原型链的终点】
 
