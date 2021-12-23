@@ -1,0 +1,64 @@
+{
+  "name": "node-ipc",
+  "version": "9.2.1",
+  "description": "A nodejs module for local and remote Inter Process Communication (IPC), Neural Networking, and able to facilitate machine learning.",
+  "main": "node-ipc.js",
+  "directories": {
+    "example": "example"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "event-pubsub": "4.3.0",
+    "js-message": "1.0.7",
+    "js-queue": "2.0.2"
+  },
+  "devDependencies": {
+    "codacy-coverage": "2.0.0",
+    "istanbul": "0.4.1",
+    "jasmine": "2.4.1",
+    "node-cmd": "2.0.0"
+  },
+  "scripts": {
+    "test-windows": "istanbul cover -x **/spec/** -dir ./spec/coverage ./node_modules/jasmine/bin/jasmine.js",
+    "test": "istanbul cover -x **/spec/** -dir ./spec/coverage jasmine",
+    "cover": "istanbul cover -x **/spec/** -dir ./spec/coverage jasmine",
+    "coverup": "cat ./spec/coverage/lcov.info | codacy-coverage"
+  },
+  "pre-commit": [
+    "cover"
+  ],
+  "keywords": [
+    "IPC",
+    "Neural Networking",
+    "Machine Learning",
+    "inter",
+    "process",
+    "communication",
+    "unix",
+    "windows",
+    "win",
+    "socket",
+    "TCP",
+    "UDP",
+    "domain",
+    "sockets",
+    "threaded",
+    "communication",
+    "multi",
+    "process",
+    "shared",
+    "memory"
+  ],
+  "author": "Brandon Nozaki Miller",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RIAEvangelist/node-ipc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RIAEvangelist/node-ipc/issues"
+  },
+  "homepage": "http://riaevangelist.github.io/node-ipc/"
+}

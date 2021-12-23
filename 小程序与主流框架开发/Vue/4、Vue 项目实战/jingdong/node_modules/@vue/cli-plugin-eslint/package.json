@@ -1,0 +1,38 @@
+{
+  "name": "@vue/cli-plugin-eslint",
+  "version": "4.5.15",
+  "description": "eslint plugin for vue-cli",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/vue-cli.git",
+    "directory": "packages/@vue/cli-plugin-eslint"
+  },
+  "keywords": [
+    "vue",
+    "cli",
+    "eslint"
+  ],
+  "author": "Evan You",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vuejs/vue-cli/issues"
+  },
+  "homepage": "https://github.com/vuejs/vue-cli/tree/dev/packages/@vue/cli-plugin-eslint#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@vue/cli-shared-utils": "^4.5.15",
+    "eslint-loader": "^2.2.1",
+    "globby": "^9.2.0",
+    "inquirer": "^7.1.0",
+    "webpack": "^4.0.0",
+    "yorkie": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^3.0.0 || ^4.0.0-0",
+    "eslint": ">= 1.6.0 < 7.0.0"
+  },
+  "gitHead": "22a8a788e84cacec0c07407214f87a0819399ebf"
+}
