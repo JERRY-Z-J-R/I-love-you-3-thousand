@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 14</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                params: {
+                    a: 123,
+                    b: 456,
+                    c: 789
+                }
+            }
+        },
+        template: `
+            <div><test :="params" /></div>
+            <div><test :a="params.a" :b="params.b" :c="params.c" /></div>
+        `
+    });
+
+    app.component('test', {
+        props: ['a', 'b', 'c'],
+        template: `<div>{{a}}--{{b}}--{{c}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

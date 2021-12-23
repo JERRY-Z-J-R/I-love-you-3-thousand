@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>超市</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="93.2666667%" y1="15.0112444%" x2="-19.625%" y2="82.3627249%" id="linearGradient-1">
+            <stop stop-color="#3A9BF3" offset="0%"></stop>
+            <stop stop-color="#50C7FB" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="20" cy="20" r="20"></circle>
+        <linearGradient x1="95.3707945%" y1="21.3175726%" x2="0%" y2="21.3175726%" id="linearGradient-4">
+            <stop stop-color="#81C7FF" offset="0%"></stop>
+            <stop stop-color="#B6EAFF" offset="100%"></stop>
+        </linearGradient>
+        <text id="text-5" font-family="SourceHanSansCN-Bold, Source Han Sans CN" font-size="13" font-weight="bold" fill="#FFFFFF">
+            <tspan x="7" y="18">超市</tspan>
+        </text>
+        <filter x="-5.8%" y="-19.2%" width="111.5%" height="130.8%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.203944493 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="超市" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-3" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <use id="椭圆形" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+        <rect id="矩形" fill="url(#linearGradient-4)" mask="url(#mask-3)" x="9" y="30" width="22" height="23"></rect>
+        <path d="M12,22 L16,22 L16,31 C16,33.209139 14.209139,35 12,35 L12,35 C9.790861,35 8,33.209139 8,31 L8,26 C8,23.790861 9.790861,22 12,22 Z" id="矩形备份" fill="#FFFFFF" mask="url(#mask-3)"></path>
+        <path d="M16,22 L24,22 L24,30 C24,32.209139 22.209139,34 20,34 L20,34 C17.790861,34 16,32.209139 16,30 L16,22 Z" id="矩形备份-2" fill="#32C5FF" mask="url(#mask-3)"></path>
+        <path d="M24,22 L28,22 C30.209139,22 32,23.790861 32,26 L32,31 C32,33.209139 30.209139,35 28,35 L28,35 C25.790861,35 24,33.209139 24,31 L24,22 Z" id="矩形备份-3" fill="#FFFFFF" mask="url(#mask-3)"></path>
+        <g mask="url(#mask-3)" fill="#FFFFFF" fill-opacity="1">
+            <use filter="url(#filter-6)" xlink:href="#text-5"></use>
+            <use xlink:href="#text-5"></use>
+        </g>
+    </g>
+</svg>

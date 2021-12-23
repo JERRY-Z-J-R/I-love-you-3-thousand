@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>大牌免运</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="87.6512088%" y1="18.9519289%" x2="-19.625%" y2="82.3627249%" id="linearGradient-1">
+            <stop stop-color="#FD609C" offset="0%"></stop>
+            <stop stop-color="#FFB4D4" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="20" cy="20" r="20"></circle>
+        <text id="text-4" font-family="SourceHanSansCN-Bold, Source Han Sans CN" font-size="13" font-weight="bold" fill="#FFFFFF">
+            <tspan x="7" y="18">大牌</tspan>
+        </text>
+        <filter x="-5.8%" y="-11.5%" width="111.5%" height="123.1%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.203944493 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="100%" y1="33.437016%" x2="0%" y2="86.5260553%" id="linearGradient-6">
+            <stop stop-color="#FFFFFF" stop-opacity="0.453398164" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="33.4327331%" x2="0%" y2="86.5355002%" id="linearGradient-7">
+            <stop stop-color="#FFFFFF" stop-opacity="0.453398164" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="大牌免运" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-3" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <use id="椭圆形" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+        <g id="大牌" mask="url(#mask-3)" fill="#FFFFFF" fill-opacity="1">
+            <use filter="url(#filter-5)" xlink:href="#text-4"></use>
+            <use xlink:href="#text-4"></use>
+        </g>
+        <g id="钻石" mask="url(#mask-3)">
+            <g transform="translate(8.000000, 22.000000)">
+                <path d="M0.534977019,6.94291157 L11.5883399,20.6618525 L7.15560972,6.94291157 L0.534977019,6.94291157 Z M8.35681112,6.94291157 L12.2714407,20.6899026 L15.6399196,6.94291157 L8.35681112,6.94291157 Z M12.8670914,20.6618525 L23.5079538,6.94291157 L16.9384711,6.94291157 L12.8670914,20.6618525 Z M19.3392239,0.277728814 L12.9570165,0.277728814 L16.1472952,5.91991038 L19.3392239,0.277728814 Z M15.166369,6.04531053 L11.9760903,0.590404178 L8.78498662,6.04531053 L15.166369,6.04531053 Z M11.0421892,0.277728814 L4.66080682,0.277728814 L7.85191053,5.91991038 L11.0421892,0.277728814 Z" id="形状" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <polygon id="路径" fill="url(#linearGradient-6)" fill-rule="evenodd" points="23.5327038 6.04531053 20.3424251 0.590404178 17.1504964 6.04531053"></polygon>
+                <polygon id="路径" fill="url(#linearGradient-7)" fill-rule="evenodd" points="3.65843065 0.590404178 0.468151941 6.04531053 6.84953437 6.04531053"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

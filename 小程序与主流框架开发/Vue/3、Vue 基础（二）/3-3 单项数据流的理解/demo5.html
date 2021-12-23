@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 14</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 单项数据流的概念：子组件可以使用父组件传递过来的数据，但是绝对不能修改传递过来的数据
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 1
+            }
+        },
+        template: `
+            <div>
+                <counter :count="num" />
+            </div>
+        `
+    });
+
+    app.component('counter', {
+        props: ['count'],
+        template: `<div @click="count += 1">{{count}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

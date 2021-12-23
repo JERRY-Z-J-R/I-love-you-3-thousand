@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>红包</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="93.2666667%" y1="15.0112444%" x2="-19.625%" y2="82.3627249%" id="linearGradient-1">
+            <stop stop-color="#FF4343" offset="0%"></stop>
+            <stop stop-color="#FF7676" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="20" cy="20" r="20"></circle>
+        <linearGradient x1="100%" y1="44.3946904%" x2="69.5311355%" y2="50%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" stop-opacity="0.204873252" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <text id="text-5" font-family="SourceHanSansCN-Bold, Source Han Sans CN" font-size="13" font-weight="bold" fill="#FFFFFF">
+            <tspan x="7" y="18">红包</tspan>
+        </text>
+        <filter x="-5.8%" y="-19.2%" width="111.5%" height="130.8%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.203944493 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="红包" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-3" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <use id="椭圆形" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+        <g id="红包-(1)" mask="url(#mask-3)" fill-rule="nonzero">
+            <g transform="translate(8.000000, 22.000000)" id="路径">
+                <path d="M20.7428813,0 L3.77143296,0 C1.15237411,0 0.523801949,0.733335005 0.523801949,3.56191709 L0.523801949,4.92382426 C2.30475558,5.8666825 4.50475078,7.01906397 7.01903942,7.85716919 C7.75237442,5.65716663 9.74284393,4.08573623 12.2571326,4.08573623 C14.6666584,4.08573623 16.7619079,5.65716663 17.4952257,7.85716919 C20.0095144,7.01907379 22.2095169,5.76192947 23.9904632,4.8190786 L23.9904632,3.56193428 C23.9904632,0.733359559 23.361891,1.718752e-05 20.7428322,1.718752e-05 L20.7428813,0 Z" fill="url(#linearGradient-4)"></path>
+                <path d="M12.2571571,14.876216 C9.32381219,14.876216 7.01906397,12.6762134 6.80952355,9.84763869 C4.50475814,9.11430369 2.40951843,8.06668506 0.523801949,7.22857984 L0.523801949,22.1047958 C0.523801949,24.9333705 1.15237411,25.1428864 3.77143296,25.1428864 L20.7428813,25.1428864 C23.4666858,25.1428864 23.9905123,24.9333624 23.9905123,22.1047958 L23.9905123,7.12383418 C22.1047958,8.06669242 20.0095635,9.11431351 17.7047907,9.84763869 C17.6000286,12.6762134 15.1905021,14.876216 12.2571571,14.876216 Z" fill="#FFFFFF"></path>
+                <path d="M13.6190717,5.86666531 L12.5714506,8.38095395 C12.4666885,8.59047792 12.3619266,8.80000287 12.3619266,8.90476326 L11.0000194,5.86667267 L9.32382618,5.86666531 L11.2095427,9.11430369 L9.74287511,9.11430369 L9.74287511,10.0571619 L11.4190684,10.0571619 L11.4190684,10.8952573 L9.74287511,10.8952573 L9.74287511,11.8381156 L11.4190684,11.8381156 L11.4190684,13.2000227 L12.9904988,13.2000227 L12.9904988,11.8381156 L14.666692,11.8381156 L14.666692,10.8952573 L12.9904988,10.8952573 L12.9904988,10.0571619 L14.666692,10.0571619 L14.666692,9.11430369 L13.3047848,9.11430369 L15.1905013,5.86666531 L13.6190709,5.86667267 L13.6190717,5.86666531 Z" fill="#FF0303"></path>
+            </g>
+        </g>
+        <g mask="url(#mask-3)" fill="#FFFFFF" fill-opacity="1">
+            <use filter="url(#filter-6)" xlink:href="#text-5"></use>
+            <use xlink:href="#text-5"></use>
+        </g>
+    </g>
+</svg>
