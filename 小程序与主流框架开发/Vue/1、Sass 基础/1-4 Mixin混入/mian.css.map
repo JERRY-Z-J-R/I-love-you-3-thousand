@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAkBA,AAAA,KAAK,CAAC;EChBF,KAAK,EDiBwB,KAAK;EChBlC,QAAQ,EAAE,MAAM;EAChB,WAAW,EAAE,MAAM;EACnB,aAAa,EAAE,QAAQ;CDe1B;;AAED,AAAA,aAAa,CAAC;ECpBV,KAAK,EDqBwB,MAAM;ECpBnC,QAAQ,EAAE,MAAM;EAChB,WAAW,EAAE,MAAM;EACnB,aAAa,EAAE,QAAQ;CDmB1B",
+    "sources": [
+        "mian.scss",
+        "_mixin.scss"
+    ],
+    "names": [],
+    "file": "mian.css"
+}

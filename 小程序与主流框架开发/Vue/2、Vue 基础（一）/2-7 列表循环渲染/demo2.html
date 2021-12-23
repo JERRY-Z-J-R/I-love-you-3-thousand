@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 11</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['dell', 'lee', 'teacher'],
+                listObject: {
+                    firstName: 'dell',
+                    lastName: 'lee',
+                    job: 'teacher'
+                }
+            }
+        },
+        template: `
+            <!-- 第一个参数：值，第二个参数：键，第三个参数：索引（与命名无关） -->
+            <div v-for="(value, key, index) in listObject">
+                {{value}} -- {{key}}  -- {{index}}
+            </div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

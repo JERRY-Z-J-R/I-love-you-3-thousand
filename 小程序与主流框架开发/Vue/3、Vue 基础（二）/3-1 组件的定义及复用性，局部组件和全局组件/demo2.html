@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 12</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        // 根组件：<div></div>
+        template: `
+            <div>
+                <!-- 组件具有复用性，复用的组件的数据是各自独立的而不是共用的 -->
+                <counter />
+                <counter />
+                <counter />
+                <counter />
+            </div>
+        `
+    });
+
+    // 子组件
+    app.component('counter', {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

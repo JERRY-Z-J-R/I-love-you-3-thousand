@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 13</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 动态传参
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 123
+            }
+        },
+        template: `
+            <!-- 调用组件时传值的方法 -->
+            <div><test v-bind:content="num" /></div>
+        `
+    });
+
+    app.component('test', {
+        // 传值效验
+        // 会在控制台发出警告
+        props: {
+            // 校验 content 的值是否为 String，其他的还有：Boolean, Array, Object, Function, Symbol...
+            content: String
+        },
+        template: `<div>{{typeof content}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

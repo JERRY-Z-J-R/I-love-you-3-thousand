@@ -1,0 +1,12 @@
+.banner span {
+  color: red;
+}
+
+.banner span:active {
+  color: green;
+}
+
+.banner span:hover {
+  color: blue;
+}
+/*# sourceMappingURL=demo1.css.map */

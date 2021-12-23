@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAKA,AAAA,OAAO,CAAC;EACJ,SAAS,ECHD,IAAI;EDIZ,KAAK,ECND,GAAG;CDOV;;AAED,AAAA,QAAQ,CAAC;EACL,KAAK,ECTO,MAAM;CDUrB",
+    "sources": [
+        "demo1.scss",
+        "_viriables.scss"
+    ],
+    "names": [],
+    "file": "demo1.css"
+}

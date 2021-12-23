@@ -1,0 +1,33 @@
+// Sass 语法兼容 CSS 标准语法
+.header {
+    font-size: 12px;
+}
+
+// ---------------------------
+
+// Sass 的语法
+.header {
+    span {
+        color: red;
+    }
+
+    span:active {
+        color: green;
+    }
+
+    span:hover {
+        color: blue;
+    }
+}
+
+.banner {
+    span {
+        color: red;
+        &:active {
+            color: green;
+        }
+        &:hover {
+            color: blue;
+        }
+    }
+}

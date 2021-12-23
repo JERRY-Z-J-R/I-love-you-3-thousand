@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 13</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 动态传参
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 123
+            }
+        },
+        template: `
+            <!-- 调用组件时传值的方法 -->
+            <div><test v-bind:content="num" /></div>
+        `
+    });
+
+    app.component('test', {
+        // 接收传递过来的值
+        props: ['content'],
+        // 使用接收到的值
+        // 要传递其他类型的数据请使用动态传参
+        template: `<div>{{typeof content}}</div>` // number
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

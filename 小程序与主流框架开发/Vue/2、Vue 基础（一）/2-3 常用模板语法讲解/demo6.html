@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 7</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: "hello world"
+            }
+        },
+        // 支持 JS 表达式，但不支持 JS 语句！
+        template: `
+        <div>{{'a' + 'b'}}</div>
+        <div>{{Math.max(1, 2)}}</div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+
+</html>

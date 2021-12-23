@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp：创建一个 Vue 实例
+    Vue.createApp({
+        // data：数据
+        data() {
+            return {
+                inputValue: '',
+                list: []
+            }
+        },
+        methods: {
+            handleAddItem() {
+                this.list.push(this.inputValue);
+                // 点击增加按钮后，清空输入框
+                this.inputValue = '';
+            }
+        },
+        // template：模板
+        // content：内容
+        // v-model=""：双向数据绑定，input 输入框内容与 inputValue 内容双向绑定
+        template: ` 
+            <div>
+                <input v-model="inputValue" />
+                <button v-on:click="handleAddItem">增加</button>
+                <ul>
+                    <li v-for="(item, index) of list">{{item}} {{index}}</li>
+                </ul>
+            </div>
+        `
+    }).mount('#root'); // mount：挂载
+</script>
+
+</html>

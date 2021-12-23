@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp：创建一个 Vue 实例
+    Vue.createApp({
+        // data：数据
+        data() {
+            return {
+                content: 1
+            }
+        },
+        // mounted：骑乘状态，表示当页面加载成功后会自动执行
+        mounted() {
+            // 设置定时器
+            setInterval(() => {
+                this.content += 1;
+                // this.$data.content += 1;  // 与上一行代码作用相同
+            }, 1000)
+        },
+        // 从以上例子可以看出，Vue 将对 DOM 的操作转换成为了对 数据 的操作
+        // template：模板
+        // content：内容
+        template: `<div>{{content}}</div>`
+    }).mount('#root'); // mount：挂载
+</script>
+
+</html>

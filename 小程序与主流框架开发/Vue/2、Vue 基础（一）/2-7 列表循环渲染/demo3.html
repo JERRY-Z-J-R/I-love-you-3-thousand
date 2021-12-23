@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 11</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['dell', 'lee', 'teacher'],
+                listObject: {
+                    firstName: 'dell',
+                    lastName: 'lee',
+                    job: 'teacher'
+                }
+            }
+        },
+        methods: {
+            handleAddBtnClick() {
+                // 使用数组的变更函数 push，其他的还有：pop, shift, unshift...
+                this.listArray.push('hello')
+            }
+        },
+        template: `
+        <div>
+            <div v-for="(item, index) in listArray">
+                {{item}} -- {{index}}
+            </div>
+            <button @click="handleAddBtnClick">新增</button>
+        </div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

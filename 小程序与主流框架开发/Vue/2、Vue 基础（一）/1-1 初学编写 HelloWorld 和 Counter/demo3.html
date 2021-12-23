@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp：创建一个 Vue 实例
+    Vue.createApp({
+        // data：数据
+        data() {
+            return {
+                content: 1
+            }
+        },
+        // mounted：骑乘状态，表示当页面加载成功后会自动执行
+        mounted() {
+            console.log('mounted');
+        },
+        // template：模板
+        // content：内容
+        template: `<div>{{content}}</div>`
+    }).mount('#root'); // mount：挂载
+</script>
+
+</html>

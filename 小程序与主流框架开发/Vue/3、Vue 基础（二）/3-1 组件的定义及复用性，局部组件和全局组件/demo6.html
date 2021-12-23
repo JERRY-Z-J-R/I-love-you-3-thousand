@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 12</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 局部组件（要放置在调用位置之前）
+    const counter = {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    }
+
+    const app = Vue.createApp({
+        components: {
+            // 形式组件名: 实际组件名
+            // 使用默认原名称时可以直接列出实际组件名
+            counter,
+            'counter': counter,
+            'dell': counter
+        },
+        template: `
+            <div>
+                <counter />
+                <dell />
+            </div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 12</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 局部组件（要放置在调用位置之前）
+    // 局部组件一定要使用驼峰命名法且首字母也推荐为大写
+    const Counter = {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    }
+
+    // 局部组件一定要使用驼峰命名法且首字母也推荐为大写
+    const HelloWorld = {
+        template: `<div>hello world</div>`
+    }
+
+    const app = Vue.createApp({
+        components: {
+            // 形式组件名: 实际组件名
+            // 使用默认原名称时可以直接列出实际组件名
+            // 局部组件，定义了要注册之后才能使用，性能比较高，使用起来比较简单，名字建议小写字母单词，中间用短横线连接
+            // 局部组价使用时，要做一个名字和组件间的映射对象，不写映射，Vue 也会自动帮你做映射，只不过名字便默认相同
+            counter: Counter,
+            'hello-world': HelloWorld
+        },
+        template: `
+            <div>
+                <counter />
+                <hello-world />
+            </div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

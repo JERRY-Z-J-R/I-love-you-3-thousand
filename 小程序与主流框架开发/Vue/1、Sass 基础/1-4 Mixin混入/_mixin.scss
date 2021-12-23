@@ -1,0 +1,7 @@
+// mixin 实现部分内容的共用
+@mixin singleline-ellipsis($width) {
+    width: $width;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+};

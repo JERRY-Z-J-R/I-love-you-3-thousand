@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 13</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 静态传参
+    const app = Vue.createApp({
+        template: `
+            <!-- 调用组件时传值的方法 -->
+            <div><test content="123" /></div>
+        `
+    });
+
+    app.component('test', {
+        // 接收传递过来的值
+        props: ['content'],
+        // 使用接收到的值
+        // 此种方法（静态传参）传递的都是 string 类型
+        template: `<div>{{typeof content}}</div>` // string
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 12</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        // 根组件：<div></div>
+        template: `
+            <div>
+                <hello />
+                <world />
+            </div>
+        `
+    });
+
+    // 子组件1：<div>hello</div>
+    app.component('hello', {
+        template: `<div>hello</div>`
+    })
+
+    // 子组件2：<div>world</div>
+    app.component('world', {
+        template: `<div>world</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

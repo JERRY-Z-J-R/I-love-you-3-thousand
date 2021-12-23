@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 9</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .yellow {
+            color: yellow;
+        }
+    </style>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                classString: 'red',
+                // 对象方式
+                classObject: {
+                    red: false,
+                    green: true
+                },
+                // 数组方式
+                classArray: ['red', 'green', {
+                    red: false,
+                    yellow: true
+                }]
+            }
+        },
+        template: `
+        <div :class="classString">Hello World</div>
+        <div :class="classObject">Hello World</div>
+        <div :class="classArray">Hello World</div>
+       `
+    });
+    const vm = app.mount('#root');
+</script>
+
+</html>

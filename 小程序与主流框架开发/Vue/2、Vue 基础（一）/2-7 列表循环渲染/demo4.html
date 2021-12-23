@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 11</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['dell', 'lee', 'teacher'],
+                listObject: {
+                    firstName: 'dell',
+                    lastName: 'lee',
+                    job: 'teacher'
+                }
+            }
+        },
+        methods: {
+            handleAddBtnClick() {
+                // 使用数组的变更函数 push，其他的还有：pop, shift, unshift...
+                this.listArray.push('hello')
+            }
+        },
+        // 在列表循环渲染中，当列表有新项加入时， Vue 会自主判断原来的元素有没有变需不需要重新渲染，从而达到只需要渲染新的部分
+        // 这样便可以大大提高页面的性能，但是 Vue 也不是万能的，很多时候 Vue 不能明确的知道某个元素是否需要重新渲染，
+        // 所以，我们最好在 v-for 中加入一个 key 值，用唯一的事物标记 Key 值，比如此处由于 index 是唯一的，所以可以用 index 来充当 key
+        template: `
+        <div>
+            <div v-for="(item, index) in listArray" :key="index">
+                {{item}} -- {{index}}
+            </div>
+            <button @click="handleAddBtnClick">新增</button>
+        </div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+
+</html>

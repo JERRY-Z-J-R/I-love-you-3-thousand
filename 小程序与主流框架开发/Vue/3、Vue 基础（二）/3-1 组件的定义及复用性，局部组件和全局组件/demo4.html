@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 12</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+<body>
+    <div id="root"></div>
+</body>
+</head>
+
+<body>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        template: `
+            <div>
+                hello world
+            </div>
+        `
+    });
+
+    // 全局组件只要定义了，即便在根组件中没有调用，但是依旧会挂载进去，造成浪费性能，但是使用起来简单
+    app.component('counter-parent', {
+        template: `<counter />`
+    })
+
+    app.component('counter', {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+
+</html>
