@@ -10,10 +10,37 @@
 </head>
 
 <body>
-    <div id="root"></div>
+    <!-- 
+        MVVM模型
+            1、M：模型（Model）：data 中的数据
+            2、V：视图（View）：模板代码
+            3、VM：视图模型（ViewModel）：Vue 实例
+        观察发现：
+            1、data 中所有的属性，最后都出现在了 vm 身上
+            2、vm 身上所有的属性及 Vue 原型上所有属性，在 Vue 模板中都可以直接使用
+    -->
+    <div id="root">
+        <h1>学校名称：{{name}}</h1>
+        <h1>学校地址：{{address}}</h1>
+        <!-- 
+        <h1>测试一下1：{{1+1}}</h1>
+        <h1>测试一下2：{{$options}}</h1>
+        <h1>测试一下3：{{$emit}}</h1>
+        <h1>测试一下4：{{_c}}</h1>
+        -->
+    </div>
 </body>
 <script>
+    Vue.config.productionTip = false
 
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '尚硅谷',
+            address: '北京'
+        }
+    })
+    console.log(vm)
 </script>
 
 </html>
