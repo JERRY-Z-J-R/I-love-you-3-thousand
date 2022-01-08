@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello小案例</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        1、想让 Vue 工作，就必须首先创建一个 Vue 实例，且要传入一个配置对象（即：参数是一个对象）。
+        2、root 容器里的代码依然符合 HTML 规范，只不过混入了一些特殊的 Vue 语法，例如：插值表达式 {{}}。
+        3、root 容器里的代码被称为【 Vue模板 】 
+    -->
+
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h1>Hello, {{name}}</h1>
+    </div>
+</body>
+
+<script>
+    // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    Vue.config.productionTip = false;
+
+    // 创建 Vue 实例
+    new Vue({
+        // el: 指 Element “元素”，用于指定当期 Vue 实例为哪个容器服务，值通常为 css 选择器字符串。
+        // 之所以说通常是因为还可以这样写（不推荐）  el: document.getElementById('root')
+        // 注意由于上面容器中为 id，若为 class 的话那么应该写为  el: '.root'
+        el: '#root',
+
+        // data 中用于存储数据，数据仅供 el 所指定的容器使用，其值占时先写成一个对象，但在实际项目中还有更科学的替代方式。
+        data: {
+            name: 'Jerry'
+        }
+    })
+</script>
+
+</html>

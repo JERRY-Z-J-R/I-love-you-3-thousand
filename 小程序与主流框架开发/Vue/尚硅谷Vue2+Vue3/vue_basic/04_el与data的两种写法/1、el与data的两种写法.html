@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>el与data的两种写法</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        data 与 el 的 2 种写法：
+            1、el 有 2 种写法
+                （1）new Vue 的时候配置 el 属性
+                （2）先创建 Vue 实例，随后再通过 vm.$mount('#root') 挂载 el 的值。
+            2、data 有 2 种写法
+                （1）对象式
+                （2）函数式
+                如何选择：目前哪种写法都可以，以后学习到组件时，data 必须使用函数式，否则会报错。
+            3、一个重要的原则：
+                由 Vue 管理的函数，一定不要写箭头函数，一但写了箭头函数，this 就不再是 Vue 实例了。
+    -->
+
+    <div id="root">
+        <h1>你好，{{name}}</h1>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+
+        const v = new Vue({
+            // el: '#root',  el的第一种写法
+
+            /*
+            data 的第一种写法：对象式
+            data: {
+                name: 'Jerry'
+            }
+            */
+
+            // data 的第二种写法：函数式
+            data: function () {
+                // 这个函数式 Vue 实例帮我们自动调用的
+                console.log(this) // this 为 Vue 实例对象
+                return {
+                    name: 'Jerry'
+                }
+            }
+
+            // 不能以箭头函数的方式写，因为箭头函数没有自己的 this，只能往外找，所以此处的 this 是 Window
+            // 目前还感受不到这样写的影响，但是后面随着学习的深入就会出现特别严重的问题
+            // data: () => {
+            //     console.log(this)
+            //     return {
+            //         name: 'Jerry'
+            //     }
+            // }
+        })
+        v.$mount('#root') // el的第二种写法，mount：挂载
+    </script>
+</body>
+
+</html>
