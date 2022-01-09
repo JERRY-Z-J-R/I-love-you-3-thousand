@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰符</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        * {
+            margin-top: 20px;
+        }
+
+        .demo1 {
+            height: 50px;
+            background-color: skyblue;
+        }
+
+        .box1 {
+            padding: 5px;
+            background-color: skyblue;
+        }
+
+        .box2 {
+            padding: 5px;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <!--     
+        Vue 中的事件修饰符：
+            1、prevent：阻止默认事件（常用）
+            2、stop：阻止事件冒泡（常用）
+            3、once：事件只触发一次（常用）
+            4、capture：使用事件捕获模式
+            5、self：只有 event.target 是当前操作的元素是才触发事件
+            6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+    -->
+    <div id="root">
+        <h2>欢迎来到{{name}}学习</h2>
+        <!-- <a href="http://www.atguigu.com" @click="showInfo">点我提示信息</a> -->
+        <!-- 设置事件修饰符：prevent 阻止默认事件（常用） -->
+        <a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+        <!-- stop 阻止事件冒泡（常用） -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">点我提示信息</button>
+        </div>
+        <!-- once 事件只触发一次（常用） -->
+        <button @click.once="showInfo">点我提示信息</button>
+        <!-- capture 事件捕获模式 -->
+        <div class="box1" @click.capture="showMsg(1)">
+            div1
+            <div class="box2" @click="showMsg(2)">
+                div2
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    Vue.config.productionTip = false
+
+    new Vue({
+        el: '#root',
+        data: {
+            name: '尚硅谷'
+        },
+        methods: {
+            showInfo(event) {
+                // event.preventDefault()    // 阻止默认行为，当然可以利用事件修饰符在模板中设置
+                // event.stopPropagation()   // 组织事件冒泡
+                alert('同学你好！')
+            },
+            showMsg(msg) {
+                console.log(msg)
+            }
+        }
+    })
+</script>
+
+</html>

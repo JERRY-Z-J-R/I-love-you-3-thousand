@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回顾Object.defineProperty方法</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    let number = 18
+    let person = {
+        name: '张三',
+        sex: '男'
+    }
+
+    // 向 person 对象中增加 age: 18 属性
+    Object.defineProperty(person, 'age', {
+        // value: 18,           // 直接指定值
+        // enumerable: true,    // 可枚举的，默认值是 false
+        // writable: true,      // 可修改的，默认值是 false  
+        // configurable: true,  // 可删除的，默认值为 false
+
+        // 当读取 person 的 age 属性时，get 函数（getter）就会被调用，且返回值就是 age 的值。
+        get() {
+            console.log('getter被调用！')
+            return number
+        },
+
+        // 当修改 person 的 age 属性时，set 函数（setter）就会被调用，且会收到修改的具体值。
+        set(value) {
+            console.log('有人修改了age属性，且值是：', value)
+            number = value
+        }
+    })
+
+    console.log(person)
+    // {name: "张三", sex: "男", age: 18}
+
+    // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable
+    console.log(Object.keys(person))
+    // ["name", "sex"]
+
+    // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable
+    for (let key in person) {
+        console.log(key)
+    }
+    // name 
+    // sex
+</script>
+
+</html>

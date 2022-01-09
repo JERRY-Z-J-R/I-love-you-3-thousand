@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>何为数据代理</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // 数据代理：通过一个对象代理另一个对象中属性的操作（读/写）
+    let obj = {
+        x: 100
+    }
+
+    let obj2 = {
+        y: 200
+    }
+
+    Object.defineProperty(obj2, 'x', {
+        get() {
+            return obj.x
+        },
+        set(value) {
+            obj.x = value
+        }
+    })
+</script>
+
+</html>
