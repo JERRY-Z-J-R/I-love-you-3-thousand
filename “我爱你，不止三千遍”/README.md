@@ -12,7 +12,7 @@ git clone https://github.com/JERRY-Z-J-R/I-love-you-3-thousand.git
 
 推荐将项目克隆到本地并使用 `Typora` 的 `zj` 主题阅读，这样做的优点有：
 
-- 无需连接网络，随时随地访问。
+- 无需连接网络，随时随地查看。
 - 根据个人需要，随时随地修改。
 
 - 图片存储在本地，不存在加载延迟。
