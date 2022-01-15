@@ -1,4 +1,4 @@
-# 【CSS盒子模型】前端小抄(6)
+# 【CSS盒子模型】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
@@ -10,7 +10,7 @@
 
 网页布局过程：
 
-- 先准备好相关的网页元素，网页元素基本都是盒子 Box 
+- 先准备好相关的网页元素，网页元素基本都是盒子
 
 - 利用 CSS 设置好盒子样式，然后摆放到相应位置
 
@@ -23,7 +23,7 @@
 所谓盒子模型：就是把 HTML 页面中的布局元素看作是一个矩形的盒子，也就是一个盛装内容的容器。
 CSS 盒子模型本质上是一个盒子，封装周围的 HTML 元素，它包括：`边框`、`外边距`、`内边距`、和 `内容`。
 
-![](https://img-blog.csdnimg.cn/20210406122442654.png)
+![](mark-img/20210406122442654.png)
 
 # 三、边框（border）
 
@@ -99,7 +99,7 @@ border-top: 1px solid red; 		/* 只设定上边框，其余同理 */
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406123444188.jpg)
+![](mark-img/20210406123444188.jpg)
 
 ## 3.1 表格的细线边框
 
@@ -205,7 +205,7 @@ border-top: 1px solid red; 		/* 只设定上边框，其余同理 */
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406124207893.jpg)
+![](mark-img/image-20220116025240291.png)
 
 border-collapse 属性控制浏览器绘制表格边框的方式。
 
@@ -232,7 +232,7 @@ border-collapse: collapse;
 	}
 ```
 
-![](https://img-blog.csdnimg.cn/20210406124207886.jpg)
+![](mark-img/image-20220116025315666.png)
 
 ## 3.2 边框会影响盒子实际大小
 
@@ -270,7 +270,7 @@ border-collapse: collapse;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406125405658.gif)
+![](mark-img/20210406125405658.gif)
 
 # 四、内边距（padding）
 
@@ -334,7 +334,7 @@ padding 属性（简写属性）可以有一到四个值。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/00914ec7f1e04382af64f589013d6d59.png)
+![](mark-img/00914ec7f1e04382af64f589013d6d59.png)
 
 ```html
 <!DOCTYPE html>
@@ -362,7 +362,7 @@ padding 属性（简写属性）可以有一到四个值。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/6d3ff73d65154f358ba03b447f9daec8.png)
+![](mark-img/6d3ff73d65154f358ba03b447f9daec8.png)
 
 案例：
 
@@ -390,6 +390,7 @@ padding 属性（简写属性）可以有一到四个值。
             padding: 5px 10px 20px 30px;
             /* 由于在对盒子指定高宽后，padding 会撑大盒子 */
             /* 所以，此时盒子大小为：240*225 */
+            /* 注意：这里的“盒子大小”指的是盒子所占据的大小，盒子真实的 width 和 height 依旧是 200px */
         }
     </style>
 </head>
@@ -405,7 +406,7 @@ padding 属性（简写属性）可以有一到四个值。
 
 padding 的使用技巧：
 
-![](https://img-blog.csdnimg.cn/20210406131156754.jpg)
+![](mark-img/20210406131156754.jpg)
 
 ```html
 <!DOCTYPE html>
@@ -459,7 +460,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406131403183.gif)
+![](mark-img/20210406131403183.gif)
 
 ```html
 <!DOCTYPE html>
@@ -506,7 +507,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406132137553.gif)
+![](mark-img/20210406132137553.gif)
 
 # 五、外边距（margin）
 
@@ -525,7 +526,7 @@ padding 的使用技巧：
 
 外边距可以让块级盒子水平居中，但是必须满足两个条件：
 
-- 盒子必须指定了宽度（width）
+- 盒子必须指定了宽度 `width`
 - 盒子左右的外边距都设置为 `auto`
 
 ```css
@@ -578,7 +579,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406133231459.jpg)
+![](mark-img/20210406133231459.jpg)
 
 ```html
 <!DOCTYPE html>
@@ -607,7 +608,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406133231524.jpg)
+![](mark-img/20210406133231524.jpg)
 
 ```html
 <!DOCTYPE html>
@@ -649,7 +650,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406133231531.jpg)
+![](mark-img/20210406133231531.jpg)
 
 ## 5.1 外边距合并
 
@@ -666,9 +667,9 @@ padding 的使用技巧：
 
 当上下相邻的两个块元素（兄弟关系）相遇时，如果上面的元素有下外边距 `margin-bottom`，下面的元素有上外边距 `margin-top` ，则他们之间的垂直间距不是 `margin-bottom` 与 `margin-top` 之和。而是取两个值中的较大者，这种现象被称为相邻块元素垂直外边距的合并（准确的描述应该是：大的外边距覆盖小的）。
 
-![](https://img-blog.csdnimg.cn/20210406134634404.jpg)
+![](mark-img/20210406134634404.jpg)
 
-![](https://img-blog.csdnimg.cn/20210412112840415.jpg)
+![](mark-img/20210412112840415.jpg)
 
 **解决方案：**
 
@@ -708,15 +709,15 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210410205508662.gif)
+![](mark-img/20210410205508662.gif)
 
 ### 5.1.2 嵌套块元素垂直外边距的塌陷
 
-对于两个嵌套关系（父子关系）的块元素，父元素有上外边距同时子元素也有上外边距，此时父元素会塌陷较大的外边距值（外边距效果显示在父元素之上）。
+对于两个嵌套关系（父子关系）的块元素，当子元素有上外边距，此时父元素会塌陷较大的外边距值（外边距效果显示在父元素之上）。
 
-![](https://img-blog.csdnimg.cn/20210406134634298.jpg)
+![](mark-img/image-20220116024700165.png)
 
-![](https://img-blog.csdnimg.cn/20210412112840510.jpg)
+![](mark-img/20210412112840510.jpg)
 
 **解决方案：**
 
@@ -763,7 +764,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210410205223833.gif)
+![](mark-img/20210410205223833.gif)
 
 ---
 
@@ -804,7 +805,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406134634343.jpg)
+<img src="mark-img/20210406134634343-164227252890423.jpg" style="zoom:50%;" />
 
 **注意：外边距的合并在利用盒子布局页面的时候是经常发生的！**
 
@@ -823,7 +824,7 @@ padding 的使用技巧：
 
 # 七、案例
 
-![](https://img-blog.csdnimg.cn/20210406135403826.jpg)
+![](mark-img/20210406135403826.jpg)
 
 ```html
 <!DOCTYPE html>
@@ -911,6 +912,7 @@ padding 的使用技巧：
         <div class="appraise">来自于 117384232 的评价</div>
         <div class="info">
             <h4> <a href="#">Redmi AirDots真无线蓝...</a></h4>
+            <!-- 特殊元素可以用 em 包裹 -->
             <em>|</em>
             <span> 99.9元</span>
         </div>
@@ -920,7 +922,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406135403703.jpg)
+<img src="mark-img/20210406135403703.jpg" style="zoom:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -999,9 +1001,9 @@ padding 的使用技巧：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210406135403715.gif)
+![](mark-img/20210406135403715.gif)
 
-# 八、Pink老师总结
+# 八、总结
 
 ### a、布局为啥用不同盒子，我只想用 div？
 
