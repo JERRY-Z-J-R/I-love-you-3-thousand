@@ -1,4 +1,4 @@
-# 【CSS精灵图、字体图标、三角、鼠标样式、用户界面样式、溢出省略号】前端小抄(11)
+# 【CSS精灵图、字体图标、三角、鼠标样式、用户界面样式、溢出省略号】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
@@ -35,7 +35,7 @@ CSS Sprites、CSS 雪碧）。
 
 【王者荣耀案例】
 
-![](https://img-blog.csdnimg.cn/20210420081150387.png)
+![](mark-img/20210420081150387.png)
 
 ```html
 <!DOCTYPE html>
@@ -78,7 +78,7 @@ CSS Sprites、CSS 雪碧）。
 
 ## 1.3 案例：拼单词
 
-<img src="https://img-blog.csdnimg.cn/20210420081150457.jpg" style="zoom:67%;" />
+<img src="mark-img/20210420081150457.jpg" style="zoom:67%;" />
 
 ```html
 <!DOCTYPE html>
@@ -135,17 +135,17 @@ CSS Sprites、CSS 雪碧）。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420083302981.png)
+![](mark-img/20210420083302981.png)
 
 【PS 切片工具的使用】
 
-<img src="https://img-blog.csdnimg.cn/20210424224831926.png" style="zoom: 50%;" />
+<img src="mark-img/20210424224831926.png" style="zoom: 50%;" />
 
-![](https://img-blog.csdnimg.cn/8141d1fc65ba4b31acfc903b948a09a8.png)
+![](mark-img/8141d1fc65ba4b31acfc903b948a09a8.png)
 
-![](https://img-blog.csdnimg.cn/b9b0bf21c37a40a6a37a09f759218c16.png)
+![](mark-img/b9b0bf21c37a40a6a37a09f759218c16.png)
 
-![](https://img-blog.csdnimg.cn/d8fea6eba89048dfb6cf0421f620d04e.png)
+![](mark-img/d8fea6eba89048dfb6cf0421f620d04e.png)
 
 # 二、字体图标
 
@@ -289,13 +289,13 @@ span {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420093539188.png)
+![](mark-img/20210420093539188.png)
 
 # 三、CSS三角
 
 网页中常见一些三角形，使用 CSS 直接画出来就可以，不必做成图片或者字体图标。
 
-![](https://img-blog.csdnimg.cn/20210420102851826.png)
+![](mark-img/20210420102851826.png)
 
 CSS 三角是怎么来的？原理如下：
 
@@ -368,7 +368,7 @@ CSS 三角是怎么来的？原理如下：
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420104336278.png)
+![](mark-img/20210420104336278.png)
 
 # 四、CSS用户界面样式
 
@@ -422,7 +422,7 @@ li { cursor: pointer; }
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/2021042011003289.gif)
+![](mark-img/2021042011003289.gif)
 
 ## 4.3 轮廓线 outline
 
@@ -434,7 +434,7 @@ input { outline: none; }
 
 默认样式：
 
-![](https://img-blog.csdnimg.cn/20210420111135354.gif)
+![](mark-img/20210420111135354.gif)
 
 修改后样式：
 
@@ -463,7 +463,7 @@ input { outline: none; }
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420111315285.gif)
+![](mark-img/20210420111315285.gif)
 
 ## 4.4 防止拖拽文本域 resize
 
@@ -475,7 +475,7 @@ textarea { resize: none; }
 
 默认样式：
 
-![](https://img-blog.csdnimg.cn/2021042011203862.gif)
+![](mark-img/2021042011203862.gif)
 
 修改后样式：
 
@@ -508,7 +508,7 @@ textarea { resize: none; }
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/202104201120370.gif)
+![](mark-img/202104201120370.gif)
 
 # 五、vertical-align 属性应用
 
@@ -529,7 +529,7 @@ vertical-align: baseline | top | middle | bottom
 | `middle`   | 把此元素放置在父元素的中部             |
 | `bottom`   | 把元素的顶端与行中最低的元素的顶端对齐 |
 
-![](https://img-blog.csdnimg.cn/20210420124542850.png)
+![](mark-img/20210420124542850.png)
 
 ## 5.1 图片、表单和文字对齐
 
@@ -668,7 +668,7 @@ text-overflow: ellipsis;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420132753998.png)
+![](mark-img/20210420132753998.png)
 
 ## 6.2 多行文本溢出省略号显示
 
@@ -728,7 +728,3 @@ display: -webkit-box;
 Chrome 浏览器效果：
 
 ![](https://img-blog.csdnimg.cn/20210420132822674.png)
-
-IE 浏览器效果：
-
-![](C:\Users\JERRY\AppData\Roaming\Typora\typora-user-images\image-20210420133559237.png)

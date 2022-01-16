@@ -1,4 +1,4 @@
-# 【CSS定位】前端小抄(10)
+# 【CSS定位】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
@@ -123,7 +123,7 @@
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/2021041022482559.gif" style="zoom:50%;" />
+<img src="mark-img/2021041022482559.gif" style="zoom:50%;" />
 
 ## 1.5 绝对定位 absolute（重要）
 
@@ -139,7 +139,7 @@
 
 1. 如果没有祖先元素或者祖先元素没有定位，则以浏览器为准定位（Document 文档）
 2. 如果祖先元素有定位（相对、绝对、固定定位），则以最近一级的有定位祖先元素为参考点移动位置
-3. 绝对定位不再占有原先的位置（脱标），并且脱标的程度大于浮动
+3. 绝对定位不再占有原先的位置（脱标），并且脱标的程度大于浮动（会压住浮动）
 
 所以绝对定位是脱离标准流的。
 
@@ -178,13 +178,12 @@
     <div class="father">
         <div class="son"></div>
     </div>
-
 </body>
 
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210410225323359.gif" style="zoom:50%;" />
+<img src="mark-img/20210410225323359.gif" style="zoom:50%;" />
 
 ---
 
@@ -204,7 +203,7 @@
             height: 500px;
             background-color: skyblue;
         }
-
+        
         .son {
             position: absolute;
             /* top: 10px;
@@ -224,13 +223,12 @@
     <div class="father">
         <div class="son"></div>
     </div>
-
 </body>
 
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210410225829682.gif" style="zoom:50%;" />
+<img src="mark-img/20210410225829682.gif" style="zoom:50%;" />
 
 ---
 
@@ -255,7 +253,6 @@
         }
 
         .father {
-
             width: 500px;
             height: 500px;
             background-color: skyblue;
@@ -278,14 +275,12 @@
             <div class="son"></div>
         </div>
     </div>
-
-
 </body>
 
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210410230310223.gif" style="zoom:50%;" />
+<img src="mark-img/20210410230310223.gif" style="zoom:50%;" />
 
 ---
 
@@ -334,7 +329,7 @@
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210410231150803.gif" style="zoom:50%;" />
+<img src="mark-img/20210410231150803.gif" style="zoom:50%;" />
 
 **问题：**
 
@@ -347,9 +342,9 @@
 
 这个 “子绝父相” 太重要了，是我们学习定位的口诀，是定位中最常用的一种方式这句话的意思是：子级是绝对定位的话，父级要用相对定位。
 
-1. 子级绝对定位，不会占有位置，可以放到父盒子里面的任何一个地方，不会影响其他的兄弟盒子
-2. 父盒子需要加定位限制子盒子在父盒子内显示
-3. 父盒子布局时，需要占有位置，因此父亲只能是相对定位
+1. **子级绝对定位，不会占有位置，可以放到父盒子里面的任何一个地方，不会影响其他的兄弟盒子**
+2. **父盒子需要加定位限制子盒子在父盒子内显示**
+3. **父盒子布局时，需要占有位置，因此父亲只能是相对定位**
 
 这就是子绝父相的由来，所以相对定位经常用来作为绝对定位的父级。
 
@@ -361,7 +356,7 @@
 
 答案：用浮动做某些布局远远没有定位简单和方便！例如，轮播图。
 
-![](https://img-blog.csdnimg.cn/20210410231958333.jpg)
+<img src="mark-img/20210410231958333-164233328088033.jpg" style="zoom:50%;" />
 
 - 左右两边的图片切换按钮，利用浮动也可以做。但是，假如放置图片的盒子是在切换按钮之前添加的，那么根据浮动元素只能影响后面盒子的特性，切换按钮就只可能在图片底部之下，不可能浮于图片之上！
 - 就算切换按钮用浮动实现了，但是左下角的轮播序号点图如果也用浮动实现，结果就是轮播序号点图会与切换按钮在一行并排浮动！
@@ -436,7 +431,7 @@
 }
 ```
 
-![](https://img-blog.csdnimg.cn/20210411001207402.jpg)
+![](mark-img/20210411001207402.jpg)
 
 ## 1.7 固定定位 fixed （重要）
 
@@ -460,7 +455,7 @@
 
 应用举例：
 
-<img src="https://img-blog.csdnimg.cn/20210411000419348.gif" style="zoom:50%;" />
+<img src="mark-img/20210411000419348.gif" style="zoom:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -542,7 +537,7 @@
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210411002138603.gif" style="zoom:50%;" />
+<img src="mark-img/20210411002138603.gif" style="zoom:50%;" />
 
 ## 1.8 固定定位小技巧：固定在版心右侧位置
 
@@ -592,7 +587,7 @@
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411002750577.gif)
+![](mark-img/20210411002750577.gif)
 
 ## 1.9 粘性定位 sticky（了解）
 
@@ -618,7 +613,7 @@ Sticky 粘性的。
 
 应用举例：
 
-<img src="https://img-blog.csdnimg.cn/20210411000442416.gif" style="zoom:50%;" />
+<img src="mark-img/20210411000442416.gif" style="zoom:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -653,9 +648,9 @@ Sticky 粘性的。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411003401335.gif)
+![](mark-img/20210411003401335.gif)
 
-![](https://img-blog.csdnimg.cn/a6b709f41c9f42558b8d6870202bc171.gif)
+![](mark-img/a6b709f41c9f42558b8d6870202bc171.gif)
 
 ## 1.10 定位的总结
 
@@ -728,7 +723,7 @@ Sticky 粘性的。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411004813982.jpg)
+![](mark-img/20210411004813982.jpg)
 
 **（2）定位特殊特性**
 
@@ -771,7 +766,7 @@ Sticky 粘性的。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411005338704.jpg)
+![](mark-img/20210411005338704.jpg)
 
 **（3）脱标的盒子不会触发外边距塌陷**
 
@@ -815,7 +810,7 @@ Sticky 粘性的。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411005813237.jpg)
+![](mark-img/20210411005813237.jpg)
 
 ---
 
@@ -849,17 +844,17 @@ Sticky 粘性的。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411005914370.jpg)
+![](mark-img/20210411005914370.jpg)
 
 # 二、综合案例
 
 **【案例：淘宝焦点图布局】**
 
-![](https://img-blog.csdnimg.cn/20210411010357458.jpg)
+![](mark-img/20210411010357458.jpg)
 
 布局分析：
 
-![](https://img-blog.csdnimg.cn/20210411010357453.jpg)
+![](mark-img/20210411010357453.jpg)
 
 制作：
 
@@ -982,7 +977,7 @@ Sticky 粘性的。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411010727218.jpg)
+![](mark-img/20210411010727218.jpg)
 
 # 三、网页布局总结
 
@@ -1014,8 +1009,8 @@ Sticky 粘性的。
 
 注意：是隐藏，不是删除！
 
-1. display 显示隐藏
-2. visibility 显示隐藏
+1. display 显示隐藏（脱标）
+2. visibility 显示隐藏（不脱标）
 3. overflow 溢出显示隐藏
 
 ## 4.1 display 属性
@@ -1064,7 +1059,7 @@ display 隐藏元素后，不再占有原来的位置（脱标）。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/2021041101335757.gif)
+![](mark-img/2021041101335757.gif)
 
 ---
 
@@ -1103,7 +1098,7 @@ display 隐藏元素后，不再占有原来的位置（脱标）。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411013334551.gif)
+![](mark-img/20210411013334551.gif)
 
 ## 4.2 visibility 可见性
 
@@ -1152,7 +1147,7 @@ visibility 隐藏元素后，继续占有原来的位置。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411013759206.gif)
+![](mark-img/20210411013759206.gif)
 
 ## 4.3 overflow 溢出
 
@@ -1208,7 +1203,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411015310864.jpg)
+![](mark-img/20210411015310864.jpg)
 
 ---
 
@@ -1251,7 +1246,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411015310864.jpg)
+![](mark-img/20210411015310864-164232733571925.jpg)
 
 ---
 
@@ -1294,7 +1289,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411015442418.jpg)
+![](mark-img/20210411015442418.jpg)
 
 ---
 
@@ -1337,7 +1332,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411015532804.jpg)
+![](mark-img/20210411015532804.jpg)
 
 ---
 
@@ -1377,7 +1372,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411015657674.jpg)
+![](mark-img/20210411015657674.jpg)
 
 ---
 
@@ -1420,7 +1415,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/2021041101581715.jpg)
+![](mark-img/2021041101581715.jpg)
 
 ---
 
@@ -1460,7 +1455,7 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411015908937.jpg)
+![](mark-img/20210411015908937.jpg)
 
 ## 4.4 总结
 
@@ -1532,4 +1527,4 @@ overflow 属性指定了如果内容溢出一个元素的框（超过其指定�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210411020723514.gif)
+![](mark-img/20210411020723514.gif)

@@ -1,4 +1,4 @@
-# 【HTML5&CSS3提高】前端小抄(13)
+# 【HTML5&CSS3提高】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
@@ -8,10 +8,7 @@ HTML5 的新增特性主要是针对于以前的不足，增加了一些新的�
 
 这些新特性都有兼容性问题，基本是 IE9+ 以上版本的浏览器才支持，如果不考虑兼容性问题（例如：移动端），便可以大量使用这些新特性。
 
-声明：
-
-1. 新特性增加了很多，但是我们只需专注于开发常用的新特性即可
-2. 基础班我们讲解部分新特性，到了就业班还会继续讲解其他新特性
+> 声明：新特性增加了很多，但是我们只需专注于开发常用的新特性即可
 
 ## 1.1 HTML5新增的语义化标签
 
@@ -24,7 +21,7 @@ HTML5 的新增特性主要是针对于以前的不足，增加了一些新的�
 <div class=“footer”> </div>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422144246555.png)
+![](mark-img/20210422144246555.png)
 
 - `<header>`：头部标签
 - `<nav>`：导航标签
@@ -73,7 +70,7 @@ HTML5 的新增特性主要是针对于以前的不足，增加了一些新的�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422144908912.png)
+![](mark-img/20210422144908912.png)
 
 ## 1.2 HTML5新增的多媒体标签
 
@@ -90,7 +87,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持视频格式文�
 
 当前 `<video>` 元素支持三种视频格式：尽量使用 mp4 格式。
 
-![](https://img-blog.csdnimg.cn/20210422150454844.png)
+![](mark-img/20210422150454844.png)
 
 语法：
 
@@ -108,7 +105,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持视频格式文�
 
 常见属性：
 
-![](https://img-blog.csdnimg.cn/20210422150845591.png)
+![](mark-img/20210422150845591.png)
 
 ```html
 <!DOCTYPE html>
@@ -130,7 +127,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持视频格式文�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422145552748.png)
+![](mark-img/20210422145552748.png)
 
 以上视频会自动播放。
 
@@ -140,7 +137,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 
 当前 `<audio>` 元素支持三种音频格式：尽量使用 mp3 格式。
 
-![](https://img-blog.csdnimg.cn/20210422151256515.png)
+![](mark-img/20210422151256515.png)
 
 语法：
 
@@ -158,7 +155,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 
 常见属性：
 
-![](https://img-blog.csdnimg.cn/20210422151722831.png)
+![](mark-img/20210422151722831.png)
 
 ```html
 <!DOCTYPE html>
@@ -175,7 +172,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422145736892.png)
+![](mark-img/20210422145736892.png)
 
 ### 1.2.3 多媒体标签总结
 
@@ -187,7 +184,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 
 ## 1.3 HTML5新增的input类型
 
-![](https://img-blog.csdnimg.cn/20210422152350339.png)
+![](mark-img/20210422152350339.png)
 
 ```html
 <!DOCTYPE html>
@@ -221,33 +218,33 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210422153038412.png" style="zoom:50%;" />
+<img src="mark-img/20210422153038412.png" style="zoom:50%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422153108799.png" style="zoom:50%;" />
+<img src="mark-img/20210422153108799.png" style="zoom:50%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422153142478.png" style="zoom:50%;" />
+<img src="mark-img/20210422153142478.png" style="zoom:50%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422153215652.png" style="zoom:50%;" />
+<img src="mark-img/20210422153215652.png" style="zoom:50%;" />
 
 注意：HTML5 所提供的 input 类型可以依据具体的系统环境适配界面样式。
 
-<img src="https://img-blog.csdnimg.cn/202104221541335.jpg" style="zoom:33%;" />
+<img src="mark-img/202104221541335.jpg" style="zoom:33%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422154149869.jpg" style="zoom:33%;" />
+<img src="mark-img/20210422154149869.jpg" style="zoom:33%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422154207436.jpg" style="zoom:33%;" />
+<img src="mark-img/20210422154207436.jpg" style="zoom:33%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422154222156.jpg" style="zoom:33%;" />
+<img src="mark-img/20210422154222156.jpg" style="zoom:33%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210422154236689.jpg" style="zoom:33%;" />
+<img src="mark-img/20210422154236689.jpg" style="zoom:33%;" />
 
 当为数值框时，输入法自动打开数字键盘！
 
-<img src="https://img-blog.csdnimg.cn/20210422154252598.jpg" style="zoom:33%;" />
+<img src="mark-img/20210422154252598.jpg" style="zoom:33%;" />
 
 ## 1.4 HTML5新增的表单属性
 
-![](https://img-blog.csdnimg.cn/20210422155356572.png)
+![](mark-img/20210422155356572.png)
 
 ```html
 <!DOCTYPE html>
@@ -275,7 +272,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/202104221601401.gif)
+![](mark-img/202104221601401.gif)
 
 ```html
 <!DOCTYPE html>
@@ -305,7 +302,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/97f447da3ca0483f9358c26cf286aea5.gif)
+![](mark-img/97f447da3ca0483f9358c26cf286aea5.gif)
 
 ```html
 <!DOCTYPE html>
@@ -337,7 +334,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 
 自动聚焦：
 
-![](https://img-blog.csdnimg.cn/b903916cbc5d4dfeb5f21741362564ba.gif)
+![](mark-img/b903916cbc5d4dfeb5f21741362564ba.gif)
 
 # 二、CSS3的新特性
 
@@ -428,7 +425,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423145746508.gif)
+![](mark-img/20210423145746508.gif)
 
 ### 2.2.2 结构伪类选择器
 
@@ -437,7 +434,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 - n 可以是数字，关键字和公式
 - n 如果是数字，就是选择第 n 个子元素，里面数字从 1 开始……
 - n 可以是关键字：even 偶数，odd 奇数
-- n 可以是公式：常见的公式如下（如果 n 是公式，则从 n = 0 开始计算，但是第 0 个元素及超出了元素的个数会被忽略）
+- n 可以是公式：常见的公式如下（如果 n 是公式，则从 n = 0 开始计算，但是第 0 个元素和超出了元素的个数会被忽略）
 
 | 公式   | 取值                               |
 | ------ | ---------------------------------- |
@@ -516,7 +513,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423150342544.png)
+![](mark-img/20210423150342544.png)
 
 ```html
 <!DOCTYPE html>
@@ -587,7 +584,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423151246867.png)
+![](mark-img/20210423151246867.png)
 
 ```html
 <!DOCTYPE html>
@@ -613,13 +610,18 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 
         /* nth-child 会把所有的盒子都排列序号 */
         /* 执行的时候首先看 :nth-child(1) 之后回去看 前面 div */
+        /* 所以此处先排序：*/
+        /* 1号：<p>光头强</p> */
+        /* 2号：<div>熊大</div> */
+        /* 3号：<div>熊二</div> */
+        /* 再回过头看，此时会发现，1号并不是 div，所以不生效！*/
 
         section div:nth-child(1) {
-            background-color: red;
+            background-color: red;	/* 不生效 */
         }
 
         /* nth-of-type 会把指定元素的盒子排列序号 */
-        /* 执行的时候首先看 div指定的元素 之后回去看 :nth-of-type(1) 第几个孩子 */
+        /* 执行的时候首先看 div 指定的元素 之后回去看 :nth-of-type(1) 第几个孩子 */
         section div:nth-of-type(1) {
             background-color: blue;
         }
@@ -648,7 +650,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423152631225.png)
+![](mark-img/20210423152631225.png)
 
 ### 2.2.3 伪元素选择器（重点）
 
@@ -656,7 +658,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 
 | 选择器     | 简介                     |
 | ---------- | ------------------------ |
-| `::before` | 在元素内部的前面插入内容 |
+| `::before` | 在元素内容的前面插入内容 |
 | `::after`  | 在元素内容的后面插入内容 |
 
 注意：
@@ -699,7 +701,7 @@ p::before {
 
 额外标签法也称为隔墙法，是 W3C 推荐的做法。
 
-![](https://img-blog.csdnimg.cn/20210423160929744.png)
+![](mark-img/20210423160929744.png)
 
 注意：要求这个新的空标签必须是块级元素。
 
@@ -767,7 +769,7 @@ p::before {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423153316679.gif)
+![](mark-img/20210423153316679.gif)
 
 ```html
 <!DOCTYPE html>
@@ -818,7 +820,7 @@ p::before {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423153507576.png)
+![](mark-img/20210423153507576.png)
 
 ```html
 <!DOCTYPE html>
@@ -872,7 +874,7 @@ p::before {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423153911315.gif)
+![](mark-img/20210423153911315.gif)
 
 ## 2.3 CSS3盒子模型
 
@@ -931,7 +933,11 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210423154934685.gif" style="zoom:50%;" />
+<img src="mark-img/20210423154934685.gif" style="zoom:50%;" />
+
+![](mark-img/image-20220117012150036.png)
+
+![image-20220117012211829](mark-img/image-20220117012211829.png)
 
 ## 2.4 CSS3其他特性（了解）
 
@@ -963,7 +969,7 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423155143395.gif)
+![](mark-img/20210423155143395.gif)
 
 ```html
 <!DOCTYPE html>
@@ -990,7 +996,7 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
     </style>
 </head>
 <body>
-<!-- 需求我们的子盒子宽度永远比父盒子小 100 像素 -->
+<!-- 需求：我们的子盒子宽度永远比父盒子小 100 像素 -->
 <div class="father">
     <div class="son"></div>
 </div>
@@ -998,7 +1004,7 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423155710297.png)
+<img src="mark-img/20210423155710297-164235395082836.png" style="zoom:50%;" />
 
 ### 2.4.1 CSS3滤镜 filter
 
@@ -1008,7 +1014,7 @@ filter CSS 属性将模糊或颜色偏移等图形效果应用于元素。
 filter: 函数(); 例如：filter: blur(5px); blur 模糊处理，数值越大越模糊
 ```
 
-![](https://img-blog.csdnimg.cn/20210423161020807.png)
+![](mark-img/20210423161020807.png)
 
 ### 2.4.2 CSS3 calc 函数
 
@@ -1018,9 +1024,7 @@ calc() 此 CSS 函数让你在声明 CSS 属性值时执行一些计算。
 width: calc(100% - 80px);
 ```
 
-括号里面可以使用 + - * / 来进行计算。
-
-CSS3 还增加了一些 动画 2D 3D 等新特性，我们就业班会继续学习。
+括号里面可以使用 `+` `-` `*` `/` 来进行计算。
 
 ## 2.5 CSS3过渡（重点）
 
@@ -1045,9 +1049,9 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 3. 运动曲线：默认是 ease（可以省略）
 4. 何时开始：单位是秒（必须写单位）可以设置延迟触发时间默认是 0s（可以省略）
 
-<img src="https://img-blog.csdnimg.cn/2021042316110482.png" style="zoom: 50%;" />
+<img src="mark-img/2021042316110482.png" style="zoom: 50%;" />
 
-记住过渡的使用口诀：谁做过渡给谁加！
+记住过渡的使用口诀：**谁做过渡给谁加！**
 
 ```html
 <!DOCTYPE html>
@@ -1085,7 +1089,7 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423160022413.gif)
+![](mark-img/20210423160022413.gif)
 
 ### 2.5.2 进度条案例
 
@@ -1128,22 +1132,21 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210423160237686.gif)
+![](mark-img/20210423160237686.gif)
 
 # 三、狭义的 HTML5 CSS3
 
 1. HTML5 结构本身
 
-   ![](https://img-blog.csdnimg.cn/20210423162839681.png)
+   ![](mark-img/20210423162839681.png)
 
 2. CSS3 相关样式
 
-   ![](https://img-blog.csdnimg.cn/20210423162919534.png)
+   ![](mark-img/20210423162919534.png)
 
 # 四、广义的 HTML5
 
 1. 广义的 HTML5 是 HTML5 本身 + CSS3 + JavaScript
 2. 这个集合有时称为 HTML5 和朋友，通常缩写为 HTML5
 3. 虽然 HTML5 的一些特性仍然不被某些浏览器支持，但是它是一种发展趋势
-4. HTML5 MDN 介绍：[https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML)
 

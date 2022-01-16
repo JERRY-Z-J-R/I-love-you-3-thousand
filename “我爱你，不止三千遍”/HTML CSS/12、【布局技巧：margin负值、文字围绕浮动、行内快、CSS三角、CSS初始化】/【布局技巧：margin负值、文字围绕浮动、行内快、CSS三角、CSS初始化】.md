@@ -1,4 +1,4 @@
-# 【布局技巧：margin负值、文字围绕浮动、行内快、CSS三角、CSS初始化】前端小抄(12)
+# 【布局技巧：margin负值、文字围绕浮动、行内快、CSS三角、CSS初始化】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
@@ -8,7 +8,7 @@
 
 多个盒子紧挨在一起，当鼠标放在其中一个盒子上时该盒子的边框自动变色。
 
-![](https://img-blog.csdnimg.cn/20210422102946635.png)
+![](mark-img/20210422102946635.png)
 
 1. 让每个盒子 margin 往左侧移动 -1px 正好压住相邻盒子边框（否则边框会发生叠加 * 2）
 2. 鼠标经过某个盒子的时候，提高当前盒子的层级即可（如果周围盒子没有定位，则对当前盒子加相对定位（保留位置并显示在其他盒子之上）；如果周围有定位，则提高当前盒子的 z-index）
@@ -60,11 +60,11 @@
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422131248993.gif)
+![](mark-img/20210422131248993.gif)
 
 # 二、文字围绕浮动元素
 
-![](https://img-blog.csdnimg.cn/20210422131515567.png)
+![](mark-img/20210422131515567.png)
 
 在制作文字位于图片周围的效果时，可以巧妙运用浮动元素不会压住文字的特性。
 
@@ -113,11 +113,11 @@
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422131929234.png)
+![](mark-img/20210422131929234.png)
 
 # 三、行内块的巧妙运用
 
-![](https://img-blog.csdnimg.cn/20210422132128826.png)
+![](mark-img/20210422132128826.png)
 
 页码在页面中间显示：
 
@@ -200,15 +200,11 @@
 </html>
 ```
 
-![](C:\Users\JERRY\AppData\Roaming\Typora\typora-user-images\image-20210422132306975.png)
+![](mark-img/image-20220116233824235.png)
 
 # 四、CSS三角强化
 
-![](https://img-blog.csdnimg.cn/20210422132739686.png)
-
-**原理：**
-
-<img src="https://img-blog.csdnimg.cn/97cc497b6af9494783102cc02028ff3b.png" style="zoom:67%;" />
+![](mark-img/20210422132739686.png)
 
 代码：
 
@@ -301,7 +297,7 @@ border-width: 22px 8px 0 0;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210422132922414.png)
+![](mark-img/20210422132922414.png)
 
 # 五、CSS初始化
 
