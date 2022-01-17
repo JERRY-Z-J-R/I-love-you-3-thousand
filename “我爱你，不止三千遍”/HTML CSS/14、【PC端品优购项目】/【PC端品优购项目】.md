@@ -1,18 +1,18 @@
-# 【PC端品优购项目】前端小抄(14)
+# 【PC端品优购项目】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
 ## 电商—主页
 
-![](https://img-blog.csdnimg.cn/20210423230039123.png)
+![](mark-img/20210423230039123.png)
 
 ## 电商—分类列表页
 
-![](https://img-blog.csdnimg.cn/20210423230312162.png)
+![](mark-img/20210423230312162.png)
 
 ## 电商—注册页
 
-![](https://img-blog.csdnimg.cn/20210423230344469.png)
+![](mark-img/20210423230344469.png)
 
 
 
@@ -20,22 +20,22 @@
 
 ## 1.1 网站制作流程
 
-![](https://img-blog.csdnimg.cn/20210423231159334.png)
+![](mark-img/20210423231159334.png)
 
 原型图：
 
-![](https://img-blog.csdnimg.cn/20210424002615861.jpg)
+![](mark-img/20210424002615861.jpg)
 
 ## 1.2 品优购项目整体介绍
 
 - 项目名称：品优购
 - 项目描述：品优购是一个电商网站，我们要完成 PC 端首页、列表页、注册页面的制作
 
-![](https://img-blog.csdnimg.cn/20210423231252598.png)
+![](mark-img/20210423231252598.png)
 
-![](https://img-blog.csdnimg.cn/20210423231304381.png)
+![](mark-img/20210423231304381.png)
 
-![](https://img-blog.csdnimg.cn/20210423231312363.png)
+![](mark-img/20210423231312363.png)
 
 ## 1.3 品优购项目的学习目的
 
@@ -47,7 +47,7 @@
 ## 1.4 开发工具以及技术栈
 
 - 开发工具
-  - `VSCode` 、`Photoshop`（`Fw`）、主流浏览器（以 `Chrome` 浏览器为主）
+  - `VSCode` 、`Photoshop`、主流浏览器（以 `Chrome` 浏览器为主）
 - 技术栈
   - 利用 `HTML5` + `CSS3` 手动布局，可以大量使用 `H5` 新增标签和样式
   - 采取结构与样式相分离，模块化开发
@@ -111,29 +111,29 @@ img {
 
 - 文件夹及文件图示：
 
-![](https://img-blog.csdnimg.cn/20210423232004160.png)
+![](mark-img/20210423232004160.png)
 
-![](https://img-blog.csdnimg.cn/20210423232040879.png)
+![](mark-img/20210423232040879.png)
 
-![](https://img-blog.csdnimg.cn/20210423232108704.png)
+![](mark-img/20210423232108704.png)
 
-![](https://img-blog.csdnimg.cn/20210423232141138.png)
+![](mark-img/20210423232141138.png)
 
-![](https://img-blog.csdnimg.cn/20210423232204432.png)
+![](mark-img/20210423232204432.png)
 
 - 模块化开发
   - 所谓的模块化：将一个项目按照功能划分，一个功能一个模块，互不影响
   
   - 模块化开发具有重复使用、更换方便等优点
 
-![](https://img-blog.csdnimg.cn/20210423232408168.png)
+![](mark-img/20210423232408168.png)
 
 - 代码模块化开发
   - 有些样式和结构在很多页面都会出现，比如页面头部和底部，大部分页面都有。此时，可以把这些结构和样式单独作为一个模块，然后重复使用
   - 这里最典型的应用就是 `common.css` 公共样式，写好一个样式，其余的页面用到这些相同的样式
   - 模块化开发具有重复使用、修改方便等优点
 
-![](https://img-blog.csdnimg.cn/20210423232458517.png)
+![](mark-img/20210423232458517.png)
 
 `common.css` 公共样式里面包含 `版心宽度`、`清除浮动`、`页面文字颜色` 等公共样式。
 
@@ -142,7 +142,7 @@ img {
 - `favicon.ico` 一般用于作为缩略的网站标志，它显示在浏览器的地址栏或者标签上
 - 目前主要的浏览器都支持 `favicon.ico` 图标
 
-![](https://img-blog.csdnimg.cn/20210423232739165.png)
+![](mark-img/20210423232739165.png)
 
 - 制作 `favicon` 图标
   
@@ -161,9 +161,9 @@ img {
 - `SEO` 的目的是对网站进行深度的优化，从而帮助网站获取免费的流量，进而在搜索引擎上提升网站的排名，提高网站的知名度
 - 页面必须有三个标签用来符合 SEO 优化
 
-![](https://img-blog.csdnimg.cn/20210423234017129.png)
+![](mark-img/20210423234017129.png)
 
-- `title` 网站标题
+**（1）`title` 网站标题**
 
 `title` 具有不可替代性，是我们内页的第一个重要标签，是搜索引擎了解网页的入口和对网页主题归属的最佳判断点。
 
@@ -177,21 +177,21 @@ img {
 
 `小米商城 - 小米5s、红米Note 4、小米MIX、小米笔记本官方网站`
 
-- `description` 网站说明
+**（2）`description` 网站说明**
 
-**简要说明我们网站主要是做什么的。**
+简要说明我们网站主要是做什么的。
 
 我们提倡，`description` 作为网站的总体业务和主题概括，多采用 `“我们是…”`、`“我们提供…”`、`“×××网作为…”`、`“电话：010…”` 之类语句。
 
 **例如：**
 
 ```html
-<meta name="description" content="京东JD.COM-专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上购物体验!" />
+<meta name="description" content="京东JD.COM-专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品。便捷、诚信的服务，为您提供愉悦的网上购物体验!" />
 ```
 
-- `keywords` 关键字
+**（3）`keywords` 关键字**
 
-**keywords 是页面关键词，是搜索引擎的关注点之一。**
+keywords 是页面关键词，是搜索引擎的关注点之一。
 
 `keywords` 最好限制为 `6～8` 个 `关键词`，关键词之间用英文逗号隔开，采用 `关键词1, 关键词2` 的形式。
 
@@ -291,11 +291,11 @@ body {
 
 - 以下是我们约定的命名模块，同学们可以直接使用以下类名即可
 
-![](https://img-blog.csdnimg.cn/20210423234052206.png)
+![](mark-img/20210423234052206.png)
 
 ## 2.2 快捷导航shortcut制作
 
-![](https://img-blog.csdnimg.cn/20210423234129383.png)
+![](mark-img/20210423234129383.png)
 
 - 通栏的盒子命名为 `shortcut`，是快捷导航的意思。 注意这里的行高，可以继承给里面的子盒子
 - 里面包含版心的盒子
@@ -403,7 +403,7 @@ body {
 
 ## 2.3 header制作
 
-![](https://img-blog.csdnimg.cn/20210423234220363.png)
+![](mark-img/20210423234220363.png)
 
 - `header` 盒子必须要有高度
 - 1 号盒子是 `logo` 标志定位
@@ -424,16 +424,16 @@ body {
   - 为了搜索引擎收录我们，我们链接里面要放文字（网站名称），但是文字不要显示出来
     - 方法1：`text-indent` 移到盒子外面（`text-indent: -9999px`) ，然后 `overflow:hidden` ，淘宝的做法
     - 方法2：直接给 `font-size: 0`; 就看不到文字了，京东的做法
-  - 最后给链接一个 `title` 属性，这样鼠标放到 `logo` 上就可以看到提示文字了
+  - 最后给链接一个 `title` 属性，这样鼠标 放到 `logo` 上就可以看到提示文字了
 
   **search 模块制作**
 
 1. 给定一个大盒子，并设置其边框
 2. 在大盒子里放两个小盒子，不用设置边框
 
-![](https://img-blog.csdnimg.cn/20210423234457613.png)
+![](mark-img/20210423234457613.png)
 
-![](https://img-blog.csdnimg.cn/20210424080337251.png)
+![](mark-img/20210424080337251.png)
 
 ```html
 <!-- header头部模块制作 start -->
@@ -463,7 +463,7 @@ body {
     <!-- 购物车模块 -->
     <div class="shopcar">
         我的购物车
-        <i class="count">8</i>
+        <em class="count">8</em>
     </div>
 </header>
 <!-- header头部模块制作 end -->
@@ -572,9 +572,9 @@ body {
 
 ## 2.4 nav导航制作
 
-![](https://img-blog.csdnimg.cn/20210424085144838.png)
+![](mark-img/20210424085144838.png)
 
-![](https://img-blog.csdnimg.cn/20210423234524845.png)
+![](mark-img/20210423234524845.png)
 
 - `nav` 盒子通栏有高度，而且有个下边框
 - 1 号盒子左侧浮动，`dropdown`
@@ -585,9 +585,9 @@ body {
 
 之所以叫 dropdown 是因为，它本质上属于下拉菜单。
 
-![](https://img-blog.csdnimg.cn/2021042408532739.png)
+![](mark-img/2021042408532739.png)
 
-![](https://img-blog.csdnimg.cn/20210423234613824.png)
+![](mark-img/20210423234613824.png)
 
 ```html
 <!-- nav模块制作 start -->
@@ -714,7 +714,7 @@ body {
 
 ## 2.5 footer底部制作
 
-![](https://img-blog.csdnimg.cn/20210423234640337.png)
+![](mark-img/20210423234640337.png)
 
 - `footer` 页面底部盒子通栏给一个高度和灰色的背景
 - `footer` 里面有一个大的版心
@@ -913,30 +913,30 @@ body {
 - `main` 里面包含左侧盒子，左浮动，`focus` 焦点图模块
 - `main` 里面包含右侧盒子，右浮动，`newsflash` 新闻快报模块
 
-![](https://img-blog.csdnimg.cn/2021042408532739.png)
+![](mark-img/2021042408532739-164240508352028.png)
 
-![](https://img-blog.csdnimg.cn/20210423234706535.png)
+![](mark-img/20210423234706535.png)
 
 - newsflash 新闻快报模块
   - 1 号盒子为 `news` 新闻模块 高度为 `165px`
   - 2 号盒子为 `lifeservice` 生活服务模块 高度为 `209px`
   - 3 号盒子为 `bargain` 特价商品
 
-<img src="https://img-blog.csdnimg.cn/20210423234732373.png" style="zoom:50%;" />
+<img src="mark-img/20210423234732373.png" style="zoom:50%;" />
 
 - news 新闻模块
   - 注意：这里我们分为上下两个模块，但是两个模块都用 `div`
   - 1 号盒子 `news-hd` 新闻头部模块，给一个高度和下边框
   - 2 号盒子 `news-bd` 新闻主题部分，里面包含 `ul` 和 `li` 还有链接
 
-<img src="https://img-blog.csdnimg.cn/20210423234804630.png" style="zoom:50%;" />
+<img src="mark-img/20210423234804630.png" style="zoom:50%;" />
 
 - lifeservice 生活服务模块
   - `lifeservice` 盒子宽度为 `250` ，但是装不开里面的 4 个小 `li`
   - 可以让 `lifeservice` 里面的 `ul` 宽度为 `252`，就可以装的下 4 个 小 `li`
   - `lifeservice` 盒子 `overflow` 隐藏多余的部分就可以了
 
-<img src="https://img-blog.csdnimg.cn/20210423234829349.png" style="zoom:50%;" />
+<img src="mark-img/20210423234829349.png" style="zoom: 25%;" />
 
 ```html
 <!-- 首页专有的模块 main  start -->
@@ -1123,7 +1123,7 @@ body {
 
 ## 2.7 推荐模块制作
 
-![](https://img-blog.csdnimg.cn/20210423234858546.png)
+![](mark-img/20210423234858546.png)
 
 - 大盒子 `recom` 推荐模块 `recommend`
 - 里面包含 2 个盒子， 浮动即可
@@ -1194,7 +1194,7 @@ body {
 
 之所以称为：楼层区，是因为该部分分为好几个层，将这几个层统一放入一个楼层中使得结构更加合理，并且后期的侧边导航栏快速定位等功能，也更好实现。
 
-![](https://img-blog.csdnimg.cn/20210424101619846.png)
+![](mark-img/20210424101619846.png)
 
 注意这个 floor ，不要给高度，内容有多少，算多少。
 
@@ -1203,33 +1203,33 @@ body {
 - 1 号盒子 `box_hd`，给一个高度，有个下边框，里面分为左右 2 个盒子
 - 2 号盒子 `box_bd`，不要给高度
 
-![](https://img-blog.csdnimg.cn/20210423234924192.png)
+![](mark-img/20210423234924192.png)
 
 - box_hd 模块
   - 有高度可以不用清除浮动
   - 左边 `h3`，盒子左浮动
   - 右边 `tab_list`，右浮动，因为用到 `tab` 切换效果，所以里面要用 `ul` 和 `li` 来做
 
-![](https://img-blog.csdnimg.cn/20210423234950367.png)
+![](mark-img/20210423234950367.png)
 
 - Tab 栏原理-布局需求
   - 要求选项卡个数要内容个数一致
 
 例子：
 
-![](https://img-blog.csdnimg.cn/20210424102822294.gif)
+![](mark-img/20210424102822294.gif)
 
 这个效果后期通过 js 实现，但是其对 html 的布局有严格的要求。
 
 选择对应的 tab_list 便显示对应的 tab_content 隐藏其他的 tab_content。
 
-<img src="https://img-blog.csdnimg.cn/20210423235016456.png" style="zoom:60%;" />
+<img src="mark-img/20210423235016456.png" style="zoom:60%;" />
 
 - box_bd 模块
   - 根据 `tab` 切换的原理，`tab_content` 里面包含内容部分。这个内容可以通过 `ul` 布局
   - 分为 5 个大列，列的宽度不一致
 
-![](https://img-blog.csdnimg.cn/20210423235044100.png)
+![](mark-img/20210423235044100.png)
 
 ```html
 <!-- 楼层区域制作start -->
@@ -1442,7 +1442,7 @@ body {
 
 ## 3.2 列表页header和nav修改
 
-![](https://img-blog.csdnimg.cn/20210423235200231.png)
+![](mark-img/20210423235200231.png)
 
 - 秒杀盒子 `sk(second kill)` 定位即可
 - 1 号盒子左侧浮动 `sk_list` 里面包含 `ul` 和 `li`
@@ -1617,13 +1617,13 @@ body {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/2021042411080074.png)
+![](mark-img/2021042411080074.png)
 
 为什么 h1 会跑到右边呢？
 
 原因：jerry 模块的高度超过了 div 高度，同时 jerry 与 h1 都是浮动元素，浮动元素相互紧挨对齐直到遇到盒子边界或另一个浮动元素的边界。
 
-![](https://img-blog.csdnimg.cn/20210424111317313.gif)
+![](mark-img/20210424111317313.gif)
 
 解决方案：1.减小高度；2.父盒子溢出隐藏（推荐）
 
@@ -1678,11 +1678,11 @@ body {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210424111503385.png)
+![](mark-img/20210424111503385.png)
 
 ## 3.3 列表页主体sk _container
 
-![](https://img-blog.csdnimg.cn/20210423235248455.png)
+![](mark-img/20210423235248455.png)
 
 - 1 号盒子 `sk _container` 给宽度 `1200`，不要给高度
 - 2 号盒子 `sk_hd`，插入图片即可
@@ -1759,11 +1759,11 @@ body {
 
 注意：注册页面比较隐私，为了保护用户信息，我们不需要对当前页面做 SEO 优化。
 
-![](https://img-blog.csdnimg.cn/20210423235315294.png)
+![](mark-img/20210423235315294.png)
 
 ## 4.2 注册页布局
 
-![](https://img-blog.csdnimg.cn/20210423235338460.png)
+![](mark-img/20210423235338460.png)
 
 ## 4.3 registerarea布局
 
@@ -1777,7 +1777,7 @@ label（手机号、短信验证码……）可以发现是右对齐。
 
 安全程度、同意协议、完成注册也统一使用 ul 的 li 来实现。
 
-![](https://img-blog.csdnimg.cn/20210423235407652.png)
+![](mark-img/20210423235407652.png)
 
 ```html
 <!DOCTYPE html>
@@ -2024,10 +2024,10 @@ header {
 
 **总结：**
 
-- 1、服务器就是一台电脑，因为我们主要是做网站，所以我们主要使用 `Web 服务器`
-- 2、服务器可以分为 `本地服务器` 和 `远程服务器`
-- 3、`远程服务器` 是别的公司为我们提供了一台计算机
-- 4、我们可以把网站上传到远程服务器里面， 别人就可以通过域名访问我们的网站了
+- 服务器就是一台电脑，因为我们主要是做网站，所以我们主要使用 `Web 服务器`
+- 服务器可以分为 `本地服务器` 和 `远程服务器`
+- `远程服务器` 是别的公司为我们提供了一台计算机
+- 我们可以把网站上传到远程服务器里面， 别人就可以通过域名访问我们的网站了
 
 ## 5.4 将自己的网站上传到远程服务器
 
@@ -2037,7 +2037,7 @@ header {
 
 - 1、去免费空间网站注册账号
 - 2、记录下主机名、用户名、密码、域名
-- 3、利用 `cutftp` 软件上传网站到远程服务器
+- 3、利用 `FileZilla` 软件上传网站到远程服务器
 - 4、在浏览器中输入域名，即可访问我们的品优购网站了
 
 # 六、项目代码
@@ -3754,9 +3754,9 @@ header {
 
 > 感谢 Pink 老师！
 
-![](https://img-blog.csdnimg.cn/20210423235541479.png)
+![](mark-img/20210423235541479.png)
 
-![](https://img-blog.csdnimg.cn/2021042323560868.png)
+![](mark-img/2021042323560868.png)
 
 # 八、品优购项目代码规范
 
@@ -4228,8 +4228,6 @@ css属性值需要用到引号时，统一使用单引号。
     border-radius: 10px;
 }
 ```
-
-[mozilla官方属性顺序推荐](https://www.mozilla.org/css/base/content.css)
 
 ## 5. 命名规范
 
