@@ -1,4 +1,4 @@
-# 【CSS3提高：2D转换、动画、3D转换、浏览器私有前缀】前端小抄(15)
+# 【CSS3提高：2D转换、动画、3D转换、浏览器私有前缀】
 
 > 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
 
@@ -16,13 +16,13 @@
 
 2D 转换是改变标签在二维平面上的位置和形状的一种技术，先来学习二维坐标系。
 
-<img src="https://img-blog.csdnimg.cn/20210424224831926.png" style="zoom: 50%;" />
+<img src="mark-img/20210424224831926.png" style="zoom: 50%;" />
 
 ## 1.2 2D 转换之移动 translate
 
 2D 移动是 2D 转换里面的一种功能，可以改变元素在页面中的位置，类似定位。
 
-![](https://img-blog.csdnimg.cn/20210424225359665.png)
+![](mark-img/20210424225359665.png)
 
 语法：
 
@@ -85,7 +85,7 @@ transform: translateY(n);
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210424230655649.png" style="zoom: 80%;" />
+<img src="mark-img/20210424230655649.png" style="zoom: 80%;" />
 
 ```html
 <!DOCTYPE html>
@@ -145,13 +145,13 @@ transform: translateY(n);
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425000618488.png" style="zoom:50%;" />
+<img src="mark-img/20210425000618488.png" style="zoom:50%;" />
 
 ## 1.3 2D 转换之旋转 rotate
 
 2D 旋转指的是让元素在 2 维平面内顺时针旋转或者逆时针旋转。
 
-<img src="https://img-blog.csdnimg.cn/2021042500110849.png" style="zoom:50%;" />
+<img src="mark-img/2021042500110849.png" style="zoom:50%;" />
 
 语法：
 
@@ -198,7 +198,7 @@ transform: rotate(度数)
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/2021042500182360.gif)
+![](mark-img/2021042500182360.gif)
 
 ```html
 <!DOCTYPE html>
@@ -246,7 +246,7 @@ transform: rotate(度数)
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425075729489.gif)
+![](mark-img/20210425075729489.gif)
 
 ## 1.4 转换中心点 transform-origin
 
@@ -300,7 +300,7 @@ transform-origin: x y;
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425081548859.gif" style="zoom: 33%;" />
+<img src="mark-img/20210425081548859.gif" style="zoom: 33%;" />
 
 ```html
 <!DOCTYPE html>
@@ -349,7 +349,7 @@ transform-origin: x y;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425082315183.gif)
+![](mark-img/20210425082315183.gif)
 
 ## 1.5 2D 转换之缩放 scale
 
@@ -418,7 +418,7 @@ transform: scale(x, y);
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425085529554.gif" style="zoom:50%;" />
+<img src="mark-img/20210425085529554.gif" style="zoom:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -459,11 +459,11 @@ transform: scale(x, y);
     <a href="#"><img src="media/scale.jpg" alt=""></a>
 </div>
 </body>
-
+ 
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425085900832.gif)
+![](mark-img/20210425085900832.gif)
 
 ```html
 <!DOCTYPE html>
@@ -510,7 +510,7 @@ transform: scale(x, y);
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425090230504.gif)
+![](mark-img/20210425090230504.gif)
 
 ## 1.6 2D 转换综合写法
 
@@ -534,7 +534,7 @@ transform: scale(x, y);
             width: 200px;
             height: 200px;
             background-color: pink;
-            transition: all .5s;
+            transition: all 1s;
         }
 
         div:hover {
@@ -552,7 +552,7 @@ transform: scale(x, y);
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425090504751.gif" style="zoom:50%;" />
+<img src="mark-img/readme-164241763228313.gif" style="zoom:50%;" />
 
 ## 1.7 2D 转换总结
 
@@ -656,7 +656,7 @@ div {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425104436533.gif)
+![](mark-img/20210425104436533.gif)
 
 ```html
 <!DOCTYPE html>
@@ -722,7 +722,7 @@ div {
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425103016385.gif)
+![](mark-img/20210425103016385.gif)
 
 ## 2.2 动画常用属性
 
@@ -914,7 +914,7 @@ animation: myfirst 5s linear 2s infinite alternate;
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425105240855.gif)
+![](mark-img/20210425105240855.gif)
 
 ## 2.4 速度曲线细节
 
@@ -969,7 +969,7 @@ animation-timing-function：规定动画的速度曲线，默认是 "ease"。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425105455354.gif)
+![](mark-img/20210425105455354.gif)
 
 ```html
 <!DOCTYPE html>
@@ -1023,11 +1023,11 @@ animation-timing-function：规定动画的速度曲线，默认是 "ease"。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425105628305.png)
+![](mark-img/20210425105628305.png)
 
-![](https://img-blog.csdnimg.cn/20210425105802965.gif)
+![](mark-img/20210425105802965.gif)
 
-# 三、SCC3 3D转换
+# 三、CSS3 3D转换
 
 我们生活的环境是 3D 的，照片就是 3D 物体在 2D 平面呈现的例子。
 
@@ -1042,7 +1042,7 @@ animation-timing-function：规定动画的速度曲线，默认是 "ease"。
 
 三维坐标系其实就是指立体空间，立体空间是由3个轴共同组成的。
 
-<img src="https://img-blog.csdnimg.cn/20210425110200341.png" style="zoom: 33%;" />
+<img src="mark-img/20210425110200341.png" style="zoom: 33%;" />
 
 - x 轴：水平向右（注意：x 右边是正值，左边是负值）
 - y 轴：垂直向下（注意：y 下面是正值，上面是负值）
@@ -1061,18 +1061,18 @@ animation-timing-function：规定动画的速度曲线，默认是 "ease"。
 
 3D 移动在 2D 移动的基础上多加了一个可以移动的方向，就是 z 轴方向。
 
-- translform:translateX(100px)：仅仅是在 X 轴上移动
-- translform:translateY(100px)：仅仅是在 Y 轴上移动
-- translform:translateZ(100px)：仅仅是在 Z 轴上移动（注意：translateZ 一般用 px 单位）
+- transform:translateX(100px)：仅仅是在 X 轴上移动
+- transform:translateY(100px)：仅仅是在 Y 轴上移动
+- transform:translateZ(100px)：仅仅是在 Z 轴上移动（注意：translateZ 一般用 px 单位）
 - transform:translate3d(x, y, z)：其中 x、y、z 分别指要移动的轴的方向的距离
 
 因为 z 轴是垂直屏幕，由里指向外面，所以默认是看不到元素在 z 轴的方向上移动（要借助透视）。
 
 ## 3.3 透视 perspective
 
-<img src="https://img-blog.csdnimg.cn/20210425110852340.png" style="zoom: 25%;" />
+<img src="mark-img/20210425110852340.png" style="zoom: 25%;" />
 
-<img src="https://img-blog.csdnimg.cn/20210425111023799.png" style="zoom:25%;" />
+<img src="mark-img/20210425111023799.png" style="zoom:25%;" />
 
 在 2D 平面产生近大远小视觉立体，但是效果只是二维的。
 
@@ -1129,7 +1129,7 @@ z：就是 z 轴，物体距离屏幕的距离，z 轴越大（正值）我们�
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210425113455393.png)
+![](mark-img/20210425113455393.png)
 
 ## 3.4 translateZ
 
@@ -1172,7 +1172,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425114658704.png" style="zoom:50%;" />
+<img src="mark-img/20210425114658704.png" style="zoom:50%;" />
 
 ## 3.5 3D旋转 rotate3d
 
@@ -1185,7 +1185,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 - transform: rotateZ(45deg)：沿着 z 轴正方向旋转 45deg
 - transform: rotate3d(x, y, z, deg)：沿着自定义轴旋转 deg 为角度（了解即可）
 
-![](https://img-blog.csdnimg.cn/20210425115234419.gif)
+![](mark-img/20210425115234419.gif)
 
 对于元素旋转的方向的判断，我们需要先学习一个左手准则。
 
@@ -1194,7 +1194,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 - 左手的手拇指指向 x 轴的正方向
 - 其余手指的弯曲方向就是该元素沿着 x 轴旋转的方向
 
-<img src="https://img-blog.csdnimg.cn/20210425115458965.png" style="zoom:50%;" />
+<img src="mark-img/20210425115458965.png" style="zoom:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -1230,14 +1230,14 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425120806628.gif" style="zoom:50%;" />
+<img src="mark-img/20210425120806628.gif" style="zoom:50%;" />
 
 ---
 
 - 左手的手拇指指向 y 轴的正方向
 - 其余手指的弯曲方向就是该元素沿着 y 轴旋转的方向（正值）
 
-<img src="https://img-blog.csdnimg.cn/20210425115711121.png" style="zoom:33%;" />
+<img src="mark-img/20210425115711121.png" style="zoom:33%;" />
 
 ```html
 <!DOCTYPE html>
@@ -1272,7 +1272,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425121401130.gif" style="zoom:50%;" />
+<img src="mark-img/20210425121401130.gif" style="zoom:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -1307,7 +1307,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425121713541.gif" style="zoom:50%;" />
+<img src="mark-img/20210425121713541.gif" style="zoom:50%;" />
 
 transform: rotate3d(x, y, z, deg)：沿着自定义轴旋转 deg 为角度（了解即可）。
 
@@ -1318,7 +1318,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 - transform: rotate3d(0, 0, 1, 45deg)：就是沿着 z 轴旋转 45deg
 - transform: rotate3d(1, 1, 0, 45deg)：就是沿着对角线（矢量计算）旋转 45deg
 
-<img src="https://img-blog.csdnimg.cn/20210425122158983.png" style="zoom: 33%;" />
+<img src="mark-img/20210425122158983.png" style="zoom: 33%;" />
 
 ```html
 <!DOCTYPE html>
@@ -1356,7 +1356,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425121831607.gif" style="zoom:50%;" />
+<img src="mark-img/20210425121831607.gif" style="zoom:50%;" />
 
 ## 3.6 3D呈现 transfrom-style
 
@@ -1366,7 +1366,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 - 代码写给父级，但是影响的是子盒子
 - 这个属性很重要，后面必用
 
-![](https://img-blog.csdnimg.cn/20210425123348956.png)
+![](mark-img/20210425123348956.png)
 
 ```html
 <!DOCTYPE html>
@@ -1422,11 +1422,11 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 </html>
 ```
 
-<img src="https://img-blog.csdnimg.cn/20210425124112130.gif" style="zoom:50%;" />
+<img src="mark-img/20210425124112130.gif" style="zoom:50%;" />
 
 【案例：两面翻转的盒子】
 
-<img src="https://img-blog.csdnimg.cn/20210425124741907.gif" style="zoom:50%;" />
+<img src="mark-img/20210425124741907.gif" style="zoom:50%;" />
 
 实现步骤：
 
@@ -1519,7 +1519,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 
 【案例：3D 导航栏】
 
-![](https://img-blog.csdnimg.cn/20210425125609662.gif)
+![](mark-img/20210425125609662.gif)
 
 实现步骤：
 
@@ -1659,7 +1659,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 
 【综合案例：旋转木马】
 
-![](https://img-blog.csdnimg.cn/20210425130327326.gif)
+![](mark-img/20210425130327326.gif)
 
 1. 搭建 HTML 结构
 
