@@ -1011,15 +1011,6 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 <input type="radio" name="sex" value="女" >女
 ```
 
-**<4>、如何让 input 表单元素展示不同的形态？比如单选按钮或者文本框？**
-
-答：type 属性：type 属性可以让 input 表单元素设置不同的形态。
-
-```html
-<input type="radio" name="sex" value="男" checked="checked" />男
-<input type="text" value="请输入用户名" />
-```
-
 - \<label\> 标签
 
 `<label>` 标签为 input 元素定义标注（标签）。
@@ -1029,8 +1020,9 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 **语法：**
 
 ```html
-<label for="sex">男</label>
-<input type="radio" name="sex" id="sex" />
+<label for="sex">
+	男<input type="radio" name="sex" id="sex" />
+</label>
 ```
 
 **核心：** `<label>` 标签的 for 属性应当与相关元素的 id 属性相同。
@@ -1054,6 +1046,8 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 - `<select>` 中至少包含一对 `<option>`
 - 在 `<option>` 中定义 `selected="selected"` 时，当前项即为默认选中项
+
+每个 `<option>` 元素都应该有一个 value 属性，其中包含选择该选项时要提交给服务器的数据值。如果不包含 value 属性，则 value 默认为元素内包含的文本。可以在 `<option>` 元素上包含 selected 属性，以使其在页面首次加载时默认选中。
 
 **（3）\<textarea> 表单元素**
 
@@ -1106,144 +1100,152 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>恋爱小窝-注册页面</title>
 </head>
 
 <body>
-    <!-- 标题 -->
-    <h2>青春不常在，抓紧谈恋爱</h2>
+<!-- 标题 -->
+<h2>青春不常在，抓紧谈恋爱</h2>
 
-    <!-- 表单域 -->
-    <!-- <form action="" method="" name="lovetable"> -->
+<!-- 表单域 -->
+<!-- <form action="" method="" name="lovetable"> -->
 
-    <!-- 注册表 -->
-    <table width="600">
+<!-- 注册表 -->
+<table width="600">
 
-        <!-- 第一行 -->
-        <tr>
-            <td>性别</td>
-            <td>
-                <input type="radio" name="sex" id="man" /><label for="man"><img src="../image/man.png" width="15" />
-                    男</label>
-                <input type="radio" name="sex" id="women" /><label for="women"><img src="../image/women.png"
-                        width="15" /> 女</label>
-            </td>
-        </tr>
+    <!-- 第一行 -->
+    <tr>
+        <td>性别</td>
+        <td>
+            <label for="man">
+                <input id="man" name="sex" type="radio"/><img src="../image/man.png" width="15"/>男
+            </label>
+            <label for="women">
+                <input id="women" name="sex" type="radio"/><img src="../image/women.png" width="15"/>女
+            </label>
+        </td>
+    </tr>
 
-        <!-- 第二行 -->
-        <tr>
-            <td>生日</td>
-            <td>
-                <select>
-                    <option>--请选择年--</option>
-                    <option selected="selected">2021</option>
-                    <option>2020</option>
-                    <option>2019</option>
-                    <option>2018</option>
-                </select>
-                <select>
-                    <option>--请选择月--</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-                <select>
-                    <option>--请选择日--</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-            </td>
-        </tr>
+    <!-- 第二行 -->
+    <tr>
+        <td>生日</td>
+        <td>
+            <select>
+                <option>--请选择年--</option>
+                <option selected="selected">2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+            </select>
+            <select>
+                <option>--请选择月--</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+            <select>
+                <option>--请选择日--</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </td>
+    </tr>
 
-        <!-- 第三行 -->
-        <tr>
-            <td>所在地区</td>
-            <td>
-                <input type="text" value="云南玉溪" />
-            </td>
-        </tr>
+    <!-- 第三行 -->
+    <tr>
+        <td>所在地区</td>
+        <td>
+            <input type="text" value="云南玉溪"/>
+        </td>
+    </tr>
 
-        <!-- 第四行 -->
-        <tr>
-            <td>婚姻状况</td>
-            <td>
-                <input type="radio" name="marry" id="weihun" checked="checked" /><label for="weihun">未婚</label>
-                <input type="radio" name="marry" id="yihun" /><label for="yihun">已婚</label>
-                <input type="radio" name="marry" id="lihun" /><label for="lihun">离婚</label>
-            </td>
-        </tr>
+    <!-- 第四行 -->
+    <tr>
+        <td>婚姻状况</td>
+        <td>
+            <label for="weihun">
+                <input checked="checked" id="weihun" name="marry" type="radio"/>未婚
+            </label>
+            <label for="yihun">
+                <input id="yihun" name="marry" type="radio"/>已婚
+            </label>
+            <label for="lihun">
+                <input id="lihun" name="marry" type="radio"/>离婚
+            </label>
+        </td>
+    </tr>
 
-        <!-- 第五行 -->
-        <tr>
-            <td>学历</td>
-            <td>
-                <input type="text" value="幼儿园" />
-            </td>
-        </tr>
+    <!-- 第五行 -->
+    <tr>
+        <td>学历</td>
+        <td>
+            <input type="text" value="幼儿园"/>
+        </td>
+    </tr>
 
-        <!-- 第六行 -->
-        <tr>
-            <td>喜欢的类型</td>
-            <td>
-                <input type="checkbox" name="love" />妩媚的
-                <input type="checkbox" name="love" />可爱的
-                <input type="checkbox" name="love" />小鲜肉
-                <input type="checkbox" name="love" />老腊肉
-                <input type="checkbox" name="love" checked="checked" />都喜欢
-            </td>
-        </tr>
+    <!-- 第六行 -->
+    <tr>
+        <td>喜欢的类型</td>
+        <td>
+            <input name="love" type="checkbox"/>妩媚的
+            <input name="love" type="checkbox"/>可爱的
+            <input name="love" type="checkbox"/>小鲜肉
+            <input name="love" type="checkbox"/>老腊肉
+            <input checked="checked" name="love" type="checkbox"/>都喜欢
+        </td>
+    </tr>
 
-        <!-- 第七行 -->
-        <tr>
-            <td>自我介绍</td>
-            <td>
-                <textarea>自我介绍</textarea>
-            </td>
-        </tr>
+    <!-- 第七行 -->
+    <tr>
+        <td>自我介绍</td>
+        <td>
+            <textarea>自我介绍</textarea>
+        </td>
+    </tr>
 
-        <!-- 第八行 -->
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="免费注册" />
-            </td>
-        </tr>
+    <!-- 第八行 -->
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="免费注册"/>
+        </td>
+    </tr>
 
-        <!-- 第九行 -->
-        <tr>
-            <td></td>
-            <td>
-                <input type="checkbox" checked="checked" />我同意注册条款和会员加入标准
-            </td>
-        </tr>
+    <!-- 第九行 -->
+    <tr>
+        <td></td>
+        <td>
+            <input checked="checked" type="checkbox"/>我同意注册条款和会员加入标准
+        </td>
+    </tr>
 
-        <!-- 第十行 -->
-        <tr>
-            <td></td>
-            <td>
-                <a href="#">我是会员，立即登录</a>
-            </td>
-        </tr>
+    <!-- 第十行 -->
+    <tr>
+        <td></td>
+        <td>
+            <a href="#">我是会员，立即登录</a>
+        </td>
+    </tr>
 
-        <!-- 第十一行 -->
-        <tr>
-            <td></td>
-            <td>
-                <h4>我承诺</h4>
-                <ul>
-                    <li>年满18岁、单身</li>
-                    <li>抱着严肃的态度</li>
-                    <li>真诚寻找另一半</li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-    <!-- </form> -->
+    <!-- 第十一行 -->
+    <tr>
+        <td></td>
+        <td>
+            <h4>我承诺</h4>
+            <ul>
+                <li>年满18岁、单身</li>
+                <li>抱着严肃的态度</li>
+                <li>真诚寻找另一半</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<!-- </form> -->
 </body>
 
 </html>
