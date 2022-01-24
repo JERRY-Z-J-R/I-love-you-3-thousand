@@ -29,65 +29,65 @@
 </head>
 
 <body>
-    <!-- div+Tab -->
+    <!-- div -->
     <div></div>
-    <!-- table+Tab -->
+    <!-- table -->
     <table></table>
-    <!-- div*6+Tab -->
+    <!-- div*6 -->
     <div></div>
     <div></div>
     <div></div>
     <div></div>
     <div></div>
     <div></div>
-    <!-- p*4+Tab -->
+    <!-- p*4 -->
     <p></p>
     <p></p>
     <p></p>
     <p></p>
-    <!-- ul>li+Tab -->
+    <!-- ul>li -->
     <ul>
         <li></li>
     </ul>
-    <!-- div>span+Tab -->
+    <!-- div>span -->
     <div><span></span></div>
-    <!-- div+p+Tab -->
+    <!-- div+p -->
     <div></div>
     <p></p>
-    <!-- .nav+Tab -->
+    <!-- .nav -->
     <div class="nav"></div>
-    <!-- #banner+Tab -->
+    <!-- #banner -->
     <div id="banner"></div>
-    <!-- p.one+Tab -->
+    <!-- p.one -->
     <p class="one"></p>
-    <!-- span.gray+Tab -->
+    <!-- span.gray -->
     <span class="gray"></span>
-    <!-- ul>li#two+Tab -->
+    <!-- ul>li#two -->
     <ul>
         <li id="two"></li>
     </ul>
-    <!-- .demo*5+Tab -->
+    <!-- .demo*5 -->
     <div class="demo"></div>
     <div class="demo"></div>
     <div class="demo"></div>
     <div class="demo"></div>
     <div class="demo"></div>
-    <!-- .demo$*5+Tab -->
+    <!-- .demo$*5 -->
     <div class="demo1"></div>
     <div class="demo2"></div>
     <div class="demo3"></div>
     <div class="demo4"></div>
     <div class="demo5"></div>
-    <!-- div{pink老师不是gay}+Tab -->
+    <!-- div{pink老师不是gay} -->
     <div>pink老师不是gay</div>
-    <!-- div{他不喜欢男人}*6+Tab -->
+    <!-- div{他不喜欢男人}*6 -->
     <div>他不喜欢男人</div>
     <div>他不喜欢男人</div>
     <div>他不喜欢男人</div>
     <div>他不喜欢男人</div>
     <div>他不喜欢男人</div>
     <div>他不喜欢男人</div>
-    <!-- div{$}*6+Tab -->
+    <!-- div{$}*6 -->
     <div>1</div>
     <div>2</div>
     <div>3</div>
@@ -116,19 +116,19 @@ CSS 基本采取简写形式即可。
     <title>Emmet语法之快速生成CSS样式语法</title>
     <style>
         .one {
-            /* tac+Tab */
+            /* tac */
             text-align: center;
-            /* ti2e+Tab */
+            /* ti2e */
             text-indent: 2em;
-            /* w+Tab */
+            /* w */
             /* width: ; */
-            /* h+Tab */
+            /* h */
             /* height: ; */
-            /* w24+Tab */
+            /* w24 */
             width: 24px;
-            /* h24+Tab */
+            /* h24 */
             height: 24px;
-            /* tdn+Tab */
+            /* tdn */
             text-decoration: none;
         }
     </style>
@@ -144,3 +144,5 @@ CSS 基本采取简写形式即可。
 ## 快速格式化代码
 
 `VSCode` 快速格式化代码：<kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>F</kbd>。
+
+`WebStrom` 快速格式化代码：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>。
