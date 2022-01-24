@@ -925,7 +925,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 | 属性值     | 描述                                                         |
 | ---------- | ------------------------------------------------------------ |
 | `button`   | 定义可点击按钮（多数情况下，用于通过 JavaScript 启动脚本）   |
-| `checkbox` | 定义复选框，即：多选框                                       |
+| `checkbox` | 定义复选框，即：多选框，在一组多选中，要求它们必须拥有相同的 name |
 | `file`     | 定义输入字段和 “浏览” 按钮，供文件上传                       |
 | `hidden`   | 定义隐藏的输入字段                                           |
 | `image`    | 定义图像形式的提交按钮                                       |
@@ -1307,4 +1307,27 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 > **提示：**您可以把需要的文本放置在 `<iframe>` 和 `</iframe>` 之间，这样就可以应对不支持 `<iframe>` 的浏览器。
 >
 > **提示：**使用 CSS 为 `<iframe>`（包括滚动条）定义样式。
+
+使用 CSS 隐藏 `<iframe>` 滚动条
+
+- 遮掉 iframe 滚动条：
+
+```html
+<div style="width: 400px; overflow: hidden">
+    <iframe height="480" src="https://www.runoob.com" width="415">您的浏览器不支持</iframe>
+</div>
+```
+
+- 新选择器原生移除滚动条：
+
+```css
+<!-- 此方法目前暂不推荐使用 -->
+<head>
+  <style>
+    iframe::-webkit-scrollbar { 
+      display: none;
+    }
+  </style>
+</head>
+```
 
