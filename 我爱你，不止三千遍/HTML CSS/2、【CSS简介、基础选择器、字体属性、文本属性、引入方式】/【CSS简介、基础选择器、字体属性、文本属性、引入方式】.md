@@ -797,7 +797,7 @@ body {
 | `font-size`   | 字号     | 我们通常用的单位是 px 像素，一定要跟上单位                   |
 | `font-family` | 字体     | 实际工作中按照团队约定来写字体                               |
 | `font-weight` | 字体属性 | 记住加粗是 700 或者 bold 不加粗 是 normal 或者 400 记住数字不要跟单位 |
-| `font-style`  | 字体样式 | 记住倾斜是 italic 不倾斜 是 normal 工作中我们最常用 normal   |
+| `font-style`  | 字体样式 | 记住倾斜是 italic 不倾斜是 normal 工作中我们最常用 normal    |
 | `font`        | 字体连写 | 1、字体连写是有顺序的不能随意换位置，2、其中字号和字体必须同时出现 |
 
 # 四、CSS文本属性

@@ -529,6 +529,68 @@ CSS 没有给我们提供文字垂直居中的代码，这里我们可以使用�
 
 **简单理解：**行高的上空隙和下空隙把文字挤到中间了，如果行高小于盒子高度，文字会偏上，如果行高大于盒子高度，则文字偏下。
 
+## 2.9 一个注意点：块级元素不会自动换行
+
+当块级元素的宽度超过其父元素宽度时，其不会发生换行。
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>块级元素不会自动换行</title>
+    <style>
+        .clearfix:before,
+        .clearfix:after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        div {
+            background-color: #FFFF00;
+            width: 600px;
+            height: 300px;
+            color: #FFFFFF;
+            font-size: 24px;
+        }
+
+        .div {
+            background-color: #000;
+            width: 730px;
+            height: 100px;
+            margin: 20px 0;
+        }
+
+        span {
+            background-color: #000;
+            width: 700px;
+            height: 100px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="clearfix">
+    <div class="div">块级元素 块级元素 块级元素 块级元素 块级元素 块级元素 块级元素 块级元素 块级元素 块级元素 块级元素 块级元素</div>
+    <span>行内元素 行内元素 行内元素 行内元素 行内元素 行内元素 行内元素 行内元素</span>
+</div>
+</body>
+</html>
+```
+
+![](mark-img/image-20220125215313482.png)
+
 # 三、CSS 的背景
 
 通过 CSS 背景属性，可以给页面元素添加背景样式。
@@ -756,7 +818,7 @@ background-attachment : scroll | fixed
 
 为了简化背景属性的代码，我们可以将这些属性合并简写在同一个属性 `background` 中，从而节约代码量。
 当使用简写属性时，没有特定的书写顺序，一般习惯约定顺序为：
-`background`: 背景颜色 背景图片地址 背景平铺 背景图像滚动 背景图片位置。
+`background`: `背景颜色` `背景图片地址` `背景平铺` `背景图像滚动` `背景图片位置`
 
 ```css
 background: transparent url(image.jpg) repeat-y fixed top;
