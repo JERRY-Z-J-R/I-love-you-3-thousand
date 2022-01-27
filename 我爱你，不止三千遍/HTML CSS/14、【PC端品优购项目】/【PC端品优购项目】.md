@@ -481,7 +481,8 @@ body {
     </div>
     <!-- hotwords模块制作 -->
     <div class="hotwords">
-        <a href="#" class="style_red">优惠购首发</a>
+        <!-- 非导航栏的链接可以不用 li 来做 -->
+		<a href="#" class="style_red">优惠购首发</a>
         <a href="#">亿元优惠</a>
         <a href="#">9.9元团购</a>
         <a href="#">美满99减30</a>
