@@ -74,7 +74,7 @@ CSS Sprites、CSS 雪碧）。
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/202104200817544.png)
+![](mark-img/202104200817544.png)
 
 ## 1.3 案例：拼单词
 
@@ -570,13 +570,17 @@ vertical-align: baseline | top | middle | bottom
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420124932560.png)
+![](mark-img/20210420124932560.png)
+
+> 运用重点：
+>
+> 我们知道，当对盒子设置 `line-height: 盒子高度;` 时，盒子内的 `文字` 会垂直居中，其实不只是文字可以垂直居中，盒子内的图片同样也能垂直居中，只不过图片默认是基于基线对齐的，所以要真正实现 `垂直居中` 需要在图片加上：`vertical-align: middle;`
 
 ## 5.2  解决图片底部默认空白缝隙问题
 
 图片底侧会有一个空白缝隙，原因是行内块元素会和文字的基线对齐。
 
-![](https://img-blog.csdnimg.cn/20210420125635475.png)
+![](mark-img/20210420125635475.png)
 
 主要解决方法有两种：
 
@@ -613,7 +617,7 @@ vertical-align: baseline | top | middle | bottom
 </html>
 ```
 
-![](https://img-blog.csdnimg.cn/20210420125750954.png)
+![](mark-img/20210420125750954.png)
 
 # 六、溢出的文字省略号显示
 
@@ -727,4 +731,4 @@ display: -webkit-box;
 
 Chrome 浏览器效果：
 
-![](https://img-blog.csdnimg.cn/20210420132822674.png)
+![](mark-img/20210420132822674.png)

@@ -347,7 +347,7 @@ background-size: contain;
 移动端 CSS 初始化推荐使用 `normalize.css/`
 
 - Normalize.css：保护了有价值的默认值
-- Normalize.css：修复了浏览器的bug
+- Normalize.css：修复了浏览器的漏洞
 - Normalize.css：是模块化的
 - Normalize.css：拥有详细的文档
 
@@ -419,28 +419,31 @@ box-sizing: content-box;
 
 ![](mark-img/20210718112624778.png)
 
-## 5.4 特殊样式
+## 5.4 移动端特殊样式
 
 ```css
 /* CSS3盒子模型 */
 box-sizing: border-box;
--webkit-box-sizing: border-box;
-/* 点击高亮，我们一般需要清除，设置 transparent 完成透明 */
-/* 说明：比如a链接在移动端默认点击时会有一个背景颜色高亮 */
+-webkit-box-sizing: border-box;	/* 浏览器前缀兼容老版本浏览器 */
+
+/* 移动端中某些地方点击会高亮，我们一般需要清除，设置 transparent 完成透明 */
+/* 说明：比如 a链接 在移动端默认点击时会有一个背景颜色高亮 */
 -webkit-tap-highlight-color: transparent;
 /* 比如可以这样： */
 * {
     -webkit-tap-highlight-color: transparent;
 }
-/* 在移动端浏览器默认的外观在iOS上加上这个属性才能给按钮和输入框自定义样式 */
+
+/* 移动端浏览器默认的外观在 iOS 上加上这个属性才能给按钮和输入框自定义样式 */
 -webkit-appearance: none;
 /* 比如可以这样： */
 input  {
     -webkit-appearance: none;
 }
+
 /* 禁用长按页面时的弹出菜单 */
 -webkit-touch-callout: none;
-/* 此处以img及a为例子 */
+/* 此处以 img 及 a 为例子 */
 img, a { -webkit-touch-callout: none; }
 ```
 
@@ -478,7 +481,7 @@ img, a { -webkit-touch-callout: none; }
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>08-流式布局</title>
     <style>
@@ -522,7 +525,7 @@ img, a { -webkit-touch-callout: none; }
 
 ![](mark-img/20210718144002640.gif)
 
-## 【案例：京东移动端首页】
+## 6.2 案例：京东移动端首页
 
 【项目结构】
 
@@ -674,7 +677,9 @@ img, a { -webkit-touch-callout: none; }
 ```css
 body {
   width: 100%;
+  /* 目前智能手机最小物理像素宽度一般为 320px */
   min-width: 320px;
+  /* 此处的宽度为物理像素 */
   max-width: 640px;
   margin: 0 auto;
   font-size: 14px;
@@ -852,7 +857,7 @@ div {
 }
 
 .slider img {
-  width: 100%;
+  width: 100%; 
 }
 
 /* 品牌日 */
@@ -932,3 +937,159 @@ nav a span {
 【效果图】
 
 <img src="mark-img/20210719141842628.png" style="zoom: 50%;" />
+
+## 6.3 京东移动端案例重点强调
+
+### 6.3.1 搜索框
+
+![](mark-img/image-20220127234728776.png)
+
+<img src="mark-img/ssk.gif" style="zoom: 33%;" />
+
+可以看到，当页面宽度变化时，搜索框会同步变宽，但是左右两边的按钮是不会变化的，实现这个功能的原理是：
+
+![](mark-img/image-20220128001743288.png)
+
+代码：
+
+```html
+ <div class="search-wrap">
+        <div class="search-btn"></div>
+        <div class="search">
+            <div class="jd-icon"></div>
+            <div class="sou"></div>
+        </div>
+        <div class="search-login">登陆</div>
+ </div>
+```
+
+```css
+.search-wrap {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 44px;
+  min-width: 320px;
+  max-width: 640px;
+}
+
+.search-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 44px;
+}
+
+.search-btn::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 18px;
+  background: url(../images/s-btn.png) no-repeat;
+  background-size: 20px 18px;
+  margin: 14px 0 0 15px;
+}
+
+.search-login {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 44px;
+  color: #fff;
+  line-height: 44px;
+}
+
+.search {
+  position: relative;
+  height: 30px;
+  background-color: #fff;
+  margin: 0 50px;
+  border-radius: 15px;
+  margin-top: 7px;
+}
+
+.jd-icon {
+  width: 20px;
+  height: 15px;
+  position: absolute;
+  top: 8px;
+  left: 13px;
+  background: url(../images/jd.png) no-repeat;
+  background-size: 20px 15px;
+}
+
+.jd-icon::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 0;
+  display: block;
+  width: 1px;
+  height: 15px;
+  background-color: #ccc;
+}
+
+.sou {
+  position: absolute;
+  top: 8px;
+  left: 50px;
+  width: 18px;
+  height: 15px;
+  background: url(../images/jd-sprites.png) no-repeat -81px 0;
+  background-size: 200px auto;
+}
+```
+
+### 6.3.2 图片底部空白
+
+<img src="mark-img/Snipaste_2022-01-27_22-42-00.jpg" style="zoom: 33%;" />
+
+图片底部默认会带有一个空白，所以通常在开发中会设置：
+
+```css
+img {
+    vertical-align: top;	/* 去掉图片底部空白 */
+}
+```
+
+### 6.3.3 二倍精灵图做法
+
+- 在 `firework` 里面把精灵图等比例缩放为原来的一半
+- 之后根据大小测量坐标
+- 注意代码里面 background-size 也要写：精灵图原来宽度的一半
+
+### 6.3.4 竖线的选型
+
+**情况一**
+
+![](mark-img/image-20220128004718671.png)
+
+这里 JD 与 搜索按钮之间有一个 `|`，之前我们使用盒子模型的右边框来实现，但是这里使用边框并不是一个好的选择，原因有二：
+
+1. 边框的长度不能控制
+2. 内容与边框的距离不好控制，需要额外设置边距（打破了结构的科学性）
+
+解决方法：利用伪元素法
+
+```css
+.jd-icon::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 0;
+  display: block;
+  width: 1px;
+  height: 15px;
+  background-color: #ccc;
+}
+```
+
+**情况二**
+
+![](mark-img/Snipaste_2022-01-27_22-57-57.jpg)
+
+这里的一排盒子用百分比布局，所以如果我们利用伪元素法加竖线的话，整体的大小加起来就大于 100% 了，所以最优的解法为直接给盒子加边框，但是加边框后盒子就变大了，所以正确的做法是先设置 CSS3 盒子模型，然后再设置边框就可以了。
+
+附：CSS3 盒子模型 `box-sizing: border-box;`
