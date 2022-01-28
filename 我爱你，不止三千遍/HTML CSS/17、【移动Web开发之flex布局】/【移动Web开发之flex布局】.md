@@ -2082,7 +2082,6 @@ div {
   min-width: 320px;
   max-width: 540px;
   height: 44px;
-  /* background-color: pink; */
   background-color: #f6f6f6;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -2116,7 +2115,6 @@ div {
 .user {
   width: 44px;
   height: 44px;
-  /* background-color: purple; */
   font-size: 12px;
   text-align: center;
   color: #2eaae0;
@@ -2361,6 +2359,79 @@ nav {
 # 六、携程网首页案例重点强调
 
 ## 6.1 搜索模块
+
+<img src="mark-img/image-20220128192810458.png" alt="" style="zoom:50%;" />
+
+```html
+<!-- 顶部搜索 -->
+<div class="search-index">
+    <div class="search">搜索:目的地/酒店/景点/航班号</div>
+	<a href="#" class="user">我 的</a>
+</div>
+```
+
+最上方的搜索模块整体是利用固定定位来实现的，里面的内容布局则是通过弹性布局实现。
+
+**（1）整体部分的定位**
+
+```css
+.search-index {
+  /* 固定定位跟父级没有关系 它以屏幕为准 */
+  position: fixed;
+  top: 0;
+  /* 重点：利用 translateX 实现移动自身宽度的一半！*/
+  left: 50%;
+  /* 固定的盒子应该有宽度 */
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  /* 搜索框宽度与显示宽度一样 */
+  width: 100%;
+  min-width: 320px;
+  max-width: 540px;
+  height: 44px;
+  background-color: #f6f6f6;
+}
+```
+
+**（2）搜索栏与我的部分布局**
+
+- 【对 search-index 设置弹性布局】
+
+```css
+display: flex;
+```
+
+- 【对 serch 设置占满1份区域】
+
+```css
+.search {
+  height: 26px;
+  line-height: 24px;
+  border: 1px solid #ccc;
+  /* 设置为占据 1份 */
+  flex: 1;
+  font-size: 12px;
+  color: #666;
+  margin: 7px 10px;
+  padding-left: 25px;
+}
+```
+
+- 【user 单独设置一个宽度，占据自己那部分】
+
+```css
+.user {
+  width: 44px;
+  height: 44px;
+  font-size: 12px;
+  text-align: center;
+  color: #2eaae0;
+}
+```
+
+最终实现的结构：
+
+![](mark-img/image-20220128194425850.png)
 
 ## 6.2 渐变
 
