@@ -44,7 +44,7 @@
         }
 
         div span {
-            /* 弹性布局中：行内盒子的宽高可直接设置了 */
+            /* 弹性布局中：行内盒子的宽高可直接设置了，这也是优于百分比布局的地方之一 */
             /* 免去了浮动的设置，以及对父盒子清除浮动的麻烦 */
             width: 150px;
             height: 100px;
@@ -67,7 +67,7 @@
 
 ![](mark-img/64fd881a1eef4c89a6fcb00097f3148b.png)
 
-等间距分布
+**等间距分布**
 
 ```html
 <!DOCTYPE html>
@@ -110,7 +110,7 @@
 
 ![](mark-img/23e4d8a8d2744e8eab0b5ec0b647a853.gif)
 
-平均分为三等分
+**平均分为三等分**
 
 ```html
 <!DOCTYPE html>
@@ -158,9 +158,9 @@
 
 ## 2.1 布局原理
 
-flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模型提供最大的灵活性，任何一个容器都可以指定为 flex 布局。
+flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模型**提供最大的灵活性**，**任何一个容器都可以指定为 flex 布局**。
 
-- 当我们为父盒子设为 flex 布局以后，子元素的 float、clear 和 vertical-align 属性将失效。
+- 当我们为父盒子设为 flex 布局以后，子元素的 float（浮动功能）、clear（清除浮动功能）和 vertical-align（垂直居中功能）属性将失效。
 - 伸缩布局 = 弹性布局 = 伸缩盒布局 = 弹性盒布局 = flex 布局
 
 采用 flex 布局的元素，称为 flex 容器（flex container），简称 “容器”。它的所有子元素自动成为容器成员，称为 flex 项目（flex item），简称 “项目”。
@@ -175,7 +175,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 
 【总结 flex 布局原理】
 
-就是通过给父盒子添加 flex 属性，来控制子盒子的位置和排列方式。
+**就是通过给父盒子添加 flex 属性，来控制子盒子的位置和排列方式。**
 
 # 三、flex布局父项常见属性
 
@@ -909,7 +909,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 
 ## 3.4 flex-wrap设置子元素是否换行
 
-默认情况下，项目都排在一条线（又称“轴线”）上。flex-wrap 属性定义，flex 布局中默认是不换行的。
+默认情况下，项目都排在一条线（又称 “轴线”）上。flex-wrap 属性定义，flex 布局中默认是不换行的。
 
 | 属性值   | 说明             |
 | -------- | ---------------- |
@@ -1806,6 +1806,7 @@ initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 **（4）常用初始化样式**
 
 ```css
+/* 放在 index.css 中 */
 body {
 	max-width: 540px;
 	min-width: 320px;
@@ -1827,112 +1828,6 @@ body {
 **（6）常见 flex 布局思路**
 
 ![](mark-img/4b29644d4f634122a8619a17ba22b9fd.png)
-
-**（7）背景线性渐变**
-
-语法：
-
-```css
-background: linear-gradient(起始方向, 颜色1, 颜色2, ...);
-background: -webkit-linear-gradient(left, red , blue);
-background: -webkit-linear-gradient(left top, red , blue);
-```
-
-- 背景渐变必须添加浏览器私有前缀
-- 起始方向可以是：方位名词 或 度数，如果省略默认就是 top
-
-【案例】
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>11-背景线性渐变</title>
-    <style>
-        div {
-            width: 600px;
-            height: 200px;
-            /* 背景渐变必须添加浏览器私有前缀 */
-            /* 由于此处是移动端，所以我们写 webkit 就够了 */
-            background: -webkit-linear-gradient(left, red, blue);
-            /* background: -webkit-linear-gradient(red, blue); */
-            /* background: -webkit-linear-gradient(top left, red, blue); */
-        }
-    </style>
-</head>
-
-<body>
-    <div></div>
-</body>
-
-</html>
-```
-
-![](mark-img/f6d079aad03f4013b60a124619a11523.png)
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>11-背景线性渐变</title>
-    <style>
-        div {
-            width: 600px;
-            height: 200px;
-            /* 背景渐变必须添加浏览器私有前缀 */
-            /* background: -webkit-linear-gradient(left, red, blue); */
-            background: -webkit-linear-gradient(red, blue);
-            /* background: -webkit-linear-gradient(top left, red, blue); */
-        }
-    </style>
-</head>
-
-<body>
-    <div></div>
-</body>
-
-</html>
-```
-
-![](mark-img/313c9d5d71814cdf876df9107f18faa9.png)
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>11-背景线性渐变</title>
-    <style>
-        div {
-            width: 600px;
-            height: 200px;
-            /* 背景渐变必须添加浏览器私有前缀 */
-            /* background: -webkit-linear-gradient(left, red, blue); */
-            /* background: -webkit-linear-gradient(red, blue); */
-            background: -webkit-linear-gradient(top left, red, blue);
-        }
-    </style>
-</head>
-
-<body>
-    <div></div>
-</body>
-
-</html>
-```
-
-![](mark-img/d94d2dd28f4243a0b6fc2f5efe391c1d.png)
 
 【完整代码】
 
@@ -2463,3 +2358,309 @@ nav {
 
 <img src="mark-img/3dfa71998f534aecb36292e1e072ccdf.png" style="zoom:67%;" />
 
+# 六、携程网首页案例重点强调
+
+## 6.1 搜索模块
+
+## 6.2 渐变
+
+### 6.2.1 背景渐变
+
+**（1）背景线性渐变**
+
+语法：
+
+`background: linear-gradient(起始方向, 颜色1, 颜色2, 颜色3, ...);`
+
+```css
+background: -webkit-linear-gradient(left, red, blue);
+background: -webkit-linear-gradient(left top, red, blue, deeppink);
+background: -webkit-linear-gradient(45deg, red, blue);
+```
+
+- 背景渐变**必须**添加浏览器私有前缀
+
+- 起始方向可以是：**方位名词** 或 **度数**，如果省略默认就是 top（从上到下）
+
+- 方位名词：`top`、`bottom`、`left`、`right`、`两两组合`
+
+- 度数：角度是指水平线和渐变线之间的角度，逆时针方向计算。换句话说，0deg 将创建一个从下到上的渐变，90deg 将创建一个从左到右的渐变。
+
+  <img src="mark-img/image-20220128181903220.png" style="zoom:50%;" />
+
+  > 注意很多浏览器（Chrome、Safari、firefox等）的使用了旧的标准，即 0deg 将创建一个从左到右的渐变，90deg 将创建一个从下到上的渐变。换算公式 **90 - x = y** 其中 x 为标准角度，y为非标准角度。
+
+【案例】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>背景线性渐变</title>
+    <style>
+        div {
+            width: 600px;
+            height: 200px;
+            background-color: red; /* 浏览器不支持的时候显示 */
+            /* 背景渐变必须添加浏览器私有前缀 */
+            /* 由于此处是移动端，所以我们写 webkit 就够了 */
+            background: -webkit-linear-gradient(left, red, blue);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>
+```
+
+![](mark-img/f6d079aad03f4013b60a124619a11523.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>背景线性渐变</title>
+    <style>
+        div {
+            width: 600px;
+            height: 200px;
+            background-color: red; /* 浏览器不支持的时候显示 */
+            /* 背景渐变必须添加浏览器私有前缀 */
+            /* 默认从上到下 top */
+            background: -webkit-linear-gradient(red, blue);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>
+```
+
+![](mark-img/313c9d5d71814cdf876df9107f18faa9.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>背景线性渐变</title>
+    <style>
+        div {
+            width: 600px;
+            height: 200px;
+            background-color: red; /* 浏览器不支持的时候显示 */
+            /* 背景渐变必须添加浏览器私有前缀 */
+            /* left top 与 top left 都可以 */
+            background: -webkit-linear-gradient(left top, red, blue);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>
+```
+
+![](mark-img/d94d2dd28f4243a0b6fc2f5efe391c1d.png)
+
+【使用透明度】
+
+CSS3 渐变也支持透明度（transparent），可用于创建减弱变淡的效果。
+
+为了添加透明度，我们使用 `rgba()` 函数来定义颜色节点。rgba() 函数中的最后一个参数可以是从 0 到 1 的值，它定义了颜色的透明度：0 表示完全透明，1 表示完全不透明。
+
+下面的实例演示了从左边开始的线性渐变。起点是完全透明，慢慢过渡到完全不透明的红色：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>背景线性渐变</title>
+    <style>
+        div {
+            width: 600px;
+            height: 200px;
+            /* 背景渐变必须添加浏览器私有前缀 */
+            /* 前面的 red 为浏览器不支持时显示 */
+            background: red -webkit-linear-gradient(left, rgba(0,0,255,.2), rgba(255,0,0,1));
+        }
+    </style>
+</head>
+
+<body>
+<div></div>
+</body>
+
+</html>
+```
+
+<img src="mark-img/image-20220128182622106.png" style="zoom: 67%;" />
+
+**（2）径向渐变**
+
+径向渐变由它的中心定义。
+
+为了创建一个径向渐变，你也必须至少定义两种颜色节点。颜色节点即你想要呈现平稳过渡的颜色。同时，你也可以指定渐变的中心、形状（圆形或椭圆形）、大小。默认情况下，渐变的中心是 center（表示在中心点），渐变的形状是 ellipse（表示椭圆形），渐变的大小是 farthest-corner（表示到最远的角落）。
+
+> 径向渐变不要加浏览器前缀！
+
+**径向渐变 - 颜色节点均匀分布（默认情况下）**
+
+```css
+width: 300px;
+height: 300px;
+background: radial-gradient(red, green, blue);
+```
+
+<img src="mark-img/image-20220128185054290.png" style="zoom:50%;" />
+
+**径向渐变 - 颜色节点不均匀分布**
+
+```css
+width: 300px;
+height: 300px;
+background: radial-gradient(red 5%, green 15%, blue 60%);
+```
+
+<img src="mark-img/image-20220128185317175.png" style="zoom:50%;" />
+
+**设置形状**
+
+`shape` 参数定义了形状。它可以是值 `circle` 或 `ellipse`。其中，`circle` 表示圆形，`ellipse` 表示椭圆形。默认值是 `ellipse`。
+
+```css
+height: 150px;
+width: 200px;
+background: radial-gradient(red, yellow, green); 
+background: radial-gradient(circle, red, yellow, green); 
+```
+
+<img src="mark-img/image-20220128185852176.png" style="zoom:50%;" />
+
+**不同尺寸大小关键字的使用**
+
+`size` 参数定义了渐变的大小。它可以是以下四个值：
+
+- `closest-side`
+- `farthest-side`
+- `closest-corner`
+- `farthest-corner`
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title></title> 
+<style>
+#grad1 {
+  height: 150px;
+  width: 150px;
+  background-color: red; /* 浏览器不支持的时候显示 */
+  background: radial-gradient(closest-side at 60% 55%, red, yellow, black); 
+}
+
+#grad2 {
+  height: 150px;
+  width: 150px;
+  background-color: red; /* 浏览器不支持的时候显示 */
+  background: radial-gradient(farthest-side at 60% 55%, red, yellow, black); 
+}
+
+#grad3 {
+  height: 150px;
+  width: 150px;
+  background-color: red; /* 浏览器不支持的时候显示 */
+  background: radial-gradient(closest-corner at 60% 55%, red, yellow, black);
+}
+
+#grad4 {
+  height: 150px;
+  width: 150px;
+  background-color: red; /* 浏览器不支持的时候显示 */
+  background: radial-gradient(farthest-corner at 60% 55%, red, yellow, black); 
+}
+</style>
+</head>
+<body>
+
+<h3>径向渐变 - 不同尺寸大小关键字的使用</h3>
+
+<p><strong>closest-side：</strong></p>
+<div id="grad1"></div>
+
+<p><strong>farthest-side：</strong></p>
+<div id="grad2"></div>
+
+<p><strong>closest-corner：</strong></p>
+<div id="grad3"></div>
+
+<p><strong>farthest-corner（默认）：</strong></p>
+<div id="grad4"></div>
+
+</body>
+</html>
+```
+
+<img src="mark-img/image-20220128190728826.png" style="zoom:50%;" />
+
+### 6.2.2 文字渐变
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p{
+            font-size: 60px;
+            background: linear-gradient(0deg,red,blue);
+            background-clip:text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body>
+<p>
+    我是渐变文字
+</p>
+</body>
+</html>
+```
+
+<img src="mark-img/image-20220128191209061.png" style="zoom:50%;" />
+
+**核心内容说明**
+
+background 属性：设置背景图片为线性渐变色。
+
+background-clip 属性：规定背景的绘制区域（我们注意到该属性上的-webkit-，说明该属性还存在兼容问题，并不是所有浏览器都支持，在 W3C 是没有 text 这个值的，这里的 text 是背景被裁剪到文字）。
+
+![](mark-img/image-20220128191422675.png)
+
+color 属性：设置文字颜色为透明，然后面的背景色显示出来。
