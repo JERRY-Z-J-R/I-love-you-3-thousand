@@ -74,7 +74,7 @@ typeof 0.5; // number
 typeof -24; // number
 ```
 
-## 2.2 小数中0可以省略
+## 2.2 小数中 0 可以省略
 
 在表达小数的时候，整数个位的 `0` 可以省略。
 
@@ -89,7 +89,7 @@ typeof -24; // number
 typeof 3e8;		// number
 
 3e-4;			// 0.0003
-typeof 3e-8;	// number
+typeof 3e-4;	// number
 ```
 
 <img src="mark-img/780e65666c1c45eb8e6c9e08565464e8.png" style="zoom:50%;" />
@@ -166,7 +166,7 @@ typeof '周吉瑞';	// string
 
 ## 3.3 字符串和变量的拼接
 
-要将一个变量的值 “插入” 到字符串中，要满足 “变量左右两边至少有一边加上了字符串”。
+要将一个变量的值 “插入” 到字符串中，要满足 “变量左右两边至少有一边 + 字符串”。
 
 ```javascript
 var year = 2022;
@@ -369,7 +369,7 @@ typeof false;	// boolean
 5 >= 100; // false
 ```
 
-# 五、Undefined类型
+# 五、Undefined 类型
 
 一个没有赋值的变量的默认值是 `undefined`，而 undefined 的类型也是 undefined。
 
@@ -383,7 +383,7 @@ typeof undefined;	// undefined
 
 > 在变量声明提升的时候，会出现 undefined，要注意！
 
-# 六、Null类型
+# 六、Null 类型
 
 `null` 表示 “空”，它是 “空对象”。
 
@@ -638,4 +638,4 @@ function() {
 }
 ```
 
-复杂数据类型都是“引用类型”，引用类型的特性将在数组一课中介绍。
+复杂数据类型都是 “引用类型”，引用类型的特性将在数组一课中介绍。
