@@ -43,7 +43,7 @@ div {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>01-rem单位</title>
+    <title>rem单位</title>
     <style>
         html {
             font-size: 12px;
@@ -101,14 +101,14 @@ div {
 }
 ```
 
-- 用 @media 开头 注意 `@` 符号
+- 用 @media 开头，注意 `@` 符号
 - mediatype 媒体类型
 - 关键字 and not only
-- media feature 媒体特性 必须有小括号包含
+- media feature 媒体特性，必须有小括号包含
 
 ### 2.2.1 mediatype 查询类型
 
-将不同的终端设备划分成不同的类型，称为媒体类型
+将不同的终端设备划分成不同的类型，称为媒体类型。
 
 | 值      | 解释说明                           |
 | ------- | ---------------------------------- |
@@ -121,7 +121,7 @@ div {
 关键字将媒体类型或多个媒体特性连接到一起做为媒体查询的条件。
 
 - and：可以将多个媒体特性连接到一起，相当于 “且” 的意思。
-- not：排除某个媒体类型，相当于“非”的意思，可以省略。
+- not：排除某个媒体类型，相当于 “非” 的意思，可以省略。
 - only：指定某个特定的媒体类型，可以省略。
 
 ### 2.2.3 媒体特性
@@ -140,13 +140,13 @@ div {
 
 实现思路：
 
-- 按照 从大到小 的或者 从小到大 的思路
-- 注意我们有最大值 `max-width` 和最小值 `min-width` 都是包含等于的
+- 按照 **从大到小** 的或者 **从小到大** 的思路
+- 注意我们有最大值 `max-width` 和最小值 `min-width` 都是**包含等于**的
 - 当屏幕小于 540 像素，背景颜色变为蓝色（x <= 539）
 - 当屏幕大于等于 540 像素并且小于等于 969 像素的时候背景颜色为绿色（540 <= x <= 969）
 - 当屏幕大于等于 970 像素的时候，背景颜色为红色（x >= 970）
 
-注意：为了防止混乱，媒体查询我们要按照从小到大或者从大到小的顺序来写，但是我们最喜欢的还是从小到大来写，这样代码更简洁。
+注意：为了防止混乱，媒体查询我们要按照从小到大或者从大到小的顺序来写，但是我们最喜欢的还是**从小到大**来写，这样代码更简洁。
 
 举例：
 
@@ -158,7 +158,7 @@ div {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>03-媒体查询案例修改背景颜色</title>
+    <title>媒体查询案例修改背景颜色</title>
     <style>
         /* 1. 媒体查询一般按照从大到小或者从小到大的顺序来 */
         /* 2. 小于 540px 页面的背景颜色变为蓝色 */
@@ -226,7 +226,7 @@ div {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>04-媒体查询+rem实现元素动态变化</title>
+    <title>媒体查询+rem实现元素动态变化</title>
     <style>
         * {
             margin: 0;
@@ -302,7 +302,7 @@ div {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>05-引入资源</title>
+    <title>引入资源</title>
     <style>
         /* 当我们屏幕大于等于 640px 以上的，我们让 div 一行显示 2 个 */
         /* 当我们屏幕小于 640px 我们让 div 一行显示一个 */
@@ -742,7 +742,7 @@ rem + 媒体查询 + less
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>10-rem适配方案</title>
+    <title>rem适配方案</title>
     <style>
         @media screen and (min-width: 320px) {
             html {
