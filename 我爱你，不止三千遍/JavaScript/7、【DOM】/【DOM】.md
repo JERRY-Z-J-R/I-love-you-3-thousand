@@ -6,7 +6,7 @@
 
 DOM（Document Object Model，文档对象模型）是 JavaScript 操作 HTML 文档的接口，使文档操作变得非常优雅、简便。
 
-DOM 最大的特点就是将 HTML 文档表示为“节点树”。
+DOM 最大的特点就是将 HTML 文档表示为 “节点树”。
 
 # 二、DOM节点树
 
@@ -41,19 +41,21 @@ DOM 最大的特点就是将 HTML 文档表示为“节点树”。
 
 节点的 nodeType 属性可以显示这个节点具体的类型。
 
+`document.nodeType;	  // 9`
+
 | nodeType值 | 节点类型                        |
 | ---------- | ------------------------------- |
 | 1          | 元素节点，例如 `<p>` 和 `<div>` |
 | 3          | 文字节点                        |
 | 8          | 注释节点                        |
-| 9          | document节点                    |
-| 10         | DTD节点（文档类型声明）         |
+| 9          | document 节点                   |
+| 10         | DTD 节点（文档类型声明）        |
 
 # 四、document
 
 ## 4.1 访问元素节点
 
-所谓“访问”元素节点，就是指“得到”、“获取”页面上的元素节点。
+所谓 “访问” 元素节点，就是指 “得到”、“获取” 页面上的元素节点。
 
 对节点进行操作，第一步就是要得到它。
 
@@ -74,15 +76,21 @@ document.nodeType;	// 9
 
 ## 4.3 访问元素节点的常用方法
 
-| 方法                                | 功能                   | 兼容性                       |
-| ----------------------------------- | ---------------------- | ---------------------------- |
-| `document.getElementById()`         | 通过 id 得到元素       | IE 6                         |
-| `document.getElementsByTagName()`   | 通过标签名得到元素数组 | IE 6                         |
-| `document.getElementsByClassName()` | 通过类名得到元素数组   | IE 9                         |
-| `document.querySelector()`          | 通过选择器得到元素     | IE 8 部分兼容、IE 9 完全兼容 |
-| `document.querySelectorAll()`       | 通过选择器得到元素数组 | IE 8 部分兼容、IE 9 完全兼容 |
+注意：以下方法的参数都是字符串值 `''`。
+
+| 方法                                | 功能                       | 兼容性                       |
+| ----------------------------------- | -------------------------- | ---------------------------- |
+| `document.getElementById()`         | 通过 id 得到**元素**       | IE 6                         |
+| `document.getElementsByTagName()`   | 通过标签名得到**元素数组** | IE 6                         |
+| `document.getElementsByClassName()` | 通过类名得到**元素数组**   | IE 9                         |
+| `document.querySelector()`          | 通过选择器得到**元素**     | IE 8 部分兼容、IE 9 完全兼容 |
+| `document.querySelectorAll()`       | 通过选择器得到**元素数组** | IE 8 部分兼容、IE 9 完全兼容 |
 
 > Element：元素。
+>
+> query：查询。
+>
+> Selector：选择器。
 
 ## 4.4 getElementById()
 
@@ -104,13 +112,15 @@ var para = document.getElementById('para');
 
 【注意事项】
 
-如果页面上有相同 id 的元素，则只能得到第一个。
+> 如果页面上有相同 id 的元素，则只能得到第一个。
 
 ## 4.5 延迟运行
 
-在测试 DOM 代码时，通常 JS 代码一定要写到 HTML 节点的后面，否则 JS 无法找到相应的 HTML 节点。
+在测试 DOM 代码时，通常 JS 代码要写到 HTML 节点的后面，否则 JS 无法找到相应的 HTML 节点。
 
 当然，可以使用 `window.onload = function(){}` 事件，使页面加载完毕后，再执行指定的代码。
+
+> 一般script标签会被放在头部或尾部。头部就是 `<head></head>` 里面，尾部一般指 `<body></body>` 里，但也有放在 `</body>` 闭合标签之后的（千万不要这样）。
 
 ```html
 <!DOCTYPE html>
@@ -398,7 +408,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 
 【排除文本节点的干扰】
 
-从 IE9 开始支持一些“只考虑元素节点”的属性。
+从 IE9 开始支持一些 “只考虑元素节点” 的属性。
 
 > 如果考虑兼容性，可以通过后面的函数封装来实现。
 
@@ -472,15 +482,15 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 
 <img src="mark-img/59691c6f0d424e538657b10a99e55a1e.png" style="zoom:80%;" />
 
-注意：文本也算作节点（如图选中部分）
+注意：文本也算作节点（如图选中空白部分）
 
 ![](mark-img/5236374c628640628b2be7c232cd99b7.png)
 
 # 六、书写常见的节点关系函数
 
-书写 IE6 也能兼容的“寻找所有元素子节点”函数。
+书写 IE6 也能兼容的 “寻找所有元素子节点” 函数。
 
-书写 IE6 也能兼容的“寻找前一个元素兄弟节点”函数。
+书写 IE6 也能兼容的 “寻找前一个元素兄弟节点” 函数。
 
 如何编写函数，获得某元素的所有的兄弟节点。
 
@@ -718,7 +728,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 
 【注意事项】
 
-- CSS 属性要写成“驼峰”形式
+- CSS 属性要写成 “驼峰” 形式
 - CSS 属性值要设置成完整形式
 - 注意写单位
 
@@ -795,7 +805,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 </html>
 ```
 
-不符合 W3C 标准的属性，要使用 `setAttribute()` 和 `getAttribute()` 来设置、读取。
+对于不符合 W3C 标准的属性，要使用 `setAttribute()` 和 `getAttribute()` 来设置、读取。
 
 ```javascript
 oBox.setAttribute('data-n', 10);
@@ -845,7 +855,7 @@ var oDiv = document.createElement('div');
 
 ## 8.2 "孤儿节点"
 
-新创建出的节点是“孤儿节点”，这意味着它并没有被挂载到 DOM 树上，我们无法看见它。
+新创建出的节点是 “孤儿节点”，这意味着它并没有被挂载到 DOM 树上，我们无法看见它。
 
 必须继续使用 `appendChild()` 或 `insertBefore()` 方法将孤儿节点插入到 DOM 树上。
 
@@ -893,7 +903,7 @@ var oDiv = document.createElement('div');
 
 ### 8.2.2 insertBefore()
 
-任何已经在 DOM 树上的节点，都可以调用 insertBefore() 方法，它可以将孤儿节点挂载到它的内部，成为它的“标杆子节点”之前的节点。
+任何已经在 DOM 树上的节点，都可以调用 insertBefore() 方法，它可以将孤儿节点挂载到它的内部，成为它的 “标杆子节点” 之前的节点。
 
 ```javascript
 父节点.insertBefore(孤儿节点, 标杆节点);
@@ -1127,7 +1137,9 @@ var oDiv = document.createElement('div');
 
 ## 8.6 克隆节点
 
-`cloneNode()` 方法可以克隆节点，克隆出的节点是“孤儿节点”。
+`cloneNode()` 方法可以克隆节点，克隆出的节点是 “孤儿节点”。
+
+必须继续使用 `appendChild()` 或 `insertBefore()` 方法将孤儿节点插入到 DOM 树上。
 
 ```javascript
 var 孤儿节点 = 老节点.cloneNode();
@@ -1210,13 +1222,13 @@ var 孤儿节点 = 老节点.cloneNode(true);
 
 DOM 允许我们书写 JavaScript 代码以让 HTML 元素作出反应。
 
-什么是“事件”：用户与网页的交互动作。
+什么是 “事件”：用户与网页的交互动作。
 
 ## 9.1 什么是事件监听
 
-“监听”顾名思义，就是让计算机随时能够发现这个事件发生了，从而执行程序员预先编写好的一些程序。
+“监听” 顾名思义，就是让计算机随时能够发现这个事件发生了，从而执行程序员预先编写好的一些程序。
 
-设置事件监听的方法主要有 `onxxx` 和 `addEventListener()` 两种，二者的区别将在“事件传播”一课中介绍。
+设置事件监听的方法主要有 `onxxx` 和 `addEventListener()` 两种，二者的区别将在 “事件传播” 一课中介绍。
 
 ## 9.2 最简单的设置事件监听的方法
 
@@ -1319,7 +1331,7 @@ oBox.onclick = function() {
 
     <script>
         var myform = document.getElementById('myform');
-        // 表单对象可以通过“打点”name 属性，得到里面的子元素。
+        // 表单对象可以通过 “打点”name 属性，得到里面的子元素。
         var nameField = myform.nameField;
         var ageField = myform.ageField;
 
@@ -1348,7 +1360,7 @@ oBox.onclick = function() {
 </html>
 ```
 
-> 表单对象可以通过“打点”name 属性，得到里面的子元素。
+> 表单对象可以通过 “打点”name 属性，得到里面的子元素。
 
 ## 9.6 常见的页面事件监听
 
@@ -1601,7 +1613,7 @@ oBox.addEventListener('click', function(){}, true);
 我是box3的捕获阶段
 ```
 
-> 在新版的 Chrome 中貌似都默认先执行最内层元素的捕获再执行冒泡。
+> 在新版的 Chrome 中都默认先执行最内层元素的捕获再执行冒泡。
 
 - 如果给元素设置相同的两个或多个同名事件，则 DOM O级写法后面写的会覆盖先写的；而 DOM 2级会按顺序执行
 
@@ -1745,9 +1757,7 @@ oBox.onmousemove = function(e) {
 </head>
 
 <body>
-    <div id="box">
-
-    </div>
+    <div id="box"></div>
     <div id="info"></div>
 
     <script>
@@ -1837,9 +1847,9 @@ oBox.onmousemove = function(e) {
 
 ## 11.3 e.charCode和e.keyCode属性
 
-`e.charCode` 属性通常用于 `onkeypress` 事件中，表示用户输入的字符的“字符码”。
+`e.charCode` 属性通常用于 `onkeypress` 事件中，表示用户输入的字符的 “字符码”。
 
-`e.keyCode` 属性通常用于 `onkeydown` 事件和 `onkeyup` 中，表示用户按下的按键的“键码”。
+`e.keyCode` 属性通常用于 `onkeydown` 事件和 `onkeyup` 中，表示用户按下的按键的 “键码”。
 
 ### 11.3.1 charCode字符码
 
@@ -1983,9 +1993,9 @@ oBox.onmousemove = function(e) {
 
 ## 11.4 e.preventDefault()方法
 
-`e.preventDefault()` 方法用来阻止事件产生的“默认动作”。
+`e.preventDefault()` 方法用来阻止事件产生的 “默认动作”。
 
-一些特殊的业务需求，需要阻止事件的“默认动作”。
+一些特殊的业务需求，需要阻止事件的 “默认动作”。
 
 【小案例1】
 
@@ -2034,7 +2044,7 @@ oBox.onmousemove = function(e) {
 
 鼠标滚轮事件是 `onmousewheel`，它的事件对象 e 提供 `deltaY` 属性表示鼠标滚动方向，向下滚动是返回正值，向上滚动时返回负值。
 
-- 没有阻止事件的“默认动作”时
+- 没有阻止事件的 “默认动作” 时
 
 ```html
 <!DOCTYPE html>
@@ -2085,7 +2095,7 @@ oBox.onmousemove = function(e) {
 
 <img src="mark-img/973fb9858bf542b6815b3b1f2f77249c.gif" style="zoom: 33%;" />
 
-- 阻止事件的“默认动作”后
+- 阻止事件的 “默认动作” 后
 
 ```html
 <!DOCTYPE html>
@@ -2145,7 +2155,7 @@ oBox.onmousemove = function(e) {
 
 `oncontextmenu`：在用户点击鼠标右键打开上下文菜单时触发。
 
-- 没有阻止事件的“默认动作”时
+- 没有阻止事件的 “默认动作” 时
 
 ```html
 <!DOCTYPE html>
@@ -2179,7 +2189,7 @@ oBox.onmousemove = function(e) {
 
 ![](mark-img/bdde5ade8da44af8aadf8e536e9e5b15.gif)
 
-- 阻止事件的“默认动作”后
+- 阻止事件的 “默认动作” 后
 
 ```html
 <!DOCTYPE html>
@@ -2531,10 +2541,10 @@ oBox.onmousemove = function(e) {
 
 事件委托通常需要结合使用 e.target 属性。
 
-| 属性            | 属性描述                             |
-| --------------- | ------------------------------------ |
-| `target`        | 触发此事件的最早元素，即“事件源元素” |
-| `currentTarget` | 事件处理程序附加到的元素             |
+| 属性            | 属性描述                              |
+| --------------- | ------------------------------------- |
+| `target`        | 触发此事件的最早元素，即 “事件源元素” |
+| `currentTarget` | 事件处理程序附加到的元素              |
 
 ```html
 <!DOCTYPE html>
@@ -2945,7 +2955,7 @@ oBox.onmousemove = function(e) {
 
 `setInterval()` 和 `setTimeout()` 是两个异步语句。
 
-异步（asynchronous）：不会阻塞 CPU 继续执行其他语句，当异步完成时，会执行“回调函数”（callback）。
+异步（asynchronous）：不会阻塞 CPU 继续执行其他语句，当异步完成时，会执行 “回调函数”（callback）。
 
 ![](mark-img/e3423b0d66af49b5a113b2fce2c1dc62.png)
 
@@ -2953,7 +2963,7 @@ oBox.onmousemove = function(e) {
 
 动画是网页上非常常见的业务需求。
 
-使用定时器实现动画就是利用“视觉暂留”原理。
+使用定时器实现动画就是利用 “视觉暂留” 原理。
 
 ```html
 <!DOCTYPE html>
