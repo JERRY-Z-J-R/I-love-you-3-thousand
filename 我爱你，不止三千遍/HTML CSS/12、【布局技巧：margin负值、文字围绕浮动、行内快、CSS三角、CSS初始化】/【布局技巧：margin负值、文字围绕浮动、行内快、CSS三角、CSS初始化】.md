@@ -14,7 +14,7 @@
 2. 鼠标经过某个盒子的时候，提高当前盒子的层级即可（如果周围盒子没有定位，则对当前盒子加相对定位（保留位置并显示在其他盒子之上）；如果周围有定位，则提高当前盒子的 z-index）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -69,7 +69,7 @@
 在制作文字位于图片周围的效果时，可以巧妙运用浮动元素不会压住文字的特性。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -125,7 +125,7 @@
 2. 利用行内块元素中间有缝隙，并且给父级添加 `text-align: center;` 行内块元素会水平会居中
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -219,7 +219,7 @@ border-width: 22px 8px 0 0;
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

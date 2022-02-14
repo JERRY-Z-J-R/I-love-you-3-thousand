@@ -27,7 +27,7 @@
 ## 1.2 初体验
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -70,7 +70,7 @@
 **等间距分布**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -113,7 +113,7 @@
 **平均分为三等分**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -217,7 +217,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -263,7 +263,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/e203d92f12b64482ba5ea5e99360ede1.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -309,7 +309,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/6765176e8adb4b9dac8117df043795fd.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -371,7 +371,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -423,7 +423,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/408e7c1570d44daa9bc4a62372d27baa.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -475,7 +475,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/201e75d13fc8475b84a23e10b5011609.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -527,7 +527,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/79b89bb112374435bad2705726e16aab.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -581,7 +581,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/40be74d06a4c43d888edddda10e80d16.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -651,7 +651,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【以上到下为主轴的案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -702,7 +702,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/ceb344ce1a3340e48cf18c89f6b3a563.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -753,7 +753,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/c27f6656f46144f3bac38ff8754b6aa9.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -806,7 +806,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/e3df7d958bd84be6b4acb4a5d44e2ea0.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -857,7 +857,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/b28d83e992824ef381b7c9ef662633ef.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -919,7 +919,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -966,7 +966,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 <img src="mark-img/image-20220119004923437.png" alt="image-20220119004923437" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1026,7 +1026,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1071,7 +1071,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/50d2926f0d9c483794b81138df42d132.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1116,7 +1116,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/43173bfa7ed349c89d4003c33192941d.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1161,7 +1161,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/f515660386034bc29da90af33b5947c5.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1224,7 +1224,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1277,7 +1277,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/aac0655dd5044255a703a1b084f89962.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1330,7 +1330,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/43d771e31287418a839a644229b6e604.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1383,7 +1383,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/af5d93c39b134dc3958497f57876de05.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1436,7 +1436,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 ![](mark-img/463ca268100a4df0b092622931cbf05b.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1512,7 +1512,7 @@ flex 是 flexible Box 的缩写，意为 “弹性布局”，用来为盒状模
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1574,7 +1574,7 @@ flex 属性定义子项目分配剩余空间，用 flex 来表示占多少份数
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1663,7 +1663,7 @@ span:nth-child(2) {
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1726,7 +1726,7 @@ span:nth-child(2) {
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1832,7 +1832,7 @@ body {
 【完整代码】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -2464,7 +2464,7 @@ background: -webkit-linear-gradient(45deg, red, blue);
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -2494,7 +2494,7 @@ background: -webkit-linear-gradient(45deg, red, blue);
 ![](mark-img/f6d079aad03f4013b60a124619a11523.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -2524,7 +2524,7 @@ background: -webkit-linear-gradient(45deg, red, blue);
 ![](mark-img/313c9d5d71814cdf876df9107f18faa9.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -2562,7 +2562,7 @@ CSS3 渐变也支持透明度（transparent），可用于创建减弱变淡的�
 下面的实例演示了从左边开始的线性渐变。起点是完全透明，慢慢过渡到完全不透明的红色：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -2641,7 +2641,7 @@ background: radial-gradient(circle, red, yellow, green);
 - `farthest-corner`
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8"> 
@@ -2701,7 +2701,7 @@ background: radial-gradient(circle, red, yellow, green);
 ### 6.2.2 文字渐变
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

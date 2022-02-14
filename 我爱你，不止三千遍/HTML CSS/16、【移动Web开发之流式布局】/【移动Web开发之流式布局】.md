@@ -184,7 +184,7 @@ content="内容中包含若干个属性，用逗号隔开"
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -267,7 +267,7 @@ background-size: contain;
 【背景缩放案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -375,7 +375,7 @@ box-sizing: content-box;
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -476,7 +476,7 @@ img, a { -webkit-touch-callout: none; }
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -534,7 +534,7 @@ img, a { -webkit-touch-callout: none; }
 【HTML】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

@@ -33,7 +33,7 @@
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -104,7 +104,7 @@
 4. nav 里面的 8 个小 li，宽度修改为 33.33%，这样一行就只能显示 3 个小 li，剩余下行显示
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -252,7 +252,7 @@ Bootstrap 使用四步曲：
 - 体会bootstrap.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -354,7 +354,7 @@ Bootstrap 需要为页面内容和栅格系统包裹一个 `.container` 容器�
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -409,7 +409,7 @@ Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，�
 【案例：栅格系统的使用】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -495,7 +495,7 @@ Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，�
 【案例：列嵌套】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -559,7 +559,7 @@ Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，�
 【案例：列偏移】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -618,7 +618,7 @@ Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，�
 【案例：列排序】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -670,7 +670,7 @@ Bootstrap 其他（按钮、表单、表格）请参考 Bootstrap 文档。
 【案例：响应式工具】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -974,7 +974,7 @@ header {
 - index.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

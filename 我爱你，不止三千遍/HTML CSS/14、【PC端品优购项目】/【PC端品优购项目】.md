@@ -1598,7 +1598,7 @@ body {
 一个小注意事项：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1658,7 +1658,7 @@ body {
 解决方案：1.减小高度；2.父盒子溢出隐藏（推荐）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1810,7 +1810,7 @@ label（手机号、短信验证码……）可以发现是右对齐。
 ![](mark-img/20210423235407652.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -2463,7 +2463,7 @@ body {
 ## index.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -3227,7 +3227,7 @@ body {
 ## list.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -3564,7 +3564,7 @@ body {
 ## register.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -3814,18 +3814,18 @@ header {
 
 ##  2. HTML 规范
 
-###  DOCTYPE 声明
+###  doctype 声明
 
-HTML文件必须加上 DOCTYPE 声明，并统一使用 HTML5 的文档声明：
+HTML文件必须加上 doctype 声明，并统一使用 HTML5 的文档声明：
 
 ~~~html
-<!DOCTYPE html>
+<!doctype html>
 ~~~
 
 **HTML5 标准模版**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
   <html lang="zh-CN">
   <head>
   <meta charset="UTF-8">

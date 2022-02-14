@@ -37,7 +37,7 @@ ul li { 样式声明 } 		/* 选择 ul 里面所有的 li 标签元素 */
 - 元素1 和 元素2 **可以是任意基础选择器**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -114,7 +114,7 @@ div>p { 样式声明 } 	/* 选择 div 里面所有最近一级 p 标签元素 */
 - 元素2 **必须是亲儿子，其孙子、重孙之类都不归他管**，你也可以叫：亲儿子选择器
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -176,7 +176,7 @@ ul, div { 样式声明 }		 /* 选择 ul 和 div标签元素 */
 - 并集选择器通常用于集体声明
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -248,7 +248,7 @@ a:hover {
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -303,7 +303,7 @@ input:focus {
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -419,7 +419,7 @@ HTML 元素一般分为 `块元素` 和 `行内元素` 两种类型。
 - 转换为行内块：`display: inline-block;`（常用）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -472,7 +472,7 @@ HTML 元素一般分为 `块元素` 和 `行内元素` 两种类型。
 ## 2.7 简洁版小米侧边栏案例
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -613,7 +613,7 @@ background-color: transparent;
 目前 CSS 还支持丰富的渐变色，但是某些浏览器不支持，这里了解即可，具体内容请查阅资料。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -738,7 +738,7 @@ background-attachment : scroll | fixed
 | `fixed`  | 背景图像固定                                               |
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -841,7 +841,7 @@ background: rgba(0, 0, 0, 0.3);
 - 但是现在实际开发，我们不太关注兼容性写法了，可以放心使用
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -884,7 +884,7 @@ background: rgba(0, 0, 0, 0.3);
 ## 3.9 王者荣耀案例
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -923,7 +923,7 @@ background: rgba(0, 0, 0, 0.3);
 ![](mark-img/20210405213212859.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

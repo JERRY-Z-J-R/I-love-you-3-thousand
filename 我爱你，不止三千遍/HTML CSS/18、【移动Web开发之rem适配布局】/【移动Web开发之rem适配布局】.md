@@ -36,7 +36,7 @@ div {
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -151,7 +151,7 @@ div {
 举例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -219,7 +219,7 @@ div {
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -295,7 +295,7 @@ div {
 - html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -735,7 +735,7 @@ rem + 媒体查询 + less
 【案例】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1558,7 +1558,7 @@ template {
 - index.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1865,7 +1865,7 @@ img {
 - index.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

@@ -66,7 +66,7 @@ border-top: 1px solid red; 		/* 只设定上边框，其余同理 */
 **案例：**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -108,7 +108,7 @@ border-top: 1px solid red; 		/* 只设定上边框，其余同理 */
 表格中两个单元格相邻的边框会重叠在一起，呈现出加粗的效果。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -248,7 +248,7 @@ border-collapse: collapse;
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -313,7 +313,7 @@ padding 属性（简写属性）可以有一到四个值。
 【padding 撑大盒子】
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -341,7 +341,7 @@ padding 属性（简写属性）可以有一到四个值。
 ![](mark-img/00914ec7f1e04382af64f589013d6d59.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -371,7 +371,7 @@ padding 属性（简写属性）可以有一到四个值。
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -413,7 +413,7 @@ padding 的使用技巧：
 ![](mark-img/20210406131156754.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -467,7 +467,7 @@ padding 的使用技巧：
 ![](mark-img/20210406131403183.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -548,7 +548,7 @@ padding 的使用技巧：
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -586,7 +586,7 @@ padding 的使用技巧：
 ![](mark-img/20210406133231459.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -615,7 +615,7 @@ padding 的使用技巧：
 ![](mark-img/20210406133231524.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -680,7 +680,7 @@ padding 的使用技巧：
 尽量只给一个盒子添加 `margin` 值。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -734,7 +734,7 @@ padding 的使用技巧：
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -773,7 +773,7 @@ padding 的使用技巧：
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -831,7 +831,7 @@ padding 的使用技巧：
 ![](mark-img/20210406135403826.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -929,7 +929,7 @@ padding 的使用技巧：
 <img src="mark-img/20210406135403703.jpg" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>

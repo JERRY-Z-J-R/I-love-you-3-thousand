@@ -162,7 +162,7 @@ h1 {
 不能设计差异化样式，只能选择全部的当前标签。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -236,7 +236,7 @@ h1 {
 记忆口诀：**样式点定义**，**结构类调用**，**一个或多个**，**开发最常用**。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -278,7 +278,7 @@ h1 {
 - 这个标签就可以分别具有这些类名的样式
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -312,7 +312,7 @@ h1 {
 - 从而节省 CSS 代码，统一修改也非常方便（**模块化、可重用化**）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -383,7 +383,7 @@ HTML 元素以 id 属性来设置 id 选择器，CSS 中 id 选择器以 `#` 来
 - 类选择器在修改样式中用的最多，id 选择器一般用于页面唯一性的元素上，经常和 JavaScript 搭配使用
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -433,7 +433,7 @@ HTML 元素以 id 属性来设置 id 选择器，CSS 中 id 选择器以 `#` 来
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -528,7 +528,7 @@ div {
 > ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -562,7 +562,7 @@ div {
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -609,7 +609,7 @@ p {
 - 可以给 body 指定整个页面文字的大小
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -662,7 +662,7 @@ p {
 - 实际开发时，我们更喜欢用数字表示粗细
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -715,7 +715,7 @@ p {
 **注意：**平时我们很少给文字加斜体，反而要给斜体标签 (em、i) 改为不倾斜字体。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -758,7 +758,7 @@ body {
 - 不需要设置的属性可以省略（取默认值），但必须保留 font-size 和 font-family 属性，否则 font 属性将不起作用
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -855,7 +855,7 @@ div {
 > 浅色系：`light颜色` 如：`lightgreen`
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -896,7 +896,7 @@ div {
 | center | 居中对齐         |
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -927,7 +927,7 @@ div {
 上述例子中：h1 为块级元素，所以给 h1 设置 text-align，便会作用于里面的文本（如果里面还有行内元素的话，也会一同作用）。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -971,7 +971,7 @@ div {
 | `line-through` | 删除线（不常用）                  |
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1027,7 +1027,7 @@ p {
 em 是一个相对单位，就是当前元素 (font-size) 1 个文字的大小，如果当前元素没有设置大小，则会按照父元素的 1 个文字大小。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1076,7 +1076,7 @@ p {
 - `文本高度 = font-size`
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

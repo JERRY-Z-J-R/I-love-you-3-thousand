@@ -38,7 +38,7 @@ CSS Sprites、CSS 雪碧）。
 ![](mark-img/20210420081150387.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -81,7 +81,7 @@ CSS Sprites、CSS 雪碧）。
 <img src="mark-img/20210420081150457.jpg" style="zoom:67%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -251,7 +251,7 @@ span {
 服务器只需接受一次浏览器请求便可以将 fonts 文件一次性返回，如此而来网页中所有用到 fonts 字体图标的部分便一次性加载好了，大大减轻了服务器压力。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -306,7 +306,7 @@ CSS 三角是怎么来的？原理如下：
 通常 CSS 三角要配合定位来布局。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -399,7 +399,7 @@ li { cursor: pointer; }
 注意：除了以上类型，还有其他很多类型。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -439,7 +439,7 @@ input { outline: none; }
 修改后样式：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -480,7 +480,7 @@ textarea { resize: none; }
 修改后样式：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -538,7 +538,7 @@ vertical-align: baseline | top | middle | bottom
 此时可以给图片、表单这些行内块元素的 vertical-align 属性设置为 middle 就可以让文字和图片垂直居中对齐了。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -588,7 +588,7 @@ vertical-align: baseline | top | middle | bottom
 2. 把图片转换为块级元素 `display: block;`
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -637,7 +637,7 @@ text-overflow: ellipsis;
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -694,7 +694,7 @@ display: -webkit-box;
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

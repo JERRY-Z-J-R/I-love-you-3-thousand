@@ -39,7 +39,7 @@ HTML5 的新增特性主要是针对于以前的不足，增加了一些新的�
 - HTML5 还增加了很多其他标签，我们后面再慢慢学
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -108,7 +108,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持视频格式文�
 ![](mark-img/20210422150845591.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -158,7 +158,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 ![](mark-img/20210422151722831.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -187,7 +187,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 ![](mark-img/20210422152350339.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -247,7 +247,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 ![](mark-img/20210422155356572.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -275,7 +275,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 ![](mark-img/202104221601401.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -305,7 +305,7 @@ HTML5 在不使用插件的情况下，也可以原生的支持音频格式文�
 ![](mark-img/97f447da3ca0483f9358c26cf286aea5.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -369,7 +369,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 注意：类选择器、属性选择器、伪类选择器，权重为 10。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -469,7 +469,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 - 类选择器、属性选择器、伪类选择器，权重为 10
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -516,7 +516,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 ![](mark-img/20210423150342544.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -587,7 +587,7 @@ CSS3 给我们新增了选择器，可以更加便捷，更加自由的选择目
 ![](mark-img/20210423151246867.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -732,7 +732,7 @@ p::before {
 案例：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -772,7 +772,7 @@ p::before {
 ![](mark-img/20210423153316679.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -823,7 +823,7 @@ p::before {
 ![](mark-img/20210423153507576.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -888,7 +888,7 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
 如果盒子模型我们改为了 box-sizing: border-box， 那 padding 和 border 就不会撑大盒子了（前提 padding 和 border 不会超过 width 宽度）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -945,7 +945,7 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
 2. 计算盒子宽度 width:calc 函数
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -972,7 +972,7 @@ CSS3 中可以通过 box-sizing 来指定盒模型，有 2 个值：即可指定
 ![](mark-img/20210423155143395.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1054,7 +1054,7 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 记住过渡的使用口诀：**谁做过渡给谁加！**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1094,7 +1094,7 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 ### 2.5.2 进度条案例
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

@@ -41,7 +41,7 @@ transform: translateY(n);
 - **对行内元素没有效果**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -88,7 +88,7 @@ transform: translateY(n);
 <img src="mark-img/20210424230655649.png" style="zoom: 80%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -166,7 +166,7 @@ transform: rotate(度数)
 - 默认旋转的中心点是元素的中心点
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -201,7 +201,7 @@ transform: rotate(度数)
 ![](mark-img/2021042500182360.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -265,7 +265,7 @@ transform-origin: x y;
 - 还可以给 x y 设置 像素 或者 方位名词（top  bottom  left  right  center）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -303,7 +303,7 @@ transform-origin: x y;
 <img src="mark-img/20210425081548859.gif" style="zoom: 33%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -371,7 +371,7 @@ transform: scale(x, y);
 - scale 缩放最大的优势：可以设置缩放的基准点（默认以中心点缩放）；并且缩放不会影响其他盒子的位置（以上两个特点都是直接设置 width 和 height 都无法做到的）
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -421,7 +421,7 @@ transform: scale(x, y);
 <img src="mark-img/20210425085529554.gif" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -466,7 +466,7 @@ transform: scale(x, y);
 ![](mark-img/20210425085900832.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -521,7 +521,7 @@ transform: scale(x, y);
 3. 当我们同时有位移和其他属性的时候，记得要将**位移放到最前**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -614,7 +614,7 @@ div {
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -659,7 +659,7 @@ div {
 ![](mark-img/20210425104436533.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -754,7 +754,7 @@ animation: myfirst 5s linear 2s infinite alternate;
 - 盒子动画结束后，停在结束位置：animation-fill-mode: forwards 
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -813,7 +813,7 @@ animation: myfirst 5s linear 2s infinite alternate;
 ```
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -930,7 +930,7 @@ animation-timing-function：规定动画的速度曲线，默认是 "ease"。
 | steps()     | 指定了时间函数中的间隔数量（步长）           |
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -972,7 +972,7 @@ animation-timing-function：规定动画的速度曲线，默认是 "ease"。
 ![](mark-img/20210425105455354.gif)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1091,7 +1091,7 @@ z：就是 z 轴，物体距离屏幕的距离，z 轴越大（正值）我们�
 
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1140,7 +1140,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 - translateZ：往里是负值
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1197,7 +1197,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 <img src="mark-img/20210425115458965.png" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1240,7 +1240,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 <img src="mark-img/20210425115711121.png" style="zoom:33%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1275,7 +1275,7 @@ translform:translateZ(100px)：仅仅是在 Z 轴上移动。有了透视，就�
 <img src="mark-img/20210425121401130.gif" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1321,7 +1321,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 <img src="mark-img/20210425122158983.png" style="zoom: 33%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1369,7 +1369,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 ![](mark-img/20210425123348956.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1451,7 +1451,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 代码：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1547,7 +1547,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 - 鼠标放到 box 让盒子旋转 90 度
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1687,7 +1687,7 @@ xyz 是表示旋转轴的矢量，表示你是否希望沿着该轴旋转，最�
 - 给 section 添加动画 animation，让它可以自动旋转即可
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

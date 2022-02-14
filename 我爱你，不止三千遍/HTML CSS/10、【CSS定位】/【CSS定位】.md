@@ -84,7 +84,7 @@
 因此，**相对定位并没有脱标**。它最典型的应用是给绝对定位当爹的。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -144,7 +144,7 @@
 所以绝对定位是**脱离标准流**的。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -188,7 +188,7 @@
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -233,7 +233,7 @@
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -285,7 +285,7 @@
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -458,7 +458,7 @@
 <img src="mark-img/20210411000419348.gif" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -549,7 +549,7 @@
 就可以让固定定位的盒子贴着版心右侧对齐了。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -616,7 +616,7 @@ Sticky 粘性的。
 <img src="mark-img/20210411000442416.gif" style="zoom:50%;" />
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -690,7 +690,7 @@ Sticky 粘性的。
 2. `margin-left: -0.5widthpx;`：让盒子向左移动自身宽度的一半。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -733,7 +733,7 @@ Sticky 粘性的。
 2. 块级元素添加绝对或者固定定位，如果不给宽度或者高度，默认大小是内容的大小。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -781,7 +781,7 @@ Sticky 粘性的。
 浮动之所以不会压住文字，因为浮动产生的目的最初是为了做文字环绕效果的。 文字会围绕浮动元素。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -815,7 +815,7 @@ Sticky 粘性的。
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -864,7 +864,7 @@ Sticky 粘性的。
 4. 底侧小圆点 ul 继续做，类名为 promo-nav
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1025,7 +1025,7 @@ display 隐藏元素后，不再占有原来的位置（**脱标**）。
 后面应用及其广泛，搭配 JS 可以做很多的网页特效。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1064,7 +1064,7 @@ display 隐藏元素后，不再占有原来的位置（**脱标**）。
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1114,7 +1114,7 @@ visibility **隐藏元素后，继续占有原来的位置**。
 如果隐藏元素不想要原来位置， 就用 display：none（用处更多，重点）。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1165,7 +1165,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 但是如果有定位的盒子， 请慎用 overflow: hidden 因为它会隐藏多余的部分（例如：学成在线 hot new 模块，右上角有故意超出的部分，此时就不能使用 overflow: hidden）。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1208,7 +1208,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1251,7 +1251,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1294,7 +1294,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1337,7 +1337,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1377,7 +1377,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1420,7 +1420,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1475,7 +1475,7 @@ overflow 属性指定了如果内容溢出一个元素的框（**超过其指定
 遮罩的盒子不占有位置，就需要用绝对定位 和 display 配合使用。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

@@ -502,7 +502,7 @@ a {
 - index.html
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

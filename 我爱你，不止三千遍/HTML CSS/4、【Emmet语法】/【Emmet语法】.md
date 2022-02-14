@@ -18,7 +18,7 @@
 - 如果想要在生成的标签内部写内容可以用 `{}` 表示
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -107,7 +107,7 @@ CSS 基本采取简写形式即可。
 - 比如 `lh26px` 按 <kbd>tab</kbd> 可以生成 `line-height: 26px;`
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

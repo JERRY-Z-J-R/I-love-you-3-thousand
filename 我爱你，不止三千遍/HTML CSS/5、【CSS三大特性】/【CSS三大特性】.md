@@ -16,7 +16,7 @@ CSS 有三个非常重要的特性：`层叠性`、`继承性`、`优先级`。
 注：就近的标准是：**后 > 前**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -53,7 +53,7 @@ CSS 中的继承：**子标签会继承父标签的某些样式**，如：文本
 - 子元素可以继承父元素的样式（ `text-`、`font-`、`line-`、`color` ） 文本、字体、段落、颜色
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -92,7 +92,7 @@ body {
 - body 行高 1.5 这样写法最大的优势就是**里面的子元素可以根据自己文字的大小自动调整行高**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -155,7 +155,7 @@ body {
 **规则：**比较位级别，位级别相同时比较位大小。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -206,7 +206,7 @@ body {
 - `a` 链接浏览器默认指定了一个样式，所以它不参与继承，所以设置样式需要选中单独设置
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -263,7 +263,7 @@ body {
 > - 多写几层类选择器
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>

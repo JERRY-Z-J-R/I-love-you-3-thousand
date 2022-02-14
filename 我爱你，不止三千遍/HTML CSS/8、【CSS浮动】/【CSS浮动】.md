@@ -40,7 +40,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 比较难，虽然转换为行内块元素可以实现一行显示，但是他们之间会有大的空白缝隙，很难控制。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -80,7 +80,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 **网页布局第一准则：多个块级元素纵向排列找标准流，多个块级元素横向排列找浮动！**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -128,7 +128,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 | right | 元素向右浮动         |
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -158,7 +158,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ![](mark-img/20210410105021368.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -210,7 +210,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ![](mark-img/20210410110624702.png)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -253,7 +253,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 - 浮动的元素是互相贴靠在一起的（不会有缝隙），如果父级宽度装不下这些浮动的盒子，多出的盒子会另起一行对齐。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -306,7 +306,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 - **即：默认宽度由内容决定，同时支持指定高宽，盒子之间无空隙**
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -349,7 +349,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 注意：之所以顶部没有对齐，原因是 p 标签自带的外边距 > span div 自带的外边距。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -406,7 +406,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ![](mark-img/20210410121702801.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -455,7 +455,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ![](mark-img/20210410123510406.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -518,7 +518,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ![](mark-img/20210410123520625.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -591,7 +591,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ![](mark-img/20210410125449278.jpg)
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -681,7 +681,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 浮动的盒子只会影响浮动盒子后面的标准流，不会影响前面的标准流。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -737,7 +737,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -794,7 +794,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 ---
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -912,7 +912,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 
 额外标签法也称为隔墙法，是 W3C 推荐的做法。
 
-额外标签法会在浮动元素末尾添加一个空的标签。例如 `<div style="clear: both"></div>`，或者其他标签（如 `<br />` 等）。
+额外标签法会在浮动元素末尾添加一个空的标签。例如 `<div style="clear: both"></div>`，或者其他标签（如 `<br>` 等）。
 
 - 优点： 通俗易懂，书写方便
 - 缺点： 添加许多无意义的标签，结构化较差
@@ -936,7 +936,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 实际工作可能会遇到，但是不常用。
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1006,7 +1006,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 - 缺点：无法显示溢出的部分
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1086,7 +1086,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 - 代表网站： 百度、淘宝网、网易等
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -1180,7 +1180,7 @@ CSS 提供了三种传统布局方式（简单说就是盒子如何进行排列�
 - 代表网站：小米、腾讯等
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
