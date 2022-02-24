@@ -25,6 +25,8 @@ CSS 盒子模型本质上是一个盒子，封装周围的 HTML 元素，它包�
 
 ![](mark-img/20210406122442654.png)
 
+![](mark-img/v2-6cbd8a1b054611f584f56ce791739a3f_1440w.jpg)
+
 # 三、边框（border）
 
 `border` 可以设置元素的边框。
