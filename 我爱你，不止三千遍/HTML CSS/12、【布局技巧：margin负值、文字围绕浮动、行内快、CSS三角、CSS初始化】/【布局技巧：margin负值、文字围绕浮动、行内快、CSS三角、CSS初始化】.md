@@ -1,6 +1,6 @@
 # 【布局技巧：margin负值、文字围绕浮动、行内快、CSS三角、CSS初始化】
 
-> 本学习笔记是个人对 Pink 老师课程的总结归纳，转载请注明出处！ 
+> 本文档是个人对 Pink 老师课程的总结归纳及补充，转载请注明出处！ 
 
 # 一、margin负值的运用
 
@@ -236,13 +236,12 @@ border-width: 22px 8px 0 0;
             /* 左边和下边的边框宽度设置为0 */
             /* border-bottom: 0 solid blue;
             border-left: 0 solid green; */
-            /* 1.只保留右边的边框有颜色 */
+            /* 1. 只保留右边的边框有颜色 */
             border-color: transparent red transparent transparent;
             /* 2. 样式都是solid */
             border-style: solid;
             /* 3. 上边框宽度要大， 右边框 宽度稍小， 其余的边框该为 0 */
             border-width: 100px 50px 0 0;
-
         }
 
         .price {
