@@ -1,4 +1,4 @@
-# 1920 x 1080【移动Web开发之流式布局】
+# 【移动Web开发之流式布局】
 
 > 本文档是个人对 Pink 老师课程的总结归纳及补充，转载请注明出处！ 
 
@@ -1075,14 +1075,14 @@ img {
 
 ```css
 .jd-icon::after {
-  content: "";
-  position: absolute;
-  right: -8px;
-  top: 0;
-  display: block;
-  width: 1px;
-  height: 15px;
-  background-color: #ccc;
+	content: "";
+	position: absolute;
+	right: -8px;
+	top: 0;
+	display: block;
+	width: 1px;
+	height: 15px;
+	background-color: #ccc;
 }
 ```
 
