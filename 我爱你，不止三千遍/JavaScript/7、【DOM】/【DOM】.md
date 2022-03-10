@@ -1353,6 +1353,8 @@ oBox.onclick = function() {
 
         myform.onsubmit = function () {
             alert('你正在尝试提交表单');
+         /* return true;  可以省略，默认执行表单提交 */
+         /* return false; 不执行表单提交，比如用户信息填写不全就不应该提交表单 */
         }
     </script>
 </body>
@@ -1360,7 +1362,7 @@ oBox.onclick = function() {
 </html>
 ```
 
-> 表单对象可以通过 “打点”name 属性，得到里面的子元素。
+> 表单对象可以通过 “打点” name 属性，得到里面的子元素。
 
 ## 9.6 常见的页面事件监听
 
