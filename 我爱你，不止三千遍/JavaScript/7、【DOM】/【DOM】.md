@@ -113,6 +113,8 @@ var para = document.getElementById('para');
 【注意事项】
 
 > 如果页面上有相同 id 的元素，则只能得到第一个。
+>
+> 原则上，html 中同一名称的 id 也只能出现一次。
 
 ## 4.5 延迟运行
 
@@ -120,7 +122,7 @@ var para = document.getElementById('para');
 
 当然，可以使用 `window.onload = function(){}` 事件，使页面加载完毕后，再执行指定的代码。
 
-> 一般script标签会被放在头部或尾部。头部就是 `<head></head>` 里面，尾部一般指 `<body></body>` 里，但也有放在 `</body>` 闭合标签之后的（千万不要这样）。
+> 一般 script 标签会被放在头部或尾部。头部就是 `<head></head>` 里面，尾部一般指 `<body></body>` 里，但也有放在 `</body>` 闭合标签之后的（最好不要这样）。
 
 ```html
 <!DOCTYPE html>
@@ -2598,7 +2600,7 @@ oBox.onmousemove = function(e) {
 
 ## 12.8 使用事件委托时需要注意的事项
 
-（1）`onmouseenter` 和 `onmouseover` 都表示“鼠标进入”，它们有什么区别呢？
+（1）`onmouseenter` 和 `onmouseover` 都表示 “鼠标进入”，它们有什么区别呢？
 
 答：`onmouseenter` 不冒泡，`onmouseover` 冒泡。
 
