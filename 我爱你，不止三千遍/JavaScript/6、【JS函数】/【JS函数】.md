@@ -36,13 +36,27 @@ function fun() {
 ```javascript
 var fun = function() {
     // 函数语句块
-}
+};
 ```
 
 - `function(){}`：匿名函数
 - `()`：圆括号中是形参列表，即使没有形参，也必须书写圆括号
 - `{}`：花括号内为函数语句块
 - `fun`：函数变量
+
+> 一般来说：
+>
+> ```java
+> function fun() {
+>     // 函数语句块
+> } // 末尾不需要加 ;
+> ```
+>
+> ```javascript
+> var fun = function() {
+>     // 函数语句块
+> };	// 末尾最好加上 ;
+> ```
 
 # 三、函数的调用
 
@@ -96,7 +110,7 @@ fun();
 fun();	// 报错！
 var fun = function() {
     alert("函数不能被执行");
-}
+};
 ```
 
 > 解释：函数表达式不能被提升的本质原因是函数表达式定义的其实是个变量，只不过是把函数赋给这个变量，而变量的提升只提升定义，不提升赋值！
@@ -110,7 +124,7 @@ fun(); // B
 
 var fun = function () {
     alert('A');
-}
+};
 
 function fun() {
     alert('B');
@@ -132,7 +146,7 @@ fun(); // B
 
 fun = function () {
     alert('A');
-}
+};
 
 fun(); // A
 ```
