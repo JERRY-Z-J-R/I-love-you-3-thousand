@@ -1242,6 +1242,14 @@ oBox.onclick = function() {
 }
 ```
 
+````javascript
+function fun() {
+    ...
+}
+
+oBox.onclick = fun;
+````
+
 【小案例】
 
 ```html
