@@ -309,6 +309,38 @@ console.log(c);
 // index.js:1 Uncaught ReferenceError: c is not defined at index.js:1
 ```
 
+> **使用 strict 严格模式**
+>
+> JavaScript 在设计之初，为了方便初学者学习，并不强制要求用 `var` 申明变量。这个设计错误带来了严重的后果：如果一个变量没有通过 `var` 申明就被使用，那么该变量就自动被申明为全局变量：
+>
+> ```javascript
+> i = 10; // i现在是全局变量
+> ```
+>
+> 在同一个页面的不同的 JavaScript 文件中，如果都不用 `var` 申明，恰好都使用了变量 `i`，将造成变量`i` 互相影响，产生难以调试的错误结果。
+>
+> 使用 `var` 申明的变量则不是全局变量，它的范围被限制在该变量被申明的函数体内（函数的概念将稍后讲解），同名变量在不同的函数体内互不冲突。
+>
+> 为了修补 JavaScript 这一严重设计缺陷，ECMA 在后续规范中推出了 strict 模式，在 strict 模式下运行的 JavaScript 代码，强制通过 `var` 申明变量，未使用 `var` 申明变量就使用的，将导致运行错误。
+>
+> 启用 strict 模式的方法是在 JavaScript 代码的第一行写上：
+>
+> ```javascript
+> 'use strict';
+> ```
+>
+> 这是一个字符串，不支持 strict 模式的浏览器会把它当做一个字符串语句执行，支持 strict 模式的浏览器将开启 strict 模式运行 JavaScript。
+>
+> ```javascript
+> 'use strict';
+> abc = 'Hello, world';
+> console.log(abc);
+> // 如果浏览器支持 strict 模式，
+> // 下面的代码将报 ReferenceError 错误:
+> ```
+>
+> 不用 `var` 申明的变量会被视为全局变量，为了避免这一缺陷，所有的 JavaScript 代码都推荐使用 strict模式。
+
 ## 5.8 等号表示赋值
 
 ```javascript
