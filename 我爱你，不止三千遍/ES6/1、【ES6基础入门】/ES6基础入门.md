@@ -356,11 +356,9 @@ console.log(i);		// 报错
 
 ![image-20220313210915202](mark-img/image-20220313210915202.png)
 
-# 二、模板字符与箭头函数
+# 二、模板字符串
 
-## 2.1 模板字符串
-
-### 2.1.1 认识模板字符串
+## 2.1 认识模板字符串
 
 - 普通字符串：
 
@@ -375,7 +373,7 @@ console.log(i);		// 报错
 `字符串`
 ```
 
-### 2.1.2 模板字符串与一般字符串的区别
+## 2.2 模板字符串与一般字符串的区别
 
 - 对于普通用法**没有区别**
 
@@ -421,9 +419,9 @@ console.log(info);
 
 > 模板字符串最大的优势：方便注入！
 
-### 2.1.3 模板字符串的注意事项
+## 2.3 模板字符串的注意事项
 
-**（1）输出多行字符串**
+### 2.3.1 输出多行字符串
 
 ```javascript
 // 一般字符串
@@ -447,7 +445,7 @@ console.log(info);
 
 > 模板字符串中，所有的空格、换行或缩进都会被保存在输出中
 
-**（2）输出 `` ` 和 `\` 等特殊字符**
+### 2.3.2 输出 `` ` 和 `\` 等特殊字符
 
 ```javascript
 const info = `\``;	// ```
@@ -456,7 +454,7 @@ const info = `""`;	// `""`
 const info = `''`;	// `''`
 ```
 
-**（3）模板字符串的注入**
+### 2.3.3 模板字符串的注入
 
 ```javascript
 const username = 'alex';
@@ -478,7 +476,7 @@ console.log(info);
 >
 > 模板字符串、字符串、数值、布尔值、表达式、函数……（只要结果是个 “值” 即可）
 
-### 2.1.4 模板字符串的应用
+## 2.4 模板字符串的应用
 
 ```javascript
 <!DOCTYPE html>
@@ -542,3 +540,321 @@ console.log(info);
 ```
 
 <img src="mark-img/image-20220315130229559.png" alt="image-20220315130229559" style="zoom:50%;" />
+
+# 三、箭头函数
+
+## 3.1 认识箭头函数
+
+普通函数：
+
+- `function 函数名() {}`
+- `const 变量名 = function () {};`
+
+箭头函数：
+
+- `参数 => 函数体`
+
+- `() => {}`
+
+> 由于箭头函数是匿名函数，所以我们通常把它赋给一个变量
+
+```javascript
+const add = (x, y) => {
+    return x + y;
+};
+
+console.log(add(1, 1));		// 2
+```
+
+## 3.2 箭头函数注意事项
+
+### 3.2.1 单个参数
+
+```javascript
+const add = (x) => {
+    return x + 1;
+};
+
+// 单个参数可以省略 ()
+const add = x => {
+    return x + 1;
+};
+
+// 无参数或0个参数不能省略 ()
+```
+
+### 3.2.2 单行函数体
+
+```javascript
+const add = (x, y) => {
+    return x + y;
+};
+
+// 单行函数体可以省略 return 和 {}，且一但省略就 return 和 {} 都要一起省略
+const add = (x, y) => x + y; 
+```
+
+### 3.2.3 单行对象
+
+```javascript
+const add = (x, y) => {
+    return {
+        value: x + y
+    };
+};
+
+// const add = (x, y) => {value: x + y};  报错！因为 {} 会产生歧义！
+// () 可以将语句变为表达式，从而 {} 就可以被顺理成章解释为对象
+const add = (x, y) => ({value: x + y});
+
+// 数组就没有以上问题
+const add = (x, y) => [x, y];
+```
+
+> 推荐：最好不要简写！
+
+## 3.3 非箭头函数中的 this 指向
+
+### 3.3.1 全局作用域中的 this 指向
+
+```javascript
+console.log(this);
+// window
+```
+
+### 3.3.2 一般函数（非箭头函数）中的 this 指向
+
+> 只有在函数调用的时候 this 指向才能确定，不调用的时候，不知道指向谁。
+>
+> this 指向和函数在哪儿没有关系，只和谁在调用有关。
+
+```javascript
+function add() {
+    console.log(this);
+}
+
+add();	// window
+// 在非严格模式下，this 其实是先指向 undefined，然后被自动转为了 window
+```
+
+```javascript
+'use strict'	// 严格模式
+
+function add() {
+    console.log(this);
+}
+
+add();	// undefined
+// 在严格模式下，this 为 undefined
+```
+
+```javascript
+'use strict'	// 严格模式
+
+function add() {
+    console.log(this);
+}
+
+const calc = {
+    add: add
+};
+
+calc.add();		// 上下文 this 为 calc
+
+const adder = calc.add;
+adder();		// 指向 undefined（非严格模式下指向 window）
+```
+
+## 3.4 箭头函数没有 this
+
+> 箭头函数没有 this！
+
+## 3.5 不适用箭头函数的场景
+
+### 3.4.1 作为构造函数
+
+因为箭头函数没有 this，而构造函数的核心就是 this。
+
+### 3.4.2 需要 this 指向调用对象的时候
+
+因为箭头函数没有 this，所以如果箭头函数中出现了 this，那么这个 this 就是外层的！
+
+### 3.4.3 需要使用 arguments 的时候
+
+箭头函数没有 arguments。
+
+（这个问题有替代解决方案：剩余参数）
+
+## 3.6 箭头函数的应用
+
+> 主要应用就是：箭头函数没有 this 这一特性！
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>箭头函数的应用</title>
+    <style>
+        body {
+            padding: 50px 0 0 250px;
+            font-size: 30px;
+        }
+
+        #btn {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">开始</button>
+<span id="result">0</span>
+
+<script>
+    const btn = document.getElementById('btn');
+    const result = document.getElementById('result');
+
+    const timer = {
+        time: 0,
+        start: function () {
+            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 time
+            btn.addEventListener(
+                'click',
+                function () {
+                    setInterval(function () {
+                        console.log(this);	// window 计时器由于没有人去调用它，所以它的 this 是指向 window
+                        this.time++;
+                        result.innerHTML = this.time;
+                    }, 1000);
+                },
+                false
+            );
+        }
+    };
+
+    timer.start();
+</script>
+</body>
+</html>
+```
+<img src="mark-img/1-16473495911521.gif" alt="1" style="zoom:50%;" />
+
+---
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>箭头函数的应用</title>
+    <style>
+        body {
+            padding: 50px 0 0 250px;
+            font-size: 30px;
+        }
+
+        #btn {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">开始</button>
+<span id="result">0</span>
+
+<script>
+    const btn = document.getElementById('btn');
+    const result = document.getElementById('result');
+
+    const timer = {
+        time: 0,
+        start: function () {
+            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 time
+         	// 用 that 或 self 代替 this
+            var that = this;
+            btn.addEventListener(
+                'click',
+                function () {
+                    setInterval(function () {
+                        that.time++;
+                        result.innerHTML = that.time;
+                    }, 1000);
+                },
+                false
+            );
+        }
+    };
+
+    timer.start();
+</script>
+</body>
+</html>
+```
+<img src="mark-img/2.gif" alt="2" style="zoom:50%;" />
+
+---
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>箭头函数的应用</title>
+    <style>
+        body {
+            padding: 50px 0 0 250px;
+            font-size: 30px;
+        }
+
+        #btn {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">开始</button>
+<span id="result">0</span>
+
+<script>
+    const btn = document.getElementById('btn');
+    const result = document.getElementById('result');
+
+    const timer = {
+        time: 0,
+        start: function () {
+            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 time
+            btn.addEventListener(
+                'click',
+                // 箭头函数中没有 this，所以下面的 this 是 start 的
+                () => {
+                    setInterval(() => {
+                        console.log(this);
+                        this.time++;
+                        result.innerHTML = this.time;
+                    }, 1000);
+                },
+                false
+            );
+        }
+    };
+
+    timer.start();
+</script>
+</body>
+</html>
+```
+
+<img src="mark-img/2-16473496264402.gif" alt="2" style="zoom:50%;" />
+
