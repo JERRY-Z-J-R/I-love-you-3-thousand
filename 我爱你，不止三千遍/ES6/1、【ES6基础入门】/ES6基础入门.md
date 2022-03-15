@@ -355,3 +355,190 @@ console.log(i);		// 报错
 <img src="mark-img/1-16471758864061.gif" alt="1" style="zoom:50%;" />
 
 ![image-20220313210915202](mark-img/image-20220313210915202.png)
+
+# 二、模板字符与箭头函数
+
+## 2.1 模板字符串
+
+### 2.1.1 认识模板字符串
+
+- 普通字符串：
+
+```javascript
+'字符串'
+"字符串"
+```
+
+- 模板字符串：
+
+```javascript
+`字符串`
+```
+
+### 2.1.2 模板字符串与一般字符串的区别
+
+- 对于普通用法**没有区别**
+
+```javascript
+const name1 = 'zjr';
+const name2 = `zjr`;
+console.log(name1, name2, name1 === name2);
+// zjr zjr true
+```
+
+- 字符串拼接的**巨大区别**
+
+```javascript
+const person = {
+    name: 'zjr',
+    age: 18,
+    sex: '男'
+};
+
+const info =
+    '我的名字是：' + person.name +
+    '，性别是：' + person.sex +
+    '，今年：' + person.age + '岁';
+
+console.log(info);
+
+// 我的名字是：zjr，性别是：男，今年：18岁
+```
+
+```javascript
+const person = {
+    name: `zjr`,
+    age: 18,
+    sex: `男`
+};
+
+const info = `我的名字是：${person.name}，性别是：${person.sex}，今年：${person.age}岁`;
+
+console.log(info);
+
+// 我的名字是：zjr，性别是：male，今年：18岁
+```
+
+> 模板字符串最大的优势：方便注入！
+
+### 2.1.3 模板字符串的注意事项
+
+**（1）输出多行字符串**
+
+```javascript
+// 一般字符串
+const info = '第一行\n第二行';
+console.log(info);
+/*
+第一行
+第二行
+*/
+
+
+// 模板字符串
+const info = `第一行
+第二行`;	// 注意不能有缩进
+console.log(info);
+/*
+第一行
+第二行
+*/
+```
+
+> 模板字符串中，所有的空格、换行或缩进都会被保存在输出中
+
+**（2）输出 `` ` 和 `\` 等特殊字符**
+
+```javascript
+const info = `\``;	// ```
+const info = `\\`;	// `\`
+const info = `""`;	// `""`
+const info = `''`;	// `''`
+```
+
+**（3）模板字符串的注入**
+
+```javascript
+const username = 'alex';
+const person = {
+    age: 18,
+    sex: `male`
+};
+const getSex = function (sex) {
+    return sex === `male` ? '男' : '女';
+};
+
+const info = `${username},${person.age + 2},${getSex(person.sex)}`;
+console.log(info);
+
+// alex,20,男
+```
+
+> 模板字符串的 `${}` 注入可以兼容几乎所有的值！
+>
+> 模板字符串、字符串、数值、布尔值、表达式、函数……（只要结果是个 “值” 即可）
+
+### 2.1.4 模板字符串的应用
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>模板字符串的应用</title>
+    <style>
+        body {
+            padding: 50px 0 0 300px;
+            font-size: 22px;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<p>学生信息表</p>
+<ul id="list">
+    <li style="list-style: none;">信息加载中……</li>
+</ul>
+
+<script>
+    // 数据（此处只是模拟数据，后期是通过 Ajax 从后台获取）
+    const students = [
+        {
+            username: 'Alex',
+            age: 18,
+            sex: 'male'
+        },
+        {
+            username: 'ZhangSan',
+            age: 28,
+            sex: 'male'
+        },
+        {
+            username: 'LiSi',
+            age: 20,
+            sex: 'female'
+        }
+    ];
+
+    const list = document.getElementById('list');
+
+    let html = '';
+
+    for (let i = 0; i < students.length; i++) {
+        html += `<li>我的名字是：${students[i].username},${students[i].sex},${students[i].age}</li>`;
+    }
+
+    list.innerHTML = html;
+</script>
+</body>
+</html>
+```
+
+<img src="mark-img/image-20220315130229559.png" alt="image-20220315130229559" style="zoom:50%;" />
