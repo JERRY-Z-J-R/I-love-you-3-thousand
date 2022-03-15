@@ -310,7 +310,7 @@ padding 属性（简写属性）可以有一到四个值。
 解决方案：
 
 - 如果保证盒子跟效果图大小保持一致，则让 width、height 减去多出来的内边距大小即可
-- 如何盒子本身没有指定 width、height 属性，则此时 padding 不会撑开盒子区域大小
+- 如果盒子本身没有指定 width、height 属性，则此时 padding 不会撑开盒子区域大小
 
 【padding 撑大盒子】
 
