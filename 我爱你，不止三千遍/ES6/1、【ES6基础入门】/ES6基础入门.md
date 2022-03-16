@@ -17,7 +17,7 @@ ECMA：欧洲计算机制造商协会
 
 历史版本：ES1——>3、ES5——>6（ES4 被废弃了）
 
-我们目前使用 JS 的大部分内容都是 ES3 的部分。
+我们目前使用 JS 的大部分内容都是 ES3 **的部分**。
 
 ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM + BOM`
 
@@ -42,7 +42,7 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
 
 ### 1.2.2 const
 
- **（1）为什么需要 const**
+**（1）为什么需要 const**
 
 因为某些量的值是一直固定的，不需要也不能被修改，如果被修改就会报错。
 
@@ -65,7 +65,7 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
   // 引用数据类型
   const person = {
       username: 'jerry'
-  }；
+  };
   
   person.username = 'zjr'; √
   ```
@@ -243,14 +243,13 @@ console.log(i);		// 报错
 </script>
 </body>
 </html>
-
 ```
 
 <img src="mark-img/1.gif" alt="1" style="zoom: 50%;" />
 
 无论点击谁都是 3，这是因为 var 没有块级作用域，三个点击事件函数中的 i 都是同一个全局变量，最终 i 都为 3 了，所以固然都输出 3。
 
-![image-20220313204615728](mark-img/image-20220313204615728.png)
+<img src="mark-img/image-20220313204615728.png" alt="image-20220313204615728" style="zoom: 25%;" />
 
 - 使用 var，同时利用闭包
 
@@ -304,7 +303,7 @@ console.log(i);		// 报错
 
 三个点击事件函数中的 i 对应到三个闭包上，且闭包的 i 为函数参数（局部变量），分别是 0、1、2。
 
-![image-20220313210146671](mark-img/image-20220313210146671.png)
+<img src="mark-img/image-20220313210146671.png" alt="image-20220313210146671" style="zoom:25%;" />
 
 - 使用 let
 
@@ -354,7 +353,7 @@ console.log(i);		// 报错
 
 <img src="mark-img/1-16471758864061.gif" alt="1" style="zoom:50%;" />
 
-![image-20220313210915202](mark-img/image-20220313210915202.png)
+<img src="mark-img/image-20220313210915202.png" alt="image-20220313210915202" style="zoom:25%;" />
 
 # 二、模板字符串
 
@@ -858,3 +857,264 @@ adder();		// 指向 undefined（非严格模式下指向 window）
 
 <img src="mark-img/2-16473496264402.gif" alt="2" style="zoom:50%;" />
 
+# 四、解构赋值
+
+认识解构赋值：
+
+```javascript
+const [a, b, c] = [1, 2, 3];
+console.log(a, b, c);	// 1 2 3
+```
+
+解析某一数据的结构，将我们想要的东西提取出来，赋值给变量或常量。
+
+## 4.1 数组的解构赋值
+
+### 4.1.1 原理
+
+1. 模式（结构）匹配 `[] = [1, 2, 3];`
+
+2. 索引值相同的完成赋值 `const [a, b, c] = [1, 2, 3];`
+
+3. 举例
+
+   ```javascript
+   const [a, [, , b], c] = [1, [2, 3, 4], 5];
+   console.log(a, b, c);	// 1 4 5
+   ```
+
+### 4.1.2 数组解构赋值的默认值
+
+**（1）默认值的基本用法**
+
+```javascript
+const [a, b] = [];
+console.log(a, b);	// undefined undefined
+
+// ---------------------------------------
+const [a = 1, b = 2] = [];
+console.log(a, b);	// 1 2
+```
+
+**（2）默认值的生效条件**
+
+只有当一个数组成员严格等于 (===) undefined 时，对应的默认值才会生效。
+
+```javascript
+const [a = 1, b = 2] = [3, 0];		// 3 0
+const [a = 1, b = 2] = [3, null];	// 3 null
+const [a = 1, b = 2] = [3];			// 3 2
+```
+
+**（3）默认值表达式**
+
+如果默认值是表达式，默认值表达式是惰性求值的（即：当无需用到默认值时，表达式是不会求值的）
+
+```javascript
+const func = () => {
+    return 24;
+};
+
+const [a = func()] = [1];	// 1
+const [b = func()] = [];	// 24
+```
+
+### 4.1.3 数组解构赋值的应用
+
+**（1）arguments**
+
+```javascript
+function func() {
+    const [a, b] = arguments;
+    console.log(a, b);	// 1 2
+}
+func(1, 2);
+```
+
+**（2）NodeList**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NodeList</title>
+</head>
+<body>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<script>
+    const [p1, p2, p3] = document.querySelectorAll('p');
+    console.log(p1, p2, p3);
+    /*
+    <p>1</p>
+	<p>2</p>
+	<p>3</p>
+	*/
+</script>
+</body>
+</html>
+```
+
+**（3）函数参数的解构赋值**
+
+```javascript
+const array = [1, 1];
+// const add = arr => arr[0] + arr[1];
+const add = ([x = 0, y = 0]) => x + y;
+console.log(add(array));	// 2
+console.log(add([]));		// 0
+```
+
+**（4）交换变量的值**
+
+```javascript
+let x = 2, y = 1;
+
+// 原来
+let tmp = x;
+x = y;
+y = tmp;
+
+// 现在
+[x, y] = [y, x];
+// 理解：[x, y] = [2, 1]
+console.log(x, y);
+// 1 2
+```
+
+## 4.2 对象的解构赋值
+
+### 4.2.1 原理
+
+1. 模式（结构）匹配 `{} = {};`
+2. 属性名相同的完成赋值 `const {name, age} = {name: 'jerry', age: 18};` 或 `const {age, name} = {name: 'jerry', age: 18};`
+
+### 4.2.2 标准写法
+
+```javascript
+const {age: age, name: name} = {name: 'jerry', age: '18'};
+或
+const {'name': name, 'age': age} = {name: 'jerry', age: '18'};
+
+// 这样写法的一个最大的好处就是可以自定义别名
+const {name: myName, age: myAge} = {name: 'jerry', age: '18'};
+console.log(myName, myAge);	// jerry 18
+```
+
+### 4.2.3 对象解构赋值的默认值
+
+1. 对象的属性值严格等于 undefined 时，对应的默认值才会生效。
+
+2. 如果默认值是表达式，默认值表达式是惰性求值的。
+
+### 4.2.4 将一个已经声明的变量用于解构赋值
+
+整个赋值需要在圆括号中进行：
+
+```javascript
+let x = 2;
+({x} = {x: 1});
+// 如果不加 ()，那么 {x} 会被浏览器误认为是普通的代码块
+// 已经声明的变量用于数组的解构赋值就不会遇到这个问题
+```
+
+### 4.2.5 对象解构赋值可以取到继承属性
+
+```javascript
+const {toString} = {};
+console.log(toString);	// [Function: toString]
+// toString 是 object 的属性，而任何对象都继承自 Object
+```
+
+### 4.2.6 对象解构赋值的应用
+
+ **（1）对象作为函数参数**
+
+```javascript
+// 之前
+const logPersonInfo = user => console.log(user.name, user.age);
+logPersonInfo({name: 'jerry', age: 18});
+
+// 之后
+const logPersonInfo = ({age = 21, name = 'ZJR'}) => console.log(name, age);
+logPersonInfo({name: 'jerry', age: 18});	// jerry 18
+logPersonInfo({});	// ZJR 21
+```
+
+**（2）复杂的嵌套（主要是缕清逻辑关系即可）**
+
+```javascript
+const obj = {
+    x: 1,
+    y: [2, 3, 4],
+    z: {
+        a: 5,
+        b: 6
+    }
+};
+
+// ----------------------------------------------------
+const {x, y, z} = obj;
+console.log(x, y, z);	// 1 [ 2, 3, 4 ] { a: 5, b: 6 }
+
+// ----------------------------------------------------
+const {y: [, y2]} = obj;
+console.log(y2);	// 3
+console.log(y);		// 报错
+
+// ----------------------------------------------------
+const {y: y, y: [, y2]} = obj;
+console.log(y2);	// 3
+console.log(y);		// [ 2, 3, 4 ]
+
+// ----------------------------------------------------
+const {y, y: [, y2], z, z: {b}} = obj;
+console.log(y2);	// 3
+console.log(y);		// [ 2, 3, 4 ]
+console.log(z);		// { a: 5, b: 6 }
+console.log(b);		// 6
+```
+
+## 4.3 其它数据类型的解构赋值
+
+### 4.3.1 字符串的解构赋值
+
+既可以用数组的形式来解构赋值，也可以用对象的形式来解构赋值。
+
+```javascript
+// 数组形式解构赋值
+const [a, b, , , c] = 'hello';
+console.log(a, b, c);	// h e o
+
+// 对象形式解构赋值
+const {0: a, 1: b, 4: o, length} = 'hello';
+console.log(a, b, o, length);	// h e o 5
+```
+
+### 4.3.2 数值和布尔值的解构赋值
+
+只能按照对象的形式来解构赋值。
+
+（会先自动将等号右边的值转为对象）
+
+```javascript
+// 先来复习一下将数值和布尔值转化为对象
+console.log(new Number(123));
+console.log(new Boolean(true));
+// 转化后的对象里没有任何的属性（没有 123 这个属性，也没有 true 这个属性）和方法，
+// 所有的属性和方法都在它的继承 __proto__ 中，比如 toString 方法就是继承来的。
+
+// 里面的值只能是默认值，继承的方法倒是可以取到
+const {a = 1, toString} = 123;
+console.log(a, toString);	// 1 [Function: toString]
+
+// 里面的值只能是默认值，继承的方法倒是可以取到
+const {b = 1, toString} = true;
+console.log(b, toString);	// 1 [Function: toString]
+```
+
+### 4.3.3 undefined 和 null 没有解构赋值
+
+由于 undefined 和 null 无法转为对象，所以对它们进行解构赋值，都会报错。
