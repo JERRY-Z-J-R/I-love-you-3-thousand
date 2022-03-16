@@ -4,8 +4,6 @@
     <img src="images/readme.jpg">
     <img width="666" src="images/mind.jpg" />
     <img width="540" src="images/forever.png" />
-    <div>
-        <font size="1.8" color="gray">===  Star 收藏，持续更新  ===</font>
-    </div>
+    <div><img width="200" src="images/star.png" /></div>
 </div>
 
