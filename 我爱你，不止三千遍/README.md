@@ -7,12 +7,3 @@
 ```bash
 git clone https://github.com/JERRY-Z-J-R/I-love-you-3-thousand.git
 ```
-
-将项目克隆到本地并使用 `Typora` 的 `zj` 主题阅读，这样做的优点有：
-
-- 无需连接网络，随时随地查看。
-- 根据个人需要，随时随地修改。
-
-- 图片存储在本地，不存在加载延迟。
-- Typora 对 Markdown 阅读体验友好。
-- zj 主题是专门针对该文档内容定制的一款 “学术 + 开发” 主题，观感更佳。
