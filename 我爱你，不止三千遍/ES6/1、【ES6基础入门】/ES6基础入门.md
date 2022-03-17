@@ -1115,6 +1115,254 @@ const {b = 1, toString} = true;
 console.log(b, toString);	// 1 [Function: toString]
 ```
 
+> 知道有这回事即可，一般都用不到，因为没太大意义。
+
 ### 4.3.3 undefined 和 null 没有解构赋值
 
 由于 undefined 和 null 无法转为对象，所以对它们进行解构赋值，都会报错。
+
+# 五、对象字面量的增强
+
+## 5.1 属性和方法的简洁表示法
+
+### 5.1.1 对象字面量
+
+```javascript
+// 实例化构造函数生成对象
+const person = new Object();
+person.age = 18;
+person.speak = function() {};
+console.log(person);	// { age: 18, speak: [Function (anonymous)] }
+
+// 对象字面量
+const person = {
+    age: 18,
+    speak: function() {}
+};
+console.log(person);	// { age: 18, speak: [Function (anonymous)] }
+```
+
+### 5.1.1 属性的简洁表示法
+
+```javascript
+const age = 18;
+const person = {
+    age: age
+};
+console.log(person.age);	// 18
+
+// -----------------------
+
+const age = 18;
+const person = {
+    'age': age
+};
+console.log(person.age);	// 18
+
+// -----------------------
+
+// 键名和变量或常量名一样的时候，可以只写一个
+const age = 18;
+const person = {
+    age
+};
+console.log(person.age);	// 18
+```
+
+### 5.1.2 方法的简洁表示法
+
+```javascript
+const person = {
+    // speak: function() {}
+    speak() {}
+};
+
+console.log(person);	// { speak: [Function: speak] }
+```
+
+## 5.2 方括号语法
+
+### 5.2.1 方括号语法的用法
+
+```javascript
+const prop = 'age';
+const person = {};
+person.prop = 18;
+console.log(person);	// { prop: 18 }
+
+// -----------------------------------------
+
+const prop = 'age';
+const person = {};
+person[prop] = 18;
+console.log(person);	// { age: 18 }
+
+// -----------------------------------------
+
+// ES6 增强
+const prop = 'age';
+const person = {
+    [prop]: 18
+};
+console.log(person);	// { age: 18 }
+```
+
+### 5.2.2 方括号中可以放什么
+
+```javascript
+// [值、可以得到值的表达式]
+const prop = 'age';
+const func = () => 'age2';
+const person = {
+    [prop]: 18,
+    [func()]: 24,
+    ['sex']: 'man',
+    ['s' + 'ex2']: 'womam'
+};
+console.log(person);	// { age: 18, age2: 24, sex: 'man', sex2: 'womam' }
+```
+
+### 5.2.3 放括号语法和点语法的区别
+
+1. 点语法是方括号语法的特殊形式
+2. 属性名由数字、字母、下划线以及 $ 构成，并且数字还不能打头的时候可以使用点语法（合法标识符）
+3. 能用点语法优先使用点语法
+
+```javascript
+const person = {
+    age: 18
+};
+
+person.age 等价于 person['age']
+```
+
+## 5.3 函数参数的默认值
+
+### 5.3.1 认识函数参数的默认值
+
+调用函数的时候传参了，就用传递的参数；如果没传参，就用默认值
+
+### 5.3.2 函数参数默认值的基本用法
+
+```javascript
+// 之前的默认值实现方式
+const multiply = (x, y) => {
+    if (typeof y === 'undefined') {
+        y = 3;
+    }
+    return x * y;
+};
+console.log(multiply(2, 2));	// 4
+console.log(multiply(2));		// 6
+```
+
+```javascript
+// ES6 默认值实现方式
+const multiply = (x, y = 3) => {
+    return x * y;
+};
+console.log(multiply(2, 2));	// 4
+console.log(multiply(2));		// 6
+```
+
+### 5.3.3 默认值的生效条件
+
+不传参数，或者明确的传递 undefined 作为参数，只有这两种情况下，默认值才会生效。
+
+注意：null 就是 null，不会使用默认值。
+
+### 5.3.4 默认值表达式
+
+如果默认值是表达式，那么默认值表达式是惰性求值的。
+
+### 5.3.5 设置默认值的小技巧
+
+函数参数的默认值最好从参数列表的右边开始设置。
+
+```javascript
+// 从左边开始设置默认值的缺陷
+const multiply = (x = 1, y) => x * y;
+console.log(multiply(undefined, 2));	// 2
+// 为了避免歧义，前面的参数必须指定为 undefined
+```
+
+### 5.3.6 函数参数默认值的应用
+
+**（1）接收很多参数的时候**
+
+```javascript
+// 普通时候
+const logUser = (username = 'zjr', age = 18, sex = 'male') => {
+    console.log(username, age, sex);
+};
+// 需要能够记住参数的顺序，如果参数较多那么需要配合文档，使用不方便
+logUser('jerry', 18, 'male');
+
+// ------------------------------------------------------------
+
+// 接收一个对象作为参数
+// 不需要记住参数的顺序
+const logUser = options => {
+    console.log(options.username, options.age, options.sex);
+};
+logUser({
+    username: 'jerry',
+    age: 18,
+    sex: 'male'
+});
+
+// ------------------------------------------------------------
+
+// 再优化
+const logUser = ({username, age, sex}) => {
+    console.log(username, age, sex);
+};
+
+logUser({
+    username: 'jerry',
+    age: 18,
+    sex: 'male'
+});
+
+// ------------------------------------------------------------
+
+// 引入默认值
+const logUser = ({
+    username = 'zjr',
+    age = 18,
+    sex = 'male'
+}) => {
+    console.log(username, age, sex);
+};
+
+// 其实是解构赋值原理
+logUser({username: 'jerry'});	// jerry 18 male
+
+logUser({});	// zjr 18 male
+
+logUser();		// 报错，因为这样相当于传了一个 undefined，不符合解构赋值
+
+// ------------------------------------------------------------
+
+// 再优化（函数默认值 + 解构赋值 + 解构赋值默认值）
+const logUser = ({
+    username = 'zjr',
+    age = 18,
+    sex = 'male'
+} = {}) => {
+    console.log(username, age, sex);
+};
+logUser();	// zjr 18 male
+
+/* 
+解释：
+1、options 与 {username = 'zjr', age = 18, sex = 'male'} 互等
+2、{username = 'zjr', age = 18, sex = 'male'} = {} 其实就是 options = {}
+3、由于 logUser() 的实参为 undefined，所以默认值为 {}
+4、再因为 {username = 'zjr', age = 18, sex = 'male'} = {} 是解构赋值
+5、由于 {} 内为 undefined，所以解构赋值启用默认值
+5、所以真正的形参为 {username = 'zjr', age = 18, sex = 'male'}
+注明：这样做的好处是增加函数的健壮性！
+*/
+```
+
