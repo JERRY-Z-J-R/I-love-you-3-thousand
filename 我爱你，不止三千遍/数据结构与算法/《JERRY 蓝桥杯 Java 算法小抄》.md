@@ -1,4 +1,4 @@
-# 【JERRY 蓝桥杯Java算法小抄】
+# 《JERRY 蓝桥杯 Java 算法小抄》
 
 > 原创内容，转载请注明出处！
 
@@ -167,7 +167,7 @@ public class Main {
 - ……
 - 一个数 % 第二个数 = 0（两个数可以除尽，可以用于求约数、因数）
 
-![](https://img-blog.csdnimg.cn/20210414224910849.png)
+![](mark-img/20210414224910849.png)
 
 ```java
 public class Main {
@@ -515,7 +515,7 @@ public class Main {
 
 # 【方格计数】
 
-![](https://img-blog.csdnimg.cn/20210416235654304.png)
+<img src="mark-img/20210416235654304.png" style="zoom: 67%;" />
 
 ```java
 public class Main {
@@ -535,7 +535,7 @@ public class Main {
 
 # 【螺旋折线】
 
-![](https://img-blog.csdnimg.cn/202104170014373.png)
+<img src="mark-img/202104170014373.png" style="zoom: 50%;" />
 
 ```java
 import java.util.Scanner;
@@ -850,7 +850,7 @@ public class Main {
 
 # 【数字三角形】
 
-![](https://img-blog.csdnimg.cn/20210417095203656.png)
+<img src="mark-img/20210417095203656.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -931,7 +931,7 @@ public class Main {
 
 最大公约数也称为最大公因数。
 
-![](https://img-blog.csdnimg.cn/2021041414471930.png)
+<img src="mark-img/2021041414471930.png" style="zoom:50%;" />
 
 辗转相除法：
 
@@ -956,7 +956,7 @@ public static int f(int a, int b) {
 
 注意：两个数的最小公倍数 = 两个数相乘 / 两个数的最大公约数。
 
-![](https://img-blog.csdnimg.cn/20210414145438566.png)
+<img src="mark-img/20210414145438566.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -1564,9 +1564,9 @@ public class Main {
 
 数学理论：如何通俗的解释排列公式和组合公式的含义？ - 浣熊数学的回答 - 知乎 https://www.zhihu.com/question/26094736/answer/610713978
 
-![](https://img-blog.csdnimg.cn/20210412231035705.png)
+<img src="mark-img/20210412231035705.png" style="zoom:50%;" />
 
-![](https://img-blog.csdnimg.cn/20210412231120547.png)
+<img src="mark-img/20210412231120547.png" style="zoom:50%;" />
 
 题目：
 
@@ -1733,7 +1733,7 @@ Math.toRadian()	// 把角度转换位弧度
 
 方法3：
 
-![](https://img-blog.csdnimg.cn/20210415145101191.png)
+<img src="mark-img/20210415145101191.png" style="zoom:50%;" />
 
 【圆的周长与面积】
 
@@ -1743,11 +1743,11 @@ Math.toRadian()	// 把角度转换位弧度
 
 【球体表面积与体积】
 
-![](https://img-blog.csdnimg.cn/20210413003006806.png)
+<img src="mark-img/20210413003006806.png" style="zoom: 67%;" />
 
 # 【身份证问题】
 
-![](https://img-blog.csdnimg.cn/2021041300342087.png)
+![](mark-img/2021041300342087.png)
 
 X表示10
 
@@ -1796,7 +1796,7 @@ if (y % 400 == 0 || y % 4 == 0 && y % 100 != 0)
 
 String 类提供相应方法：
 
-![](https://img-blog.csdnimg.cn/20210417110834416.png)
+![](mark-img/20210417110834416.png)
 
 # 【字符串编码】
 
@@ -1870,7 +1870,7 @@ public class Main {
 
 # 【斐波那契数列】
 
-![](https://img-blog.csdnimg.cn/20210413090609131.png)
+![](mark-img/20210413090609131.png)
 
 【方法1：递归】
 
@@ -1990,7 +1990,7 @@ public class Main {
 
 # 【汉诺塔】
 
-![](https://img-blog.csdnimg.cn/20210413084803216.png)
+![](mark-img/20210413084803216.png)
 
 ```java
 public class Main {
@@ -2074,7 +2074,7 @@ public class test {
 }
 ```
 
-![](https://img-blog.csdnimg.cn/20210413085703278.png)
+<img src="mark-img/20210413085703278.png" style="zoom: 67%;" />
 
 【任意数组转置】
 
@@ -2124,7 +2124,7 @@ public class test2 {
 }
 ```
 
-![](https://img-blog.csdnimg.cn/20210413085747852.png)
+<img src="mark-img/20210413085747852.png" style="zoom:67%;" />
 
 # 【基本排序算法】
 
@@ -2194,19 +2194,19 @@ https://blog.csdn.net/u011489043/article/details/78683856
 
 4. 除法法则
 
-![](https://img-blog.csdnimg.cn/20210413102124602.png)
+<img src="mark-img/20210413102124602.png" style="zoom:50%;" />
 
 【方差】
 
-![](https://img-blog.csdnimg.cn/20210413103521274.png)
+![](mark-img/20210413103521274.png)
 
 【平方和】
 
-![](https://img-blog.csdnimg.cn/2021041310371974.png)
+![](mark-img/2021041310371974.png)
 
 # 【打印菱形】
 
-![](https://img-blog.csdnimg.cn/20210413123310806.png)
+<img src="mark-img/20210413123310806.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -2255,7 +2255,7 @@ public class Main {
 
 原则：提前利用数学方法排除一些根本不必要遍历的情况。
 
-![](https://img-blog.csdnimg.cn/2021041423215999.png)
+<img src="mark-img/2021041423215999.png" style="zoom: 67%;" />
 
 ```java
 public class Main {
@@ -2311,7 +2311,7 @@ public class Main {
 
 # 【外卖店优先级】
 
-![](https://img-blog.csdnimg.cn/20210415002729363.png)
+<img src="mark-img/20210415002729363.png" style="zoom:67%;" />
 
 ```java
 import java.util.Scanner;
@@ -2361,7 +2361,7 @@ public class Main {
 
 【平方拆分】
 
-![](https://img-blog.csdnimg.cn/20210415124017900.png)
+<img src="mark-img/20210415124017900.png" style="zoom:67%;" />
 
 ```java
 public class Main {
@@ -2557,7 +2557,7 @@ public class Main {
 
 【排列小球】
 
-![](https://img-blog.csdnimg.cn/202104161758145.png)
+<img src="mark-img/202104161758145.png" style="zoom: 50%;" />
 
 ```java
 import java.util.Scanner;
@@ -2653,7 +2653,7 @@ public class Main {
 
 # 【跳跃】
 
-![](https://img-blog.csdnimg.cn/20210416145658670.png)
+<img src="mark-img/20210416145658670.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -2709,11 +2709,11 @@ public class Main {
 
 # 【两点之间的距离公式】
 
-![](https://img-blog.csdnimg.cn/20210415133858535.png)
+![](mark-img/20210415133858535.png)
 
 # 【序列个数】
 
-![](https://img-blog.csdnimg.cn/20210415220622744.png)
+![](mark-img/20210415220622744.png)
 
 ```java
 import java.util.Scanner;
@@ -2742,7 +2742,7 @@ public class Main {
 
 # 【公约数】
 
-![](https://img-blog.csdnimg.cn/20210415222449444.png)
+![](mark-img/20210415222449444.png)
 
 ```java
 public class Main {
@@ -2762,7 +2762,7 @@ public class Main {
 
 # 【扫雷】
 
-![](https://img-blog.csdnimg.cn/20210415230753793.png)
+<img src="mark-img/20210415230753793.png" style="zoom:67%;" />
 
 ```java
 import java.util.Scanner;
@@ -2878,7 +2878,7 @@ public class Main {
 
 # 【合法日期】
 
-![](https://img-blog.csdnimg.cn/20210415232517989.png)
+<img src="mark-img/20210415232517989.png" style="zoom:67%;" />
 
 ```java
  import java.util.Scanner;
@@ -2907,7 +2907,7 @@ public class Main {
 
 # 【灌溉】
 
-![](C:\Users\JERRY\AppData\Roaming\Typora\typora-user-images\image-20210416000250872.png)
+<img src="mark-img/2022-03-27_170818.png" alt="2022-03-27_170818" style="zoom:67%;" />
 
 ```java
 import java.util.Scanner;
@@ -2962,7 +2962,7 @@ public class Main {
 
 # 【点数】
 
-![](https://img-blog.csdnimg.cn/20210416001048572.png)
+![](mark-img/20210416001048572.png)
 
 ```java
 import java.util.Scanner;
@@ -2988,7 +2988,7 @@ public class Main {
 
 # 【图像模糊】
 
-![](https://img-blog.csdnimg.cn/20210416001849832.png)
+<img src="mark-img/20210416001849832.png" style="zoom:67%;" />
 
 ```java
 import java.util.Scanner;
@@ -3060,7 +3060,7 @@ public class Main {
 
 # 【谈判】
 
-![](https://img-blog.csdnimg.cn/20210416093103315.png)
+<img src="mark-img/20210416093103315.png" style="zoom:50%;" />
 
 ```java
 import java.util.*;
@@ -3092,7 +3092,7 @@ public class Main {
 
 # 【时间加法】
 
-![](https://img-blog.csdnimg.cn/20210416100946424.png)
+<img src="mark-img/20210416100946424.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -3120,7 +3120,7 @@ public class Main {
 
 # 【三角形面积】
 
-![](https://img-blog.csdnimg.cn/20210416105106220.png)
+<img src="mark-img/20210416105106220.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -3145,7 +3145,7 @@ public class Main {
 
 # 【删除字符】
 
-![](https://img-blog.csdnimg.cn/20210416171235334.png)
+<img src="mark-img/20210416171235334.png" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
@@ -3175,7 +3175,7 @@ public class Main {
 
 # 【数字位数】
 
-![](https://img-blog.csdnimg.cn/2021041617353422.jpg)
+<img src="mark-img/2021041617353422.jpg" style="zoom:50%;" />
 
 ```java
 import java.util.Scanner;
