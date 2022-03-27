@@ -8,11 +8,11 @@
 
 # 二、点击 Download Go
 
-![](https://img-blog.csdnimg.cn/2021031718060739.jpg)
+![](mark-img/2021031718060739.jpg)
 
 # 三、选择系统版本下载
 
-![](https://img-blog.csdnimg.cn/2021031718060799.jpg)
+![](mark-img/2021031718060799.jpg)
 
 # 四、安装 GoSDK
 
@@ -21,7 +21,7 @@
 
 # 五、打开安装包进入 bin 目录
 
-![](https://img-blog.csdnimg.cn/2021031718132267.png)
+![](mark-img/2021031718132267.png)
 
 当我们进入到 sdk 的 bin 目录中，可以发现有两个 .exe 文件（`go.exe`，`gofmt.exe`），其中 `go.exe` 就是 go 的编译器，我们在稍后要将他配置到环境变量中，以方便全局调用。
 

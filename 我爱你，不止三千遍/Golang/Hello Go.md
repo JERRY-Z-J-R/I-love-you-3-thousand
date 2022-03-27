@@ -3,13 +3,13 @@
 > 原创内容，转载请注明出处！
 
 # 一、Go 语言开发基本结构
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210317175437338.png)
+![在这里插入图片描述](mark-img/20210317175437338.png)
 
 # 二、VSCode & Go
 
 **请先在 VSCode 中安装 Golang 插件**
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210317175437486.jpg)
+![在这里插入图片描述](mark-img/20210317175437486.jpg)
 ```go
 /*
 ** JERRY_Z 2020/10/29
