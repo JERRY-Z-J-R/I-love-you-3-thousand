@@ -761,3 +761,161 @@ console.log(m2, m2 === m);
 ```
 
 ![image-20220327154158420](mark-img/image-20220327154158420.png)
+
+# 五、Iterator 遍历器与 for...of 循环
+
+## 5.1 什么是 Iterator？
+
+**（1）Iterator 的作用**
+
+Iterator：遍历器（迭代器）
+
+> 其实是一个底层的迭代机制，主要了解即可。
+
+**（2）使用 Iterator**
+
+```javascript
+const it = [1, 2][Symbol.iterator](); // 数组天生就有 Symbol.iterator 方法
+console.log(it.next()); // { value: 1, done: false }
+console.log(it.next()); // { value: 2, done: false }
+console.log(it.next()); // { value: undefined, done: true }
+// it：可遍历对象（可迭代对象）
+// Symbol.iterator：可遍历对象的生成方法
+// value：值，done：是否遍历完成
+```
+
+**（3）什么是 Iterator？**
+
+Symbol.iterator（可遍历对象的生成方法）——> it（可遍历对象）——> it.next() ——> it.next() ——> ... （直到 done 为 true）
+
+## 5.2 Iterator 解惑
+
+**（1）为什么需要 Iterator 遍历器？**
+
+遍历数组：for 循环和 forEach 方法
+
+遍历对象：for in 循环
+
+Iterator 遍历器是一个统一的遍历方式！
+
+**（2）如何更方便的使用 Iterator**
+
+之前：Symbol.iterator ——> it ——> next()
+
+优化：把上面的步骤进行封装（已经封装好了：for...of 循环）
+
+## 5.3 for...of 的用法
+
+原理：
+
+```javascript
+const arr = [1, 2, 3];
+const it = arr[Symbol.iterator]();
+let next = it.next();
+while (!next.done) {
+    ...
+    next = it.next();
+}
+```
+
+for...of：
+
+```javascript
+const arr = [1, 2, 3];
+for (const item of arr) {
+    ...
+}
+```
+
+> for...of 循环只会遍历出那些 done 为 false 时，对应的 value 值。
+
+【与 break、continue 一起使用】
+
+```javascript
+const arr = [1, 2, 3];
+for (const item of arr) {
+    if (item === 2) {
+        // break;
+    	continue;
+    }
+    console.log(item);
+}
+```
+
+【在 for...of 中获取数组的索引】
+
+```javascript
+const arr = [1, 2, 3];
+console.log(arr.keys());
+for (const key of arr.keys()) {
+    console.log(key);
+}
+// keys() 得到的是索引的可遍历对象，可以遍历出索引值
+/*
+Object [Array Iterator] {}
+0
+1
+2
+*/
+
+
+for (const value of arr.values()) {
+    console.log(value);
+}
+// values() 得到的是值的可遍历对象，可以遍历出值
+/*
+1
+2
+3
+*/
+
+
+for (const entries of arr.entries()) {
+    console.log(entrie);
+}
+/*
+[ 0, 1 ]
+[ 1, 2 ]
+[ 2, 3 ]
+*/
+
+// 结合解构赋值
+for (const [index, value] of arr.entries()) {
+    console.log(index, value);
+}
+/*
+0 1
+1 2
+2 3
+*/
+```
+
+## 5.4 原生可遍历与非原生可遍历
+
+### 5.4.1 什么是可遍历
+
+只要有 Symbol.iterator 方法，并且这个方法可以生成可遍历对象，就是可遍历的。
+
+只要可遍历，就可以使用 for...of 循环来统一遍历。
+
+### 5.4.2 原生可遍历的有哪些？
+
+- 数组
+- 字符串
+- Set
+- Map
+- arguments
+- NodeList
+
+### 5.4.3 非原生可遍历的有哪些？
+
+- 对象
+
+（手动添加一个 Symbol.iterator 方法，或者是将数组的 Symbol.iterator 方法赋给对象）
+
+### 5.4.4 使用了 Iterator 的其他场合
+
+- 数组的展开运算符
+- 数组的解构赋值
+- Set 和 Map 的构造函数
+
