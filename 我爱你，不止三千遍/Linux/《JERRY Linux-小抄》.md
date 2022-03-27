@@ -39,7 +39,7 @@ Linux 内核项目地址：[http://www.kernel.org](http://www.kernel.org)
 
 Linux 内核说明：
 
-![](https://img-blog.csdnimg.cn/20210330002508798.jpg)
+![](mark-img/20210330002508798.jpg)
 
 **【第一列】：源代码标记**
 
