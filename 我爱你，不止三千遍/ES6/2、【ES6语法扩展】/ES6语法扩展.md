@@ -318,3 +318,260 @@ const logUser = userParam => {
 logUser({username: 'jerry'});	// jerry 0 male
 ```
 
+# 四、Set 和 Map
+
+## 4.1 什么是 Set？
+
+Set 是一系列无序、没有重复值的数据集合。
+
+> 数组是一系列有序（下标索引）的数据集合。
+
+```javascript
+const s = new Set();
+s.add(1);
+s.add(2);
+
+// Set 中不能有重复的成员
+s.add(1);
+console.log(s);		// Set(2) { 1, 2 }
+
+// Set 没有下标去标识每一个值，所以 Set 是无序的，也不能像数组那样通过下标去访问 Set 的成员。
+```
+
+## 4.2 Set 实例的方法和属性
+
+### 4.2.1 add 方法
+
+```javascript
+const s = new Set();
+s.add(0);
+// 可以连写
+s.add(1).add(2).add(2).add(3);
+console.log(s);		// Set(4) { 0, 1, 2, 3 }
+```
+
+### 4.2.2 has 方法
+
+```javascript
+const s = new Set();
+s.add(0);
+s.add(1).add(2).add(2).add(3);
+console.log(s.has(1));	// true
+console.log(s.has(4));	// false
+```
+
+### 4.2.3 delete 方法
+
+```javascript
+const s = new Set();
+s.add(0);
+s.add(1).add(2).add(2).add(3);
+s.delete(2);
+// 使用 delete 删除不存在的成员，什么都不会发生，也不会报错
+s.delete(4);
+console.log(s);	// Set(3) { 0, 1, 3 }
+```
+
+### 4.2.4 clear 方法
+
+```javascript
+const s = new Set();
+s.add(0);
+s.add(1).add(2).add(2).add(3);
+s.clear();
+console.log(s);	// Set(0) {}
+```
+
+### 4.2.5 forEach 方法
+
+作用：用于遍历 Set 的（按照成员添加进集合的顺序遍历）。
+
+forEach 方法可以接受两个参数，第一个是：回调函数，第二个是：指定回调函数的 this 指向。
+
+```javascript
+const s = new Set();
+s.add(0);
+s.add(1).add(2).add(2).add(3);
+
+s.forEach(function (value, key, set) {
+    // Set 中 value = key，原因：好多数据结构都有 forEach 方法，为了方便统一，所以参数是统一的，但是参数的意义各有不同
+    // set 就是 s 本身
+    console.log(value, key, set === s);
+    console.log(this);
+});
+
+/*
+0 0 true
+Window
+1 1 true
+Window
+2 2 true
+Window
+3 3 true
+Window 
+*/
+```
+
+```javascript
+const s = new Set();
+s.add(0);
+s.add(1).add(2).add(2).add(3);
+
+s.forEach(function (value, key, set) {
+    // Set 中 value = key，原因：好多数据结构都有 forEach 方法，为了方便统一，所以参数是统一的，但是参数的意义各有不同
+    // set 就是 s 本身
+    console.log(value, key, set === s);
+    console.log(this);
+}, document);
+
+/*
+0 0 true
+#document
+1 1 true
+#document
+2 2 true
+#document
+3 3 true
+#document
+*/
+```
+
+### 4.2.6 size 属性
+
+```javascript
+const s = new Set();
+s.add(0);
+s.add(1).add(2).add(2).add(3);
+
+console.log(s.size);	// 4
+```
+
+## 4.3 Set 构造函数的参数
+
+- 数组
+- 字符串、arguments、NodeList、Set 等
+
+【数组】
+
+```javascript
+const s = new Set([1, 2, 1]);
+console.log(s);		// Set(2) { 1, 2 }
+```
+
+【字符串】
+
+```javascript
+console.log(new Set('hiii'));	// Set(2) { 'h', 'i' }
+```
+
+【arguments】
+
+```javascript
+function func() {
+    console.log(new Set(arguments));
+}
+func(1, 2, 1);	// Set(2) { 1, 2 }
+```
+
+【NodeList】
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<script>
+    console.log(new Set(document.querySelectorAll('P')));
+</script>
+</body>
+</html>
+```
+
+【Set】
+
+```javascript
+const s = new Set([1, 2, 1]);
+console.log(new Set(s));	// Set(2) { 1, 2 }
+console.log(s);				// Set(2) { 1, 2 }
+// 这也是复制一个 Set 的方法
+```
+
+## 4.4 Set 注意事项
+
+【Set 如何判断重复】
+
+Set 对重复值的判断基本遵循严格相等（===）
+
+但是对于 NaN 的判断与 === 不同，Set 中 NaN 等于 NaN
+
+```javascript
+const s = new Set();
+s.add({}).add({});
+console.log({} === {});	 // false
+console.log(s);			 // Set(2) { {}, {} }
+```
+
+【什么时候使用 Set】
+
+- 数组或字符串需要去重时
+- 不需要通过下标访问，只需要遍历时
+- 为了使用 Set 提供的方法和属性时
+
+## 4.5 Set 的应用
+
+【数组去重】
+
+```javascript
+const s = new Set([1, 2, 1]);
+console.log(s);			// Set(2) { 1, 2 }
+console.log([...s]);	// [ 1, 2 ]
+```
+
+【字符串去重】
+
+```javascript
+const s = new Set('abbacbd');
+console.log(s);					// Set(4) { 'a', 'b', 'c', 'd' }
+console.log([...s].join(''));	// abcd
+```
+
+【存放 DOM 元素】
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<script>
+    // 这里使用 Set 是因为我们不需要通过下标去访问，只需直接遍历即可
+    const s = new Set(document.querySelectorAll('p'));
+    s.forEach(function (elem) {
+        elem.style.color = 'red';
+    });
+</script>
+</body>
+</html>
+```
+
+## 4.6 什么是 Map？
+
+## 4.7 Map 实例的属性和方法
+
+## 4.8 Map 构造函数的参数
+
+## 4.9 Map 注意事项
+
+## 4.10 Map 的应用
+
