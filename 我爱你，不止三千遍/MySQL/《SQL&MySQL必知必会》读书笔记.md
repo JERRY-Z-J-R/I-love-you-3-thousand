@@ -1,6 +1,6 @@
 # 《SQL&MySQL必知必会》读书笔记
 
-<img src="https://img-blog.csdnimg.cn/20210506143655566.jpg" style="zoom:50%;" />
+<img src="mark-img/20210506143655566.jpg" style="zoom:50%;" />
 
 > 原创内容，转载请注明出处！
 
