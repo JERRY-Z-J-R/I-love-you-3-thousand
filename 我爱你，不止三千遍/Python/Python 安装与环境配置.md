@@ -7,8 +7,8 @@
 - 点击 Downloads
 - 选择版本下载
 
-![](https://img-blog.csdnimg.cn/20210317185408339.jpg)
-![](https://img-blog.csdnimg.cn/20210317185408362.jpg)
+![](mark-img/20210317185408339.jpg)
+![](mark-img/20210317185408362.jpg)
 
 # 二、安装 Python
 
