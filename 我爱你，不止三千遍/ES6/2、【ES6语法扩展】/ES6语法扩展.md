@@ -506,9 +506,9 @@ console.log(s);				// Set(2) { 1, 2 }
 
 【Set 如何判断重复】
 
-Set 对重复值的判断基本遵循严格相等（===）
+- Set 对重复值的判断基本遵循严格相等（===）
 
-但是对于 NaN 的判断与 === 不同，Set 中 NaN 等于 NaN
+- 但是对于 NaN 的判断与 === 不同，Set 中 NaN 等于 NaN
 
 ```javascript
 const s = new Set();
@@ -567,11 +567,197 @@ console.log([...s].join(''));	// abcd
 
 ## 4.6 什么是 Map？
 
-## 4.7 Map 实例的属性和方法
+Map 可以理解为：“映射”。
+
+Map 和 对象 都是键值对的集合。
+
+```javascript
+// 键 ——> 值，key ——> value
+// 对象：
+const person = {
+    name: 'alex',
+    age: 18
+};
+
+// Map：
+const m = new Map();
+m.set('name', 'alex');
+m.set('age', 18);
+console.log(m);		// Map(2) { 'name' => 'alex', 'age' => 18 }
+
+// Map 和 对象 的区别：
+// 对象一般用字符串当作 “键”（当然在书写时字符串键的引号可以去掉）.
+// Map 中的 “键” 可以是一切类型。
+const m = new Map();
+m.set(true, 'true');
+m.set({}, 'object');
+m.set(new Set([1, 2]), 'set');
+m.set(undefined, 'undefined');
+console.log(m);
+/*
+Map(4) {
+  true => 'true',
+  {} => 'object',
+  Set(2) { 1, 2 } => 'set',
+  undefined => 'undefined'
+}
+*/
+```
+
+## 4.7 Map 实例的方法和属性
+
+### 4.7.1 set 方法
+
+```javascript
+const m = new Map();
+m.set('age', 18).set(true, 'true').set('age', 22);
+console.log(m);		// Map(2) { 'age' => 22, true => 'true' }
+```
+
+### 4.7.2 get 方法
+
+```javascript
+const m = new Map();
+m.set('age', 18).set(true, 'true').set('age', 22);
+console.log(m.get('age'));		// 22
+console.log(m.get(true));		// true
+```
+
+### 4.7.3 has 方法
+
+```javascript
+const m = new Map();
+m.set('age', 18).set(true, 'true').set('age', 22);
+console.log(m.has('age'));			// true
+console.log(m.has('true'));			// false
+```
+
+### 4.7.4 delete 方法
+
+```javascript
+m.delete('age');
+// 使用 delete 删除不存在的成员，什么都不会发生，也不会报错
+m.delete('name');
+```
+
+### 4.7.5 clear 方法
+
+```javascript
+m.clear();
+```
+
+### 4.7.6 forEach 方法
+
+```javascript
+m.forEach(function (value, key, map) {
+    console.log(this);
+}, document);
+```
+
+### 4.7.7 size 属性
+
+```javascript
+// 对象没有类似的属性
+console.log(m.size);
+```
 
 ## 4.8 Map 构造函数的参数
 
+- 二维数组
+- Set、Map 等
+
+【二维数组】
+
+```javascript
+console.log(new Map([
+    ['name', 'alex'],
+    ['age', 18]
+]));
+// Map(2) { 'name' => 'alex', 'age' => 18 }
+```
+
+【Set、Map】
+
+```javascript
+// Set
+// Set 中也必须体现出键和值
+const s = new Set([
+    ['name', 'alex'],
+    ['age', 18]
+]);
+console.log(new Map(s));
+console.log(s);
+// Map(2) { 'name' => 'alex', 'age' => 18 }
+// Set(2) { [ 'name', 'alex' ], [ 'age', 18 ] }
+
+// Map
+const m = new Map([
+    ['name', 'alex'],
+    ['age', 18]
+]);
+console.log(m);
+const m2 = new Map(m);
+console.log(m2, m2 === m);
+// Map(2) { 'name' => 'alex', 'age' => 18 }
+// Map(2) { 'name' => 'alex', 'age' => 18 } false
+// Map 复制的方法
+```
+
 ## 4.9 Map 注意事项
+
+【Map 如何判断键名是否相同】
+
+> 在 Set 中遇到重复的值直接去掉后者，而 Map 中遇到重复的键值则是后面的覆盖前面的。
+
+- 基本遵循严格相等（===）
+- Map 中 NaN 也是等于 NaN
+
+【什么时候使用 Map】
+
+- 如果只是需要键值对结构
+- 需要字符串以外的值做键
+- 对象一般用在模拟实体上
 
 ## 4.10 Map 的应用
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<script>
+    const [p1, p2, p3] = document.querySelectorAll('p');
+    const m = new Map([
+        [p1, {
+            color: 'red',
+            backgroundColor: 'yellow',
+            fontSize: '40px'
+        }],
+        [p2, {
+            color: 'green',
+            backgroundColor: 'pink',
+            fontSize: '40px'
+        }],
+        [p3, {
+            color: 'blue',
+            backgroundColor: 'orange',
+            fontSize: '40px'
+        }]
+    ]);
+    m.forEach((propObj, elem) => {
+        for (const p in propObj) {
+            elem.style[p] = propObj[p];
+        }
+    });	// 由于不需要改变 this 指向，所以可以使用箭头函数
+</script>
+</body>
+</html>
+```
+
+![image-20220327154158420](mark-img/image-20220327154158420.png)
