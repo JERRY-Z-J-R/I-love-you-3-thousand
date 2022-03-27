@@ -1,4 +1,4 @@
-# 【Eclipse IDE使用小结】Java小抄(9)
+# 【Eclipse IDE使用小结】
 
 > 原创内容，转载请注明出处！
 
