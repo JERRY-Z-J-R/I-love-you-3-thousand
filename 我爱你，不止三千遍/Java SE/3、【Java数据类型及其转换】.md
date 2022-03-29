@@ -4,7 +4,7 @@
 
 **Java 两大类数据类型**
 
-![](https://img-blog.csdnimg.cn/20210315124509816.png)
+![](mark-img/20210315124509816.png)
 
 # 一、内置数据类型（基本数据类型）
 Java语言提供了 八种基本类型：
@@ -297,7 +297,7 @@ Site site = new Site("Runoob");
 
 内存图示：
 
-![](https://img-blog.csdnimg.cn/2021031513063068.jpg)
+![](mark-img/2021031513063068.jpg)
 
 # 三、Java类型默认值
 
@@ -395,7 +395,7 @@ byte d = (byte)-210;	// b == 46
 
 1. 循环规律：
 
-![](https://img-blog.csdnimg.cn/20210315130602886.jpg)
+<img src="mark-img/20210315130602886.jpg" style="zoom:25%;" />
 
 2. 本质，进制：
 

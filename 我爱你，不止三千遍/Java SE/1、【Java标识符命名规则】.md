@@ -92,7 +92,6 @@ class ComputerMajorsStudents implements ProgrammerSkill {
     // 个人信息
     public void personalInformation() {
         System.out.println("Name:" + name + "\nId:" + id + "\nAge:" + age + "\nUniversity major:" + UNIVERSITY_MAJOR);
-
     }
 
     // 重写接口方法
