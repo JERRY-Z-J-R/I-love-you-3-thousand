@@ -125,9 +125,9 @@
 - public class：所有地方都可以使用该类
 - class：只有同一包中才能使用该类
 
-![](https://img-blog.csdnimg.cn/20201231105814328.png)
+![](mark-img/20201231105814328.png)
 
-![](https://img-blog.csdnimg.cn/20201231105814314.png)
+![](mark-img/20201231105814314.png)
 
 # 七、补充
 

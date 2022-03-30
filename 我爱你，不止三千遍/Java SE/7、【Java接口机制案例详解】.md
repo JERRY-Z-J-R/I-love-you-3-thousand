@@ -6,7 +6,7 @@
 
 ## 1、接口概述
 
-- 猫狗案例中，如果有狗看门，猫钻火圈等额外的动作，并不是所有猫或者狗一开始就具备的，这应该属于经过特殊的培训训练出来的，这些额外的动作定义到动物类中就不合适，也不适合直接定义到猫或者狗中，因为只有部分猫狗具备这些功能。所以，为了体现事物功能的扩展性，Java中就提供了接口来定义这些额外功能，并不给出具体实现，将来哪些猫狗需要被培训，只需要这部分猫狗把这些额外功能实现即可。
+猫狗案例中，如果有狗看门，猫钻火圈等额外的动作，并不是所有猫或者狗一开始就具备的，这应该属于经过特殊的培训训练出来的，这些额外的动作定义到动物类中就不合适，也不适合直接定义到猫或者狗中，因为只有部分猫狗具备这些功能。所以，为了体现事物功能的扩展性，Java中就提供了接口来定义这些额外功能，并不给出具体实现，将来哪些猫狗需要被培训，只需要这部分猫狗把这些额外功能实现即可。
 
 # 二、接口特点
 
@@ -118,7 +118,6 @@ class Mouse implements USB {
     public void run() {
         System.out.println("鼠标运行");
     }
-
     public void stop() {
         System.out.println("鼠标关闭");
     }
@@ -132,7 +131,6 @@ class Keyboard implements USB {
     public void run() {
         System.out.println("键盘运行");
     }
-
     public void stop() {
         System.out.println("键盘关闭");
     }
@@ -146,7 +144,6 @@ class Camera implements USB {
     public void run() {
         System.out.println("摄像头运行");
     }
-
     public void stop() {
         System.out.println("摄像头关闭");
     }
@@ -160,7 +157,6 @@ class Phone implements USB {
     public void run() {
         System.out.println("手机运行");
     }
-
     public void stop() {
         System.out.println("手机关闭");
     }
@@ -243,7 +239,6 @@ class Mouse implements USB {
     public void run() {
         System.out.println("鼠标运行");
     }
-
     public void stop() {
         System.out.println("鼠标关闭");
     }
@@ -257,7 +252,6 @@ class Keyboard implements USB {
     public void run() {
         System.out.println("键盘运行");
     }
-
     public void stop() {
         System.out.println("键盘关闭");
     }
@@ -271,7 +265,6 @@ class Camera implements USB {
     public void run() {
         System.out.println("摄像头运行");
     }
-
     public void stop() {
         System.out.println("摄像头关闭");
     }
@@ -285,7 +278,6 @@ class Phone implements USB {
     public void run() {
         System.out.println("手机运行");
     }
-
     public void stop() {
         System.out.println("手机关闭");
     }

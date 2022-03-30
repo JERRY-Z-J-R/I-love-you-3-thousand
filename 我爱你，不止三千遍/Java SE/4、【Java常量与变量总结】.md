@@ -21,7 +21,7 @@
   - 用单引号括起来的单字符
   - `'a'`，`'A'`，`'0'`
 - **布尔常量**
-  - ``true` 和 `false`
+  - `true` 和 `false`
 - **空常量**
   - `null`
 
@@ -230,7 +230,7 @@ age = age + 7;
 - 访问修饰符可以修饰实例变量
 - 实例变量对于类中的方法、构造方法或者语句块是可见的。一般情况下应该把实例变量设为私有。通过使用访问修饰符可以使实例变量对子类可见
 - 实例变量具有默认值。数值型变量的默认值是 0，布尔型变量的默认值是 false，引用类型变量的默认值是 null。变量的值可以在声明时指定，也可以在构造方法中指定
-- 实例变量可以直接通过变量名访问。但在静态方法以及其他类中，就应该使用完全限定名：``ObejectReference.VariableName`。
+- 实例变量可以直接通过变量名访问。但在静态方法以及其他类中，就应该使用完全限定名：`ObejectReference.VariableName`。
 
 ### 实例
 
@@ -257,7 +257,6 @@ public class Employee {
       System.out.println("名字 : " + name);
       System.out.println("薪水 : " + salary);
    }
- 
    public static void main(String[] args) {
       Employee empOne = new Employee("RUNOOB");
       empOne.setSalary(1000.0);
