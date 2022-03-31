@@ -919,3 +919,357 @@ for (const [index, value] of arr.entries()) {
 - 数组的解构赋值
 - Set 和 Map 的构造函数
 
+# 六、ES6 新增方法
+
+## 6.1 字符串新增方法
+
+### 6.1.1 includes()
+
+判断字符串中是否含有某些字符。
+
+```javascript
+// 基本用法
+console.log('abc'.includes('a'));		// true
+console.log('abc'.includes('ab'));		// true
+console.log('abc'.includes('bc'));		// true
+console.log('abc'.includes('ac'));		// false
+
+
+// 接受第二个参数
+// 表示开始搜索的位置，默认是 0
+console.log('abc'.includes('a'));		// true
+console.log('abc'.includes('a', 0));	// true
+console.log('abc'.includes('a', 1));	// false
+
+
+// 应用（改变路径）
+// https://www.imooc.com/course/list
+// https://www.imooc.com/course/list?c=fe&sort=pop&name=value
+let url = 'https://www.imooc.com/course/list';
+const addURLParam = (url, name, value) => {
+    url += url.includes('?') ? '' : '?';
+
+    url += `${name}=${value}`;
+
+    return url;
+};
+url = addURLParam(url, 'c', 'fe');
+console.log(url);	// https://www.imooc.com/course/list?c=fe
+url = addURLParam(url, 'sort', 'pop');
+console.log(url);	// https://www.imooc.com/course/list?c=fesort=pop
+```
+
+### 6.1.2 padStart() 和 padEnd()
+
+根据所需长度补全字符串。
+
+```javascript
+// 基本用法
+console.log('x'.padStart(5, 'ab'));		// ababx
+console.log('x'.padEnd(5, 'ab'));		// xabab
+console.log('x'.padEnd(4, 'ab'));		// xaba
+
+// 注意事项
+// 原字符串的长度，等于或大于最大长度，不会消减原字符串，字符串补全不生效，返回原字符串
+console.log('xxx'.padStart(2, 'ab'));	// xxx
+console.log('xxx'.padEnd(2, 'ab'));		// xxx
+
+// 如果省略第二个参数，默认使用空格补全长度
+console.log('x'.padStart(4));			//    x
+console.log('x'.padEnd(4));				// x
+
+// 应用（显示日期格式）
+// 2020-10-10
+// 2020-01-01
+console.log('10'.padStart(2, 0));		// 10
+console.log('1'.padStart(2, 0));		// 01
+```
+
+### 6.1.3 trimStart() 和 trimEnd()
+
+清除字符串的首或尾空格，中间的空格不会清除。
+
+```javascript
+// 基本用法
+const s = '  a b c  ';
+console.log(s);						//   a b c
+console.log(s.trimStart());			// a b c  
+console.log(s.trimLeft());			// a b c 
+console.log(s.trimEnd());			//   a b c
+console.log(s.trimRight());			//   a b c
+// 两头同时去除空格
+console.log(s.trim());				// a b c
+
+// 应用（表单提交检查首尾是否有空格）
+const usernameInput = document.getElementById('username');
+const btn = document.getElementById('btn');
+
+btn.addEventListener(
+    'click',
+    () => {
+        console.log(usernameInput.value);
+
+        // 验证首尾是否有空格
+        console.log(usernameInput.value.trim());
+        if (usernameInput.value.trim() !== '') {
+            // 可以提交
+            console.log('可以提交');
+        } else {
+            // 不能提交
+            console.log('不能提交');
+        }
+    },
+    false
+);
+```
+
+## 6.2 数组新增方法
+
+### 6.2.1 includes()
+
+```javascript
+// 基本用法
+// 判断数组中是否含有某个成员
+console.log([1, 2, 3].includes('2'));	 // false
+console.log([1, 2, 3].includes(2));		 // true
+
+// 第二个参数表示搜索的起始位置，默认值是 0
+console.log([1, 2, 3].includes(2, 2));	 // false
+
+// 基本遵循严格相等（===），但是对于 NaN 的判断与 === 不同，includes 认为 NaN === NaN
+console.log(NaN === NaN);					// false
+console.log([1, 2, NaN].includes(NaN));		// true
+
+// 应用
+// 去重
+// [1, 2, 1];
+const arr = [];
+for (const item of [1, 2, 1]) {
+    if (!arr.includes(item)) {
+        arr.push(item);
+    }
+}
+console.log(arr);	// [ 1, 2 ]
+```
+
+### 6.2.2 Array.from()
+
+将其他数据类型转换成数组。
+
+```javascript
+// 基本用法
+console.log(Array.from('str'));		// [ 's', 't', 'r' ]
+
+// 哪些可以通过 Array.from() 转换成数组？
+// 1、所有可遍历的：数组、字符串、Set、Map、NodeList、arguments
+console.log(Array.from(new Set([1, 2, 1])));	// [ 1, 2 ]
+console.log([...new Set([1, 2, 1])]);			// [ 1, 2 ]
+// 2、拥有 length 属性的任意对象
+const obj = {
+    '0': 'a',
+    '1': 'b',
+    name: 'Alex',
+    length: 3
+};
+// 只会把数字键的转为数组元素
+console.log(Array.from(obj));	// [ 'a', 'b', undefined ]
+console.log([...obj]);			// 报错！
+
+// 第二个参数
+// 作用类似于数组的 map 方法，用来对每个元素进行处理，将处理后的值放入返回的数组
+console.log(
+    [1, 2].map(value => {
+    	return value * 2;
+    })
+);	// [ 2, 4 ]
+
+console.log(Array.from('12', value => value * 2));			// [ 2, 4 ]
+console.log(Array.from('12').map(value => value * 2));		// [ 2, 4 ]
+
+// 第三个参数（修改 this 指向）
+Array.from(
+    '12',
+    function () {
+        console.log(this);
+    },
+    document
+);
+```
+
+### 6.2.3 find() 和 findIndex()
+
+find()：找到满足条件的一个立即返回
+findIndex()：找到满足条件的一个，立即返回其索引
+
+```javascript
+// 基本用法
+console.log([1, 5, 10, 15].find((value, index, arr) => {
+        return value > 9;
+    })
+);
+// 10
+console.log([1, 5, 10, 15].findIndex((value, index, arr) => {
+        return value > 9;
+    })
+);
+// 2
+
+// 第二个参数指定 this
+[1, 5, 10, 15].find(function (value, index, arr) {
+    console.log(this);
+    return value > 9;
+}, document);
+
+// 应用
+const students = [
+    {
+        name: '张三',
+        sex: '男',
+        age: 16
+    },
+    {
+        name: '李四',
+        sex: '女',
+        age: 22
+    },
+    {
+        name: '王二麻子',
+        sex: '男',
+        age: 32
+    }
+];
+console.log(students.find(value => value.sex === '女'));
+// { name: '李四', sex: '女', age: 22 }
+console.log(students.findIndex(value => value.sex === '女'));
+// 1
+```
+
+
+## 6.3 对象新增方法
+
+### 6.3.1 Object.assign()
+
+用来合并对象。
+
+```javascript
+// 基本用法
+// Object.assign(目标对象, 源对象1, 源对象2, ...);
+const apple = {
+    color: '红色',
+    shape: '圆形',
+    taste: '甜'
+};
+const pen = {
+    color: '黑色',
+    shape: '圆柱形',
+    use: '写字'
+};
+console.log(Object.assign(apple, pen));	
+// 后面的覆盖前面的（最终返回的不是新的，而是修改了前面的）
+// { color: '黑色', shape: '圆柱形', taste: '甜', use: '写字' }
+// Object.assign 直接合并到了第一个参数中，返回的就是合并后的对象
+console.log(apple);	// { color: '黑色', shape: '圆柱形', taste: '甜', use: '写字' }
+console.log(Object.assign(apple, pen) === apple);	// true
+
+
+// 可以合并多个对象
+// 第一个参数使用一个空对象来实现合并返回一个新对象的目的
+console.log(Object.assign({}, apple, pen));	// { color: '黑色', shape: '圆柱形', taste: '甜', use: '写字' }
+console.log(apple);	// { color: '红色', shape: '圆形', taste: '甜' }
+console.log({...apple, ...pen}); // { color: '黑色', shape: '圆柱形', taste: '甜', use: '写字' }
+
+
+// 注意事项
+// (1) 基本数据类型作为源对象
+// 与对象的展开类似，先转换成对象，再合并
+console.log(Object.assign({}, undefined));	// {}
+console.log(Object.assign({}, null));		// {}
+console.log(Object.assign({}, 1));			// {}
+console.log(Object.assign({}, true));		// {}
+console.log(Object.assign({}, 'str'));		// { '0': 's', '1': 't', '2': 'r' }
+// (2) 同名属性的替换
+// 后面的直接覆盖前面的
+const apple = {
+    color: ['红色', '黄色'],
+    shape: '圆形',
+    taste: '甜'
+};
+const pen = {
+    color: ['黑色', '银色'],
+    shape: '圆柱形',
+    use: '写字'
+};
+console.log(Object.assign({}, apple, pen));	// { color: [ '黑色', '银色' ], shape: '圆柱形', taste: '甜', use: '写字' }
+
+
+// 应用
+// 合并默认参数和用户参数
+const logUser = userOptions => {
+    const DEFAULTS = {
+        username: 'ZhangSan',
+        age: 0,
+        sex: 'male'
+    };
+
+    const options = Object.assign({}, DEFAULTS, userOptions);
+    console.log(options);
+};
+logUser();						// { username: 'ZhangSan', age: 0, sex: 'male' }
+logUser({});					// { username: 'ZhangSan', age: 0, sex: 'male' }
+logUser({username: 'Alex'});	// { username: 'Alex', age: 0, sex: 'male' }
+```
+
+### 6.3.2 Object.keys()、Object.values() 和 Object.entries()
+
+```javascript
+// 基本用法
+const person = {
+    name: 'Alex',
+    age: 18
+};
+// 返回键数组
+console.log(Object.keys(person));		// [ 'name', 'age' ]
+// 返回值数组
+console.log(Object.values(person));		// [ 'Alex', 18 ]
+// 返回键值二维数组
+console.log(Object.entries(person));	// [ [ 'name', 'Alex' ], [ 'age', 18 ] ]
+
+
+// 与数组类似方法的区别
+console.log([1, 2].keys());			// Object [Array Iterator] {}
+console.log([1, 2].values());		// Object [Array Iterator] {}
+console.log([1, 2].entries());		// Object [Array Iterator] {}
+// 数组的 keys()、values()、entries() 等方法是实例方法，返回的都是 Iterator
+// 对象的 Object.keys()、Object.values()、Object.entries() 等方法是构造函数方法，返回的是数组
+
+
+// 应用（使用 for...of 循环遍历对象）
+const person = {
+    name: 'Alex',
+    age: 18
+};
+for (const key of Object.keys(person)) {
+    console.log(key);		
+}
+// name
+// age
+for (const value of Object.values(person)) {
+    console.log(value);		
+}
+// Alex
+// 18
+for (const entries of Object.entries(person)) {
+    console.log(entries);	
+}
+// [ 'name', 'Alex' ]
+// [ 'age', 18 ]
+for (const [key, value] of Object.entries(person)) {
+    console.log(key, value);
+}
+// name Alex
+// age 18
+
+// Object.keys()/values()/entires() 并不能保证顺序一定是你看到的样子，这一点和 for in 是一样的
+// 如果对遍历顺序有要求那么不能用 for in 以及这种方法，而要用其他方法
+```
+
