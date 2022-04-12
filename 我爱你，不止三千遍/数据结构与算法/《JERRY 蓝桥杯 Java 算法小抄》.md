@@ -6,7 +6,7 @@
 
 > 提交答案不能包含 package，类名必须为 Main，要包含该有的 import 语句！
 >
-> Eclipse 快捷键：Alt+/ 代码提示，Shift+Ctrl+F 格式化代码
+> Eclipse 快捷键：Alt+/ 代码提示，Shift+Ctrl+O 导包，Shift+Ctrl+F 格式化代码
 >
 > 注意：比赛时如果用到库函数记得用 Alt+/ 进行提示，因为提示时不仅有函数功能说明还有函数的参数格式、返回值格式说明，这样不容易出错！
 
@@ -49,7 +49,7 @@ public class Main {
 import java.util.Scanner;
 
 public class Main {
-
+    
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
@@ -248,7 +248,7 @@ public class Main {
 			aa[i] = sc.nextInt();
 		}
 
-        // 对数字排序
+        // 对数字排序（冒泡排序）
 		int temp = 0;
 		for (int i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
@@ -317,7 +317,7 @@ public class Main {
 			sum += aa[i];
 		}
 
-		System.out.printf("%.2f", sum = sum / n);
+		System.out.printf("%.2f", sum / n);
 	}
 
 }
@@ -343,6 +343,7 @@ public class Main {
        	// Collections.sort(aa);				// 升序排序法1
         // 注意：Collections（类） Comparator（接口）
        	// aa.sort(Comparator.naturalOrder());	// 升序排序法2
+        // 注意，sort默认都是自然顺序升序（数字>大写字母>小写字母）
        	aa.sort(Comparator.reverseOrder());		// 降序排序法
        	for (Integer t: aa) {
        		System.out.print(t + " ");
@@ -400,7 +401,7 @@ public class Main {
 		// 格式化输出
         // 注意：这里mid为double型，如果是int型会报错
         // 即便是 (double)(mid / n)也不行，这种方式虽然不会报错，但是(mid / n)已经是Int型了，转为double也已经损失精度了！
-        // (double)mid / n)这样可以！
+        // (double)mid / n这样可以，相当于先把 mid 转为 double
 		System.out.printf("%.2f", (mid / n));
 	}
 
@@ -497,26 +498,26 @@ public class Main {
 	static int[][] arr = new int[100][100];
 	
 	public static void main(String[] args) {
-		int x = 1;	// 定义横坐标
-		int y = 1;	// 定义纵坐标
+		int x = 1;	// 定义行
+		int y = 1;	// 定义列
 		int n = 0;	// 当前所排到的数
 		
 		arr[x][y] = ++n;	// 初始化第一个数的位置
 		
 		// 当目标值已经被填充时退出循环
 		while (arr[20][20] == 0) {
-			arr[x][++y] = ++n;	// 右填一位，然后开始向左下递推
+			arr[++x][y] = ++n;	// 右填一位，然后开始向左下递推
 			
 			// 左下递推的规律是：x+1，y-1；终止标志是 y 减少到 1
-			while (y > 1) {
-				arr[++x][--y] = ++n;
+			while (x > 1) {
+				aarr[--x][++y] = ++n;
 			}
 			
-			arr[++x][y] = ++n;	// 下移一位，然后开始向右上递推
+			arr[x][++y] = ++n;	// 下移一位，然后开始向右上递推
             
 			// 右上递推的规律是：x-1，y+1；终止标志是 x 减少到 1
-			while (x > 1) {
-				arr[--x][++y] = ++n;
+			while (y > 1) {
+				arr[++x][--y] = ++n;
 			}
 		}
 		System.out.print(arr[20][20]);
@@ -524,6 +525,8 @@ public class Main {
 
 }
 ```
+
+上图是所构建的二维数组示意图，为了避开数组以 0 起始的逻辑阻力，所以默认放弃第一行和第一列，数组索引从（1,1）开始。
 
 # 【方格计数】
 
@@ -612,6 +615,63 @@ public class Main {
 }
 ```
 
+```java
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int x = sc.nextInt();
+		int y = sc.nextInt();
+		int count = 0;
+		int tempx = 0;
+		int tempy = 0;
+		label: for (int i = 1;; i++) {
+			// 判断奇偶
+			// 如果是奇数那么先往左走i步，再往上走i步
+			if (i % 2 == 1) {
+				// 往左走i步
+				for (int j = i; j > 0; j--) {
+					--tempx;
+					++count;
+					if (tempx == x && tempy == y) {
+						break label;
+					}
+				}
+				// 往上走i步
+				for (int j = i; j > 0; j--) {
+					++tempy;
+					++count;
+					if (tempx == x && tempy == y) {
+						break label;
+					}
+				}
+				// 如果是偶数那么先往右走i步，再往下走i步
+			} else {
+				// 往右走i步
+				for (int j = i; j > 0; j--) {
+					++tempx;
+					++count;
+					if (tempx == x && tempy == y) {
+						break label;
+					}
+				}
+				// 往下走i步
+				for (int j = i; j > 0; j--) {
+					--tempy;
+					++count;
+					if (tempx == x && tempy == y) {
+						break label;
+					}
+				}
+			}
+		}
+		System.out.println(count);
+	}
+}
+```
+
 以上方法模拟了路线的走势，但是由于数据非常大，此种方式肯定会超时，所以我们还可以利用数学归纳法解决。
 
 ```java
@@ -683,6 +743,7 @@ public class Main {
 		char cmax = ' ';
 		char cmin = ' ';
 		for (int i = 0; i < arr.length; i++) {
+            // 如果改为 >= 那么就是按照字典序逆序
 			if (arr[i] > max) {
 				max = arr[i];
 				cmax = (char) (i + 'a');
@@ -779,7 +840,7 @@ public class Main {
 }
 ```
 
-# 【最优解问题】
+# 【分治问题的最优解方法】
 
 【数字三角形】
 
@@ -856,6 +917,33 @@ public class Main {
 		} else {
 			return sum2 + d[x][y];
 		}
+	}
+}
+```
+
+```java
+import java.util.Scanner;
+
+// 一道普通的dp数字三角形，每一步都来源于左上角或者右上角，所以我们可以递推出结果
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int[][] arr = new int[n + 1][n + 1];
+		for (int i = 1; i < arr.length; i++) {
+			for (int j = 1; j <= i; j++) {
+				int s = sc.nextInt();
+				// 某点的最大权值=该点的权值+Max(左上点的最大权值，右上点的最大权值)
+				arr[i][j] = s + Math.max(arr[i - 1][j - 1], arr[i - 1][j]);
+			}
+		}
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < arr[n].length; i++) {
+			if (arr[n][i] > max) {
+				max = arr[n][i];
+			}
+		}
+		System.out.println(max);
 	}
 }
 ```
@@ -1013,7 +1101,7 @@ public class Main {
 
 【判断回文】
 
-（回文：正读，倒读都一样的正整数）
+（回文：正读，倒读都一样）
 
 输入一组正整数，依次判断是否为回文数。
 
@@ -1038,7 +1126,7 @@ import java.util.Scanner;
 
 public class Main {
 	
-	public static void main(String[] args) {
+	public s//tatic void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
         // hasNext() 判断是否有输入，有则返回 true，没有则返回 false
 		while (sc.hasNext()) {
@@ -1046,6 +1134,7 @@ public class Main {
 			String s = sc.next();
 			StringBuffer sb = new StringBuffer(s);
 			// equals() 判断两个对象的值是否相等，前提是类型要相同，否则肯定不相等
+            // System.out.println(Arrays.equals(数组1, 数组2));
 			// 所以我们要通过，toString() 方法将 sb 转换为 String 类型
 			if (s.equals(sb.reverse().toString())) {
 				System.out.println("Y");
@@ -1065,6 +1154,7 @@ public class Main {
 ** 该值 [0.0, 1.0)，返回值是一个伪随机选择的数，在该范围内（近似）均匀分布。 
 ** Math.random() * N 得到 [0.0, N.0) 的伪随机选择数
 ** Math.random() * (N+1) 得到 [0.0, N.0] 的伪随机选择数
+** Math.random() * (N+1) + M 得到 [M.0, (N+M).0] 的伪随机选择数
 ** 牢记其为 double，注意类型转换！
 */
 
@@ -1395,8 +1485,7 @@ c
 
 题目：
 
-一个字符串的非空子串是指字符串中长度至少为 1 的连续的一段字符组成 的串。例如，字符串aaab 有非空子串a, b,
-aa, ab, aaa, aab, aaab，一共 7 个。 注意在计算时，只算本质不同的串的个数。
+一个字符串的非空子串是指字符串中长度至少为 1 的连续的一段字符组成 的串。例如，字符串 aaab 有非空子串a, b, aa, ab, aaa, aab, aaab，一共 7 个。 注意在计算时，只算本质不同的串的个数。
 请问，字符串0100110001010001 有多少个不同的非空子串？ 【答案提交】
 这是一道结果填空的题，你只需要算出结果后提交即可。本题的结果为一 个整数，在提交答案时只填写这个整数，填写多余的内容将无法得分。
 
@@ -1418,6 +1507,7 @@ public class Main {
 	public static void main(String[] args) {
 		HashSet<String> set = new HashSet<String>();
 		String s = "0100110001010001";
+        // 得到所有子串
 		for (int i = 0; i < s.length(); i++) {
 			for (int j = i + 1; j <= s.length(); j++) {
 				set.add(s.substring(i, j));
@@ -1591,7 +1681,7 @@ public class Main {
 
 ​	7 * 6 * 5 * 4 * 3 * 2 * 1 = 5040
 
-​	由于 A 出现了两次，所以相同形式的排列会同时又两个，所以最终答案为：5040 / 2 = 2520
+​	由于 A 出现了两次，所以相同形式的排列会同时有两个，所以最终答案为：5040 / 2 = 2520
 
 此处提醒：对于排除重复性问题，不一定一来就使用 hashset 来做，某些时候，一个除法其实就解决问题了。
 
@@ -1686,13 +1776,37 @@ n = n2 + n1 + n0 = 2021，n2 = 1000，n0 = n2 + 1 = 1000 + 1 = 1001 。
 
 **问题描述**
 
-​		有一课二叉树有 2021 个结点。 请问这棵二叉树至少有多少个结点？
+​		有一课二叉树有 2021 个叶结点。 请问这棵二叉树至少有多少个结点？
 
 **解：**
 
-只有根结点和叶结点的二叉树是结点数最少的 n1+n2+n0=n
+只有根结点和叶结点的二叉树是结点数最少的 n1 + n2 + n0 = n
 
 所以结点个数 = n2 + n0 = 2020 + 2021 = 4041
+
+满二叉树:
+
+在一棵二叉树中，如果所有分支结点都存在左子树和右子树，并且所有叶子结点都在同一层上，这样的一棵二叉树称作满二叉树
+
+深度为 k 且有 2^k-1 个结点的二叉树称为满二叉树
+
+满二叉树的深度为 k=log2(n+1)
+
+![img](mark-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMjc0NTE0,size_16,color_FFFFFF,t_70.jpeg)
+
+完全二叉树:
+
+![watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMjc0NTE0,size_16,color_FFFFFF,t_70-16494305288193](mark-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMjc0NTE0,size_16,color_FFFFFF,t_70-16494305288193.jpeg)
+
+完全二叉树是一种叶子结点只能出现在最下层和次下层且最下层的叶子结点集中在树的左边的特殊二叉树
+
+在[完全二叉树](https://so.csdn.net/so/search?q=完全二叉树&spm=1001.2101.3001.7020)中，具有n个结点的完全二叉树深度为(log2n)+1,其中(log2n)+1是向下取整。 满二叉树的深度为k=log2(n+1)，注意：根结点的深度为 1
+
+
+
+<img src="mark-img/image-20220408231525655.png" alt="img" style="zoom:50%;" />
+
+满二叉树与完全二叉树存在如下关系：当树的深度相同时，若对树的结点按从上至下、从左到右的顺序进行编号，则在两种树上同一个位置上的结点的编号相同。显然，一棵满二叉树必定是一棵完全二叉树，而完全二叉树未必是满二叉树。
 
 # 【图的计算】
 
@@ -1745,7 +1859,7 @@ Math.toRadian()	// 把角度转换位弧度
 
 方法3：
 
-<img src="mark-img/20210415145101191.png" style="zoom:50%;" />
+<img src="mark-img/20210415145101191.png" style="zoom: 33%;" />
 
 【圆的周长与面积】
 
@@ -1755,7 +1869,7 @@ Math.toRadian()	// 把角度转换位弧度
 
 【球体表面积与体积】
 
-<img src="mark-img/20210413003006806.png" style="zoom: 67%;" />
+<img src="mark-img/20210413003006806.png" style="zoom: 50%;" />
 
 # 【身份证问题】
 
@@ -1809,6 +1923,10 @@ if (y % 400 == 0 || y % 4 == 0 && y % 100 != 0)
 String 类提供相应方法：
 
 ![](mark-img/20210417110834416.png)
+
+![](mark-img/image-20220408171928492.png)
+
+> 字典序的原序规则是 ASCII 规则
 
 # 【字符串编码】
 
@@ -2156,7 +2274,7 @@ https://blog.csdn.net/u011489043/article/details/78683856
 
 【因数、约数】
 
-约数，又称[因数](https://baike.baidu.com/item/因数/9539111)。[整数](https://baike.baidu.com/item/整数/1293937)a除以整数b(b≠0) 除得的[商](https://baike.baidu.com/item/商/3820976)正好是整数而没有[余数](https://baike.baidu.com/item/余数/6180737)，我们就说a能被b整除，或b能整除a。a称为b的[倍数](https://baike.baidu.com/item/倍数/7827981)，b称为a的约数。
+约数，又称[因数](https://baike.baidu.com/item/因数/9539111)。[整数](https://baike.baidu.com/item/整数/1293937) a 除以整数 b(b≠0) 除得的[商](https://baike.baidu.com/item/商/3820976)正好是整数而没有[余数](https://baike.baidu.com/item/余数/6180737)，我们就说 a 能被 b 整除，或 b 能整除a。a 称为 b 的[倍数](https://baike.baidu.com/item/倍数/7827981)，b 称为 a 的约数。
 
 【质数、素数】
 
@@ -2170,11 +2288,11 @@ https://blog.csdn.net/u011489043/article/details/78683856
 
 完全数（Perfect number），又称[完美数](https://baike.baidu.com/item/完美数/871560)或[完备数](https://baike.baidu.com/item/完备数/9450205)，是一些特殊的自然数。它所有的真因子（即除了自身以外的[约数](https://baike.baidu.com/item/约数/8417882)）的和（即因子函数），恰好等于它本身。
 
-例如：第一个完全数是6，它有约数1、2、3、6，除去它本身6外，其余3个数相加，1+2+3=6。第二个完全数是28，它有约数1、2、4、7、14、28，除去它本身28外，其余5个数相加，1+2+4+7+14=28。第三个完全数是496，有约数1、2、4、8、16、31、62、124、248、496，除去其本身496外，其余9个数相加，1+2+4+8+16+31+62+124+248=496。后面的完全数还有8128、33550336等等。
+例如：第一个完全数是6，它有约数1、2、3、6，除去它本身6外，其余3个数相加，1+2+3=6。第二个完全数是28，它有约数1、2、4、7、14、28，除去它本身 28 外，其余5个数相加，1+2+4+7+14=28。第三个完全数是496，有约数1、2、4、8、16、31、62、124、248、496，除去其本身496外，其余9个数相加，1+2+4+8+16+31+62+124+248=496。后面的完全数还有8128、33550336等等。
 
 【复数】
 
-我们把形如z=a+bi（a,b均为实数）的数称为复数，其中a称为[实部](https://baike.baidu.com/item/实部/53626919)，b称为虚部，i称为[虚数](https://baike.baidu.com/item/虚数)单位。当z的虚部等于零时，常称z为实数；当z的[虚部](https://baike.baidu.com/item/虚部/5231815)不等于零时，实部等于零时，常称z为[纯虚数](https://baike.baidu.com/item/纯虚数/3386848)。
+我们把形如 z=a+bi（a,b均为实数）的数称为复数，其中a称为[实部](https://baike.baidu.com/item/实部/53626919)，b称为虚部，i称为[虚数](https://baike.baidu.com/item/虚数)单位。当z的虚部等于零时，常称z为实数；当z的[虚部](https://baike.baidu.com/item/虚部/5231815)不等于零时，实部等于零时，常称z为[纯虚数](https://baike.baidu.com/item/纯虚数/3386848)。
 
 1. 加法法则
 
@@ -2972,7 +3090,7 @@ public class Main {
 }
 ```
 
-# 【点数】
+# 【图的点数】
 
 ![](mark-img/20210416001048572.png)
 
@@ -3173,6 +3291,7 @@ public class Main {
 		int t = sc.nextInt();
 		for (int i = 1; i <= t; i++) {
 			for (int j = 0; j < s - 1; j++) {
+                // 直接比较判断两个字符的字典序大小
 				if (sb.charAt(j) > sb.charAt(j + 1)) {
 					sb.deleteCharAt(j);
 					break;
@@ -3433,4 +3552,8 @@ public class Main {
 	}
 }
 ```
+
+# 【数列】
+
+<img src="mark-img/image-20220408160022073.png" alt="image-20220408160022073" style="zoom: 50%;" />
 
