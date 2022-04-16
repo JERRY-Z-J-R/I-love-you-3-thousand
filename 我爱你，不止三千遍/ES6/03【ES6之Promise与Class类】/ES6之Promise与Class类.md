@@ -25,7 +25,7 @@ console.log('这里是同步的');
 
 Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback hell）的问题。
 
-例如：
+例如下面展示一个回调地狱的例子：
 
 ```html
 <!DOCTYPE html>

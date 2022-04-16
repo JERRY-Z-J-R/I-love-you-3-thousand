@@ -40,7 +40,7 @@ node         vue       5f26022d0c60   3 minutes ago    905MB
 > 由于启动容器的同时应该将主机上的项目文件挂载进容器里，所以在启动容器的同时使用 `-v` 命令来将本机上的 vue 项目挂载进容器中（数据卷）。本机 vue 项目路径为：`/mnt/f/front-end-of-online-classroom`
 
 ```shell
-$ docker run -it -p 99:80 -v /mnt/f/front-end-of-online-classroom:/usr/front-end-of-online-classroom 5f26022d0c60 bash 
+$ docker run -it -p 99:80 -v /mnt/f/front-end-of-online-clas# sroom:/usr/front-end-of-online-classroom 5f26022d0c60 bash 
 ```
 
 输入以上命令之后，便成功启动了容器并进入了容器的终端……
