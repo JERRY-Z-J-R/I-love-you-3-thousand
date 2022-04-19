@@ -8,6 +8,8 @@
 
 **（1）基本数据类型**
 
+> JS 没有字符型，JS 的 String 是基本类型
+
 - Number
 - String
 - Boolean
@@ -19,7 +21,7 @@
 - Object
 - Array
 - Function
-- RegExp
+- RegExp（正则表达式）
 - Date
 - Map
 - Set
@@ -34,7 +36,7 @@
 
 ```javascript
 typeof 5;		// number
-typeof '周吉瑞'; // string
+typeof '周吉瑞';	// string
 ```
 
 <img src="mark-img/2d58a5fb189647d5a91ff84ff317f057.png" style="zoom:50%;" />
@@ -43,8 +45,8 @@ typeof '周吉瑞'; // string
 
 ```javascript
 console.log(typeof 5);
-console.log(typeof '周吉瑞');
-var a = '5';
+console.log(typeof "周吉瑞");
+var a = "5";
 console.log(typeof a);
 ```
 
@@ -129,8 +131,10 @@ typeof NaN;	// number
 ```javascript
 0 / 0;	// NaN
 5 - 3;	// 2
-'我' - '你';	// NaN
-'我' * '你';	// NaN
+"我" - "你";	// NaN
+"我" * "你";	// NaN
+"我" / "你";	// NaN
+"我" + "你";	// "我你"
 NaN == NaN;  // false
 ```
 
@@ -153,42 +157,42 @@ typeof "周吉瑞";	// string
 typeof '周吉瑞';	// string
 ```
 
-数字 `10` 和字符串 `'10'` 在语义上是不同的，前者表示一个数量，后者是一个文本。
+数字 `10` 和字符串 `"10"` 在语义上是不同的，前者表示一个数量，后者是一个文本。
 
 ## 3.2 字符串的拼接
 
 加号可以用来拼接多个字符串。
 
 ```javascript
-'周' + '吉瑞';	// '周吉瑞'
-'abc' + 'd' + 'ef';	// 'abcdef'
+"周" + "吉瑞";	// "周吉瑞"
+"abc" + "d" + "ef";	// "abcdef"
 ```
 
 ## 3.3 字符串和变量的拼接
 
-要将一个变量的值 “插入” 到字符串中，要满足 “变量左右两边至少有一边 + 字符串”。
+要将一个变量的值 “插入” 到字符串中，要满足变量左右两边至少有一边 + 字符串。
 
 ```javascript
 var year = 2022;
-var str = '北京冬奥会在' + year + '年召开';	// '北京冬奥会在2022年召开'
+var str = "北京冬奥会在" + year + "年召开";	// "北京冬奥会在2022年召开"
 
 var a = 24;
 var str1 = 54 + a;		// 78
-var str2 = '54' + a;	// '5424'
+var str2 = "54" + a;	// "5424"
 
-1 + '10'; // '110'
+1 + "10"; // "110"
 
-2 + '';	// '2'
+2 + "";	// "2"
 ```
 
-> 新版 ES 中增加了反引号表示法，可以更方便进行变量插值，后续课程将进行介绍。
+> 新版 ES 中增加了反引号 ( ` ) 表示法，可以更方便进行变量插值，后续课程将进行介绍。
 
 ## 3.4 空字符串
 
 一些时候需要使用空字符串，直接书写闭合的引号对即可。
 
 ```javascript
-var str = '';
+var str = "";
 ```
 
 空字符串可以用于将变量变为字符串！
@@ -196,8 +200,8 @@ var str = '';
 ```javascript
 var a = 24;
 console.log(typeof a);	// number
-a = a + '';
-console.log(a);	// '24'
+a = a + "";
+console.log(a);	// "24"
 console.log(typeof a);	// string
 ```
 
@@ -208,9 +212,9 @@ console.log(typeof a);	// string
 字符串的 length 属性表示字符串的长度。
 
 ```javascript
-'我喜欢JS'.length;	// 5
-'我喜欢JS，我也喜欢NODE'.length;	// 14
-''.length;	// 0
+"我喜欢JS".length;	// 5
+"我喜欢JS，我也喜欢NODE".length;	// 14
+"".length;	// 0
 ```
 
 ## 3.6 字符串的常用方法
@@ -235,31 +239,31 @@ console.log(typeof a);	// string
 
 字符串中的每个字符都按顺序编号，编号从 0 开始。
 
-| `'`  | 我   | 喜   | 欢   | J    | S    | ,    | 我   | 也   | 喜   | 欢   | N    | O    | D    | E    | `'`  |
+| `"`  | 我   | 喜   | 欢   | J    | S    | ,    | 我   | 也   | 喜   | 欢   | N    | O    | D    | E    | `"`  |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 |      | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   | 12   | 13   |      |
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.charAt(0);		// '我'
-'我喜欢JS，我也喜欢NODE'.charAt(5);		// '，'
-'我喜欢JS，我也喜欢NODE'.charAt(11);	// 'O'
-'我喜欢JS，我也喜欢NODE'.charAt(99);	// ''
-'我喜欢JS，我也喜欢NODE'.charAt(-1);	// ''
+"我喜欢JS，我也喜欢NODE".charAt(0);		// "我'
+"我喜欢JS，我也喜欢NODE".charAt(5);		// "，"
+"我喜欢JS，我也喜欢NODE".charAt(11);	// "O'
+"我喜欢JS，我也喜欢NODE".charAt(99);	// ""
+"我喜欢JS，我也喜欢NODE".charAt(-1);	// ""
 ```
 
-> 超出范围内的输出空字符。
+> 超出范围的输出空字符 `""`。
 
-### 3.6.2 substring()、substr()和slice()方法
+### 3.6.2 substring()、substr() 和 slice() 方法
 
-**（1）`substring(a, b)` 方法得到从 a 开始到 b 结束（不包括 b 处）的子串**
+**（1）`substring(a, b)` 方法得到从 a 开始到 b 结束（不包括 b 处）的子串** `[a, b)`
 
 > 编程语言的区间一般都是：左闭右开
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.substring(3, 5);		// 'JS'
-'我喜欢JS，我也喜欢NODE'.substring(10, 14);		// 'NODE'
-'我喜欢JS，我也喜欢NODE'.substring(10, 99);		// 'NODE'
-'我喜欢JS，我也喜欢NODE'.substring(-1, 4);		// '我喜欢J'
+"我喜欢JS，我也喜欢NODE".substring(3, 5);		// "JS"
+"我喜欢JS，我也喜欢NODE".substring(10, 14);		// "NODE"
+"我喜欢JS，我也喜欢NODE".substring(10, 99);		// "NODE"
+"我喜欢JS，我也喜欢NODE".substring(-1, 4);		// "我喜欢J"
 ```
 
 > 超出范围的部分，取到端点字符。
@@ -267,26 +271,28 @@ console.log(typeof a);	// string
 - substring(a, b) 方法如果省略第二个参数，返回的子串会一直到字符串的结尾
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.substring(6);		// '我也喜欢NODE'
+"我喜欢JS，我也喜欢NODE".substring(6);		// "我也喜欢NODE"
 ```
 
 - substring(a, b) 中，a 可以大于 b，数字顺序将自动调整为小数在前
 
+> 应该没有人会这样用
+
 ```javascript
-'我喜欢JS，我也喜欢NODE'.substring(3, 5);		// 'JS'
-'我喜欢JS，我也喜欢NODE'.substring(5, 3);		// 'JS'
+"我喜欢JS，我也喜欢NODE".substring(3, 5);		// "JS"
+"我喜欢JS，我也喜欢NODE".substring(5, 3);		// "JS"
 ```
 
 **（2）`substr(a, b)` 中，将得到从 a 开始的长度为 b 的子串**
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.substr(3, 2);		// 'JS'
+"我喜欢JS，我也喜欢NODE".substr(3, 2);		// "JS"
 ```
 
 - substr(a, b) 中，b 可以省略，表示到字符串结尾
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.substr(3);		// 'JS，我也喜欢NODE'
+"我喜欢JS，我也喜欢NODE".substr(3);		// "JS，我也喜欢NODE"
 ```
 
 - substr(a, b) 中，a 可以是负数，表示倒数位置
@@ -294,7 +300,7 @@ console.log(typeof a);	// string
 > 倒数第一位为 -1，而不是 -0
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.substr(-4, 2);		// 'NO'
+"我喜欢JS，我也喜欢NODE".substr(-4, 2);		// "NO"
 ```
 
 **（3）`slice(a, b)` 方法得到从 a 开始到 b 结束（不包括 b 处）的子串**
@@ -302,20 +308,20 @@ console.log(typeof a);	// string
 > slice：切片
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.slice(3, 5);		// 'JS'
+"我喜欢JS，我也喜欢NODE".slice(3, 5);		// "JS"
 ```
 
 - slice(a, b) 的参数 a 可以是负数（与 substring(a, b) 的区别）
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.slice(-4, -1);		// 'NOD'
+"我喜欢JS，我也喜欢NODE".slice(-4, -1);		// "NOD"
 // (-4, -1)：从 倒数第4位 到 倒数第1位，不包括 倒数第1位
 ```
 
-- slice(a, b) 中，参数 a 必须小于参数 b
+- slice(a, b) 中，参数 a 必须小于参数 b，否则便会返回一个空字符串
 
 ```javascript
-'我喜欢JS，我也喜欢NODE'.slice(5, 2);		// ''
+"我喜欢JS，我也喜欢NODE".slice(5, 2);		// ""
 ```
 
 ### 3.6.3 toUpperCase() 和 toLowerCase() 方法
@@ -324,18 +330,18 @@ console.log(typeof a);	// string
 - `toLowerCase()` 转为小写
 
 ```javascript
-'I Love You'.toUpperCase();		// 'I LOVE YOU'
-'IMooc'.toLowerCase();			// 'imooc'
+"I Love You".toUpperCase();		// "I LOVE YOU"
+"IMooc".toLowerCase();			// "imooc"
 ```
 
 > 注意：toUpperCase() 和 toLowerCase()，只是返回一个大小写格式，变量本身的值并没有改变。
 >
 > ```javascript
-> var str = 'I Love You';
-> console.log(str.toUpperCase());		// 'I LOVE YOU'
-> console.log(str);					// 'I Love You'
+> var str = "I Love You";
+> console.log(str.toUpperCase());		// "I LOVE YOU"
+> console.log(str);					// "I Love You"
 > str = str.toUpperCase();
-> console.log(str);					// 'I LOVE YOU'
+> console.log(str);					// "I LOVE YOU"
 > ```
 
 ### 3.6.4 indexOf() 方法
@@ -345,9 +351,9 @@ console.log(typeof a);	// string
 如果要检索的字符串没有出现，则返回 `-1`
 
 ```javascript
-'abcdebb'.indexOf('b');		// 1
-'abcdebb'.indexOf('deb');	// 3
-'abcdebb'.indexOf('m');		// -1
+"abcdebb".indexOf("b");		// 1
+"abcdebb".indexOf("deb");	// 3
+"abcdebb".indexOf("m");		// -1
 ```
 
 # 四、Boolean（布尔）类型
@@ -361,7 +367,7 @@ typeof true;	// boolean
 typeof false;	// boolean
 ```
 
-> 布尔类型在关系运算和逻辑运算中广泛运用。
+> 布尔类型在 关系运算 和 逻辑运算 中广泛运用。
 
 ```javascript
 3 < 5;	 // true
@@ -525,7 +531,7 @@ parseFloat('-3.99');		// -3.99
 
 变为 “长得相同” 的字符串。
 
-科学计数法和非10进制数字会转为10进制的标准值。
+科学计数法和非 10 进制数字会转为 10 进制的标准值。
 
 ```javascript
 String(123);		// '123'
@@ -558,7 +564,7 @@ String(null);		// 'null'
 
 `toString()` 是几乎所有值都有的方法，功能是将值转为字符串。
 
-> 纯数字不能直接 “打点” 调用 toString() 方法，要把纯数字用 `()` 包裹起来，此时 JS 会提升该数字为一个对象。
+> 纯数字不能直接 “打点” 调用 toString() 方法，要把纯数字用 `()` 包裹起来，此时 JS 会提升该数字为一个对象（包装为对象）。
 
 <img src="mark-img/878d37e5173e437da326d2feedf9fbb7.png" style="zoom: 50%;" />
 
@@ -638,4 +644,4 @@ function() {
 }
 ```
 
-复杂数据类型都是 “引用类型”，引用类型的特性将在数组一课中介绍。
+复杂数据类型都是 “引用类型”（type: object），引用类型的特性将在数组一课中介绍。

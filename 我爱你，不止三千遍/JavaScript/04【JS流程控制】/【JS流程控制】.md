@@ -54,7 +54,7 @@ switch (变量/表达式) {
 
 `条件表达式 ? 表达式1 : 表达式2;`
 
-当条件表达式为真时调用表达式1，否则调用表达式2。
+当条件表达式为真时执行表达式1并返回结果，否则执行表达式2并返回结果。
 
 【三元运算符的用途】
 
@@ -94,30 +94,40 @@ for (初次表达式; 判断条件; 历次表达式) {
 
 ```javascript
 var o = {
-    name: 'Jerry',
+    name: "Jerry",
     age: 20,
-    city: 'Beijing'
+    city: "Beijing"
 };
 
 for (var key in o) {
-    console.log(key); 	// 'name', 'age', 'city'
+    console.log(key + ": " + o[key]);
 }
+/*
+"name: Jerry"
+"age: 20"
+"city: Beijing"
+*/
 ```
 
 要过滤掉对象继承的属性，用 `hasOwnProperty()` 来实现：
 
 ```javascript
 var o = {
-    name: 'Jerry',
+    name: "Jerry",
     age: 20,
-    city: 'Beijing'
+    city: "Beijing"
 };
 
 for (var key in o) {
     if (o.hasOwnProperty(key)) {
-        console.log(key); 	// 'name', 'age', 'city'
+        console.log(key + ": " + o[key]);
     }
 }
+/*
+"name: Jerry"
+"age: 20"
+"city: Beijing"
+*/
 ```
 
 由于数组也是对象，而它的每个元素的索引被视为对象的属性，因此，`for ... in` 循环可以直接循环出数组的索引：
@@ -126,9 +136,13 @@ for (var key in o) {
 var a = ['A', 'B', 'C'];
 
 for (var i in a) {
-    console.log(i); 	// '0', '1', '2'
-    console.log(a[i]); 	// 'A', 'B', 'C'
+    console.log(i + ": " + a[i]);
 }
+/*
+0: A
+1: B
+2: C
+*/
 ```
 
 请注意，`for ... in` 对数组的循环得到的索引是 `String` 而不是 `Number`。
@@ -157,7 +171,65 @@ do {
 
 `continue;`：立即跳过本层次循环，提前进入本层次的下一次循环。
 
-# 七、初识算法
+# 七、label 表达式
+
+`label` 是一个标签，可以使用 `break` 或 `continue` 使程序跳转到这个标签处执行（执行：`break` 或 `continue`），从而改变程序的执行流程。
+
+```javascript
+// 注意：label 不是一个特定的关键字，可以随便取名
+label: for (var i = 0; i < 10; i++) {
+    for (var j = 0; j < 10; j++) {
+        if (i + j === 6) {
+            console.log("j=" + j);
+            break label;
+        }
+    }
+    console.log("i=" + i);
+}
+/*
+j=6
+*/
+```
+
+```javascript
+label: for (var i = 0; i < 10; i++) {
+    for (var j = 0; j < 10; j++) {
+        if (i + j === 6) {
+            console.log("j=" + j);
+            continue label;
+        }
+    }
+    console.log("i=" + i);
+}
+/*
+j=6
+j=5
+j=4
+j=3
+j=2
+j=1
+j=0
+i=7
+i=8
+i=9
+*/
+```
+
+```javascript
+// label + break 配合可以用在循环外
+label: {
+    if (1 > 0) {
+        console.log("1");
+        break label;
+    }
+    console.log("2");
+}
+/*
+1
+*/
+```
+
+# 八、初识算法
 
 算法：解决方案的准确而完整的描述！
 

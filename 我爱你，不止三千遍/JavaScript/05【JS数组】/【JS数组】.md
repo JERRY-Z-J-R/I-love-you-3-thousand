@@ -409,6 +409,10 @@ for (var i = 0; i < arr.length - 1; i++) {
 console.log(arr);
 ```
 
+## 9.13 快速排序（冒泡排序改进版）
+
+
+
 # 十、二维数组
 
 二维数组：以数组作为数组元素的数组，即 “数组的数组”。
@@ -483,7 +487,7 @@ console.log(arr2);	// [1, 2, 3, 4, 5]
 
 var arr = [1, 2, 3];
 arr == arr;		// true
-var arr2 = arr;
+var arr2 =    ;
 arr == arr2;	// true
 arr === arr2;	// true
 ```

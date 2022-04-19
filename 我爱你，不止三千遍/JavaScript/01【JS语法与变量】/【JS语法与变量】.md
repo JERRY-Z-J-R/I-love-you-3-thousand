@@ -37,7 +37,7 @@
 
 在 2009 年，诞生了 Node.js，这是一个 JavaScript 的服务端运行平台。
 
-> Node.js 出现后，JavaScript 的触角伸到了服务器端！
+> Node.js 出现后，JavaScript 的触角伸到了服务器端（后端）！
 
  所以，JavaScript 是一门可以 “上天入地” 的语言！
 
@@ -68,13 +68,13 @@
 # 二、JS的书写位置
 
 - 在 `<body>` 中的 `<script>` 标签中书写 JS 代码
-- 将 JS 代码单独保存为 `.js` 格式文件，然后在 HTML 文件中使用 `<script src=""></script>` 引入
+- 将 JS 代码单独保存为 `.js` 文件，然后在 HTML 文件中使用 `<script src=""></script>` 引入
 
 > JavaScript 不能脱离 HTML 网页运行
 >
 > （当然，今后学习 Node.js 后，JavaScript 可以独立成为一个运行平台）
 
-## 2.1 在 `<body>` 中的 `<script>` 标签中书写 JS 代码
+## 2.1 在 \<body> 中的 \<script> 标签中书写 JS 代码
 
 - index.html
 
@@ -90,7 +90,7 @@
 </head>
 
 <body>
-    <!-- 在 HTML5 之前，必须要加上 type 属性，并且里面的内容要一定正确！-->
+    <!-- 在 HTML5 之前，必须要加上 type 属性，并且里面的内容一定要正确！-->
     <!-- 
     <script type="text/javascript">
     </script> 
@@ -100,7 +100,7 @@
     <script>
         // 弹窗输出一句话
         // 每一句 JS 代码以分号结尾！
-        alert('你好，JavaScript！');
+        alert("你好，JavaScript！");
     </script>
 </body>
 
@@ -111,7 +111,7 @@
 
 <img src="mark-img/0d866c75fe28487690055fd1df962c30.png" style="zoom:50%;" />
 
-## 2.2 将 JS 代码单独保存为 `.js` 格式文件，然后在 HTML 文件中使用 `<script src=""></script>` 引入
+## 2.2 将 JS 代码单独保存为 \.js 文件，然后在 HTML 文件中使用 \<script src="">\</script> 引入
 
 - 文件结构
 
@@ -132,7 +132,6 @@
 </head>
 
 <body>
-
 </body>
 
 </html>
@@ -141,7 +140,7 @@
 - index.js
 
 ```javascript
-alert('你好，JavaScript！');
+alert("你好，JavaScript！");
 ```
 
 - 效果图
@@ -158,14 +157,14 @@ alert('你好，JavaScript！');
 ## 3.1 alert()
 
 ```javascript
-alert('周吉瑞');
+alert("周吉瑞");
 ```
 
 > alert：警报、消息
 
 - `alert` 是 JS 的内置函数
 - 调用函数需要使用圆括号 `()`
-- `周吉瑞` 是函数的参数，此处的参数是一个字符串（JS 的字符串用 `''` 包裹）
+- `周吉瑞` 是函数的参数，此处的参数是一个字符串（JS 的字符串用 `''` 或 `""` 包裹，推荐使用 `""`）
 - JS 语句末尾需要以 `;` 结尾
 
 > 任何符号都应该是英文状态下的符号！
@@ -176,12 +175,12 @@ alert('周吉瑞');
 
 【功能】
 
-在浏览器（JavaScript引擎 例如：Chrome V8）解析到 JS 文件中的 alert() 语句时，便会中断 JS 脚本的执行，同时弹出警告框，直到用户单击确定后，才继续执行 JS 脚本。
+在浏览器（JavaScript引擎 例如：Chrome V8）解析到 JS 文件中的 alert() 语句时，便会中断 JS 脚本的执行，同时弹出警告框，直到用户单击确定后，才继续执行后续的 JS 脚本。
 
 ## 3.2 console.log()
 
 ```javascript
-console.log('周吉瑞');
+console.log("周吉瑞");
 ```
 
 > console：控制台
@@ -189,7 +188,7 @@ console.log('周吉瑞');
 > log：记录、日志
 
 - `console` 是 JS 的内置对象
-- 通过对象 “打点” 可以调用其内的 `log` 方法（所谓 “方法” 就是对象能够调用的函数）
+- 通过对象 “打点” 可以调用其内部的 `log` 方法（所谓 “方法” 就是对象能够调用的函数）
 
 【效果】
 
@@ -199,27 +198,27 @@ console.log('周吉瑞');
 
 【功能】
 
-在浏览器（JavaScript引擎 例如：Chrome V8）解析到 JS 文件中的 console.log() 语句时，会直接在浏览器控制台输出语句，并自动继续执行 JS 脚本。
+在浏览器（JavaScript引擎 例如：Chrome V8）解析到 JS 文件中的 console.log() 语句时，会直接在浏览器控制台输出语句，并自动继续执行后续的 JS 脚本。
 
 # 四、学会处理报错
 
-> JS 一但有语句错误，那么接下来的语句也就不执行了！
+> JS 一但发生语句错误，那么后续的语句也就不执行了！
 >
 > 浏览器控制台会检测错误的类型及行号（行号不一定正确，但可以确定范围）
 >
-> 现代 IDE 一般具备智能自动检查功能，最智能的 JavaScript IDE：Webstorm
+> 现代 IDE 一般具备智能自动检查功能，最智能的 JavaScript IDE：WebStorm
 
 - `Uncaught SyntaxError: Invalid or unexpected token`
 
 未捕获的语法错误：不合法或错误的符号
 
-（符号错误、……）
+（中文符号错误、……）
 
 - `Uncaught ReferenceError: jerry is not defined`
 
 未捕获的引用错误：jerry 没有被定义
 
-（字符串没有加引号、函数名拼写错误、……）
+（字符串没有加引号、名称拼写错误、……）
 
 # 五、变量
 
@@ -233,7 +232,7 @@ console.log('周吉瑞');
 
 ```javascript
 var a = 24;
-var b = '周吉瑞';
+var b = "周吉瑞";
 ```
 
 - `var` 定义变量的关键字
@@ -256,7 +255,7 @@ console.log(b);
 
 ## 5.3 改变变量的值
 
-变量的值可以被改变，改变变量的值时不需要再书写 `var` 关键字。
+变量的值可以通过再次赋值被改变，改变变量的值时不需要再书写 `var` 关键字。
 
 ```javascript
 var a = 54;
@@ -268,7 +267,7 @@ console.log(a);
 
 ## 5.4 变量的合法命名
 
-- 只能由 `字母`、`数字`、`_`、`$` 组成，但不能以数字开头
+- 只能由 `字母`、`数字`、`_`、`$` 组成，但不能以数字开头（建议一律以字母开头，且不要使用 $ 符）
 - 不能是 关键字 或 保留字
 - 变量名大小写敏感，a 和 A 是两个不同的变量
 
@@ -276,7 +275,7 @@ console.log(a);
 
 ## 5.5 推荐的变量命名风格
 
-- 驼峰命名法：`mathTestScore` （吐血推荐）
+- 小驼峰命名法：`mathTestScore` （吐血推荐）
 - C 风格变量命名法：`math_test_score`
 
 ## 5.6 变量的默认值
@@ -294,6 +293,8 @@ console.log(a);	// 24
 ## 5.7 变量的常见错误
 
 - 不用 `var` 定义，而直接将值赋予它，虽然不引发报错，但会产生作用域问题。
+
+> 请一律加上 `var` ！
 
 ```javascript
 a = 24; // 未使用 var 定义的变量默认为全局变量！
@@ -314,32 +315,32 @@ console.log(c);
 > JavaScript 在设计之初，为了方便初学者学习，并不强制要求用 `var` 申明变量。这个设计错误带来了严重的后果：如果一个变量没有通过 `var` 申明就被使用，那么该变量就自动被申明为全局变量：
 >
 > ```javascript
-> i = 10; // i现在是全局变量
+> i = 10; // i 现在是全局变量
 > ```
 >
-> 在同一个页面的不同的 JavaScript 文件中，如果都不用 `var` 申明，恰好都使用了变量 `i`，将造成变量`i` 互相影响，产生难以调试的错误结果。
+> 在同一个页面的不同的 JavaScript 文件中，如果都不用 `var` 申明，恰好都使用了变量 `i`，将造成变量 `i` 互相影响，产生难以调试的错误结果。
 >
-> 使用 `var` 申明的变量则不是全局变量，它的范围被限制在该变量被申明的函数体内（函数的概念将稍后讲解），同名变量在不同的函数体内互不冲突。
+> 使用 `var` 申明的变量则不是全局变量，它的范围被限制在该变量被申明的 JS 文件或函数体内（函数的概念将稍后讲解），同名变量在不同的函数体内互不冲突。
 >
 > 为了修补 JavaScript 这一严重设计缺陷，ECMA 在后续规范中推出了 strict 模式，在 strict 模式下运行的 JavaScript 代码，强制通过 `var` 申明变量，未使用 `var` 申明变量就使用的，将导致运行错误。
 >
 > 启用 strict 模式的方法是在 JavaScript 代码的第一行写上：
 >
 > ```javascript
-> 'use strict';
+> "use strict";
 > ```
 >
 > 这是一个字符串，不支持 strict 模式的浏览器会把它当做一个字符串语句执行，支持 strict 模式的浏览器将开启 strict 模式运行 JavaScript。
 >
 > ```javascript
-> 'use strict';
-> abc = 'Hello, world';
+> "use strict";
+> abc = "Hello, world";
 > console.log(abc);
 > // 如果浏览器支持 strict 模式，
-> // 下面的代码将报 ReferenceError 错误:
+> // 下面的代码将报 ReferenceError 错误：Uncaught ReferenceError: abc is not defined
 > ```
 >
-> 不用 `var` 申明的变量会被视为全局变量，为了避免这一缺陷，所有的 JavaScript 代码都推荐使用 strict模式。
+> 不用 `var` 申明的变量会被视为全局变量，为了避免这一缺陷，所有的 JavaScript 代码都推荐使用 strict 模式。
 
 ## 5.8 等号表示赋值
 
@@ -354,7 +355,7 @@ console.log(a);	// 10
 ## 5.9 同时声明多个变量
 
 ```javascript
-var a = 0, b = 1, c = 2;
+var a = 0, b = 1, c = 2;	// 建议每行只声明一个变量
 ```
 
 # 六、变量声明提升
@@ -363,7 +364,7 @@ var a = 0, b = 1, c = 2;
 - 在执行所有代码前，JS 有预解析阶段，会预读所有变量的定义
 
 ```javascript
-// 变量声明提升的只是定义，不提升值！！！
+// 变量声明提升的只是定义，不提升赋值！！！
 // 先使用变量
 console.log(a);	// undefined
 var a = 10;
@@ -383,5 +384,5 @@ console.log(a); // 10
 【注意事项】
 
 - 变量声明提升是 JS 的独有特性！
-- 在实际开发中，不要刻意使用变量提升的特性。一定要先定义再使用！
+- 在实际开发中，不要刻意使用变量提升的特性，一定要先定义再使用！
 
