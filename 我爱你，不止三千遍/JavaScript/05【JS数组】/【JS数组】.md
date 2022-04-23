@@ -413,6 +413,8 @@ console.log(arr);
 
 快速排序（Quicksort）是使用得最广泛，速度也较快的排序算法。它是图灵奖得主 C. A. R. Hoare（1934--）于 1960 时提出来的。是二十世纪10大算法之一，非常重要！时间复杂度： `O(nlogn)`，稳定性：`不稳定`。
 
+![Sorting_quicksort_anim](mark-img/Sorting_quicksort_anim.gif)
+
 快速排序与冒泡排序同属交换排序，不过快速排序采用了 “分治法” 的思想大大提高了排序的时间性能。
 
 "快速排序"的思想很简单，整个排序过程只需要三步：
