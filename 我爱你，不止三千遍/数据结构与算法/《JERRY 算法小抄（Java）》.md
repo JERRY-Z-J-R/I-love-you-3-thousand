@@ -172,6 +172,9 @@ public class MyLinkedList {
     // 尾节点指针（方便尾部插入方便）
     private Node last;
 
+    // 链表的实际长度（当前节点数）
+    private int size;
+
     // 链表实际长度（当前元素个数）
     //（增）：元素的插入
     // index：插入的位置（假设起始位置和数组统一为 0 开始）
@@ -190,6 +193,7 @@ public class MyLinkedList {
             // 头、尾指针都指向唯一一个节点
             this.head = insertedNode;
             this.last = insertedNode;
+            //（由于新节点的 next 默认为 null，所以不用特定赋值为 null）
         } else if (index == 0) {
             // 插入头部
             // 1、让新节点的 next 指向原来的头节点
@@ -202,7 +206,7 @@ public class MyLinkedList {
             this.last.next = insertedNode;
             // 2、将新节点设置为尾节点
             this.last = insertedNode;
-            //（由于节点的 next 默认为 null，所以不用特定赋值为 null）
+            //（由于新节点的 next 默认为 null，所以不用特定赋值为 null）
         } else {
             // 插入中间
             // 1、设置 prevNode 指针指向插入位置的前驱节点
@@ -214,8 +218,6 @@ public class MyLinkedList {
         }
         this.size++;
     }
-
-    private int size;
 
     //（删）：元素的删除
     // index：删除的位置
@@ -306,7 +308,7 @@ public class MyLinkedList {
 
     // 输出链表
     public void output() {
-        Node temp = head;
+        Node temp = this.head;
         while (temp != null) {
             System.out.print(temp.data + " ");
             temp = temp.next;
@@ -347,6 +349,231 @@ public class MyLinkedListTest {
 ```
 
 ##### 【双向链表】
+
+```java
+package list.linkedlist;
+
+public class MyDoubleLinkedList {
+    // 定义节点内部类
+    private static class Node {
+        int data;
+        Node prev;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+        }
+    }
+
+    // 头节点指针
+    private Node head;
+
+    // 尾节点指针（方便尾部插入方便）
+    private Node last;
+
+    // 链表的实际长度（当前节点数）
+    private int size;
+
+    // 链表实际长度（当前元素个数）
+    //（增）：元素的插入
+    // index：插入的位置（假设起始位置和数组统一为 0 开始）
+    // data：插入的元素
+    public void insert(int index, int data) throws Exception {
+        // 判断 index 是否超过 size 范围
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException("超出链表节点范围！");
+        }
+
+        // 若通过上述步骤，那么实例化一个 Node 对象
+        Node insertedNode = new Node(data);
+
+        if (this.size == 0) {
+            // 空链表
+            // 头、尾指针都指向唯一一个节点
+            this.head = insertedNode;
+            this.last = insertedNode;
+            //（由于新节点的 next prev 默认为 null，所以不用特定赋值为 null）
+        } else if (index == 0) {
+            // 插入头部
+            // 1、让新节点的 next 指向原来的头节点
+            insertedNode.next = this.head;
+            // 2、让原来头节点的 prev 指向新节点
+            this.head.prev = insertedNode;
+            // 3、将新节点设置为头节点
+            this.head = insertedNode;
+            //（由于新节点的 prev 默认为 null，所以不用特定赋值为 null）
+        } else if (index == this.size) {
+            // 插入尾部
+            // 1、让原来的尾节点的 next 指向新节点
+            this.last.next = insertedNode;
+            // 2、让新节点的 prev 指向原来的尾节点
+            insertedNode.prev = this.last;
+            // 3、将新节点设置为尾节点
+            this.last = insertedNode;
+            //（由于新节点的 next 默认为 null，所以不用特定赋值为 null）
+        } else {
+            // 插入中间
+            // 1、声明 tempNode 指针指向插入位置的当前节点
+            Node tempNode = get(index);
+            // 2、将当前节点的前驱节点的 next 指向新节点
+            tempNode.prev.next = insertedNode;
+            // 3、将新节点的 prev 指向当前节点的前驱节点
+            insertedNode.prev = tempNode.prev;
+            // 4、将新节点的 next 指向当前节点
+            insertedNode.next = tempNode;
+            // 5、将当前节点的 prev 指向新节点
+            tempNode.prev = insertedNode;
+        }
+
+        this.size++;
+    }
+
+    //（删）：元素的删除
+    // index：删除的位置
+    public int remove(int index) throws Exception {
+        // 判断 index 是否超过 size 范围
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException("超出链表节点范围！");
+        }
+
+        // 若通过上述步骤，那么声明一个删除节点指针，用于临时指向被删除节点
+        Node removedNode;
+
+        if (index == 0) {
+            // 删除头节点
+            // 1、将删除节点指针指向头节点
+            removedNode = this.head;
+            // 2、将第二个节点设置为头节点
+            this.head = this.head.next;
+            // 3、将新的头节点的 prev 设为 null
+            this.head.prev = null;
+            //（将被删除节点的 next prev 设置为 null，方便垃圾回收机制回收）
+            removedNode.next = null;
+            removedNode.prev = null;
+        } else if (index == this.size - 1) {
+            // 删除尾节点
+            // 1、将删除节点指针指向被删除节点
+            removedNode = this.last;
+            // 2、将被删除节点的前驱节点的 next 设置为 null
+            this.last.prev.next = null;
+            // 3、将前驱节点设置为尾节点
+            this.last = this.last.prev;
+            //（将被删除节点的 next prev 设置为 null，方便垃圾回收机制回收）
+            removedNode.next = null;
+            removedNode.prev = null;
+        } else {
+            // 删除中间节点
+            // 1、声明 tempNode 指针指向被删除节点
+            Node tempNode = get(index);
+            // 2、将删除节点指针指向被删除节点
+            removedNode = tempNode;
+            // 3、将被删除节点的前驱节点的 next 指向被删除节点的后一个节点
+            tempNode.prev.next = tempNode.next;
+            // 4、将被删除节点的后一个节点的 prev 指向被删除节点的前一个节点
+            tempNode.next.prev = tempNode.prev;
+            //（将被删除节点的 next prev 设置为 null，方便垃圾回收机制回收）
+            removedNode.next = null;
+            removedNode.prev = null;
+        }
+
+        this.size--;
+        return removedNode.data;
+    }
+
+    //（查）：元素的查找
+    // index：查找的位置
+    public Node get(int index) throws Exception {
+        // 判断 index 是否超过 size 范围
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException("超出链表节点范围！");
+        }
+
+        // 若通过上述步骤，那么声明一个查找节点指针
+        Node getNode;
+
+        // 那么判断 index 在 size 中是靠前还是靠后
+        if (index < this.size / 2) {
+            // 如果靠前，则从头向后查找
+            // 将查找节点指针指向头节点
+            getNode = this.head;
+            // 单线传递，逐节查找
+            for (int i = 0; i < index; i++) {
+                getNode = getNode.next;
+            }
+        } else {
+            // 如果靠后，则从尾向前查找
+            // 将查找节点指针指向尾节点
+            getNode = this.last;
+            // 单线传递，逐节查找
+            for (int i = 0; i < this.size - index - 1; i++) {
+                getNode = getNode.prev;
+            }
+        }
+
+        return getNode;
+    }
+
+    //（查）：元素值的查找
+    public int getValue(int index) throws Exception {
+        return get(index).data;
+    }
+
+    //（改）：元素的修改
+    // index：修改的位置
+    // data：修改的元素
+    public void update(int index, int data) throws Exception {
+        // 判断 index 是否超过 size 范围
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException("超出链表节点范围！");
+        }
+
+        // 若通过上述步骤，那么声明一个更新节点指针，指向更新节点
+        Node updateNode = get(index);
+
+        updateNode.data = data;
+    }
+
+    // 输出链表
+    public void output() {
+        Node temp = this.head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+```
+
+```java
+package list.linkedlist;
+
+// 测试代码
+public class MyDoubleLinkedListTest {
+    public static void main(String[] args) throws Exception {
+        MyDoubleLinkedList myDoubleLinkedList = new MyDoubleLinkedList();
+        myDoubleLinkedList.insert(0, 3);
+        myDoubleLinkedList.insert(1, 7);
+        myDoubleLinkedList.insert(2, 9);
+        myDoubleLinkedList.insert(3, 5);
+        myDoubleLinkedList.insert(4, 6);
+        myDoubleLinkedList.output();
+        System.out.println(myDoubleLinkedList.remove(0));
+        myDoubleLinkedList.output();
+        System.out.println(myDoubleLinkedList.getValue(2));
+        myDoubleLinkedList.update(3, 1);
+        myDoubleLinkedList.output();
+    }
+}
+
+/*
+3 7 9 5 6
+3
+7 9 5 6
+5
+7 9 5 1
+ */
+```
 
 ### （3）栈
 
