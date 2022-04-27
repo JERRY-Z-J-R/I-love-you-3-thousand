@@ -2,6 +2,8 @@
 
 > 原创内容，转载请注明出处！
 
+> 对《漫画算法》《漫画算法2》的算法实现及改进。
+
 # 一、数据结构基础
 
 ## 1.1 线性结构
@@ -174,6 +176,18 @@ public class MyLinkedList {
 
     // 链表的实际长度（当前节点数）
     private int size;
+
+    public int getHead() {
+        return this.head.data;
+    }
+
+    public int getLast() {
+        return this.last.data;
+    }
+
+    public int getSize() {
+        return this.size;
+    }
 
     // 链表实际长度（当前元素个数）
     //（增）：元素的插入
@@ -373,6 +387,18 @@ public class MyDoubleLinkedList {
 
     // 链表的实际长度（当前节点数）
     private int size;
+
+    public int getHead() {
+        return this.head.data;
+    }
+
+    public int getLast() {
+        return this.last.data;
+    }
+
+    public int getSize() {
+        return this.size;
+    }
 
     // 链表实际长度（当前元素个数）
     //（增）：元素的插入
@@ -713,10 +739,88 @@ public class MyArrayStackTest {
 ##### 【链表实现】
 
 ```java
+package stack.linkedstack;
+
+import list.linkedlist.MyLinkedList;
+
+public class MyLinkedStack {
+    MyLinkedList myLinkedList = new MyLinkedList();
+
+    // 入栈
+    public void push(int data) throws Exception {
+        this.myLinkedList.insert(this.myLinkedList.getSize(), data);
+    }
+
+    // 出栈
+    public int pop() throws Exception {
+        return this.myLinkedList.remove(this.myLinkedList.getSize() - 1);
+    }
+
+    // 得到栈顶元素
+    public int getTop() throws Exception {
+        return this.myLinkedList.getValue(this.myLinkedList.getSize() - 1);
+    }
+
+    // 得到栈底元素
+    public int getBottom() throws Exception {
+        return this.myLinkedList.getValue(0);
+    }
+
+    // 得到栈长
+    public int getSize() {
+        return this.myLinkedList.getSize();
+    }
+
+    // 输出栈
+    public void output() {
+        if (this.myLinkedList.getSize() == 0) {
+            System.out.println("当前栈为空！");
+        } else {
+            this.myLinkedList.output();
+        }
+    }
+}
 ```
 
 ```java
+package stack.linkedstack;
 
+// 测试代码
+public class MyLinkedStackTest {
+    public static void main(String[] args) throws Exception {
+        MyLinkedStack myLinkedStack = new MyLinkedStack();
+        myLinkedStack.output();
+        myLinkedStack.push(5);
+        myLinkedStack.push(1);
+        myLinkedStack.push(9);
+        myLinkedStack.push(6);
+        myLinkedStack.output();
+        System.out.println(myLinkedStack.getSize());
+        System.out.println(myLinkedStack.getTop());
+        System.out.println(myLinkedStack.getBottom());
+        System.out.println(myLinkedStack.pop());
+        myLinkedStack.output();
+        myLinkedStack.pop();
+        myLinkedStack.output();
+        myLinkedStack.pop();
+        myLinkedStack.output();
+        myLinkedStack.pop();
+        myLinkedStack.output();
+    }
+}
+
+/*
+当前栈为空！
+5 1 9 6
+4
+6
+5
+6
+5 1 9
+5 1
+5
+当前栈为空！
+ */
 ```
 
 ### （4）队列
