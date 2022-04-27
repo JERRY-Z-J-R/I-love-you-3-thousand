@@ -123,7 +123,7 @@ package list.array;
 // 测试代码
 public class MyArrayTest {
     public static void main(String[] args) throws Exception {
-        MyArray myArray = new MyArray(10);
+        MyArray myArray = new MyArray(3);
         myArray.insert(0, 3);
         myArray.insert(1, 7);
         myArray.insert(2, 9);
@@ -579,7 +579,145 @@ public class MyDoubleLinkedListTest {
 
 ##### 【数组实现】
 
+```java
+package stack.arraystack;
+
+public class MyArrayStack {
+    private int[] arrayStack;
+    private int top = -1;   // 栈顶指针
+    private int bottom = 0; // 栈底指针
+    private int size;       // 栈的当前长度（元素个数）
+
+    public MyArrayStack(int capacity) {
+        // 创建指定容量的数组空间
+        this.arrayStack = new int[capacity];
+        // 数组空间创建时当前元素个数为 0
+        this.size = this.top - this.bottom + 1;
+    }
+
+    // 数组扩容（默认扩容 2 倍）
+    private void resize() {
+        int[] arrayNew = new int[this.arrayStack.length * 2];
+        // System.arrayCopy(arr1, x, arr2, y, l);
+        // 将 arr1 里从索引为 x 的元素开始, 复制到 arr2 里的索引为 y 的位置, 复制的元素个数为 l 个
+        System.arraycopy(this.arrayStack, 0, arrayNew, 0, this.arrayStack.length);
+        this.arrayStack = arrayNew;
+    }
+
+    // 入栈
+    // data：入栈元素
+    public void push(int data) {
+        // 如果数组容量不够，那么进行扩容
+        if (this.size >= this.arrayStack.length) {
+            resize();
+        }
+        // 将栈顶上移一位
+        this.top++;
+        // 压栈
+        this.arrayStack[this.top] = data;
+        // 更新栈长
+        this.size = this.top - this.bottom + 1;
+    }
+
+    // 出栈
+    // num：出栈元素个数
+    public int pop() {
+        // 如果栈为空那么抛出异常
+        if (this.size == 0) {
+            throw new IndexOutOfBoundsException("当前栈为空！");
+        }
+        // 出栈
+        // 将栈顶下移动一位
+        this.top--;
+        // 更新栈长
+        this.size = this.top - this.bottom + 1;
+        return this.arrayStack[this.top + 1];
+    }
+
+    // 得到栈顶元素
+    public int getTop() throws Exception {
+        if (this.size == 0) {
+            throw new IndexOutOfBoundsException("当前栈为空！");
+        }
+        return this.arrayStack[this.top];
+    }
+
+    // 得到栈底元素
+    public int getBottom() throws Exception {
+        if (this.size == 0) {
+            throw new IndexOutOfBoundsException("当前栈为空！");
+        }
+        return this.arrayStack[this.bottom];
+    }
+
+    // 得到栈长
+    public int getSize() {
+        return this.size;
+    }
+
+    // 输出栈
+    public void output() {
+        if (this.size == 0) {
+            System.out.println("当前栈为空！");
+        } else {
+            for (int i = this.size - 1; i >= 0; i--) {
+                System.out.print(this.arrayStack[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+```
+
+```java
+package stack.arraystack;
+
+// 测试代码
+public class MyArrayStackTest {
+    public static void main(String[] args) throws Exception {
+        MyArrayStack myArrayStack = new MyArrayStack(3);
+        myArrayStack.output();
+        myArrayStack.push(5);
+        myArrayStack.push(1);
+        myArrayStack.push(9);
+        myArrayStack.push(6);
+        myArrayStack.output();
+        System.out.println(myArrayStack.getSize());
+        System.out.println(myArrayStack.getTop());
+        System.out.println(myArrayStack.getBottom());
+        System.out.println(myArrayStack.pop());
+        myArrayStack.output();
+        myArrayStack.pop();
+        myArrayStack.output();
+        myArrayStack.pop();
+        myArrayStack.output();
+        myArrayStack.pop();
+        myArrayStack.output();
+    }
+}
+
+/*
+当前栈为空！
+6 9 1 5
+4
+6
+5
+6
+9 1 5
+1 5
+5
+当前栈为空！
+ */
+```
+
 ##### 【链表实现】
+
+```java
+```
+
+```java
+
+```
 
 ### （4）队列
 
