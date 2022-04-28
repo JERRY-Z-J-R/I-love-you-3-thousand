@@ -952,6 +952,105 @@ public class MyArrayQueueTest {
 
 ##### 【链表实现】
 
+```java
+package queue.linkedqueue;
+
+import list.linkedlist.MyLinkedList;
+
+public class MyLinkedQueue {
+    // 实例化一个单链表
+    private MyLinkedList myLinkedList = new MyLinkedList();
+
+    // 获取队头元素
+    public int getFront() throws Exception {
+        if (this.myLinkedList.getSize() == 0) {
+            throw new Exception("当前队列为空！");
+        }
+        return this.myLinkedList.getValue(0);
+    }
+
+    // 获取队尾元素
+    public int getRear() throws Exception {
+        if (this.myLinkedList.getSize() == 0) {
+            throw new Exception("当前队列为空！");
+        }
+        return this.myLinkedList.getValue(this.myLinkedList.getSize() - 1);
+    }
+
+    // 获取队长度
+    public int getSize() {
+        return this.myLinkedList.getSize();
+    }
+
+    // 入队
+    // element：元素
+    public void enQueue(int element) throws Exception {
+        this.myLinkedList.insert(this.myLinkedList.getSize(), element);
+    }
+
+    // 出队
+    public int deQueue() throws Exception {
+        if (this.myLinkedList.getSize() == 0) {
+            throw new Exception("当前队列为空！");
+        }
+        return this.myLinkedList.remove(0);
+    }
+
+    // 输出队列
+    public void output() {
+        if (this.myLinkedList.getSize() == 0) {
+            System.out.println("当前队列为空！");
+        } else {
+            this.myLinkedList.output();
+        }
+    }
+}
+```
+
+```java
+package queue.linkedqueue;
+
+import queue.arrayqueue.MyArrayQueue;
+
+// 测试代码
+public class MyLinkedQueueTest {
+    public static void main(String[] args) throws Exception {
+        MyLinkedQueue myLinkedQueue = new MyLinkedQueue();
+        myLinkedQueue.output();
+        myLinkedQueue.enQueue(3);
+        myLinkedQueue.enQueue(5);
+        myLinkedQueue.enQueue(6);
+        myLinkedQueue.enQueue(8);
+        myLinkedQueue.enQueue(1);
+        myLinkedQueue.output();
+        System.out.println(myLinkedQueue.getSize());
+        System.out.println(myLinkedQueue.deQueue());
+        System.out.println(myLinkedQueue.deQueue());
+        System.out.println(myLinkedQueue.deQueue());
+        System.out.println(myLinkedQueue.getSize());
+        myLinkedQueue.enQueue(6);
+        myLinkedQueue.enQueue(8);
+        myLinkedQueue.enQueue(1);
+        myLinkedQueue.output();
+        System.out.println(myLinkedQueue.getFront());
+        System.out.println(myLinkedQueue.getRear());
+    }
+}
+
+/*
+当前队列为空！
+3 5 6 8 1
+5
+3
+5
+6
+2
+8 1 6 8 1
+8
+1
+ */
+```
+
 ## 1.4 散列表
 
 ##### 【开放寻址】
