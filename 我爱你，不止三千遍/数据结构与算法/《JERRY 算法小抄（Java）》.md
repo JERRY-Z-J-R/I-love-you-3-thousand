@@ -601,7 +601,7 @@ public class MyDoubleLinkedListTest {
  */
 ```
 
-### （3）栈
+## 1.2 栈
 
 ##### 【数组实现】
 
@@ -823,13 +823,136 @@ public class MyLinkedStackTest {
  */
 ```
 
-### （4）队列
+## 1.3 队列
 
 ##### 【数组实现】
 
+```java
+package queue.arrayqueue;
+
+public class MyArrayQueue {
+    // 数组构建循环队列
+    private int[] array;
+    // 队头指针
+    private int front;
+    // 队尾指针
+    private int rear;
+
+    // 获取队头元素
+    public int getFront() throws Exception {
+        // 队列为空：对头指针和队尾指针在同一位置
+        if (this.front == this.rear) {
+            throw new Exception("当前队列为空！");
+        }
+        return this.array[this.front];
+    }
+
+    // 获取队尾元素
+    public int getRear() throws Exception {
+        // 队列为空：对头指针和队尾指针在同一位置
+        if (this.front == this.rear) {
+            throw new Exception("当前队列为空！");
+        }
+        return this.array[this.rear - 1];
+    }
+
+    // 获取队列长度
+    public int getSize() {
+        // 队列长度：(队尾指针 - 队头指针 + 数组长度) % 数组长度
+        return (this.rear - this.front + this.array.length) % this.array.length;
+    }
+
+    // capacity：容量
+    public MyArrayQueue(int capacity) {
+        this.array = new int[capacity];
+    }
+
+    // 入队
+    // element：入队元素
+    public void enQueue(int element) throws Exception {
+        // 队列已满：(队尾下标 + 1) % 数组长度 = 队头下标
+        // 注意：队尾指针指向的位置永远空出 1 位，所以队列最大容量比数组小 1
+        if ((this.rear + 1) % this.array.length == this.front) {
+            throw new Exception("当前队列已满！");
+        }
+        // 入队尾
+        this.array[this.rear] = element;
+        // 更新队尾指针
+        this.rear = (this.rear + 1) % this.array.length;
+    }
+
+    // 出队
+    public int deQueue() throws Exception {
+        // 队列为空：对头指针和队尾指针在同一位置
+        if (this.front == this.rear) {
+            throw new Exception("当前队列为空！");
+        }
+        // 取出队头元素
+        int deQueueElement = this.array[this.front];
+        // 更新队头指针
+        this.front = (this.front + 1) % this.array.length;
+        return deQueueElement;
+    }
+
+    // 输出队列
+    public void output() {
+        if (getSize() == 0) {
+            System.out.println("当前队列为空！");
+        } else {
+            for (int i = this.front; i != this.rear; i = (i + 1) % this.array.length) {
+                System.out.print(this.array[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+```
+
+```java
+package queue.arrayqueue;
+
+// 测试代码
+public class MyArrayQueueTest {
+    public static void main(String[] args) throws Exception {
+        MyArrayQueue myArrayQueue = new MyArrayQueue(6);
+        myArrayQueue.output();
+        myArrayQueue.enQueue(3);
+        myArrayQueue.enQueue(5);
+        myArrayQueue.enQueue(6);
+        myArrayQueue.enQueue(8);
+        myArrayQueue.enQueue(1);
+        myArrayQueue.output();
+        System.out.println(myArrayQueue.getSize());
+        System.out.println(myArrayQueue.deQueue());
+        System.out.println(myArrayQueue.deQueue());
+        System.out.println(myArrayQueue.deQueue());
+        System.out.println(myArrayQueue.getSize());
+        myArrayQueue.enQueue(6);
+        myArrayQueue.enQueue(8);
+        myArrayQueue.enQueue(1);
+        myArrayQueue.output();
+        System.out.println(myArrayQueue.getFront());
+        System.out.println(myArrayQueue.getRear());
+    }
+}
+
+/*
+当前队列为空！
+3 5 6 8 1
+5
+3
+5
+6
+2
+8 1 6 8 1
+8
+1
+ */
+```
+
 ##### 【链表实现】
 
-### （5）散列表
+## 1.4 散列表
 
 ##### 【开放寻址】
 
