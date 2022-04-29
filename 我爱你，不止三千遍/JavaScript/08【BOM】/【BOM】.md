@@ -53,7 +53,7 @@ console.log(window.setInterval == setInterval);	// true
 >
 > 当浏览器窗口不全屏时：浏览器的外宽 > 浏览器内宽（包含滚动条）
 
-## 六、resize事件
+# 六、resize事件
 
 在窗口大小改变之后，就会触发 `resize` 事件，可以使用 `window.onresize` 或者 `window.addEventListener('resize')` 来绑定事件处理函数。
 
