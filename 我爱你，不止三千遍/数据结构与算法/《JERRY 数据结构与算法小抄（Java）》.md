@@ -1094,7 +1094,7 @@ public class HashTableOpenAddressing {
     private void putter(String[][] arr, String key, String value) {
         // 利用哈希函数计算插入点，范围 [0, arr.length-1]
         int hash = Math.abs(key.hashCode() % arr.length);
-        // 如果插入点处函数不为空，那么利用 ”开放寻址法“，寻找插入点
+        // 如果插入点处不为空，那么利用 ”开放寻址法“，寻找插入点
         if (arr[hash][0] != null) {
             do {
                 // 先后寻一位
@@ -1183,4 +1183,156 @@ public class HashTableOpenAddressingTest {
 
 ##### 【链表法】
 
+```java
+package hashtable.linkedlist;
+
+public class HashTableLinkedList {
+    // 声明节点内部类
+    private class Node {
+        String key;
+        String value;
+        Node next;
+
+        Node(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    // 声明节点数组
+    private Node[] array;
+
+    // 散列表的当前元素个数
+    private int size;
+
+    // capacity：数组容量
+    public HashTableLinkedList(int capacity) {
+        // 创建指定容量的数组空间
+        // 为尽量延迟扩容，这里暂定数组容量为元素容量的 3 倍
+        capacity = capacity * 3;
+        this.array = new Node[capacity];
+        // 数组空间创建时散列表元素个数为 0
+        this.size = 0;
+    }
+
+    // 数组扩容（默认扩容 2 倍）
+    private void resize() {
+        // 创建一个新数组，长度为原数组的两倍
+        Node[] arrayNew = new Node[this.array.length * 2];
+        // 重新 Hash
+        for (int i = 0; i < this.array.length; i++) {
+            for (Node j = this.array[i]; j != null; j = j.next) {
+                // 声明一个临时节点对象，用于保存原节点的 key value
+                Node temp = new Node(j.key, j.value);
+                /*
+                 注意：千万不可以直接 putter(arrayNew, this.array[j]);
+                 因为 this.array[j] 这个对象可能不是的一个独立的元素节点，它的后面可能还接有一串其他节点
+                 */
+                putter(arrayNew, temp);
+            }
+        }
+        // 更新原数组
+        this.array = arrayNew;
+    }
+
+    // 写操作
+    private void putter(Node[] arr, Node insertObj) {
+        // 利用哈希函数计算插入点，范围 [0, arr.length-1]
+        int hash = Math.abs(insertObj.key.hashCode() % arr.length);
+        // 声明一个插入点指针
+        Node insertNode = arr[hash];
+        // 如果插入点为空，那么直接插入
+        if (insertNode == null) {
+            arr[hash] = insertObj;
+        } else {
+            // 如果插入点处不为空，那么利用 ”链表法“，寻找插入点
+            // 找到链表尾部
+            while (insertNode.next != null) {
+                insertNode = insertNode.next;
+            }
+            // 直到插入点的 next 为空（链表尾部），那么进行插入
+            insertNode.next = insertObj;
+        }
+    }
+
+    // 写操作（封装）
+    public void put(String key, String value) {
+        // 衡量散列表的饱和度是否需要扩容
+        // LoadFactor：负载因子，默认为 0.75F
+        final float LoadFactor = 0.75F;
+        if (this.size >= this.array.length * LoadFactor) {
+            resize();
+        }
+        // 声明一个插入节点
+        Node insertNode = new Node(key, value);
+        // 写操作
+        putter(this.array, insertNode);
+        this.size++;
+    }
+
+    // 读操作
+    public String get(String key) {
+        // 利用哈希函数计算读出点，范围 [0, arr.length-1]
+        int hash = Math.abs(key.hashCode() % this.array.length);
+        // 声明一个读出点指针
+        Node readNode = this.array[hash];
+        // 判断读出点的 key 与查询点的 key 是否相同
+        // 如果不相同，那么利用 ”链表法“，寻找下一个读出点
+        if (!(readNode.key).equals(key)) {
+            do {
+                readNode = readNode.next;
+            } while (!(readNode.key).equals(key));
+        }
+        // 直到读出点的 key 满足要求，那么返回 value
+        return readNode.value;
+    }
+}
+```
+
+```java
+package hashtable.linkedlist;
+
+// 测试代码
+public class HashTableLinkedListTest {
+    public static void main(String[] args) {
+        HashTableLinkedList hashTableLinkedList = new HashTableLinkedList(2);
+        hashTableLinkedList.put("20190521340", "周吉瑞");
+        hashTableLinkedList.put("20190521326", "方彦权");
+        hashTableLinkedList.put("20190521301", "吴慧林");
+        hashTableLinkedList.put("20180521201", "傅瑜凡");
+        hashTableLinkedList.put("20190521121", "楼金曼");
+        hashTableLinkedList.put("20190521304", "高淑杰");
+        hashTableLinkedList.put("20190521343", "卢赵俊");
+        hashTableLinkedList.put("20190521105", "曲洪震");
+        hashTableLinkedList.put("20190521335", "谢应鹏");
+        hashTableLinkedList.put("20190521146", "谭皓文");
+        System.out.println(hashTableLinkedList.get("20190521340"));
+        System.out.println(hashTableLinkedList.get("20190521301"));
+        System.out.println(hashTableLinkedList.get("20180521201"));
+        System.out.println(hashTableLinkedList.get("20190521121"));
+        System.out.println(hashTableLinkedList.get("20190521304"));
+    }
+}
+
+/*
+周吉瑞
+吴慧林
+傅瑜凡
+楼金曼
+高淑杰
+ */
+```
+
 ##### 【红黑树法】
+
+# 二、树
+
+# 三、排序算法
+
+# 四、排序算法进阶
+
+# 五、树的进阶
+
+# 六、图
+
+# 七、查找算法
