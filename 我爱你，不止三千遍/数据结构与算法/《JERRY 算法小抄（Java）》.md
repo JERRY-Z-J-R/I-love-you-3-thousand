@@ -8,7 +8,7 @@
 
 ## 1.1 线性结构
 
-### （1）顺序存储结构（数组）
+### 1.1.1 顺序存储结构（数组）
 
 ```java
 package list.array;
@@ -150,7 +150,7 @@ public class MyArrayTest {
  */
 ```
 
-### （2）链式存储结构（链表）
+### 1.1.2 链式存储结构（链表）
 
 ##### 【单向链表】
 
@@ -1054,6 +1054,130 @@ public class MyLinkedQueueTest {
 ## 1.4 散列表
 
 ##### 【开放寻址】
+
+```java
+package hashtable.openaddressing;
+
+public class HashTableOpenAddressing {
+    private String[][] array;
+    private int size;   // 数组的当前元素个数
+
+    // capacity：数组容量
+    public HashTableOpenAddressing(int capacity) {
+        // 创建指定容量的二维数组空间
+        // 为尽量延迟扩容，这里暂定数组容量为元素容量的 3 倍
+        capacity = capacity * 3;
+        // 每列的第一行用于保存：Key
+        // 每列的第二行用于保存：Value
+        this.array = new String[capacity][2];
+        // 数组空间创建时元素个数为 0
+        this.size = 0;
+    }
+
+    // 数组扩容（默认扩容 2 倍）
+    private void resize() {
+        // 创建一个新数组，长度为原数组的两倍
+        String[][] arrayNew = new String[this.array.length * 2][2];
+        // 重新 Hash
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i][0] != null) {
+                putter(arrayNew, this.array[i][0], this.array[i][1]);
+            }
+        }
+        // 更新原数组
+        this.array = arrayNew;
+    }
+
+    // 写操作
+    private void putter(String[][] arr, String key, String value) {
+        // 利用哈希函数计算插入点，范围 [0, arr.length-1]
+        int hash = Math.abs(key.hashCode() % arr.length);
+        // 如果插入点处函数不为空，那么利用 ”开放寻址法“，寻找插入点
+        if (arr[hash][0] != null) {
+            do {
+                // 先后寻一位
+                hash++;
+                // 判断是否超过数组边界
+                // 如果超过数组边界，那么跳转到数组头部继续寻找
+                if (hash == arr.length) {
+                    hash = 0;
+                }
+            } while (arr[hash][0] != null);
+        }
+        // 直到插入点不为空，那么进行插入
+        arr[hash][0] = key;
+        arr[hash][1] = value;
+    }
+
+    // 写操作（封装）
+    public void put(String key, String value) {
+        // 衡量散列表的饱和度是否需要扩容
+        // LoadFactor：负载因子，默认为 0.75F
+        final float LoadFactor = 0.75F;
+        if (this.size >= this.array.length * LoadFactor) {
+            resize();
+        }
+        // 写操作
+        putter(this.array, key, value);
+        this.size++;
+    }
+
+    // 读操作
+    public String get(String key) {
+        // 利用哈希函数计算读出点，范围 [0, arr.length-1]
+        int hash = Math.abs(key.hashCode() % this.array.length);
+        // 判断读出点的 key 与查询点的 key 是否相同
+        // 如果不相同，那么利用 ”开放寻址法“，寻找下一个读出点
+        if (!this.array[hash][0].equals(key)) {
+            do {
+                // 先后寻一位
+                hash++;
+                // 判断是否超过数组边界
+                // 如果超过数组边界，那么跳转到数组头部继续寻找
+                if (hash == this.array.length) {
+                    hash = 0;
+                }
+            } while (!this.array[hash][0].equals(key));
+        }
+        // 直到读出点的 key 满足要求，那么返回 value
+        return this.array[hash][1];
+    }
+}
+```
+
+```java
+package hashtable.openaddressing;
+
+// 测试代码
+public class HashTableOpenAddressingTest {
+    public static void main(String[] args) {
+        HashTableOpenAddressing hashTableOpenAddressing = new HashTableOpenAddressing(2);
+        hashTableOpenAddressing.put("20190521340", "周吉瑞");
+        hashTableOpenAddressing.put("20190521326", "方彦权");
+        hashTableOpenAddressing.put("20190521301", "吴慧林");
+        hashTableOpenAddressing.put("20180521201", "傅瑜凡");
+        hashTableOpenAddressing.put("20190521121", "楼金曼");
+        hashTableOpenAddressing.put("20190521304", "高淑杰");
+        hashTableOpenAddressing.put("20190521343", "卢赵俊");
+        hashTableOpenAddressing.put("20190521105", "曲洪震");
+        hashTableOpenAddressing.put("20190521335", "谢应鹏");
+        hashTableOpenAddressing.put("20190521146", "谭皓文");
+        System.out.println(hashTableOpenAddressing.get("20190521340"));
+        System.out.println(hashTableOpenAddressing.get("20190521301"));
+        System.out.println(hashTableOpenAddressing.get("20180521201"));
+        System.out.println(hashTableOpenAddressing.get("20190521121"));
+        System.out.println(hashTableOpenAddressing.get("20190521304"));
+    }
+}
+
+/*
+周吉瑞
+吴慧林
+傅瑜凡
+楼金曼
+高淑杰
+ */
+```
 
 ##### 【链表法】
 
