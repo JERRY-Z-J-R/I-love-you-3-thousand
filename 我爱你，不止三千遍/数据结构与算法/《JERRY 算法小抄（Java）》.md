@@ -1059,16 +1059,18 @@ public class MyLinkedQueueTest {
 package hashtable.openaddressing;
 
 public class HashTableOpenAddressing {
+    // 声明字符串型二维数组
+    // 每列的第一行用于保存：Key
+    // 每列的第二行用于保存：Value
     private String[][] array;
-    private int size;   // 数组的当前元素个数
+    // 数组的当前元素个数
+    private int size;   
 
     // capacity：数组容量
     public HashTableOpenAddressing(int capacity) {
         // 创建指定容量的二维数组空间
         // 为尽量延迟扩容，这里暂定数组容量为元素容量的 3 倍
         capacity = capacity * 3;
-        // 每列的第一行用于保存：Key
-        // 每列的第二行用于保存：Value
         this.array = new String[capacity][2];
         // 数组空间创建时元素个数为 0
         this.size = 0;
