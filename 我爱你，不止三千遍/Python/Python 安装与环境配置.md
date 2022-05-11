@@ -21,7 +21,7 @@
   -  `Documentation`
   - `pip` 
   - `tcl/tk and IDLE`
-  - ``Python test suite`
+  - `Python test suite`
   - `py launcher`
   - `for all users (requires elevation)`
 - 点击 Next
@@ -36,6 +36,8 @@
 - 安装完成
 
 # 三、配置 Python 与 pip
+
+> 安装时勾选了 `Add Python 3.8 to PATH` 则会自动配置
 
 `python.exe` 位于 python 安装根目录。
 
