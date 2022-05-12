@@ -19,8 +19,9 @@
 3. 找到需要的 Python 版本点击下载（推荐 3.8 及其以上）
 4. 双击 .exe 文件进行安装
 5. 勾选 Add Python 3.x to PATH（自动添加到环境变量）
-6. 默认下一步（安装路径建议自选在非C盘路径下）
-7. 安装成功
+6. 检查 pip（Python 包管理工具）是否勾选，若没请勾选
+7. 默认下一步（安装路径建议自选在非C盘路径下）
+8. 安装成功
 
 **（2）交互式 Python**
 
@@ -42,7 +43,7 @@
 > 小提示：
 >
 > - 当计算机中已经安装过 Python 的 2.x 版本时，命令行中执行 `python` 默认调用的是 2.x 版本，若此时要指定调用 3.x 版本，请将 `python` 命令替换为 `python3` 命令。
-> - 若安装时没有勾选 Add Python 3.x to PATH，则需要手动配置环境变量，请将 python.exe（位于 Python 安装根目录）以及 pip.exe（位于 Python 安装根目录里的 Scripts 目录）所在的全局路径分别添加到系统的 Path 环境变量中，保存后打开命令行分别键入 `python`，`pip` 成功识别即为配置成功。
+> - 若安装时没有勾选 Add Python 3.x to PATH，则需要手动配置环境变量，请将 python.exe（位于 Python 安装根目录）以及 pip.exe（位于 Python 安装根目录里的 Scripts 目录）所在的全局路径分别添加到系统的 Path 环境变量中，保存后打开命令行分别键入 `python`、`pip` 成功识别即为配置成功。
 > - `.py` 后缀表示一个 Python 文件，`xx_xx.py` 其名称可以由英文字母、数字、下划线构成，请全部使用小写字母，并以英文字母开头，词与词之间用 `_` 连接。
 
 # 二、变量和简单数据类型
@@ -86,6 +87,7 @@ print(student_age)
 # 3、变量命名要“意简言赅”，name优于n，student_name优于s_n，student_name优于name_of_student 
 # 4、尽量避免单独使用小写字母l和大写字母O，因为极其容易被误以为是数字1和0
 ```
+> 小提示：变量名引用错误时会报错【NameError: name '变量名' is not defined】
 
 ```python
 # 字符串""或''
@@ -93,7 +95,8 @@ name_01 = "jerry"
 name_02 = 'jerry'
 
 # 小提示：
-# 推荐使用""定义字符串，因为在字符串中也许会出现"I'm a geek"这种嵌套了'的情况
+# 1、推荐使用""定义字符串，因为在字符串中也许会出现"I'm a geek"这种引号嵌套情况
+# 2、无论使用哪一种引号方式，关键在于要做到“整体统一”
 ```
 
 ```python
@@ -187,6 +190,8 @@ print(f"---{test_str}---")
 # 2、字符串删除空白是临时的，不会对原来的值产生改变，若要改变需进行自我赋值，比如：test_str = test_str.strip()
 ```
 
+> 小提示：字符串引号嵌套错误时会报错【SyntaxError: invalid syntax】
+
 ```python
 # 数值（整数、浮点数）
 # 整数（不带小数点的数）
@@ -265,9 +270,11 @@ answer_num = temp_num.quantize(Decimal("0.0000"), rounding=ROUND_DOWN)
 print(answer_num)
 # 结果：3.1415
 ```
+> 小提示：当发生除0错误时会报错【ZeroDivisionError: division by zero】
 
 ```python
 # 常量
+ZJR_SEX = "男"
 ZJR_BIRTHDAY = "2000-05-04"
 
 # 小提示：
@@ -393,6 +400,167 @@ Namespaces are one honking great idea -- let's do more of those!
 ```
 
 # 三、列表简介
+
+```python
+# 添加列表
+bicycles = ["trek", "cannondale", "redline", "specialized"]
+cars = []
+# 使用列表
+print(bicycles)
+print(cars)
+# 运行结果：
+# ['trek', 'cannondale', 'redline', 'specialized']
+# []
+
+# 列表的元素是任意的，甚至可以是一个列表
+test_list = ["Jerry's a boy", 18, 3.14, True, ["a", 3, 'c']]
+print(test_list)
+# 运行结果：
+# ["Jerry's a boy", 18, 3.14, True, ['a', 3, 'c']]
+```
+
+```python
+# 访问列表元素
+# list_name[index]（index ∈ [0, length-1] and [-1, -length]）
+bicycles = ["trek", "cannondale", "redline", "specialized"]
+print(bicycles[0])
+print(bicycles[3].title())
+print(bicycles[-1].upper())
+print(bicycles[-4])
+
+# 运行结果：
+# trek
+# Specialized
+# SPECIALIZED
+# trek
+```
+
+```python
+# 修改列表元素（再赋值）
+motorcycles = ["honda", "yamaha", "suzuki"]
+print(motorcycles)
+
+motorcycles[0] = "ducati"
+motorcycles[2] = "harley"
+print(motorcycles)
+
+# 运行结果：
+# ['honda', 'yamaha', 'suzuki']
+# ['ducati', 'yamaha', 'harley']
+```
+
+```python
+# 添加列表元素
+# 在列表末尾添加元素：append(data)
+# 在列表中插入元素：insert(index, data)
+motorcycles = ["honda", "yamaha", "suzuki"]
+motorcycles.append("harley")
+print(motorcycles)
+motorcycles.insert(-1, "yadi")
+print(motorcycles)
+motorcycles.insert(0, "aima")
+print(motorcycles)
+
+# 运行结果：
+# ['honda', 'yamaha', 'suzuki', 'harley']
+# ['honda', 'yamaha', 'suzuki', 'yadi', 'harley']
+# ['aima', 'honda', 'yamaha', 'suzuki', 'yadi', 'harley']
+```
+
+```python
+# 删除列表元素
+# 根据索引直接删除（不返回）：del
+# 根据索引删除（默认删除末尾元素）并返回：pop([index])
+# 根据值直接删除（不返回）：remove(data)
+test = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+print(test)
+del test[1]
+print(test)
+num_01 = test.pop()	# 若不提供索引，默认删除（弹出）最后一个元素
+print(num_01)
+print(test)
+num_02 = test.pop(2)
+print(num_02)
+print(test)
+num_03 = test.remove('e')
+print(num_03)
+print(test)
+test.remove('c')
+print(test)
+
+# 运行结果：
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+# ['a', 'c', 'd', 'e', 'f', 'g']
+# g
+# ['a', 'c', 'd', 'e', 'f']
+# d
+# ['a', 'c', 'e', 'f']
+# None
+# ['a', 'c', 'f']
+# ['a', 'f']
+
+# 小提示：
+# remove(data)不会返回删除值，如果你用一个变量来接收，那么这个变量为None（空），请不要这样做
+# 之所以remove(data)不返回值的原因是：在使用该函数之前，已经知道删除的具体值了
+```
+
+```python
+# 列表排序
+# 对列表永久排序：sort([reverse=True||False])
+# 对列表临时排序：sorted(list[, reverse=True||False])
+test_01 = ["a", "6a", "bbbb", "ba", "caa", "A", "6A", "9B", "C"]
+test_01.sort()  # 默认 reverse=True
+print(test_01)
+test_02 = ["a", "6a", "bbbb", "ba", "caa", "A", "6A", "9B", "C"]
+test_02.sort(reverse=True)  # 逆序
+print(test_02)
+
+# 运行结果：
+# ['6A', '6a', '9B', 'A', 'C', 'a', 'ba', 'bbbb', 'caa']
+# ['caa', 'bbbb', 'ba', 'a', 'C', 'A', '9B', '6a', '6A']
+
+test_03 = ["a", "6a", "bbbb", "ba", "caa", "A", "6A", "9B", "C"]
+print(sorted(test_03))  # 默认 reverse=True
+print(sorted(test_03, reverse=True))    # 逆序
+print(test_03)  # 原列表并没有改变
+test_03 = sorted(test_03)
+print(test_03)
+
+# 运行结果：
+# ['6A', '6a', '9B', 'A', 'C', 'a', 'ba', 'bbbb', 'caa']
+# ['caa', 'bbbb', 'ba', 'a', 'C', 'A', '9B', '6a', '6A']
+# ['a', '6a', 'bbbb', 'ba', 'caa', 'A', '6A', '9B', 'C']
+# ['6A', '6a', '9B', 'A', 'C', 'a', 'ba', 'bbbb', 'caa']
+
+# 小提示：
+# 排序的原则是按照ASCII码序：数字 > 大写字母 > 小写字母，字符串内逐字符比较，一但遇到字符大小不同时便停止比较
+```
+
+```python
+# 列表反转 reverse()
+cars = ["bmw", "audi", "toyota", "subaru"]
+print(cars)
+cars.reverse()
+print(cars)
+
+# 运行结果：
+# ['bmw', 'audi', 'toyota', 'subaru']
+# ['subaru', 'toyota', 'audi', 'bmw']
+
+# 小提示：
+# reverse()反转是永久性的
+```
+
+```python
+# 确定列表长度 len()
+cars = ["bmw", "audi", "toyota", "subaru"]
+print(len(cars))
+
+# 运行结果：
+# 4
+```
+
+> 小提示：列表发生索引越界时会报错【IndexError: list index out of range】
 
 # 四、操作列表
 
