@@ -302,7 +302,9 @@ ZJR_BIRTHDAY = "2000-05-04"
 '''
 
 # 小提示：
-# 多行注释同时还兼任了“格式化字符串”功能，所以尽量使用单行注释
+# 一般情况下请尽量使用单行注释，原因如下：
+# 1、""""""或''''''准确的来说叫做：文档字符串注释，一般放在一个函数内部的开头描述一个函数是做什么的，Python使用他们来生成有关程序中的函数文档。
+# 2、多行注释同时还兼任了“格式化字符串”功能
 # 例如：
 test_str = """
 I
@@ -563,6 +565,131 @@ print(len(cars))
 > 小提示：列表发生索引越界时会报错【IndexError: list index out of range】
 
 # 四、操作列表
+
+```python
+# for循环
+magicians = ["alice", "david", "carolina"]
+for magician in magicians:
+    print(magician)
+    
+# 运行结果：
+# alice
+# david
+# carolina
+
+# 小提示：
+# 1、for语句末尾必须有一个“冒号”
+# 2、for循环内部代码块以缩进的形式（一个Tab）来限定
+# 3、循环变量与循环列表的取名推荐满足单复数的形式
+```
+
+```python
+# 创建数值列表
+# range([a,] b [, c])函数创建范围[a, b)步长为c的一列顺序整数
+# range([a,] b [, c])结合for循环
+for value in range(3, 7):
+	print(value)
+    
+# 运行结果：
+# 3
+# 4
+# 5
+# 6
+
+# 如果range([a,] b [, c])不指定a的值，那么a默认为0
+# range(b)与range(0, b)同等
+for num in range(5):
+	print(num)
+    
+# 运行结果：
+# 0
+# 1
+# 2
+# 3
+# 4
+
+# 设置步长
+for n in range(1, 9, 3):
+    print(n)
+
+# 运行结果：
+# 1
+# 4
+# 7
+
+# 小提示：
+# 在指定步长时，不能省略第一个起始值，否则程序会误以为你所指定的是起始值与结束值
+# 比如：range(0, 6, 2)不能写为range(6, 2)
+```
+
+```python
+# 使用range()创建数字列表
+# 创建普通数字列表
+numbers_01 = list(range(1, 6))
+print(number_01)
+# 运行结果：
+# [1, 2, 3, 4, 5]
+numbers_02 = list(range(0, 6, 2))
+print(number_02)
+# 运行结果：
+# [0, 2, 4]
+
+# 创建特殊数字列表
+squares = []
+for value in range(1, 11):
+    squares.append(value ** 2)
+print(squares)
+# 运行结果：
+# [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+# 以“列表解析”的方式创建数字列表
+squares_02 = [value**2 for value in range(1, 11)]
+print(squares_02)
+# 运行结果：
+# [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+```
+
+```python
+# 数字列表简单统计函数
+digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+# 最大值
+print(max(digits)) # 9 
+# 最小值
+print(min(digits)) # 0
+# 求和
+print(sum(digits)) # 45
+```
+
+```python
+# 使用列表“切片”
+# 列表名[[a]:[b][:c]]：取得[a, b)范围内，步长为c的子列表
+player = ["charles", "martina", "michael", "florence", "eli"]
+print(player)
+# ['charles', 'martina', 'michael', 'florence', 'eli']
+print(player[1:4])
+# ['martina', 'michael', 'florence']
+print(player[1:])
+# ['martina', 'michael', 'florence', 'eli']
+print(player[:4])
+# ['charles', 'martina', 'michael', 'florence']
+print(player[:])
+# ['charles', 'martina', 'michael', 'florence', 'eli']
+print(player[1:4:3])
+# ['martina']
+print(player[0:5:2])
+# ['charles', 'michael', 'eli']
+print(player[0::2])
+# ['charles', 'michael', 'eli']
+print(player[:5:2])
+# ['charles', 'michael', 'eli']
+print(player[::2])
+# ['charles', 'michael', 'eli']
+
+# 遍历切片
+
+
+# 复制列表
+```
 
 # 五、if 语句
 
