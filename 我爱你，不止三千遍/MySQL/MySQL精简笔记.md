@@ -6,7 +6,7 @@
 > * 能通过 SQL 对数据库进行 CRUD
 > * 能通过 SQL 对表进行 CRUD
 > * 能通过 SQL 对数据进行 CRUD
-> * 事务、索引、……
+> * 事务、索引、权限……
 
 # 一、数据库相关概念
 
@@ -308,70 +308,79 @@ CREATE DATABASE db01;
 
 # 三、SQL基础
 
-了解了数据模型后，接下来我们就学习SQL语句，通过SQL语句对数据库、表、数据进行增删改查操作。 
+了解了数据模型后，接下来我们就学习 SQL 语句，通过 SQL 语句对数据库、表、数据进行增删改查操作。 
 
-### 3.1  SQL简介
+## 3.1 SQL简介
 
-* 英文：Structured Query Language，简称 SQL
-* 结构化查询语言，一门操作关系型数据库的编程语言
+* 英文：Structured Query Language，简称 SQL（结构化查询语言）
+* 一门操作关系型数据库的编程语言
 * 定义操作所有关系型数据库的统一标准
-* 对于同一个需求，每一种数据库操作的方式可能会存在一些不一样的地方，我们称为“方言”
+* 对于同一个需求，每一种数据库操作的方式可能会存在一些不一样的地方，我们称为“方言”，不过只要我们掌握了 SQL 那么切换不同的关系型数据库的成本也是非常低的，即：学好“普通话”那么学“方言”也会非常快
 
-### 3.2  通用语法
+## 3.2 通用语法
 
-* SQL 语句可以单行或多行书写，以分号结尾。
+* SQL 语句可以单行或多行书写，以分号结尾
 
-  <img src="mark-img/image-20210721215223872.png" alt="image-20210721215223872" style="zoom:80%;" /> 
+  ![image-20220524202113973](mark-img/image-20220524202113973.png) 
 
-  如上，以分号结尾才是一个完整的sql语句。
+  如上，以分号结尾才是一个完整的 SQL 语句
 
-* MySQL 数据库的 SQL 语句不区分大小写，关键字建议使用大写。
+* MySQL 数据库的 SQL 语句不区分大小写，关键字建议使用大写
 
-  同样的一条sql语句写成下图的样子，一样可以运行处结果。
+  （同样的一条 SQL 语句写成下图的样子，一样可以运行处结果）
 
-  <img src="mark-img/image-20210721215328410.png" alt="image-20210721215328410" style="zoom:80%;" /> 
+  ![image-20220524202230361](mark-img/image-20220524202230361.png) 
 
 * 注释
 
-  * 单行注释: -- 注释内容 或 #注释内容(MySQL 特有) 
+  * 单行注释：`-- 注释`或`# 注释`（MySQL 特有） 
 
-    <img src="mark-img/image-20210721215517293.png" alt="image-20210721215517293" style="zoom:80%;" /> 
+  ![image-20220524202624077](mark-img/image-20220524202624077.png) 
 
-    <img src="mark-img/image-20210721215556885.png" alt="image-20210721215556885" style="zoom:80%;" /> 
+    > 注意：使用`--`添加单行注释时，`--`后面一定要加空格，而`#`没有要求，但推荐注释符号后都留一个空格
 
-    > 注意：使用-- 添加单行注释时，--后面一定要加空格，而#没有要求。
+  * 多行注释: `/* 注释 */`
 
-  * 多行注释: /* 注释 */
+  ```sql
+  -- 单行注释
+  #单行注释
+  # 推荐留一个空格
+  /*
+  多行
+  注释
+  */
+  ```
 
-### 3.3  SQL分类
 
-* DDL(Data Definition Language) ： 数据定义语言，用来定义数据库对象：数据库，表，列等
+## 3.3 SQL分类
 
-  DDL简单理解就是用来操作数据库，表等
+* DDL（Data Definition Language）数据定义语言，用来定义数据库对象：数据库、表、列等
+
+  DDL 简单理解就是用来操作数据库和表的
 
   <img src="mark-img/image-20210721220032047.png" alt="image-20210721220032047" style="zoom:60%;" />
 
-* DML(Data Manipulation Language) 数据操作语言，用来对数据库中表的数据进行增删改
+* DML（Data Manipulation Language）数据操作语言，用来对数据库中表的数据进行增删改
 
-  DML简单理解就对表中数据进行增删改
+  DML 简单理解就对表中数据进行增删改
 
   <img src="mark-img/image-20210721220132919.png" alt="image-20210721220132919" style="zoom:60%;" />
 
-* DQL(Data Query Language) 数据查询语言，用来查询数据库中表的记录(数据)
+* DQL（Data Query Language）数据查询语言，用来查询数据库中表的记录（数据）
 
-  DQL简单理解就是对数据进行查询操作。从数据库表中查询到我们想要的数据。
+  DQL 简单理解就是对数据进行查询操作，从数据库表中查询到我们想要的数据
 
-* DCL(Data Control Language) 数据控制语言，用来定义数据库的访问权限和安全级别，及创建用户
+* DCL（Data Control Language）数据控制语言，用来定义数据库的访问权限和安全级别及创建用户
 
-  DML简单理解就是对数据库进行权限控制。比如我让某一个数据库表只能让某一个用户进行操作等。
+  DML 简单理解就是对数据库进行权限控制，比如我让某一个数据库表只能让某一个用户进行操作等。
 
-> 注意： 以后我们最常操作的是 `DML` 和 `DQL`  ，因为我们开发中最常操作的就是数据。
+> 注意： 以后我们最常操作的是 `DML` 和 `DQL`  ，因为我们开发中最常操作的就是数据
 
-## 4，DDL:操作数据库
+# 四、DDL数据库定义语言
 
-我们先来学习DDL来操作数据库。而操作数据库主要就是对数据库的增删查操作。
+我们先来学习 DDL 来操作数据库，而操作数据库主要就是对数据库的增删查操作。
 
-### 4.1  查询
+## 4.1  查询
 
 查询所有的数据库
 
@@ -381,11 +390,16 @@ SHOW DATABASES;
 
 运行上面语句效果如下：
 
-<img src="mark-img/image-20210721221107014.png" alt="image-20210721221107014" style="zoom:80%;" />
+![image-20220524211446077](mark-img/image-20220524211446077.png)
 
-上述查询到的是的这些数据库是mysql安装好自带的数据库，我们以后不要操作这些数据库。
+上述查询到的是的这些数据库是 mysql 安装好自带的数据库，是数据库的核心，请不要操作这些数据库。
 
-### 4.2  创建数据库
+- `information_schema`是信息数据库，其中保存着关于 MySQL 服务器所维护的所有其他数据库的信息
+- `performance_schema`可以理解为MySQLServer数据库性能监控，记录着内存、CPU 和网络磁盘 IO 情况
+- `mysql`主要存储用户信息和权限，还有日志、时区信息、内存信息之类
+- `sys`提供了一些代替直接访问 performance_schema 的视图，目标是把 performance_schema 的把复杂度降低，让 DBA 能更好的阅读这个库里的内容，让 DBA 更快的了解 DB 的运行情况
+
+## 4.2  创建数据库
 
 * **创建数据库**：
 
@@ -393,17 +407,13 @@ SHOW DATABASES;
 CREATE DATABASE 数据库名称;
 ```
 
-运行语句效果如下：
+而在创建数据库的时候，我并不知道 db01 数据库有没有创建，直接再次创建名为 db01 的数据库就会出现错误。
 
-<img src="mark-img/image-20210721223450755.png" alt="image-20210721223450755" style="zoom:80%;" />
-
-而在创建数据库的时候，我并不知道db1数据库有没有创建，直接再次创建名为db1的数据库就会出现错误。
-
-<img src="mark-img/image-20210721223745490.png" alt="image-20210721223745490" style="zoom:80%;" />
+（Can't create database 'db01'; database exists）
 
 为了避免上面的错误，在创建数据库的时候先做判断，如果不存在再创建。
 
-* **创建数据库(判断，如果不存在则创建)**
+* **创建数据库（判断，如果不存在则创建）**
 
 ```sql
 CREATE DATABASE IF NOT EXISTS 数据库名称;
@@ -411,11 +421,11 @@ CREATE DATABASE IF NOT EXISTS 数据库名称;
 
 运行语句效果如下：
 
-<img src="mark-img/image-20210721224056476.png" alt="image-20210721224056476" style="zoom:80%;" />
+![image-20220524212434830](mark-img/image-20220524212434830.png)
 
-从上面的效果可以看到虽然db1数据库已经存在，再创建db1也没有报错，而创建db2数据库则创建成功。
+从上面的效果可以看到虽然 db01 数据库已经存在，再创建 db01 也没有报错，而创建 db02 数据库则创建成功。
 
-### 4.3  删除数据库
+## 4.3  删除数据库
 
 * **删除数据库**
 
@@ -431,11 +441,11 @@ DROP DATABASE IF EXISTS 数据库名称;
 
 运行语句效果如下：
 
-<img src="mark-img/image-20210721224435251.png" alt="image-20210721224435251" style="zoom:80%;" />
+![image-20220524212621932](mark-img/image-20220524212621932.png)
 
-### 4.4  使用数据库
+## 4.4  使用数据库
 
-数据库创建好了，要在数据库中创建表，得先明确在哪儿个数据库中操作，此时就需要使用数据库。
+数据库创建好了，要在数据库中创建表，得先明确在哪个数据库中操作，此时就需要使用数据库。
 
 * **使用数据库**
 
@@ -451,13 +461,13 @@ SELECT DATABASE();
 
 运行语句效果如下：
 
-<img src="mark-img/image-20210721224720841.png" alt="image-20210721224720841" style="zoom:80%;" />
+![image-20220524212833834](mark-img/image-20220524212833834.png)
 
-## 5，DDL:操作表
+## 4.5 操作表
 
 操作表也就是对表进行增（Create）删（Retrieve）改（Update）查（Delete）。
 
-### 5.1  查询表
+### 4.5.1 查询表
 
 * **查询当前数据库下所有表名称**
 
@@ -465,9 +475,9 @@ SELECT DATABASE();
 SHOW TABLES;
 ```
 
-我们创建的数据库中没有任何表，因此我们进入mysql自带的mysql数据库，执行上述语句查看
+我们创建的数据库中没有任何表，因此我们进入 MySQL 自带的 mysql 数据库，执行上述语句查看。
 
-![image-20210721230202814](mark-img/image-20210721230202814.png)
+![image-20220524220842639](mark-img/image-20220524220842639.png)
 
 * **查询表结构**
 
@@ -475,11 +485,11 @@ SHOW TABLES;
 DESC 表名称;
 ```
 
-查看mysql数据库中func表的结构，运行语句如下：
+查看 mysql 数据库中 func 表的结构，运行语句如下：
 
-<img src="mark-img/image-20210721230332428.png" alt="image-20210721230332428" style="zoom:80%;" />
+![image-20220524221009109](mark-img/image-20220524221009109.png)
 
-### 5.2  创建表
+### 4.5.2 创建表
 
 * **创建表**
 
@@ -490,7 +500,6 @@ CREATE TABLE 表名 (
 	…
 	字段名n  数据类型n
 );
-
 ```
 
 > 注意：最后一行末尾，不能加逗号
@@ -500,7 +509,7 @@ CREATE TABLE 表名 (
 <img src="mark-img/image-20210721230824097.png" alt="image-20210721230824097" style="zoom:80%;" />
 
 ```sql
-create table tb_user (
+CREATE TABLE tb_user (
 	id int,
     username varchar(20),
     password varchar(32)
@@ -509,59 +518,53 @@ create table tb_user (
 
 运行语句如下：
 
-<img src="mark-img/image-20210721231142326.png" alt="image-20210721231142326" style="zoom:80%;" />
+![image-20220524221518858](mark-img/image-20220524221518858.png)
 
-### 5.3  数据类型
+### 4.5.3 数据类型
 
 MySQL 支持多种类型，可以分为三类：
 
 * 数值
 
   ```sql
-  tinyint : 小整数型，占一个字节
-  int	： 大整数类型，占四个字节
-  	eg ： age int
-  double ： 浮点类型
-  	使用格式： 字段名 double(总长度,小数点后保留的位数)
-  	eg ： score double(5,2)   
+  tinyint：小整数型，占一个字节
+  int：大整数类型，占四个字节，使用格式：字段名 int;
+  double：浮点类型，使用格式：字段名 double(总长度, 小数点后保留的位数);
   ```
-
+  
 * 日期
 
   ```sql
-  date ： 日期值。只包含年月日
-  	eg ：birthday date ： 
-  datetime ： 混合日期和时间值。包含年月日时分秒
+  date：日期值，只包含年月日，eg：birthday date;
+  datetime：混合日期和时间值，包含年月日时分秒
   ```
-
+  
 * 字符串
 
   ```sql
-  char ： 定长字符串。
+  char：定长字符串。
   	优点：存储性能高
   	缺点：浪费空间
-  	eg ： name char(10)  如果存储的数据字符个数不足10个，也会占10个的空间
-  varchar ： 变长字符串。
+  	eg：name char(10) 如果存储的数据字符个数不足10个，也会占10个的空间
+  varchar：变长字符串。
   	优点：节约空间
   	缺点：存储性能底
-  	eg ： name varchar(10) 如果存储的数据字符个数不足10个，那就数据字符个数是几就占几个的空间	
+  	eg：name varchar(10) 如果存储的数据字符个数不足10个，那就数据字符个数是几就占几个的空间	
   ```
 
-> 注意：其他类型参考资料中的《MySQL数据类型].xlsx》
+> 注意：其他类型参考资料中的《MySQL数据类型.xlsx》
 
 **案例：**
 
-```
-需求：设计一张学生表，请注重数据类型、长度的合理性
-	1. 编号
-	2. 姓名，姓名最长不超过10个汉字
-	3. 性别，因为取值只有两种可能，因此最多一个汉字
-	4. 生日，取值为年月日
-	5. 入学成绩，小数点后保留两位
-	6. 邮件地址，最大长度不超过 64
-	7. 家庭联系电话，不一定是手机号码，可能会出现 - 等字符
-	8. 学生状态（用数字表示，正常、休学、毕业...）
-```
+> 需求：设计一张学生表，请注重数据类型、长度的合理性
+> 1. 编号
+> 2. 姓名，姓名最长不超过10个汉字
+> 3. 性别，因为取值只有两种可能，因此最多一个汉字（一个汉字占两个字符，但是这里用0表示女，1表示男）
+> 4. 生日，取值为年月日
+> 5. 入学成绩，小数点后保留两位
+> 6. 邮件地址，最大长度不超过 64
+> 7. 家庭联系电话，不一定是手机号码，可能会出现 - 等字符
+> 8. 学生状态（用数字表示，正常、休学、毕业...）
 
 语句设计如下：
 
@@ -578,7 +581,7 @@ create table student (
 );
 ```
 
-### 5.4  删除表
+### 4.5.4 删除表
 
 * **删除表**
 
@@ -594,17 +597,17 @@ DROP TABLE IF EXISTS 表名;
 
 运行语句效果如下：
 
-<img src="mark-img/image-20210721235108267.png" alt="image-20210721235108267" style="zoom:80%;" />
+![image-20220524223105954](mark-img/image-20220524223105954.png)
 
-### 5.5  修改表
+### 4.5.5 修改表
 
 * **修改表名**
 
 ```sql
 ALTER TABLE 表名 RENAME TO 新的表名;
 
--- 将表名student修改为stu
-alter table student rename to stu;
+-- 将表名 student 修改为 stu
+ALTER TABLE student RENAME TO stu;
 ```
 
 * **添加一列**
@@ -612,8 +615,8 @@ alter table student rename to stu;
 ```sql
 ALTER TABLE 表名 ADD 列名 数据类型;
 
--- 给stu表添加一列address，该字段类型是varchar(50)
-alter table stu add address varchar(50);
+-- 给 stu 表添加一列 address，该字段类型是 varchar(50)
+ALTER TABLE stu ADD address varchar(50);
 ```
 
 * **修改数据类型**
@@ -621,8 +624,8 @@ alter table stu add address varchar(50);
 ```sql
 ALTER TABLE 表名 MODIFY 列名 新数据类型;
 
--- 将stu表中的address字段的类型改为 char(50)
-alter table stu modify address char(50);
+-- 将 stu 表中的 address 字段的类型改为 char(50)
+ALTER TABLE stu MODIFY address char(50);
 ```
 
 * **修改列名和数据类型**
@@ -630,8 +633,8 @@ alter table stu modify address char(50);
 ```sql
 ALTER TABLE 表名 CHANGE 列名 新列名 新数据类型;
 
--- 将stu表中的address字段名改为 addr，类型改为varchar(50)
-alter table stu change address addr varchar(50);
+-- 将 stu 表中的 address 字段名改为 addr，类型改为 varchar(50)
+ALTER TABLE stu CHANGE address addr varchar(50);
 ```
 
 * **删除列**
@@ -639,69 +642,88 @@ alter table stu change address addr varchar(50);
 ```sql
 ALTER TABLE 表名 DROP 列名;
 
--- 将stu表中的addr字段 删除
-alter table stu drop addr;
+-- 将 stu 表中的 addr 字段 删除
+ALTER TABLE stu DROP addr;
 ```
 
+## 4.6 Navicat使用
 
+通过上面的学习，我们发现在命令行中写 SQL 语句特别不方便，尤其是编写创建表的语句，我们只能在记事本上写好后直接复制到命令行进行执行。那么有没有更好的工具提供给我们进行使用呢？ 当然有！
 
-## 6，navicat使用
+### 4.6.1  Navicat概述
 
-通过上面的学习，我们发现在命令行中写sql语句特别不方便，尤其是编写创建表的语句，我们只能在记事本上写好后直接复制到命令行进行执行。那么有没有刚好的工具提供给我们进行使用呢？ 有。
-
-### 6.1  navicat概述
-
-* Navicat for MySQL 是管理和开发 MySQL 或 MariaDB 的理想解决方案。
-* 这套全面的前端工具为数据库管理、开发和维护提供了一款直观而强大的图形界面。
+* Navicat for MySQL 是管理和开发 MySQL 的理想解决方案
+* 这套全面的工具为数据库管理、开发和维护提供了一款直观而强大的图形界面。
+* Navicat几乎支持市面上所有主流的数据库
 * 官网： [http://www.navicat.com.cn](http://www.navicat.com.cn/) 
 
-### 6.2  navicat安装
+### 4.6.3  Navicat使用
 
-参考 : 资料\navicat安装包\navicat_mysql_x86\navicat安装步骤.md
+**建立和 MySQL 服务的连接**
 
-### 6.3  navicat使用
+第一步： 点击连接，选择 MySQL
 
-#### 6.3.1  建立和mysql服务的连接
-
-第一步： 点击连接，选择MySQL
-
-<img src="mark-img/image-20210721235928346.png" alt="image-20210721235928346" style="zoom:70%;" />
+![image-20220524224708803](mark-img/image-20220524224708803.png)
 
 第二步：填写连接数据库必要的信息
 
-<img src="mark-img/image-20210722000116080.png" alt="image-20210722000116080" style="zoom:80%;" />
+<img src="mark-img/image-20220524224929152.png" alt="image-20220524224929152" style="zoom:50%;" />
 
-以上操作没有问题就会出现如下图所示界面：
-
-<img src="mark-img/image-20210722000345349.png" alt="image-20210722000345349" style="zoom:80%;" />
-
-#### 6.3.2  操作
+以上操作没有问题就会提示“连接成功”。
 
 连接成功后就能看到如下图界面：
 
-<img src="mark-img/image-20210722000521997.png" alt="image-20210722000521997" style="zoom:80%;" />
+![image-20220524225038098](mark-img/image-20220524225038098.png)
+
+* **创建表**
+
+通过下图操作创建表：
+
+![image-20220525003758006](mark-img/image-20220525003758006.png)
+
+![image-20220524225745797](mark-img/image-20220524225745797.png)
 
 * **修改表结构**
 
 通过下图操作修改表结构：
 
-<img src="mark-img/image-20210722000740661.png" alt="image-20210722000740661" style="zoom:80%;" />
+设计表完成后，可以点击设计表，对表进行再修改。
 
-点击了设计表后即出现如下图所示界面，在图中红框中直接修改字段名，类型等信息：
+![image-20220524230019153](mark-img/image-20220524230019153.png)
 
-<img src="mark-img/image-20210722000929075.png" alt="image-20210722000929075" style="zoom:80%;" />
+![image-20220525000828477](mark-img/image-20220525000828477.png)
 
 * **编写SQL语句并执行**
 
-按照如下图所示进行操作即可书写SQL语句并执行sql语句。
+按照如下图所示进行操作即可书写 SQL 语句并执行 SQL 语句。
 
-<img src="mark-img/image-20210722001333817.png" alt="image-20210722001333817" style="zoom:80%;" />
+首先，在某个数据库下新建查询：
 
-## 7，DML
+![image-20220525001337983](mark-img/image-20220525001337983.png)
 
-DML主要是对数据进行增（insert）删（delete）改（update）操作。
+在编辑窗口中输入 SQL 代码，点击运行并在结果窗口中查看执行结果。
 
-### 7.1  添加数据
+![image-20220525001718366](mark-img/image-20220525001718366.png)
+
+> 注意：运行 SQL 语句有两种方式：1、运行全部 SQL 语句；2、运行选中的 SQL 语句
+
+- **将表构建为模型或图表**
+
+![image-20220525002535043](mark-img/image-20220525002535043.png)
+
+- **导入导出数据**
+
+![image-20220525002923070](mark-img/image-20220525002923070.png)
+
+将数据库导出为 SQL 文件或执行 SQL 文件：
+
+![image-20220525003425453](mark-img/image-20220525003425453.png)
+
+# 五、DML
+
+DML 主要是对数据进行增（insert）删（delete）改（update）操作。
+
+### 5.1  添加数据
 
 * **给指定列添加数据**
 
@@ -722,8 +744,6 @@ INSERT INTO 表名(列名1,列名2,…) VALUES(值1,值2,…),(值1,值2,…),(�
 INSERT INTO 表名 VALUES(值1,值2,…),(值1,值2,…),(值1,值2,…)…;
 ```
 
-
-
 * **练习**
 
 为了演示以下的增删改操作是否操作成功，故先将查询所有数据的语句介绍给大家：
@@ -731,8 +751,6 @@ INSERT INTO 表名 VALUES(值1,值2,…),(值1,值2,…),(值1,值2,…)…;
 ```sql
 select * from stu;
 ```
-
-
 
 ```sql
 -- 给指定列添加数据
@@ -749,9 +767,7 @@ INSERT INTO stu VALUES
 	(2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1);
 ```
 
-
-
-### 7.2  修改数据
+### 5.2  修改数据
 
 * **修改表数据**
 
@@ -763,8 +779,6 @@ UPDATE 表名 SET 列名1=值1,列名2=值2,… [WHERE 条件] ;
 >
 > 1. 修改语句中如果不加条件，则将所有数据都修改！
 > 2. 像上面的语句中的中括号，表示在写sql语句中可以省略这部分
-
-
 
 * **练习**
 
@@ -790,9 +804,7 @@ UPDATE 表名 SET 列名1=值1,列名2=值2,… [WHERE 条件] ;
 
     ![image-20210722204233305](mark-img/image-20210722204233305.png)
 
-
-
-### 7.3  删除数据
+### 5.3  删除数据
 
 * **删除数据**
 
@@ -810,7 +822,7 @@ delete from stu where name = '张三';
 delete from stu;
 ```
 
-## 8，DQL
+# 六、DQL
 
 下面是黑马程序员展示试题库数据的页面
 
@@ -875,9 +887,9 @@ VALUES
 
 接下来咱们从最基本的查询语句开始学起。
 
-### 8.1  基础查询
+### 6.1  基础查询
 
-#### 8.1.1  语法
+#### 6.1.1  语法
 
 * **查询多个字段**
 
@@ -898,9 +910,7 @@ SELECT DISTINCT 字段列表 FROM 表名;
 AS: AS 也可以省略
 ```
 
-
-
-#### 8.1.2  练习
+#### 6.1.2  练习
 
 * 查询name、age两列
 
@@ -947,9 +957,9 @@ AS: AS 也可以省略
 
   
 
-### 8.2  条件查询
+### 6.2  条件查询
 
-#### 8.2.1  语法
+#### 6.2.1  语法
 
 ```sql
 SELECT 字段列表 FROM 表名 WHERE 条件列表;
@@ -961,7 +971,7 @@ SELECT 字段列表 FROM 表名 WHERE 条件列表;
 
 <img src="mark-img/image-20210722190508272.png" alt="image-20210722190508272" style="zoom:60%;" />
 
-#### 8.2.2  条件查询练习
+#### 6.2.2  条件查询练习
 
 * 查询年龄大于20岁的学员信息
 
@@ -1026,7 +1036,7 @@ SELECT 字段列表 FROM 表名 WHERE 条件列表;
   select * from stu where english is not null;
   ```
 
-#### 8.2.3  模糊查询练习
+#### 6.2.3  模糊查询练习
 
 > 模糊查询使用like关键字，可以使用通配符进行占位:
 >
@@ -1054,9 +1064,9 @@ SELECT 字段列表 FROM 表名 WHERE 条件列表;
 
   
 
-### 8.3  排序查询
+### 6.3  排序查询
 
-#### 8.3.1  语法
+#### 6.3.1  语法
 
 ```sql
 SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序字段名2 [排序方式2] …;
@@ -1071,7 +1081,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序
 
 
 
-#### 8.3.2  练习
+#### 6.3.2  练习
 
 * 查询学生信息，按照年龄升序排列 
 
@@ -1093,9 +1103,9 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序
 
   
 
-### 8.4  聚合函数
+### 6.4  聚合函数
 
-#### 8.4.1  概念
+#### 6.4.1  概念
 
  ==将一列数据作为一个整体，进行纵向计算。==
 
@@ -1105,7 +1115,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序
 
 现有一需求让我们求表中所有数据的数学成绩的总和。这就是对math字段进行纵向求和。
 
-#### 8.4.2  聚合函数分类
+#### 6.4.2  聚合函数分类
 
 | 函数名      | 功能                             |
 | ----------- | -------------------------------- |
@@ -1115,7 +1125,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序
 | sum(列名)   | 求和                             |
 | avg(列名)   | 平均值                           |
 
-#### 8.4.3  聚合函数语法
+#### 6.4.3  聚合函数语法
 
 ```sql
 SELECT 聚合函数名(列名) FROM 表;
@@ -1125,7 +1135,7 @@ SELECT 聚合函数名(列名) FROM 表;
 
 
 
-#### 8.4.4  练习
+#### 6.4.4  练习
 
 * 统计班级一共有多少个学生
 
@@ -1172,9 +1182,9 @@ SELECT 聚合函数名(列名) FROM 表;
 
   
 
-### 8.5  分组查询
+### 6.5  分组查询
 
-#### 8.5.1  语法
+#### 6.5.1  语法
 
 ```sql
 SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字段名 [HAVING 分组后条件过滤];
@@ -1184,7 +1194,7 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 
 
 
-#### 8.5.2  练习
+#### 6.5.2  练习
 
 * 查询男同学和女同学各自的数学平均分
 
@@ -1213,10 +1223,9 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 * 查询男同学和女同学各自的数学平均分，以及各自人数，要求：分数低于70分的不参与分组，分组之后人数大于2个的
 
   ```sql
-  select sex, avg(math),count(*) from stu where math > 70 group by sex having count(*)  > 2;
+  select sex, avg(math),count(*) from stu where math > 70 group by sex having count(*)  > 2
   ```
 
-  
 
 **where 和 having 区别：**
 
@@ -1224,9 +1233,7 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 
 * 可判断的条件不一样：where 不能对聚合函数进行判断，having 可以。
 
-
-
-### 8.6  分页查询
+### 6.6  分页查询
 
 如下图所示，大家在很多网站都见过类似的效果，如京东、百度、淘宝等。分页查询是将数据一页一页的展示给用户看，用户也可以通过点击查看下一页的数据。
 
@@ -1234,7 +1241,7 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 
 接下来我们先说分页查询的语法。
 
-#### 8.6.1  语法
+#### 6.6.1  语法
 
 ```sql
 SELECT 字段列表 FROM 表名 LIMIT  起始索引 , 查询条目数;
@@ -1242,9 +1249,7 @@ SELECT 字段列表 FROM 表名 LIMIT  起始索引 , 查询条目数;
 
 > 注意： 上述语句中的起始索引是从0开始
 
-
-
-#### 8.6.2  练习
+#### 6.6.2  练习
 
 * 从0开始查询，查询3条数据
 
