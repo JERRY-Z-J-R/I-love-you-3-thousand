@@ -728,20 +728,20 @@ DML 主要是对数据进行增（insert）删（delete）改（update）操作�
 * **给指定列添加数据**
 
 ```sql
-INSERT INTO 表名(列名1,列名2,…) VALUES(值1,值2,…);
+INSERT INTO 表名(列名1, 列名2, …) VALUES(值1, 值2, …);
 ```
 
 * **给全部列添加数据**
 
 ```sql
-INSERT INTO 表名 VALUES(值1,值2,…);
+INSERT INTO 表名 VALUES(值1, 值2,…);
 ```
 
 * **批量添加数据**
 
 ```sql
-INSERT INTO 表名(列名1,列名2,…) VALUES(值1,值2,…),(值1,值2,…),(值1,值2,…)…;
-INSERT INTO 表名 VALUES(值1,值2,…),(值1,值2,…),(值1,值2,…)…;
+INSERT INTO 表名(列名1, 列名2, …) VALUES(值1, 值2, …), (值1, 值2, …), (值1, 值2, …), …;
+INSERT INTO 表名 VALUES(值1, 值2, …), (值1, 值2, …), (值1, 值2, …), …;
 ```
 
 * **练习**
@@ -749,22 +749,23 @@ INSERT INTO 表名 VALUES(值1,值2,…),(值1,值2,…),(值1,值2,…)…;
 为了演示以下的增删改操作是否操作成功，故先将查询所有数据的语句介绍给大家：
 
 ```sql
-select * from stu;
+# 查询 stu 中的所有数据
+SELECT * FROM stu;
 ```
 
 ```sql
 -- 给指定列添加数据
 INSERT INTO stu (id, NAME) VALUES (1, '张三');
--- 给所有列添加数据，列名的列表可以省略的
-INSERT INTO stu (id,NAME,sex,birthday,score,email,tel,STATUS) VALUES (2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1);
-
+-- 给所有列添加数据，列名的列表可以省略
+INSERT INTO stu (id, NAME, sex, birthday, score, email, tel, STATUS) VALUES (2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1);
+-- 省略列名列表
 INSERT INTO stu VALUES (2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1);
 
 -- 批量添加数据
 INSERT INTO stu VALUES 
-	(2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1),
-	(2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1),
-	(2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1);
+	(2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1),
+	(2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1),
+	(2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1);
 ```
 
 ### 5.2  修改数据
@@ -772,67 +773,56 @@ INSERT INTO stu VALUES
 * **修改表数据**
 
 ```sql
-UPDATE 表名 SET 列名1=值1,列名2=值2,… [WHERE 条件] ;
+UPDATE 表名 SET 列名1 = 值1, 列名2 = 值2, … [WHERE 条件];
 ```
 
 > 注意：
 >
 > 1. 修改语句中如果不加条件，则将所有数据都修改！
-> 2. 像上面的语句中的中括号，表示在写sql语句中可以省略这部分
+> 2. 像上面的语句中的中括号，表示在写 SQL 语句中可以省略这部分
 
 * **练习**
 
   * 将张三的性别改为女
 
     ```sql
-    update stu set sex = '女' where name = '张三';
+    UPDATE stu SET sex = '女' WHERE name = '张三';
     ```
 
-  * 将张三的生日改为 1999-12-12 分数改为99.99
+  * 将张三的生日改为 1999-12-12 分数改为 99.99
 
     ```sql
-    update stu set birthday = '1999-12-12', score = 99.99 where name = '张三';
+    UPDATE stu SET birthday = '1999-12-12', score = 99.99 WHERE name = '张三';
     ```
 
-  * 注意：如果update语句没有加where条件，则会将表中所有数据全部修改！
+  * 注意：如果 update 语句没有加 where 条件，则会将表中该列的所有数据全部修改！
 
     ```sql
-    update stu set sex = '女';
+    UPDATE stu SET sex = '女';
     ```
 
-    上面语句的执行完后查询到的结果是：
-
-    ![image-20210722204233305](mark-img/image-20210722204233305.png)
 
 ### 5.3  删除数据
 
 * **删除数据**
 
 ```sql
-DELETE FROM 表名 [WHERE 条件] ;
+DELETE FROM 表名 [WHERE 条件];
 ```
 
 * **练习**
 
 ```sql
 -- 删除张三记录
-delete from stu where name = '张三';
+DELETE FROM stu WHERE name = '张三';
 
--- 删除stu表中所有的数据
-delete from stu;
+-- 删除 stu 表中所有的数据
+DELETE FROM stu;
 ```
 
 # 六、DQL
 
-下面是黑马程序员展示试题库数据的页面
-
-<img src="mark-img/image-20210722215838144.png" alt="image-20210722215838144" style="zoom:80%;" />
-
-页面上展示的数据肯定是在数据库中的试题库表中进行存储，而我们需要将数据库中的数据查询出来并展示在页面给用户看。上图中的是最基本的查询效果，那么数据库其实是很多的，不可能在将所有的数据在一页进行全部展示，而页面上会有分页展示的效果，如下：
-
-![image-20210722220139174](mark-img/image-20210722220139174.png)
-
-当然上图中的难度字段当我们点击也可以实现排序查询操作。从这个例子我们就可以看出，对于数据库的查询时灵活多变的，需要根据具体的需求来实现，而数据库查询操作也是最重要的操作，所以此部分需要大家重点掌握。
+数据库查询操作是最重要的操作，所以此部分需要重点掌握。
 
 接下来我们先介绍查询的完整语法：
 
@@ -856,33 +846,32 @@ LIMIT
 为了给大家演示查询的语句，我们需要先准备表及一些数据：
 
 ```sql
--- 删除stu表
-drop table if exists stu;
+-- 删除 stu 表
+DROP TABLE IF EXISTS stu;
 
-
--- 创建stu表
+-- 创建 stu 表
 CREATE TABLE stu (
  id int, -- 编号
  name varchar(20), -- 姓名
  age int, -- 年龄
  sex varchar(5), -- 性别
  address varchar(100), -- 地址
- math double(5,2), -- 数学成绩
- english double(5,2), -- 英语成绩
+ math double(5, 2), -- 数学成绩
+ english double(5, 2), -- 英语成绩
  hire_date date -- 入学时间
 );
 
 -- 添加数据
-INSERT INTO stu(id,NAME,age,sex,address,math,english,hire_date) 
-VALUES 
-(1,'马运',55,'男','杭州',66,78,'1995-09-01'),
-(2,'马花疼',45,'女','深圳',98,87,'1998-09-01'),
-(3,'马斯克',55,'男','香港',56,77,'1999-09-02'),
-(4,'柳白',20,'女','湖南',76,65,'1997-09-05'),
-(5,'柳青',20,'男','湖南',86,NULL,'1998-09-01'),
-(6,'刘德花',57,'男','香港',99,99,'1998-09-01'),
-(7,'张学右',22,'女','香港',99,99,'1998-09-01'),
-(8,'德玛西亚',18,'男','南京',56,65,'1994-09-02');
+INSERT INTO stu ( id, NAME, age, sex, address, math, english, hire_date )
+VALUES
+	( 1, '马运', 55, '男', '杭州', 66, 78, '1995-09-01' ),
+	( 2, '马花疼', 45, '女', '深圳', 98, 87, '1998-09-01' ),
+	( 3, '马斯克', 55, '男', '香港', 56, 77, '1999-09-02' ),
+	( 4, '柳白', 20, '女', '湖南', 76, 65, '1997-09-05' ),
+	( 5, '柳青', 20, '男', '湖南', 86, NULL, '1998-09-01' ),
+	( 6, '刘德花', 57, '男', '香港', 99, 99, '1998-09-01' ),
+	( 7, '张学右', 22, '女', '香港', 99, 99, '1998-09-01' ),
+	( 8, '德玛西亚', 18, '男', '南京', 56, 65, '1994-09-02' );
 ```
 
 接下来咱们从最基本的查询语句开始学起。
@@ -907,7 +896,7 @@ SELECT DISTINCT 字段列表 FROM 表名;
 * **起别名**
 
 ```sql
-AS: AS 也可以省略
+AS: -- AS 可以省略
 ```
 
 #### 6.1.2  练习
@@ -915,47 +904,42 @@ AS: AS 也可以省略
 * 查询name、age两列
 
   ```sql
-  select name,age from stu;
+  SELECT name, age FROM stu;
   ```
 
-* 查询所有列的数据，列名的列表可以使用*替代
+* 查询所有列的数据，列名的列表可以使用`*`替代
 
   ```sql
-  select * from stu;
+  SELECT * FROM stu;
   ```
 
-  上面语句中的\*不建议大家使用，因为在这写\*不方便我们阅读sql语句。我们写字段列表的话，可以添加注释对每一个字段进行说明
-
-  <img src="mark-img/image-20210722221534870.png" alt="image-20210722221534870" style="zoom:80%;" />
-
-  而在上课期间为了简约课程的时间，老师很多地方都会写*。
+  上面语句中的`*`不建议大家使用，因为在这写`*`不方便我们阅读 SQL 语句，同时滥用`*`会造成性能浪费，我们写字段列表的话，可以添加注释对每一个字段进行说明。
 
 * 查询地址信息
 
   ```sql
-  select address from stu;
+  SELECT address FROM stu;
   ```
 
   执行上面语句结果如下：
 
-  ![image-20210722221756380](mark-img/image-20210722221756380.png)
+  <img src="mark-img/image-20220525011250703.png" alt="image-20220525011250703" style="zoom: 67%;" />
 
-  从上面的结果我们可以看到有重复的数据，我们也可以使用 `distinct` 关键字去重重复数据。
+  从上面的结果我们可以看到有重复的数据，我们也可以使用`distinct`关键字去除重复数据。
 
 * 去除重复记录
 
   ```sql
-  select distinct address from stu;
+  SELECT DISTINCT address FROM stu;
   ```
 
-* 查询姓名、数学成绩、英语成绩。并通过as给math和english起别名（as关键字可以省略）
+* 查询姓名、数学成绩、英语成绩。并通过`AS`给`math`和`english`起别名（AS 关键字可以省略）
 
   ```sql
-  select name,math as 数学成绩,english as 英文成绩 from stu;
-  select name,math 数学成绩,english 英文成绩 from stu;
+  SELECT name, math AS 数学成绩, english AS 英文成绩 FROM stu;
+  SELECT name, math 数学成绩, english 英文成绩 FROM stu;
   ```
 
-  
 
 ### 6.2  条件查询
 
@@ -967,163 +951,174 @@ SELECT 字段列表 FROM 表名 WHERE 条件列表;
 
 * **条件**
 
-条件列表可以使用以下运算符
+条件列表可以使用以下运算符：
 
-<img src="mark-img/image-20210722190508272.png" alt="image-20210722190508272" style="zoom:60%;" />
+| 符号                | 功能                                   |
+| ------------------- | -------------------------------------- |
+| >                   | 大于                                   |
+| <                   | 小于                                   |
+| >=                  | 大于等于                               |
+| <=                  | 小于等于                               |
+| =                   | 等于                                   |
+| <> 或 !=            | 不等于                                 |
+| BETWEEN ... AND ... | 在某个范围之内（都包含）               |
+| IN(...)             | 多选一                                 |
+| LIKE 占位符         | 模糊查询，_单个任意字符，%多个任意字符 |
+| IS NULL             | 是 NULL                                |
+| IS NOT NULL         | 不是 NULL                              |
+| AND 或 &&           | 并且                                   |
+| OR 或 \|\|          | 或者                                   |
+| NOT 或 !            | 非，不是                               |
 
 #### 6.2.2  条件查询练习
 
-* 查询年龄大于20岁的学员信息
+* 查询年龄大于 20 岁的学员信息
 
   ```sql
-  select * from stu where age > 20;
+  SELECT * FROM stu WHERE age > 20;
   ```
 
-* 查询年龄大于等于20岁的学员信息
+* 查询年龄大于等于 20 岁的学员信息
 
   ```sql
-  select * from stu where age >= 20;
+  SELECT * FROM stu WHERE age >= 20;
   ```
 
-* 查询年龄大于等于20岁 并且 年龄 小于等于 30岁 的学员信息
+* 查询年龄大于等于 20 岁并且年龄小于等于 30 岁的学员信息
 
   ```sql
-  select * from stu where age >= 20 &&  age <= 30;
-  select * from stu where age >= 20 and  age <= 30;
+  SELECT * FROM stu WHERE age >= 20 && age <= 30;
+  SELECT * FROM stu WHERE age >= 20 AND age <= 30;
   ```
 
-  > 上面语句中 &&  和  and  都表示并且的意思。建议使用 and 。
+  > 上面语句中 && 和 AND 都表示并且的意思，建议使用 AND
   >
-  > 也可以使用  between ... and 来实现上面需求
+  > 也可以使用 BETWEEN ... AND ... 来实现上面需求
 
   ```sql
-  select * from stu where age BETWEEN 20 and 30;
+  SELECT * FROM stu WHERE age BETWEEN 20 AND 30;
   ```
 
-* 查询入学日期在'1998-09-01' 到 '1999-09-01'  之间的学员信息
+* 查询入学日期在 '1998-09-01' 到 '1999-09-01' 之间的学员信息
 
   ```sql
-  select * from stu where hire_date BETWEEN '1998-09-01' and '1999-09-01';
+  SELECT * FROM stu WHERE hire_date BETWEEN '1998-09-01' AND '1999-09-01';
   ```
 
-* 查询年龄等于18岁的学员信息
+* 查询年龄等于 18 岁的学员信息
 
   ```sql
-  select * from stu where age = 18;
+  SELECT * FROM stu WHERE age = 18;
   ```
 
-* 查询年龄不等于18岁的学员信息
+* 查询年龄不等于 18 岁的学员信息
 
   ```sql
-  select * from stu where age != 18;
-  select * from stu where age <> 18;
+  SELECT * FROM stu WHERE age != 18;
+  SELECT * FROM stu WHERE age <> 18;
   ```
 
-* 查询年龄等于18岁 或者 年龄等于20岁 或者 年龄等于22岁的学员信息
+* 查询年龄等于 18 岁或者年龄等于 20 岁或者年龄等于 22 岁的学员信息
 
   ```sql
-  select * from stu where age = 18 or age = 20 or age = 22;
-  select * from stu where age in (18,20 ,22);
+  SELECT * FROM stu WHERE age = 18 OR age = 20 OR age = 22;
+  SELECT * FROM stu WHERE age IN (18, 20 ,22);
   ```
 
-* 查询英语成绩为 null的学员信息
+* 查询英语成绩为 null 的学员信息
 
-  null值的比较不能使用 =  或者 != 。需要使用 is  或者 is not
+  null 值的比较不能使用 =  或者 != 。需要使用 is  或者 is not
 
   ```sql
-  select * from stu where english = null; -- 这个语句是不行的
-  select * from stu where english is null;
-  select * from stu where english is not null;
+  SELECT * FROM stu WHERE english = null; -- 这个语句是不行的
+  SELECT * FROM stu WHERE english IS null;
+  SELECT * FROM stu WHERE english IS NOT null;
   ```
 
 #### 6.2.3  模糊查询练习
 
-> 模糊查询使用like关键字，可以使用通配符进行占位:
+> 模糊查询使用 LIKE 关键字，可以使用通配符进行占位：
 >
-> （1）_ : 代表单个任意字符
+> - `_`：代表单个任意字符
 >
-> （2）% : 代表任意个数字符
+> - `%`：代表任意个数字符
 
-* 查询姓'马'的学员信息
-
-  ```sql
-  select * from stu where name like '马%';
-  ```
-
-* 查询第二个字是'花'的学员信息  
+* 查询姓 “马” 的学员信息
 
   ```sql
-  select * from stu where name like '_花%';
+  SELECT * FROM stu WHERE name LIKE '马%';
   ```
 
-* 查询名字中包含 '德' 的学员信息
+* 查询第二个字是 “花” 的学员信息  
 
   ```sql
-  select * from stu where name like '%德%';
+  SELECT * FROM stu WHERE name LIKE '_花%';
   ```
 
-  
+* 查询名字中包含 “德” 的学员信息
+
+  ```sql
+  SELECT * FROM stu WHERE name LIKE '%德%';
+  ```
+
 
 ### 6.3  排序查询
 
 #### 6.3.1  语法
 
 ```sql
-SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序字段名2 [排序方式2] …;
+SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排序字段名2 [排序方式2] …;
 ```
 
 上述语句中的排序方式有两种，分别是：
 
-* ASC ： 升序排列 **（默认值）**
+* ASC ： 升序排列（默认值）
 * DESC ： 降序排列
 
 > 注意：如果有多个排序条件，当前边的条件值一样时，才会根据第二条件进行排序
-
-
 
 #### 6.3.2  练习
 
 * 查询学生信息，按照年龄升序排列 
 
   ```sql
-  select * from stu order by age ;
+  SELECT * FROM stu ORDER BY age;
   ```
 
 * 查询学生信息，按照数学成绩降序排列
 
   ```sql
-  select * from stu order by math desc ;
+  SELECT * FROM stu ORDER BY math DESC;
   ```
 
 * 查询学生信息，按照数学成绩降序排列，如果数学成绩一样，再按照英语成绩升序排列
 
   ```sql
-  select * from stu order by math desc , english asc ;
+  SELECT * FROM stu ORDER BY math DESC , english ASC;
   ```
 
-  
 
 ### 6.4  聚合函数
 
 #### 6.4.1  概念
 
- ==将一列数据作为一个整体，进行纵向计算。==
+将一列数据作为一个整体，进行纵向计算。
 
 如何理解呢？假设有如下表
 
-<img src="mark-img/image-20210722194410628.png" alt="image-20210722194410628" style="zoom:80%;" />
+![image-20220525030658627](mark-img/image-20220525030658627.png)
 
-现有一需求让我们求表中所有数据的数学成绩的总和。这就是对math字段进行纵向求和。
+现有一需求让我们求表中所有数据的数学成绩的总和，这就是对 math 字段进行纵向求和。
 
 #### 6.4.2  聚合函数分类
 
-| 函数名      | 功能                             |
-| ----------- | -------------------------------- |
-| count(列名) | 统计数量（一般选用不为null的列） |
-| max(列名)   | 最大值                           |
-| min(列名)   | 最小值                           |
-| sum(列名)   | 求和                             |
-| avg(列名)   | 平均值                           |
+| 函数名      | 功能                               |
+| ----------- | ---------------------------------- |
+| COUNT(列名) | 统计数量（一般选用不为 null 的列） |
+| MAX(列名)   | 最大值                             |
+| MIN(列名)   | 最小值                             |
+| SUM(列名)   | 求和                               |
+| AVG(列名)   | 平均值                             |
 
 #### 6.4.3  聚合函数语法
 
@@ -1133,54 +1128,51 @@ SELECT 聚合函数名(列名) FROM 表;
 
 > 注意：null 值不参与所有聚合函数运算
 
-
-
 #### 6.4.4  练习
 
 * 统计班级一共有多少个学生
 
   ```sql
-  select count(id) from stu;
-  select count(english) from stu;
+  SELECT COUNT(id) FROM stu;
+  SELECT COUNT(english) FROM stu;
   ```
 
-  上面语句根据某个字段进行统计，如果该字段某一行的值为null的话，将不会被统计。所以可以在count(*) 来实现。\* 表示所有字段数据，一行中也不可能所有的数据都为null，所以建议使用 count(\*)
+  上面语句根据某个字段进行统计，如果该字段某一行的值为 null 的话，将不会被统计。所以可以在 count(*) 来实现，`*`表示所有字段数据，一行中也不可能所有的数据都为 null，所以建议使用`count(*)`
 
   ```sql
-  select count(*) from stu;
+  SELECT COUNT(*) FROM stu;
   ```
 
 * 查询数学成绩的最高分
 
   ```sql
-  select max(math) from stu;
+  SELECT MAX(math) FROM stu;
   ```
 
 * 查询数学成绩的最低分
 
   ```sql
-  select min(math) from stu;
+  SELECT MIN(math) FROM stu;
   ```
 
 * 查询数学成绩的总分
 
   ```sql
-  select sum(math) from stu;
+  SELECT SUM(math) FROM stu;
   ```
 
 * 查询数学成绩的平均分
 
   ```sql
-  select avg(math) from stu;
+  SELECT AVG(math) FROM stu;
   ```
 
 * 查询英语成绩的最低分
 
   ```sql
-  select min(english) from stu;
+  SELECT MIN(english) FROM stu;
   ```
 
-  
 
 ### 6.5  分组查询
 
@@ -1192,87 +1184,82 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 
 > 注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义
 
-
-
 #### 6.5.2  练习
 
 * 查询男同学和女同学各自的数学平均分
 
   ```sql
-  select sex, avg(math) from stu group by sex;
+  SELECT sex, AVG(math) FROM stu GROUP BY sex;
   ```
 
   > 注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义
 
   ```sql
-  select name, sex, avg(math) from stu group by sex;  -- 这里查询name字段就没有任何意义
+  SELECT name, sex, AVG(math) FROM stu GROUP BY sex;  -- 这里查询 name 字段就没有任何意义
   ```
 
 * 查询男同学和女同学各自的数学平均分，以及各自人数
 
   ```sql
-  select sex, avg(math),count(*) from stu group by sex;
+  SELECT sex, AVG(math), COUNT(*) FROM stu GROUP BY sex;
   ```
 
-* 查询男同学和女同学各自的数学平均分，以及各自人数，要求：分数低于70分的不参与分组
+* 查询男同学和女同学各自的数学平均分，以及各自人数，要求：分数低于 70 分的不参与分组
 
   ```sql
-  select sex, avg(math),count(*) from stu where math > 70 group by sex;
+  SELECT sex, AVG(math), COUNT(*) FROM stu WHERE math > 70 GROUP BY sex;
   ```
 
-* 查询男同学和女同学各自的数学平均分，以及各自人数，要求：分数低于70分的不参与分组，分组之后人数大于2个的
+* 查询男同学和女同学各自的数学平均分，以及各自人数，要求：分数低于 70 分的不参与分组，分组之后人数大于 2 个的
 
   ```sql
-  select sex, avg(math),count(*) from stu where math > 70 group by sex having count(*)  > 2
+  SELECT sex, AVG(math), COUNT(*) FROM stu WHERE math > 70 GROUP BY sex HAVING COUNT(*)  > 2
   ```
-
 
 **where 和 having 区别：**
 
-* 执行时机不一样：where 是分组之前进行限定，不满足where条件，则不参与分组，而having是分组之后对结果进行过滤。
+* 执行时机不一样：where 是分组之前进行限定，不满足 where 条件，则不参与分组，而 having 是分组之后对结果进行过滤。
 
 * 可判断的条件不一样：where 不能对聚合函数进行判断，having 可以。
 
 ### 6.6  分页查询
 
-如下图所示，大家在很多网站都见过类似的效果，如京东、百度、淘宝等。分页查询是将数据一页一页的展示给用户看，用户也可以通过点击查看下一页的数据。
-
-<img src="mark-img/image-20210722230330366.png" alt="image-20210722230330366" style="zoom:80%;" />
+相信大家在很多网站都见过页面底部分页部件，如京东、百度、淘宝等。分页查询是将数据一页一页的展示给用户看，用户也可以通过点击查看下一页的数据。
 
 接下来我们先说分页查询的语法。
 
 #### 6.6.1  语法
 
 ```sql
-SELECT 字段列表 FROM 表名 LIMIT  起始索引 , 查询条目数;
+SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询条目数;
 ```
 
-> 注意： 上述语句中的起始索引是从0开始
+> 注意： 上述语句中的起始索引是从 0 开始
 
 #### 6.6.2  练习
 
-* 从0开始查询，查询3条数据
+* 从 0 开始查询，查询 3 条数据
 
   ```sql
-  select * from stu limit 0 , 3;
+  SELECT * FROM stu LIMIT 0 , 3;
   ```
 
 * 每页显示3条数据，查询第1页数据
 
   ```sql
-  select * from stu limit 0 , 3;
+  SELECT * FROM stu LIMIT 0 , 3;
   ```
 
 * 每页显示3条数据，查询第2页数据
 
   ```sql
-  select * from stu limit 3 , 3;
+  SELECT * FROM stu LIMIT 3 , 3;
   ```
 
 * 每页显示3条数据，查询第3页数据
 
   ```sql
-  select * from stu limit 6 , 3;
+  SELECT * FROM stu LIMIT 6 , 3;
   ```
 
 从上面的练习推导出起始索引计算公式：
