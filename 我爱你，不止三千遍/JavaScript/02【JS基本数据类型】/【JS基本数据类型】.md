@@ -185,7 +185,7 @@ var str2 = "54" + a;	// "5424"
 2 + "";	// "2"
 ```
 
-> 新版 ES 中增加了反引号 ( ` ) 表示法，可以更方便进行变量插值，后续课程将进行介绍。
+> ES6 中增加了反引号 ( ` ) 表示法，可以更方便进行变量插值，后续课程将进行介绍。
 
 ## 3.4 空字符串
 
@@ -232,8 +232,11 @@ console.log(typeof a);	// string
 | `toUpperCase()` | 将字符串变为大写 |
 | `toLowerCase()` | 将字符串变为小写 |
 | `indexOf()`     | 检索字符串       |
+| `trim()`        | 删除首尾空格     |
+| `trimStart()`   | 删除首部空格     |
+| `trimEnd()`     | 删除尾部空格     |
 
-### 3.6.1 charAt()方法
+### 3.6.1 charAt() 方法
 
 `charAt()` 方法可以得到指定位置的字符。
 
@@ -244,9 +247,9 @@ console.log(typeof a);	// string
 |      | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   | 12   | 13   |      |
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".charAt(0);		// "我'
+"我喜欢JS，我也喜欢NODE".charAt(0);		// "我"
 "我喜欢JS，我也喜欢NODE".charAt(5);		// "，"
-"我喜欢JS，我也喜欢NODE".charAt(11);	// "O'
+"我喜欢JS，我也喜欢NODE".charAt(11);	// "O"
 "我喜欢JS，我也喜欢NODE".charAt(99);	// ""
 "我喜欢JS，我也喜欢NODE".charAt(-1);	// ""
 ```
@@ -356,6 +359,23 @@ console.log(typeof a);	// string
 "abcdebb".indexOf("m");		// -1
 ```
 
+### 3.6.5 trim()、trimStart()、trimEnd() 方法
+
+```javascript
+// 删除首尾空格
+console.log("---" + " 123 ".trim() + "---");
+// 删除首部空格
+console.log("---" + " 123 ".trimStart() + "---");
+// 删除尾部空格
+console.log("---" + " 123 ".trimEnd() + "---");
+
+/*
+---123---
+---123 ---
+--- 123---
+*/
+```
+
 # 四、Boolean（布尔）类型
 
 在计算机领域，几乎所有的 “真” 和 “假” 都归为布尔类型值。
@@ -451,7 +471,7 @@ Number(null);			// 0
 
 ### 7.1.2 使用 parseInt() 函数
 
-`parseInt()` 函数的功能是将 字符串 或 浮点数 转为 整数。
+`parseInt()` 函数的功能是将 `字符串` 或 `浮点数` 转为 `整数`。
 
 - 自动截掉第一个非数字字符之后的所有字符
 
@@ -476,7 +496,7 @@ parseInt('圆周率是3.14');	// NaN
 parseInt('一二三');		 // NaN
 ```
 
-- 不存在“四舍五入”
+- 不存在 “四舍五入”
 
 ```javascript
 parseInt('3.99');		  // 3
@@ -643,5 +663,30 @@ alert(sum);
 function() {
 }
 ```
+
+> 在 JS 中普通类型也可以包装为复杂类型（对象）
+>
+> ```javascript
+> str01 = "zjr";
+> str02 = new String("zjr");
+> str03 = String("zjr");
+> console.log(typeof str01);
+> console.log(typeof str02);
+> console.log(typeof str03);
+> console.log(str01 === str02);
+> console.log(str02 === str03);
+> console.log(str01 === str03);
+> // Number、Boolean 同理
+> 
+> /*
+> 运行结果：
+> string
+> object
+> string
+> false
+> false
+> true
+> */
+> ```
 
 复杂数据类型都是 “引用类型”（type: object），引用类型的特性将在数组一课中介绍。
