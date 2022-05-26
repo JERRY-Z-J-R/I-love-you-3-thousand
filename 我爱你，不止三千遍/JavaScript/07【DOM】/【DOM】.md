@@ -1476,6 +1476,8 @@ oBox.onclick = fun;
 oBox.addEventListener('click', function(){}, true);
 ```
 
+> Event：事件
+
 ![](mark-img/8d112b4208944d75bdd3e655b4b8a7b4.png)
 
 【小案例】
@@ -1639,7 +1641,7 @@ oBox.addEventListener('click', function(){}, true);
 
 > 在新版的 Chrome 中都默认先执行最内层元素的捕获再执行冒泡。
 
-- 如果给元素设置相同的两个或多个同名事件，则 DOM O级写法后面写的会覆盖先写的；而 DOM 2级会按顺序执行
+- 如果给元素设置相同的两个或多个同名事件，则 DOM 0级写法后面写的会覆盖先写的；而 DOM 2级会按顺序执行
 
 ```html
 <!DOCTYPE html>
@@ -2786,6 +2788,8 @@ oBox.onmousemove = function(e) {
 
 `setInterval()` 函数可以重复调用一个函数，在每次调用之间有固定的时间间隔。
 
+> Interval：间隔
+
 ![](mark-img/4d70d6d2a23e430cb7825498629929bf.png)
 
 ```html
@@ -2861,7 +2865,7 @@ oBox.onmousemove = function(e) {
         var timer;
 
         oBtn1.onclick = function () {
-            // 更改全局变量timer的值为一个定时器实体
+            // 更改全局变量 timer 的值为一个定时器实体
             timer = setInterval(function () {
                 oInfo.innerText = ++a;
             }, 1000);
