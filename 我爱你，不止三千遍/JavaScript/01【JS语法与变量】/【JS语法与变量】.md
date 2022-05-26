@@ -74,7 +74,9 @@
 >
 > （当然，今后学习 Node.js 后，JavaScript 可以独立成为一个运行平台）
 
-## 2.1 在 \<body> 中的 \<script> 标签中书写 JS 代码
+## 2.1 在 \<body> 中书写 JS 代码
+
+在 `<body>` 中的 `<script>` 标签中书写 JS 代码
 
 - index.html
 
@@ -96,7 +98,8 @@
     </script> 
     -->
 
-    <!-- 目前都是使用 HTML5，所以不用写 type 属性 -->
+    <!-- 目前都是使用 HTML5，所以不用写 type 属性，默认就是 JS -->
+    <!-- 推荐把 script 文件写到 body 的末尾 -->
     <script>
         // 弹窗输出一句话
         // 每一句 JS 代码以分号结尾！
@@ -111,7 +114,9 @@
 
 <img src="mark-img/0d866c75fe28487690055fd1df962c30.png" style="zoom:50%;" />
 
-## 2.2 将 JS 代码单独保存为 \.js 文件，然后在 HTML 文件中使用 \<script src="">\</script> 引入
+## 2.2 将 JS 代码单独保存为 \.js 文件
+
+将 JS 代码单独保存为 \.js 文件，然后在 HTML 文件中使用 `<script src=""></script>` 引入
 
 - 文件结构
 
@@ -132,6 +137,10 @@
 </head>
 
 <body>
+    <!--
+    也可以放在 body 末尾
+    <script src="./js/index.js"></script>
+	-->
 </body>
 
 </html>
@@ -210,13 +219,13 @@ console.log("周吉瑞");
 
 - `Uncaught SyntaxError: Invalid or unexpected token`
 
-未捕获的语法错误：不合法或错误的符号
+未捕获的语法错误：不合法或错误的符号。
 
 （中文符号错误、……）
 
 - `Uncaught ReferenceError: jerry is not defined`
 
-未捕获的引用错误：jerry 没有被定义
+未捕获的引用错误：jerry 没有被定义。
 
 （字符串没有加引号、名称拼写错误、……）
 
@@ -297,8 +306,10 @@ console.log(a);	// 24
 > 请一律加上 `var` ！
 
 ```javascript
-a = 24; // 未使用 var 定义的变量默认为全局变量！
+a = 24; // 未使用 var 定义的变量默认为全局变量！成为 window 对象的属性。
 console.log(a);	// 24
+console.log(window.a);	// 24
+console.log(window.a === a);	// true
 ```
 
 > 关于作用域的问题，后期课程会介绍。
@@ -341,6 +352,8 @@ console.log(c);
 > ```
 >
 > 不用 `var` 申明的变量会被视为全局变量，为了避免这一缺陷，所有的 JavaScript 代码都推荐使用 strict 模式。
+>
+> 提示：`"use strict"`语句可以放在 JS 代码的任意一行上，并且它只对它所在作用域下方的代码起作用。
 
 ## 5.8 等号表示赋值
 
@@ -361,7 +374,7 @@ var a = 0, b = 1, c = 2;	// 建议每行只声明一个变量
 # 六、变量声明提升
 
 - 变量声明的提升：可以提前使用一个稍后才声明的变量，而不会引发异常
-- 在执行所有代码前，JS 有预解析阶段，会预读所有变量的定义
+- 在执行所有代码前，JS 有预解析阶段，会预读所有变量的声明（不会提升赋值，只会提升定义）
 
 ```javascript
 // 变量声明提升的只是定义，不提升赋值！！！
