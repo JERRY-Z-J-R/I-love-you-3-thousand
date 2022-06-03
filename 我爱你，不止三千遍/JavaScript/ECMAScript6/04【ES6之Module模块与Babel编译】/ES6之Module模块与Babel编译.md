@@ -324,3 +324,150 @@ export {age} from "./module.js";
 ```
 
 # 二、Babel与webpack
+
+## 2.1 认识Babel
+
+官网：[Babel · The compiler for next generation JavaScript https://babel.dev/](https://babel.dev/)
+
+在线编译：[Babel · The compiler for next generation JavaScript https://babel.dev/repl](https://babel.dev/repl)
+
+Babel 是 JavaScript 的编译器，用来将 ES6 代码转换成 ES6 之前的代码。
+
+Babel 本身可以编译 ES6 的大部分语法，比如：let、const、箭头函数、class，……，但是对于 ES6 新增的 API，比如：Set、Map、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign/Array.from）都不能直接编译，需要借助其它的模块，Babel 一般需要配合 Webpack 来编译模块语法。
+
+## 2.2 Babel的使用方式
+
+使用方式说明：[Babel · The compiler for next generation JavaScript https://babel.dev/setup](https://babel.dev/setup)
+
+目前，我们主要关注：CLI 及 Webpack。
+
+注意：我们一般不考虑 [In the browser](https://babel.dev/setup#installation) 方式，因为此种方式代码每次被浏览器执行时都要先转换为 ES6 之前的代码，这样的转换影响了性能，而 CLI 及 Webpack 的方式是提前就将 ES6 代码转化为 ES6 之前的代码，浏览器在运行时已经是 ES6 之前的代码了，不影响性能。
+
+## 2.3 使用Babel前的准备工作
+
+### 2.3.1 什么是Node.js和npm
+
+简单的说 Node.js 就是运行在服务端的 JavaScript。
+
+Node.js 是一个基于 Chrome JavaScript 运行时建立的一个平台。
+
+Node.js 是一个事件驱动 I/O 服务端 JavaScript 环境，基于 Google 的 V8 引擎，V8 引擎执行 Javascript 的速度非常快，性能非常好。
+
+后端的 JavaScript = ECMAScript + IO + File + ...服务器端的操作。
+
+npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码部署上的很多问题，常见的使用场景有以下几种：
+
+- 允许用户从 npm 服务器下载别人编写的第三方包到本地使用。
+- 允许用户从 npm 服务器下载并安装别人编写的命令行程序到本地使用。
+- 允许用户将自己编写的包或命令行程序上传到 npm 服务器供别人使用。
+
+由于新版的 Node.js 已经集成了 npm，所以之前 npm 也一并安装好了。同样可以通过输入 **"npm -v"** 来测试是否成功安装。
+
+### 2.3.2 安装Node.js
+
+Node.js 中文官网：[Node.js (nodejs.org)](https://nodejs.org/zh-cn/)
+
+我们下载长期支持版，并双击安装包根据提示进行安装即可。
+
+可以通过在终端中依次输入：`node -v` 及 `npm -v` 来查看版本，如果查看成功，即表明安装成功。
+
+### 2.3.3 初始化项目
+
+- 初始化项目：`npm init`
+
+- 进行项目配置
+
+- 确认配置并正式生成项目
+
+![image-20220604001956543](mark-img/image-20220604001956543.png)
+
+> 当依次正确完成以上步骤后，项目路径下就会生成一个 `package.json` 文件，里面最初记录了我们 npm 项目的初始化配置信息，往后我们利用 npm 安装的依赖及包都会记录在这个文件中。
+>
+> 往后当我们需要迁移项目时，我们只需要拷贝这个 `package.json` 文件，然后在新的项目中使用相应的命令，便可恢复文件中的环境、依赖及包。
+>
+> 【初始时的 package.json】
+>
+> ```json
+> {
+>   "name": "demo",
+>   "version": "1.0.0",
+>   "description": "",
+>   "main": "index.js",
+>   "scripts": {
+>     "test": "echo \"Error: no test specified\" && exit 1"
+>   },
+>   "author": "",
+>   "license": "ISC"
+> }
+> ```
+
+### 2.3.4 安装Babel需要的包
+
+安装命令：`npm install --save-dev @babel/core @babel/cli`
+
+注意：`--save-dev` 表示这是一个开发环境的依赖，即上线之后是用不到的。
+
+当我们安装成功后，会得到一个依赖及包代码的放置目录和两个 json 文件，其中 package.json 文件会新增一个 `devDependencies` （开发依赖）属性，并记录下我们的安装记录。
+
+<img src="mark-img/image-20220604003001083.png" alt="image-20220604003001083" style="zoom:50%;" />
+
+![image-20220604002444370](mark-img/image-20220604002444370.png)
+
+- @babel/cli：CLI 中使用 Babel 必须的包，实现了命令行中 Babel 命令的识别与执行等
+- @babel/core：Babel 中用于完成 “发号施令” 的包，即：指挥控制其它 Babel 包的行为
+
+> 注意：我们在安装时，要特别注意一下依赖及包的版本号，不能随意的依赖最新版本，因为最新版本可能会不兼容某些旧版本。
+
+> 当我们迁移了项目环境时，也许项目的依赖及包代码（node_modules 文件夹）已经不在了或者错误了，那么只要 package.json 文件还在，那么我们只需要执行 `npm install` 命令，即可根据 package.json 内容重新生成项目的依赖及包代码（node_modules 文件夹）。
+>
+> 注意：`npm install` 可以简写为：`npm i`
+>
+> 注意：在平时的项目开发中，我们在拷贝项目或者迁移项目时，通常不会把 node_modules 文件夹一同拷贝或迁移，因为该文件夹的文件数量级太大了，所以拷贝或迁移的时间会特别长，而且还容易出错，我们一般都是通过 `npm install` 来重新生成。
+
+### 2.3.5 使用Babel编译ES6代码
+
+首先，我们需要手动在 package.json 文件中添加以下代码：
+
+```json
+"scripts": {
+    "build": "babel src -d lib"
+}
+```
+
+其中 `"build": "babel src -d lib"` 表示：通过 babel 命令将 src 下的文件编译并输出到 lib 目录下。
+
+附：`-d` 实际表示的就是：`--out-dir` 的缩写，其实就是输出目录的意思。
+
+注意：由于我们通常不放在 `lib` 目录下，而是放在 `dist` 目录下，所以我们把 package.json 文件中添加的代码修改为：
+
+```json
+"scripts": {
+    "build": "babel src -d dist"
+}
+```
+
+**（1）编译的命令**
+
+当配置好上述步骤后，我们即可通过命令进行编译。
+
+编译命令：`npm run build`
+
+当我们编译成功后，便会多出一个 `dist` 目录，里面便放置有编译后的文件。
+
+> 当我们把编译好的文件打开后，发现里面的代码依旧是 ES6 版本的，这是因为我们在正式编译代码之前还需要设置一个 Babel 的配置文件。
+
+**（2）Babel的配置文件**
+
+首先，我们需要额外安装一个包：`npm install @babel/preset-env --save-dev`，这个包能告诉编译器具体如何转换编译 ES6 的语法。
+
+安装成功后，在项目目录下，创建一个 `.babelrc`。
+
+在文件中写入：
+
+```json
+{
+    "presets": ["@babel/preset-env"]
+}
+```
+
+> 配置之后，我们再次执行 `npm run build` 命令，那么 dist 目录中的文件就是编译完成的 ES6 之前版本的代码了！
