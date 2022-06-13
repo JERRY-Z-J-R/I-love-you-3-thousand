@@ -10,30 +10,47 @@
 </head>
 
 <body>
-    <!-- 
-        1、Vue 实例和容器是 “一一对应” 的关系：
-            <1> 两个相同 id 的容器，一个 Vue 实例，那么这个 Vue 实例只会为第一个容器服务。
-            <2> 两个 el 相同的 Vue 实例，一个容器，那么只接受第一个 Vue 实例的服务。
-        2、真实开发中只有一个 Vue 实例，并且会配合着组件一起使用（这样的机制解决了实例臃肿的问题）
-        3、{{xxx}} 中的 xxx 要写 js 表达式，且 xxx 可以自动读取到 data 中的所有属性。
-            <1> 表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方
-                （1）a
-                （2）a + b
-                （3）zjr(24)
-                （4）x === y ? 'a' : 'b'
-                    …………
+<!--
+    1、Vue 实例和容器是 “第一对应” 的关系：
+        “一个容器只会对应一个实例，一个实例也只能作用于一个容器”！
+        <1> 两个相同 id 的容器，一个 Vue 实例，那么这个 Vue 实例只会为第一个容器服务。
+        <2> 两个 el 相同的 Vue 实例，一个容器，那么只接受第一个 Vue 实例的服务。
+    2、真实开发中只有一个 Vue 实例，并且会配合着组件一起使用（这样的机制解决了实例臃肿的问题）
+    3、{{xxx}} 中的 xxx 要写 js 表达式，且 xxx 可以自动读取到 data 中的所有属性。
+        <1> 表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方
+            （1）a
+            （2）a + b
+            （3）func(24)
+            （4）x === y ? 'a' : 'b'
+                …………
 
-            <2> js 代码（语句）
-                （1）if(){}
-                （2）for(){}
-                    …………
-        4、一但 data 中的数据发生改变，那么页面中用到该数据的地方也会自动更新。
-    -->
+        <2> js 代码（语句）
+            （1）if(){}
+            （2）for(){}
+                …………
+    4、一但 data 中的数据发生改变，那么页面中用到该数据的地方也会自动更新。
+    5、假如我们不用 new 来实例化 Vue 对象，那么就会报错：
+       [Vue warn]: Vue is a constructor and should be called with the `new` keyword
+       Uncaught TypeError: Cannot read properties of undefined (reading '_init')
+       at Vue (vue.js:5092:10)
+       其中，第一行为 “友好型” 报错提示，只有开发版本的 Vue 才有，
+       第二、第三行为 “底层” 报错提示，开发版和生产版都有。
+       可以看一看 Vue 源码的实现：
+        function Vue (options) {
+            // 判断实例对象中的 this 是不是指向 Vue，如果不是证明并不是 new 出来的
+            if (!(this instanceof Vue)
+            ) {
+              warn('Vue is a constructor and should be called with the `new` keyword');
+            }
+            this._init(options);
+          }
+    6、调试 Vue 代码，除了可以用浏览器自带的调试器之外，还有一个更强大的就是利用 Vue 官方的浏览器插件进行调试。
+-->
 
-    <!-- 准备一个容器 -->
-    <div id="root">
-        <h1>Hello, {{name.toUpperCase()}}，{{address}}，{{Date.now()}}</h1>
-    </div>
+<!-- 准备一个容器 -->
+<div id="root">
+    <h1>Hello, {{name.toUpperCase()}}，{{address}}，{{Date.now()}}</h1>
+</div>
 </body>
 
 <script>

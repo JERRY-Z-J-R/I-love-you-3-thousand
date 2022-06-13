@@ -19,39 +19,72 @@
         sex: '男'
     }
 
+    /*
+     Object.defineProperty()可以对添加的属性进行很多高级的限制
+     Object.defineProperty()方法参数：
+     参数1：给哪个对象添加属性
+     参数2：添加的属性名
+     参数3：配置项（以对象的方式配置）
+    */
     // 向 person 对象中增加 age: 18 属性
     Object.defineProperty(person, 'age', {
+        //【基本配置项】
         // value: 18,           // 直接指定值
-        // enumerable: true,    // 可枚举的，默认值是 false
-        // writable: true,      // 可修改的，默认值是 false  
-        // configurable: true,  // 可删除的，默认值为 false
+        // 在 Object.defineProperty() 中直接指定的属性是默认不可枚举（遍历）、不可修改、不可删除的！而直接在原对象上添加的属性则相反！
+        // enumerable: true,    // 控制是否可枚举，默认值是 false
+        // writable: true,      // 控制是否可修改，默认值是 false
+        // configurable: true,  // 控制是否可删除，默认值为 false
 
-        // 当读取 person 的 age 属性时，get 函数（getter）就会被调用，且返回值就是 age 的值。
+        // 【高级配置项】
+        // 我们不想直接在 Object.defineProperty() 中直接指定值，而是绑定一个外部的变量 number 给 person，那我们可以这样：
+        // 首先要明确的是，直接在 person 中写 age: number 是不可以的，因为这样做只是简单的赋值，并不能达到 “你变，我同步变” 的效果。
+        // 所以，应该这样做：
+        // 当读取 person 的 age 属性时，get 函数（getter）就会被自动调用，且返回值就是 age 的值。
         get() {
-            console.log('getter被调用！')
-            return number
+            console.log('getter被调用！');
+            return number;
         },
 
-        // 当修改 person 的 age 属性时，set 函数（setter）就会被调用，且会收到修改的具体值。
+        // 当修改 person 的 age 属性时，set 函数（setter）就会被自动调用，且会收到修改的具体值。
         set(value) {
-            console.log('有人修改了age属性，且值是：', value)
-            number = value
+            console.log('有人修改了age属性，且值是：', value);
+            number = value;
         }
     })
 
-    console.log(person)
-    // {name: "张三", sex: "男", age: 18}
+    console.log(person);
+    // {name: "张三", sex: "男"}
 
     // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable
-    console.log(Object.keys(person))
+    console.log(Object.keys(person));
     // ["name", "sex"]
 
     // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable
     for (let key in person) {
-        console.log(key)
+        console.log(key);
     }
-    // name 
-    // sex
+    /*
+    name
+    sex
+     */
+
+    console.log(person.age);
+    /*
+    getter被调用！
+    18
+     */
+
+    person.age = 24;
+    // 有人修改了age属性，且值是： 24
+
+    console.log(person.age);
+    /*
+    getter被调用！
+    24
+     */
+
+    console.log(person);
+    // {name: "张三", sex: "男"}
 </script>
 
 </html>
