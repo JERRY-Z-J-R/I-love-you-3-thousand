@@ -38,6 +38,8 @@
         4、capture：使用事件捕获模式
         5、self：只有 event.target 是当前操作的元素是才触发事件
         6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+
+        补充：修饰符是可以连用的，比如：@click.stop.prevent，即 先阻止事件冒泡，然后再阻止默认事件
 -->
 <div id="root">
     <h2>欢迎来到{{name}}学习</h2>

@@ -1,10 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+    <script src="../js/vue.js"></script>
 </head>
-<body>
 
+<body>
+<!--
+1、Vue 中常用的按键别名
+    回车：enter
+    删除：delete（捕获“删除”和“退格键”）
+    推出：esc
+    空格：space
+    制表：tab（特殊，必须配合 keydown 使用）
+    上：  up
+    下：  down
+    左：  left
+    右：  right
+2、Vue 未提供别名的按键，可以使用按键原始的 key 值去绑定，但注意要转为 kebab-case（短横线命名）
+    比如，在 JS 中，回车键是 Enter 可以直接用 @keyup.Enter，但是 CapsLock 在 @keyup 中必须是：@keyup.caps-lock
+3、系统修饰键（用法特殊）：ctrl、alt、shift、meta（徽标键）
+    （1）配合 keyup 使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+        如果是：@keyup.ctrl 那么表示：按下 ctrl 的同时，再按下其他键，随后释放其他键，事件才被触发
+        如果是：@keyup.ctrl.y 那么表示：按下 ctrl 的同时，再按下 y 键，随后释放 y 键，事件才被触发
+    （2）配合 keydown 使用：正常触发事件。
+4、也可以使用 keyCode 去指定具体的按键（不推荐，尽量不要使用）比如：回车 @keyup.13
+5、Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
+-->
+<div id="root">
+    <input type="text" placeholder="按下回车键提示输入" @keyup.enter="showInfo">
+    <input type="text" placeholder="按下回车键提示输入" @keyup.huiche="showInfo">
+</div>
 </body>
+
+<script>
+    Vue.config.productionTip = false;
+    // Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
+    Vue.config.keyCodes.huiche = 13;    // 定义了一个别名按键
+
+    new Vue({
+        el: '#root',
+        data: {},
+        methods: {
+            showInfo(event) {
+                // 可以通过 event.key 得到按键名称，event.keyCode 得到按键编码
+                console.log(event.target.value);
+            }
+        }
+    })
+</script>
+
 </html>
