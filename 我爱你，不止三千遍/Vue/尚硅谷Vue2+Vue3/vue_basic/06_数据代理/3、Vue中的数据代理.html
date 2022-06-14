@@ -23,6 +23,8 @@
 <div id="root">
     <!--
     // 我们直接 data.name 是会报错的，因为 data 只是实例化 Vue 的一个参数，并不在存在 data 属性，data 实际上是被 _data 属性代替了！
+    // 所以，实际上应该是：Vue 先将 data 用 _data 来保存了，然后用 vm 对象来代理了 _data 中的数据的操作。
+    // 注意：在 _data 中，除了 name、address 外，还有另外的很多东西，甚至还有 get、set，但是这里的内容与数据代理无关（否则就套娃了），而是数据劫持（用于实现 _data 变视图也同时变）
     <h1>学校名称：{{_data.name}}</h1>
     <h2>学校地址：{{_data.address}}</h2>
     -->

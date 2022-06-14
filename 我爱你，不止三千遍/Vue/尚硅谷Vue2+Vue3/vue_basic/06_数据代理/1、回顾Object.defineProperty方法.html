@@ -20,6 +20,10 @@
     }
 
     /*
+    Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+    备注：应当直接在 Object 构造器对象上调用此方法，而不是在任意一个 Object 类型的实例上调用。
+     */
+    /*
      Object.defineProperty()可以对添加的属性进行很多高级的限制
      Object.defineProperty()方法参数：
      参数1：给哪个对象添加属性
@@ -29,8 +33,7 @@
     // 向 person 对象中增加 age: 18 属性
     Object.defineProperty(person, 'age', {
         //【基本配置项】
-        // value: 18,           // 直接指定值
-        // 在 Object.defineProperty() 中直接指定的属性是默认不可枚举（遍历）、不可修改、不可删除的！而直接在原对象上添加的属性则相反！
+        // value: 18,           // 直接指定值（在 Object.defineProperty() 中直接指定的属性是默认不可枚举（遍历）、不可修改、不可删除的！而直接在原对象上添加的属性则相反！）
         // enumerable: true,    // 控制是否可枚举，默认值是 false
         // writable: true,      // 控制是否可修改，默认值是 false
         // configurable: true,  // 控制是否可删除，默认值为 false
