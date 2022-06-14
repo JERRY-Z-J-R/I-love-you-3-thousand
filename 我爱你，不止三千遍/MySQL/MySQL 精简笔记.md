@@ -1,4 +1,6 @@
-# MySQL精简笔记
+# MySQL 精简笔记
+
+> 原创内容，转载请注明出处！
 
 > 学习目标：
 >
@@ -6,7 +8,8 @@
 > * 能通过 SQL 对数据库进行 CRUD
 > * 能通过 SQL 对表进行 CRUD
 > * 能通过 SQL 对数据进行 CRUD
-> * 事务、索引、权限……
+> * 约束、数据库设计、多表查询
+> * 事务、索引、权限
 
 # 一、数据库相关概念
 
@@ -44,7 +47,7 @@
 
 <img src="mark-img/image-20210721185923635.png" alt="image-20210721185923635" style="zoom:80%;" />
 
-通过上面的描述，大家应该已经知道了`数据库管理系统`和`数据库`的关系。那么有有哪些常见的数据库管理系统呢？
+通过上面的描述，大家应该已经知道了`数据库管理系统`和`数据库`的关系。那么有哪些常见的数据库管理系统呢？
 
 ## 2.3 常见的数据库管理系统
 
@@ -73,7 +76,7 @@
 
 > 非关系型数据库（NoSql）
 >
-> - MongoDB：基于分布式文件存储的数据库。由C++语言编写，旨在为 Web 应用提供可扩展的高性能数据存储解决方案
+> - MongoDB：基于分布式文件存储的数据库。由 C++ 语言编写，旨在为 Web 应用提供可扩展的高性能数据存储解决方案
 > - Redis（Remote Dictionary Server )，即远程字典服务：是一个开源的使用 ANSI-C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的 API（常用于缓存数据库）
 
 # 二、MySQL基础
@@ -159,6 +162,8 @@ mysqld --initialize-insecure
 
 ### 2.2.4  注册MySQL服务
 
+> 注册服务就是将 MySQL 作为计算机系统后台的一个应用程序。
+
 在终端里敲入`mysqld -install`，回车。
 
 ```
@@ -169,7 +174,7 @@ mysqld -install
 
 现在你的计算机上已经安装好了 MySQL 服务了。
 
-> 安装了 MySQL 服务的计算机便可以叫做：MySQL 服务器
+> 安装了 MySQL 服务的计算机便可以叫做：MySQL 服务器。
 
 > 假设出现`Install/Remove of the Service Denied!`提示，请切换管理员权限终端再试
 
@@ -195,6 +200,16 @@ mysqladmin -u root password 123456
 ![image-20220524141712151](mark-img/image-20220524141712151.png)
 
 **至此，MySQL 5.7.24 解压版安装完毕！**
+
+### 2.2.7 开启远程访问权限
+
+MySQL 默认是不允许远程访问的，当我们需要远程访问时（比如连接云服务器中的数据库）那么就需要开启远程访问权限。
+
+```mysql
+use mysql;
+update user set user.Host='%' where user.User='root';
+flush privileges;
+```
 
 ## 2.3  MySQL卸载
 
@@ -250,7 +265,7 @@ exit 或 quit
 
 **关系型数据库：**
 
-> 关系型数据库是建立在关系模型基础上的数据库，简单说，关系型数据库是由多张能互相连接的`二维表`组成的数据库
+> 关系型数据库是建立在关系模型基础上的数据库，简单说，关系型数据库是由多张能互相连接的`二维表`组成的数据库。
 
 如下图，`订单信息表` 和 `客户信息表` 都是有行有列二维表我们将这样的称为关系型数据库。
 
@@ -282,14 +297,14 @@ CREATE DATABASE db01;
 
 ![image-20220524162437313](mark-img/image-20220524162437313.png)
 
-而上图中右边的 `db.frm` 是表文件，`db.MYD` 是数据文件，通过这两个文件就可以构建数据二维表。
+而上图中右边的 `db.frm` 是表文件，`db.MYD` 是数据文件，通过这两个文件组合就可以构建数据二维表。
 
-> 此处只是使用`db.frm`与`db.MYD`举例，其他数据库中的任意一张表也是同理
+> 此处只是使用`db.frm`与`db.MYD`举例，其他的任意一张表也是同理。
 
 **小结：**
 
-* MySQL 中可以创建多个数据库，每个数据库对应到磁盘上的一个文件夹
-* 在每个数据库中可以创建多个表，每张都对应到磁盘上一个 frm 文件
+* MySQL 中可以创建多个数据库，每个数据库对应到磁盘上 data 目录中的一个文件夹
+* 在每个数据库中可以创建多个表，每张表都对应到磁盘上一个 frm 文件
 * 每张表可以存储多条数据，数据会被存储到磁盘中 MYD 文件中
 
 ## 2.6 MySQL文件结构
@@ -315,7 +330,7 @@ CREATE DATABASE db01;
 * 英文：Structured Query Language，简称 SQL（结构化查询语言）
 * 一门操作关系型数据库的编程语言
 * 定义操作所有关系型数据库的统一标准
-* 对于同一个需求，每一种数据库操作的方式可能会存在一些不一样的地方，我们称为“方言”，不过只要我们掌握了 SQL 那么切换不同的关系型数据库的成本也是非常低的，即：学好“普通话”那么学“方言”也会非常快
+* 对于同一个需求，每一种数据库操作的方式可能会存在一些不一样的地方，我们称为“方言”，不过只要我们掌握了 SQL 那么切换不同的关系型数据库的学习成本也是非常低的，即：学好“普通话”那么学“方言”也会非常快
 
 ## 3.2 通用语法
 
@@ -334,15 +349,16 @@ CREATE DATABASE db01;
 * 注释
 
   * 单行注释：`-- 注释`或`# 注释`（MySQL 特有） 
-
+  * 推荐使用 `-- 注释`
+  
   ![image-20220524202624077](mark-img/image-20220524202624077.png) 
-
-    > 注意：使用`--`添加单行注释时，`--`后面一定要加空格，而`#`没有要求，但推荐注释符号后都留一个空格
-
+  
+    > 注意：使用`--`添加单行注释时，`--`后面一定要加空格，而`#`没有要求，但推荐注释符号后都留一个空格。
+  
   * 多行注释: `/* 注释 */`
-
+  
   ```sql
-  -- 单行注释
+  -- 单行注释（推荐）
   #单行注释
   # 推荐留一个空格
   /*
@@ -356,25 +372,25 @@ CREATE DATABASE db01;
 
 * DDL（Data Definition Language）数据定义语言，用来定义数据库对象：数据库、表、列等
 
-  DDL 简单理解就是用来操作数据库和表的
+  DDL 简单理解就是用来操作数据库和表的。
 
   <img src="mark-img/image-20210721220032047.png" alt="image-20210721220032047" style="zoom:60%;" />
 
 * DML（Data Manipulation Language）数据操作语言，用来对数据库中表的数据进行增删改
 
-  DML 简单理解就对表中数据进行增删改
+  DML 简单理解就对表中数据进行增删改。
 
   <img src="mark-img/image-20210721220132919.png" alt="image-20210721220132919" style="zoom:60%;" />
 
 * DQL（Data Query Language）数据查询语言，用来查询数据库中表的记录（数据）
 
-  DQL 简单理解就是对数据进行查询操作，从数据库表中查询到我们想要的数据
+  DQL 简单理解就是对数据进行查询操作，从数据库表中查询到我们想要的数据。
 
 * DCL（Data Control Language）数据控制语言，用来定义数据库的访问权限和安全级别及创建用户
 
   DML 简单理解就是对数据库进行权限控制，比如我让某一个数据库表只能让某一个用户进行操作等。
 
-> 注意： 以后我们最常操作的是 `DML` 和 `DQL`  ，因为我们开发中最常操作的就是数据
+> 注意： 以后我们最常操作的是 `DML` 和 `DQL`  ，因为我们开发中最常操作的就是数据。
 
 # 四、DDL数据库定义语言
 
@@ -394,8 +410,8 @@ SHOW DATABASES;
 
 上述查询到的是的这些数据库是 mysql 安装好自带的数据库，是数据库的核心，请不要操作这些数据库。
 
-- `information_schema`是信息数据库，其中保存着关于 MySQL 服务器所维护的所有其他数据库的信息
-- `performance_schema`可以理解为MySQLServer数据库性能监控，记录着内存、CPU 和网络磁盘 IO 情况
+- `information_schema`是信息数据库，其中保存着关于 MySQL 服务器所维护的所有其他数据库的信息（属于一个逻辑数据库：视图，所以在 data 中并没有它的身影）
+- `performance_schema`可以理解为 MySQL Server 数据库性能监控，记录着内存、CPU 和网络磁盘 IO 情况
 - `mysql`主要存储用户信息和权限，还有日志、时区信息、内存信息之类
 - `sys`提供了一些代替直接访问 performance_schema 的视图，目标是把 performance_schema 的把复杂度降低，让 DBA 能更好的阅读这个库里的内容，让 DBA 更快的了解 DB 的运行情况
 
@@ -413,7 +429,7 @@ CREATE DATABASE 数据库名称;
 
 为了避免上面的错误，在创建数据库的时候先做判断，如果不存在再创建。
 
-* **创建数据库（判断，如果不存在则创建）**
+* **创建数据库（先判断，如果不存在，再创建）**
 
 ```sql
 CREATE DATABASE IF NOT EXISTS 数据库名称;
@@ -425,6 +441,15 @@ CREATE DATABASE IF NOT EXISTS 数据库名称;
 
 从上面的效果可以看到虽然 db01 数据库已经存在，再创建 db01 也没有报错，而创建 db02 数据库则创建成功。
 
+> MySQL 数据库同样是需要设置字符集的（有默认值），为了确保统一，我们推荐还是手动设置上，防止字符混乱的情况发生：
+>
+> ```sql
+> CREATE DATABASE db01 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+> ```
+>
+> - DEFAULT CHARACTER SET utf8：数据库字符集
+> - COLLATE utf8_general_ci：数据库校对规则
+
 ## 4.3  删除数据库
 
 * **删除数据库**
@@ -433,7 +458,7 @@ CREATE DATABASE IF NOT EXISTS 数据库名称;
 DROP DATABASE 数据库名称;
 ```
 
-* **删除数据库(判断，如果存在则删除)**
+* **删除数据库（先判断，如果存在再删除）**
 
 ```sql
 DROP DATABASE IF EXISTS 数据库名称;
@@ -485,7 +510,7 @@ SHOW TABLES;
 DESC 表名称;
 ```
 
-查看 mysql 数据库中 func 表的结构，运行语句如下：
+查看所在数据库中 func 表的结构，运行语句如下：
 
 ![image-20220524221009109](mark-img/image-20220524221009109.png)
 
@@ -510,7 +535,7 @@ CREATE TABLE 表名 (
 
 ```sql
 CREATE TABLE tb_user (
-	id int,
+    id int,
     username varchar(20),
     password varchar(32)
 );
@@ -520,13 +545,24 @@ CREATE TABLE tb_user (
 
 ![image-20220524221518858](mark-img/image-20220524221518858.png)
 
+> MySQL 表同样是需要设置字符集的（有默认值），为了确保统一，我们推荐还是手动设置上，防止字符混乱的情况发生：
+>
+> ```sql
+> CREATE TABLE 表名 (
+>     ...,
+> ) ENGINE = INNODB DEFAULT CHARSET = utf8;
+> ```
+>
+> - ENGINE = INNODB：使用 InnoDB 引擎
+> - DEFAULT CHARSET = utf8：数据库默认编码为 utf-8
+
 ### 4.5.3 数据类型
 
 MySQL 支持多种类型，可以分为三类：
 
 * 数值
 
-  ```sql
+  ```
   tinyint：小整数型，占一个字节
   int：大整数类型，占四个字节，使用格式：字段名 int;
   double：浮点类型，使用格式：字段名 double(总长度, 小数点后保留的位数);
@@ -534,14 +570,14 @@ MySQL 支持多种类型，可以分为三类：
   
 * 日期
 
-  ```sql
+  ```
   date：日期值，只包含年月日，eg：birthday date;
   datetime：混合日期和时间值，包含年月日时分秒
   ```
   
 * 字符串
 
-  ```sql
+  ```
   char：定长字符串。
   	优点：存储性能高
   	缺点：浪费空间
@@ -552,14 +588,14 @@ MySQL 支持多种类型，可以分为三类：
   	eg：name varchar(10) 如果存储的数据字符个数不足10个，那就数据字符个数是几就占几个的空间	
   ```
 
-> 注意：其他类型参考资料中的《MySQL数据类型.xlsx》
+> ![image-20220614231113980](mark-img/image-20220614231113980.png)
 
 **案例：**
 
-> 需求：设计一张学生表，请注重数据类型、长度的合理性
+> 需求：设计一张学生表，请注重数据类型、长度的合理性。
 > 1. 编号
-> 2. 姓名，姓名最长不超过10个汉字
-> 3. 性别，因为取值只有两种可能，因此最多一个汉字（一个汉字占两个字符，但是这里用0表示女，1表示男）
+> 2. 姓名，姓名最长不超过 10 个汉字
+> 3. 性别，因为取值只有两种可能，因此最多一个汉字（一个汉字占两个字符，但是这里用 0 表示女，1 表示男）
 > 4. 生日，取值为年月日
 > 5. 入学成绩，小数点后保留两位
 > 6. 邮件地址，最大长度不超过 64
@@ -569,13 +605,13 @@ MySQL 支持多种类型，可以分为三类：
 语句设计如下：
 
 ```sql
-create table student (
-	id int,
+CREATE TABLE student (
+    id int,
     name varchar(10),
     gender char(1),
     birthday date,
     score double(5,2),
-    email varchar(15),
+    email varchar(64),
     tel varchar(15),
     status tinyint
 );
@@ -671,7 +707,7 @@ ALTER TABLE stu DROP addr;
 
 以上操作没有问题就会提示“连接成功”。
 
-连接成功后就能看到如下图界面：
+连接成功后，双击数据库就可以打开数据库，就能看到如下图界面：
 
 ![image-20220524225038098](mark-img/image-20220524225038098.png)
 
@@ -756,12 +792,12 @@ SELECT * FROM stu;
 ```sql
 -- 给指定列添加数据
 INSERT INTO stu (id, NAME) VALUES (1, '张三');
--- 给所有列添加数据，列名的列表可以省略
+-- 给所有列添加数据，列名列表可以省略（为了可读性，建议不要省略！）
 INSERT INTO stu (id, NAME, sex, birthday, score, email, tel, STATUS) VALUES (2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1);
--- 省略列名列表
+-- 省略列名列表（为了可读性，建议不要省略！）
 INSERT INTO stu VALUES (2,'李四','男','1999-11-11',88.88,'lisi@itcast.cn','13888888888',1);
 
--- 批量添加数据
+-- 批量添加数据，以给所有列添加数据为例
 INSERT INTO stu VALUES 
 	(2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1),
 	(2, '李四', '男', '1999-11-11', 88.88, 'lisi@itcast.cn', '13888888888', 1),
@@ -778,7 +814,7 @@ UPDATE 表名 SET 列名1 = 值1, 列名2 = 值2, … [WHERE 条件];
 
 > 注意：
 >
-> 1. 修改语句中如果不加条件，则将所有数据都修改！
+> 1. 修改语句中如果不加 WHERE 条件，则将对所有的数据都修改！
 > 2. 像上面的语句中的中括号，表示在写 SQL 语句中可以省略这部分
 
 * **练习**
@@ -825,6 +861,8 @@ DELETE FROM stu;
 数据库查询操作是最重要的操作，所以此部分需要重点掌握。
 
 接下来我们先介绍查询的完整语法：
+
+> 注意：在进行 DQL 操作的时候，一定要符合下列命令的先后顺序！
 
 ```sql
 SELECT 
@@ -901,7 +939,7 @@ AS: -- AS 可以省略
 
 #### 6.1.2  练习
 
-* 查询name、age两列
+* 查询 name、age 两列
 
   ```sql
   SELECT name, age FROM stu;
@@ -925,7 +963,7 @@ AS: -- AS 可以省略
 
   <img src="mark-img/image-20220525011250703.png" alt="image-20220525011250703" style="zoom: 67%;" />
 
-  从上面的结果我们可以看到有重复的数据，我们也可以使用`distinct`关键字去除重复数据。
+  从上面的结果我们可以看到有重复的数据，我们也可以使用`DISTINCT`关键字去除重复数据。
 
 * 去除重复记录
 
@@ -940,6 +978,7 @@ AS: -- AS 可以省略
   SELECT name, math 数学成绩, english 英文成绩 FROM stu;
   ```
 
+<img src="mark-img/image-20220614235638549.png" alt="image-20220614235638549" style="zoom:50%;" />
 
 ### 6.2  条件查询
 
@@ -953,22 +992,22 @@ SELECT 字段列表 FROM 表名 WHERE 条件列表;
 
 条件列表可以使用以下运算符：
 
-| 符号                | 功能                                   |
-| ------------------- | -------------------------------------- |
-| >                   | 大于                                   |
-| <                   | 小于                                   |
-| >=                  | 大于等于                               |
-| <=                  | 小于等于                               |
-| =                   | 等于                                   |
-| <> 或 !=            | 不等于                                 |
-| BETWEEN ... AND ... | 在某个范围之内（都包含）               |
-| IN(...)             | 多选一                                 |
-| LIKE 占位符         | 模糊查询，_单个任意字符，%多个任意字符 |
-| IS NULL             | 是 NULL                                |
-| IS NOT NULL         | 不是 NULL                              |
-| AND 或 &&           | 并且                                   |
-| OR 或 \|\|          | 或者                                   |
-| NOT 或 !            | 非，不是                               |
+| 符号                  | 功能                                   |
+| --------------------- | -------------------------------------- |
+| `>`                   | 大于                                   |
+| `<`                   | 小于                                   |
+| `>=`                  | 大于等于                               |
+| `<=`                  | 小于等于                               |
+| `=`                   | 等于                                   |
+| `<>` 或 `!=`          | 不等于                                 |
+| `BETWEEN ... AND ...` | 在某个范围之内（都包含）               |
+| `IN(...)`             | 多选一                                 |
+| `LIKE 占位符`         | 模糊查询，_单个任意字符，%多个任意字符 |
+| `IS NULL`             | 是 NULL                                |
+| `IS NOT NULL`         | 不是 NULL                              |
+| `AND` 或 `&&`         | 并且                                   |
+| `OR` 或 `||`          | 或者                                   |
+| `NOT` 或 `!`          | 非，不是                               |
 
 #### 6.2.2  条件查询练习
 
@@ -1025,14 +1064,20 @@ SELECT 字段列表 FROM 表名 WHERE 条件列表;
   SELECT * FROM stu WHERE age IN (18, 20 ,22);
   ```
 
+* 查询年龄不在 18 岁到 20 岁之间的学员信息
+
+```sql
+SELECT * FROM stu WHERE age NOT IN (18, 19, 20); 
+```
+
 * 查询英语成绩为 null 的学员信息
 
-  null 值的比较不能使用 =  或者 != 。需要使用 is  或者 is not
+  NULL 值的比较不能使用 =  或者 != 。需要使用 IS 或者 IS NOT
 
   ```sql
-  SELECT * FROM stu WHERE english = null; -- 这个语句是不行的
-  SELECT * FROM stu WHERE english IS null;
-  SELECT * FROM stu WHERE english IS NOT null;
+  SELECT * FROM stu WHERE english = NULL; -- 这个语句是不行的
+  SELECT * FROM stu WHERE english IS NULL;
+  SELECT * FROM stu WHERE english IS NOT NULL;
   ```
 
 #### 6.2.3  模糊查询练习
@@ -1075,7 +1120,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排�
 * ASC ： 升序排列（默认值）
 * DESC ： 降序排列
 
-> 注意：如果有多个排序条件，当前边的条件值一样时，才会根据第二条件进行排序
+> 注意：如果有多个排序条件，那么只有当前边的条件值一样时，才会根据后一条件进行排序。
 
 #### 6.3.2  练习
 
@@ -1083,6 +1128,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排�
 
   ```sql
   SELECT * FROM stu ORDER BY age;
+  SELECT * FROM stu ORDER BY age ASC;
   ```
 
 * 查询学生信息，按照数学成绩降序排列
@@ -1095,6 +1141,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排�
 
   ```sql
   SELECT * FROM stu ORDER BY math DESC , english ASC;
+  SELECT * FROM stu ORDER BY math DESC , english;
   ```
 
 
@@ -1104,7 +1151,7 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排�
 
 将一列数据作为一个整体，进行纵向计算。
 
-如何理解呢？假设有如下表
+如何理解呢？假设有如下表：
 
 ![image-20220525030658627](mark-img/image-20220525030658627.png)
 
@@ -1112,13 +1159,13 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排�
 
 #### 6.4.2  聚合函数分类
 
-| 函数名      | 功能                               |
-| ----------- | ---------------------------------- |
-| COUNT(列名) | 统计数量（一般选用不为 null 的列） |
-| MAX(列名)   | 最大值                             |
-| MIN(列名)   | 最小值                             |
-| SUM(列名)   | 求和                               |
-| AVG(列名)   | 平均值                             |
+| 函数名        | 功能                               |
+| ------------- | ---------------------------------- |
+| `COUNT(列名)` | 统计数量（一般选用不为 null 的列） |
+| `MAX(列名)`   | 最大值                             |
+| `MIN(列名)`   | 最小值                             |
+| `SUM(列名)`   | 求和                               |
+| `AVG(列名)`   | 平均值                             |
 
 #### 6.4.3  聚合函数语法
 
@@ -1126,21 +1173,21 @@ SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排�
 SELECT 聚合函数名(列名) FROM 表;
 ```
 
-> 注意：null 值不参与所有聚合函数运算
+> 注意：NULL 值不参与所有聚合函数运算。
 
 #### 6.4.4  练习
 
 * 统计班级一共有多少个学生
 
   ```sql
-  SELECT COUNT(id) FROM stu;
-  SELECT COUNT(english) FROM stu;
+  SELECT COUNT(id) FROM stu; -- 8条数据，统计学生个数正确
+  SELECT COUNT(english) FROM stu; -- 7条数据，统计学生个数错误
   ```
 
-  上面语句根据某个字段进行统计，如果该字段某一行的值为 null 的话，将不会被统计。所以可以在 count(*) 来实现，`*`表示所有字段数据，一行中也不可能所有的数据都为 null，所以建议使用`count(*)`
+  上面语句根据某个字段进行统计，如果该字段某一行的值为 NULL 的话，将不会被统计。所以可以通过主键或者 `count(*)` 来实现，`*`表示所有字段数据，当一行数据所有列都为 NULL 时才统计不出该行来，一行中也不可能所有的数据都为 NULL，所以建议使用`count(*)`。
 
   ```sql
-  SELECT COUNT(*) FROM stu;
+  SELECT COUNT(*) FROM stu; -- 8条数据
   ```
 
 * 查询数学成绩的最高分
@@ -1178,11 +1225,13 @@ SELECT 聚合函数名(列名) FROM 表;
 
 #### 6.5.1  语法
 
+> 分组查询的本质其实就是：先按照某个条件对数据进行分组，然后对每一个组进行单独的查询。
+
 ```sql
 SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字段名 [HAVING 分组后条件过滤];
 ```
 
-> 注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义
+> 注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义。
 
 #### 6.5.2  练习
 
@@ -1190,9 +1239,12 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 
   ```sql
   SELECT sex, AVG(math) FROM stu GROUP BY sex;
+  -- 为了方便知道分组后的组名，所以我们通常也把分组字段 sex 加上 
   ```
 
-  > 注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义
+  <img src="mark-img/image-20220615010808396.png" alt="image-20220615010808396" style="zoom:50%;" />
+
+  > 注意：分组之后，查询的字段为 **聚合函数** 或 **分组字段**，查询其他字段无任何意义！
 
   ```sql
   SELECT name, sex, AVG(math) FROM stu GROUP BY sex;  -- 这里查询 name 字段就没有任何意义
@@ -1216,15 +1268,25 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
   SELECT sex, AVG(math), COUNT(*) FROM stu WHERE math > 70 GROUP BY sex HAVING COUNT(*)  > 2
   ```
 
-**where 和 having 区别：**
+> 注意：如果 SQL 语句过长，那么推荐换行写。
+>
+> ```sql
+> SELECT sex, AVG( math ), COUNT(*) 
+> FROM stu 
+> WHERE math > 70 
+> GROUP BY sex 
+> HAVING COUNT(*) > 2;
+> ```
 
-* 执行时机不一样：where 是分组之前进行限定，不满足 where 条件，则不参与分组，而 having 是分组之后对结果进行过滤。
+**WHERE 和 HAVING 区别：**
 
-* 可判断的条件不一样：where 不能对聚合函数进行判断，having 可以。
+* 执行时机不一样：WHERE 是分组之前进行限定，不满足 WHERE 条件，则不参与分组，而 HAVING 是分组之后对结果进行过滤。
+
+* 可判断的条件不一样：WHERE 不能对聚合函数进行判断，HAVING 可以。
 
 ### 6.6  分页查询
 
-相信大家在很多网站都见过页面底部分页部件，如京东、百度、淘宝等。分页查询是将数据一页一页的展示给用户看，用户也可以通过点击查看下一页的数据。
+相信大家在很多网站都见过页面底部分页部件，如京东、百度、淘宝等。分页查询是将数据一页一页的展示给用户看，用户也可以通过点击查看下一页的数据，这样在面对大量数据的时候可以有效缓解性能压力，同时增加用户体验。
 
 接下来我们先说分页查询的语法。
 
@@ -1234,7 +1296,7 @@ SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定] GROUP BY 分组字
 SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询条目数;
 ```
 
-> 注意： 上述语句中的起始索引是从 0 开始
+> 注意： 上述语句中的起始索引是从 0 开始。
 
 #### 6.6.2  练习
 
@@ -1267,4 +1329,245 @@ SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询条目数;
 ```sql
 起始索引 = (当前页码 - 1) * 每页显示的条数
 ```
+
+> 小提示：
+>
+> 分页查询在不同数据库中不一样。
+>
+> - MySQL：limit
+> - Oracle：rownumber
+> - SQL Server：top
+
+# 七、约束
+
+## 7.1 概述和分类
+
+### 7.1.1 约束的概念
+
+- 约束是作用于表中列上的规则，用于限制加入表的数据
+- 约束的存在保证了数据库中数据的准确性，有效性和完整性
+
+### 7.1.2 约束的分类
+
+| 约束名称 | 描述                                                         | 关键字        |
+| -------- | ------------------------------------------------------------ | ------------- |
+| 非空约束 | 保证列中所有数据不能有 NULL 值                               | `NOT NULL`    |
+| 唯一约束 | 保证列中所有数据各不相同                                     | `UNIQUE`      |
+| 主键约束 | 主键是一行数据的唯一标识，要求非空且唯一<br />（一张表只能有一个主键） | `PRIMARY KEY` |
+| 检查约束 | 保证列中的值满足某一条件                                     | `CHECK`       |
+| 默认约束 | 保存数据时，未指定值采用默认值                               | `DEFAULT`     |
+| 外键约束 | 外键用来让两个表的数据之间建立链接，保证数据的一致性和完整性<br />（一张表可以有多个外键） | `FOREIGN KEY` |
+
+> 注意：MySQL 不支持检查约束！对于数据的检查，我们可以放在逻辑代码中进行（例如 Java）。
+
+## 7.2 约束案例
+
+根据需求，为表添加合适的约束。
+
+<img src="mark-img/image-20220615014600564.png" alt="image-20220615014600564" style="zoom:50%;" />
+
+```sql
+CREATE TABLE emp (
+	id INT PRIMARY KEY AUTO_INCREMENT, -- id主键一般配合自增长 AUTO_INCREMENT 来约束
+	ename VARCHAR ( 50 ) NOT NULL UNIQUE,
+	joindate DATE NOT NULL,
+	salary DOUBLE ( 7, 2 ) NOT NULL,
+	bonus DOUBLE ( 7, 2 ) DEFAULT 0 
+);
+```
+
+> ```sql
+> -- 建完表后添加非空约束
+> ALTER TABLE 表名 MODIFY 字段名 数据类型 NOT NULL;
+> -- 删除约束
+> ALTER TABLE 表名 MODIFY 字段名 数据类型;
+> 
+> -- 建完表后添加唯一约束
+> ALTER TABLE 表名 MODIFY 字段名 数据类型 UNIQUE;
+> -- 删除约束
+> ALTER TABLE 表名 DROP INDEX 字段名;
+> 
+> -- 建完表后添加主键约束
+> ALTER TABLE 表名 ADD PRIMARY KEY(字段名);
+> -- 删除约束
+> ALTER TABLE 表名 DROP PRIMARY KEY;
+> 
+> -- 建完表后添加默认约束
+> ALTER TABLE 表名 ALTER 列名 SET DEFAULT 默认值;
+> -- 删除约束
+> ALTER TABLE 表名 ALTER 列名 DROP DEFAULT;
+> ```
+
+> 注意：虽然一张表只能有一个主键，但是该主键是可以由该张表的多个字段共同构成的！
+>
+> ```sql
+> CREATE TABLE 表名 (
+>     ...,
+>     PRIMARY KEY (字段1, 字段2)
+> );
+> 
+> -- 或是在表创建后再：ALTER TABLE 表名 ADD PRIMARY KEY(字段1， 字段2);
+> ```
+
+## 7.3 外键约束
+
+概念：外键用来将两个表的数据之间建立连接，保证数据的一致性和完整性。
+
+举例：员工表中每个员工的部门信息来源于部门表。
+
+> 一致性：员工的部门信息一定来源于部门表，信息一致。
+>
+> 完整性：要删除某一个部门，前提是属于该部门的员工都已经删除了。
+>
+> 员工表为 “从表”，部门表为 “主表”。
+>
+> 一定是先创建主表，再创建从表！
+
+![image-20220615023107981](mark-img/image-20220615023107981.png)
+
+语法：
+
+（1）添加约束
+
+```sql
+-- 创建表时添加外键约束
+CREATE TABLE 表名 (
+    列名 数据类型,
+    ...
+    [CONSTRAINT] [外键名称] FOREIGN KEY(外键列名) REFERENCES 主表(主表列名)
+);
+```
+
+```sql
+-- 键完表后添加外键约束
+ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY(外键列名) REFERENCES 主表(主表列名);
+```
+
+（2）删除约束
+
+```sql
+ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
+```
+
+案例解决：
+
+```sql
+-- 一定是先创建主表，再创建从表！
+
+-- 部门表
+CREATE TABLE dept (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    dep_name VARCHAR ( 20 ),
+    addr VARCHAR ( 20 )
+);
+
+-- 员工表
+CREATE TABLE emp ( 
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR ( 20 ), 
+    age INT, 
+    dep_id INT, 
+    -- 添加外键 dep_id 关联 dept 表的 id 主键
+    -- 外键通常命名为：fk_从表_主表
+    CONSTRAINT fk_emp_dept FOREIGN KEY(dep_id) REFERENCES dept(id)
+);
+```
+
+# 八、数据库设计
+
+## 8.1 简介
+
+### 8.1.1 软件的研发步骤
+
+<img src="mark-img/image-20220615031805178.png" alt="image-20220615031805178" style="zoom:50%;" />
+
+### 8.1.2 数据库设计概念
+
+- 数据库设计就是根据业务系统的具体需求，结合我们所选用的 DBMS，为这个业务系统构造出最优的数据存储模型
+- 通俗理解：建立数据库中的表结构以及表与表之间的关联关系的过程
+- 有哪些表？表里有哪些字段？表与表之间有什么关系？
+
+### 8.1.3 数据库设计步骤
+
+1. 需求分析（数据是什么？数据具有哪些属性？数据与属性的特点是什么？）
+2. 逻辑分析（通过 ER 图对数据库进行逻辑建模，不需要考虑我们所选用的数据库管理系统）
+3. 物理设计（根据数据库自身的特点把逻辑设计转换为物理设计）
+4. 维护设计（对新的需求进行建表以及表优化等）
+
+## 8.2 多表关系的实现
+
+### 8.2.1 表关系
+
+- 一对一：用户 和 用户详情
+- 一对多（多对一）：部门 和 员工
+- 多对多：商品 和 订单
+
+### 8.2.2 表关系的实现
+
+**（1）一对一**
+
+一对一关系多用于表拆分，将一个实体中经常使用的字段放一张表，不经常使用的字段放另一张表，用于提升查询性能。
+
+实现方式：在任意一方加入外键，关联另一方的主键，并且设置外键为唯一（UNIQUE）。
+
+![image-20220615035300177](mark-img/image-20220615035300177.png)
+
+**（2）一对多（多对一）**
+
+实现方式：再 “多” 的一方建立外键，指向 “一” 的一方的主键。
+
+![image-20220615033254662](mark-img/image-20220615033254662.png)
+
+**（3）多对多**
+
+实现方式：建立第三张中间表，中间表至少包含两个外键，分布关联两方的主键。
+
+![无标题](mark-img/无标题.png)
+
+> 通常，在第三张中间表中，我们还会存放一些其他数据，比如：购买数量。
+>
+> ![无标题](mark-img/无标题-16552356910452.png)
+
+多对多实现：
+
+```sql
+-- 订单表
+CREATE TABLE tb_order (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    payment DOUBLE ( 10, 2 ),
+    payment_type TINYINT,
+    status TINYINT
+);
+
+-- 商品表
+CREATE TABLE tb_goods (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR ( 100 ),
+    price DOUBLE ( 10, 2 )
+);
+
+-- 订单商品中间表
+CREATE TABLE tb_order_goods (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,
+    goods_id INT,
+    count int
+);
+
+-- 添加外键
+ALTER TABLE tb_order_goods ADD CONSTRAINT fk_order_id FOREIGN KEY(order_id) REFERENCES tb_order(id);
+ALTER TABLE tb_order_goods ADD CONSTRAINT fk_goods_id FOREIGN KEY(goods_id) REFERENCES tb_goods(id);
+```
+
+## 8.3 案例
+
+![无标题](mark-img/无标题-16552368233754.png)
+
+# 九、多表查询
+
+# 十、事务
+
+# 十一、索引
+
+# 十二、权限
 
