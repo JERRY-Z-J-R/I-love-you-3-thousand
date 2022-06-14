@@ -65,7 +65,7 @@
 
 2. **关于 CLASSPATH 变量**
 
-path 的作用：path 是系统用来指定可执行文件的完整路径，即使不在 path 中设置 JDK 的路径也可执行 Java 文件，但必须把完整的路径写出来，如 C:\Program Files\Java\jdk1.6.0_10\bin\javac TheClass.java。path 是用来搜索所执行的可执行文件路径的，如果执行的可执行文件不在当前目录下，那就会依次搜索 path 中设置的路径；而 java 的各种操作命令是在其安装路径中的 bin 目录下，所以在 path 中设置了 JDK 的安装目录后就不用再把java 文件的完整路径写出来了，它会自动去 path 中设置的路径中去找；
+path 的作用：path 是系统用来指定可执行文件的完整路径，即使不在 path 中设置 JDK 的路径也可执行 Java 文件，但必须把完整的路径写出来，如 C:\Program Files\Java\jdk1.6.0_10\bin\javac TheClass.java。path 是用来搜索所执行的可执行文件路径的，如果执行的可执行文件不在当前目录下，那就会依次搜索 path 中设置的路径；而 java 的各种操作命令是在其安装路径中的 bin 目录下，所以在 path 中设置了 JDK 的安装目录后就不用再把 java 文件的完整路径写出来了，它会自动去 path 中设置的路径中去找；
 
 CLASSPATH 的作用：classpath 是指定你在程序中所使用的类（.class）（.jar）文件所在的位置，就如在引入一个类时：import javax.swing.JTable 这句话是告诉编译器要引入 javax.swing 这个包下的 JTable 类，而 classpath 就是告诉编译器该到哪里去找到这个类（前提是你在 classpath 中设置了这个类的路径）；如果你想要编译在当前目录下找，就加上“.”，如：`.;C:\Program Files\Java\jdk`，这样编译器就会到当前目录 `.` 和 `C:\Program Files\Java\jdk\lib` 去找 javax.swing.JTable 这个类。注意：jdk1.5 之后系统可以自动找到自带的类路径（dt.jar 和 tools.jar），而大多数人都是用 Eclipse 写程序，Eclipse 会自动配置开发者所编写的类路径，不设 classpath 也没关系，只有需要引入额外的第三方类时才需要单独配置 classpath（其实不配置 classpath，将其 .class 或者 .jar 复制到 Eclipse 项目的相应目录里也可以，因为 Eclipse 会自动配置）
 
