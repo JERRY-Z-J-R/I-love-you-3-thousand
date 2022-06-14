@@ -5,7 +5,7 @@
 - nginx 和 tomcat 性能上有何异同?
 - tomcat 用在 Java 后台程序，难道不能用 apache 和 nginx？
 
-Apache 其实是 Apache HTTP Server Project，和 Nginx 一样都是开源的 **HTTP服务器** 软件。
+Apache 其实是 Apache HTTP Server Project，和 Nginx 一样都是开源的 **HTTP 服务器** 软件。
 
 HTTP 服务器本质上也是一种应用程序——它通常运行在服务器上，绑定服务器的 IP 地址并监听某个 TCP 端口，接收并处理 HTTP 请求，这样客户端（如 Chrome 这样的浏览器）就能通过 HTTP 协议获取服务器上的网页（HTML格式）、文档（PDF格式）等资源。
 

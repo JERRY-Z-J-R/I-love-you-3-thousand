@@ -471,3 +471,49 @@ Node.js 中文官网：[Node.js (nodejs.org)](https://nodejs.org/zh-cn/)
 ```
 
 > 配置之后，我们再次执行 `npm run build` 命令，那么 dist 目录中的文件就是编译完成的 ES6 之前版本的代码了！
+
+## 2.4 Webpack是什么
+
+（1）认识 Webpack
+
+Webpack 是静态模块打包器，当 Webpack 处理应用程序时，会将所有这些模块打包成一个或多个文件。
+
+（2）什么是 Webpack 模块？
+
+除了 JavaScript 外，还有 CSS、图片、图标字体等。
+
+（3）什么是静态？
+
+开发过程中存在于本地的 js/css/图片/图标字体 等文件，就是静态的；而从远程服务器获取的就是动态的。
+
+Webpack 没办法处理动态的部分，只能处理静态的部分。
+
+## 2.5 Webpack初体验
+
+**（1）初始化项目**
+
+`npm init`，注意：项目名请不要取 `webpack`，因为这个项目名与 webpack 包名冲突了。
+
+**（2）安装Webpack需要的包**
+
+`npm install --save-dev webpack-cli@3.3.12 webpack@4.44.1`，此处以某个版本作为演示。
+
+**（3）配置Webpack**
+
+- 创建配置文件 `webpack.config.js`
+
+- 编辑配置内容：
+
+  ```js
+  const path = require('path');
+  
+  module.exports = {
+    entry: './src/index.js',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'bundle.js',
+    },
+  };
+  ```
+
+  
