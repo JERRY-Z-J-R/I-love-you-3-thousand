@@ -1569,5 +1569,238 @@ ALTER TABLE tb_order_goods ADD CONSTRAINT fk_goods_id FOREIGN KEY(goods_id) REFE
 
 # 十一、索引
 
+## 11.1 MySQL索引简介
+
+索引是 MySQL 数据库为了加快数据查询速度，给表中的某一个或者是某几个列添加的一种“目录”。MySQL 的索引是一个特殊的文件，但是 InnoDB 类型引擎的表的索引是表空间的一个组成部分。
+
+MySQL 数据库一共支持 5 种类型的索引，分别是：普通索引、唯一性索引、主键索引、复合索引和全文索引，下面将对这四种类型的索引一一介绍。
+
+## 11.2 MySQL五种类型索引详解
+
+### 11.2.1 普通索引
+
+普通索引是 MySQL 数据库中的一种索引，添加普通索引的列对数据没有特殊要求，普通索引能起到的作用就是加快查询速度。
+
+在创建数据表时添加普通索引 SQL 语句示例如下：
+
+```sql
+CREATE TABLE exp (
+    id INT,
+    name VARCHAR ( 20 ),
+    INDEX idx_name(name)
+);
+```
+
+或者可以把 INDEX 换成 KEY，如下：
+
+```sql
+CREATE TABLE exp (
+    id INT,
+    name VARCHAR ( 20 ),
+    KEY idx_name(name)
+);
+```
+
+在上述 SQL 命令中，KEY 或者 INDEX 表示添加索引，后面紧跟着的是索引名称，后面括号里的是要添加索引的列。
+
+本文介绍的所有索引相关的 SQL 语句，如果没有特殊说明，INDEX 都可以换成 KEY，为了节省文章篇幅，这一点在以后就不再赘述了。此外，我们也可以在添加索引时，不指定索引的名称，这时，MySQL 会自动为该索引添加与该字段同名的索引名。
+
+执行结构如下：
+
+<img src="mark-img/image-20220615180159501.png" alt="image-20220615180159501" style="zoom:50%;" />
+
+创建数据表后向表内新添加普通索引 SQL 语句示例如下：
+
+```sql
+ALTER TABLE exp ADD INDEX idx_id(id);
+```
+
+<img src="mark-img/image-20220615180619759.png" alt="image-20220615180619759" style="zoom:50%;" />
+
+创建数据表后删除普通索引的 SQL 语句示例如下：
+
+```sql
+ALTER TABLE exp DROP INDEX idx_name;
+```
+
+<img src="mark-img/image-20220615180935509.png" alt="image-20220615180935509" style="zoom:50%;" />
+
+注意，在上述命令中，dix_name 是索引的名字而不是含有索引的字段的名字，如果我们忘记了该表中的索引名称，可以执行以下 SQL命令进项查询：
+
+```sql
+SHOW INDEX FROM exp;
+```
+
+![image-20220615182819354](mark-img/image-20220615182819354.png)
+
+从上面几张图片可以看出，添加普通索引后，在使用 DESC 查看表结构时，会发现 Key 列上出现 MUL，这就表示该列添加了普通索引。
+
+### 11.2.2 唯一性索引
+
+唯一性索引，是在普通索引的基础上，要求添加该索引的列所有的值只能出现一次。唯一性索引常用于添加在诸如：身份证号、学号等字段中，不可以添加在诸如：姓名、学校等字段中。
+
+唯一性索引的添加与普通索引几乎完全相同，只不过要把普通索引的关键字 INDEX 和 KEY 换成 `UNIQUE INDEX` 和 `UNIQUE KEY`。
+
+在创建数据表时添加唯一性索引的 SQL 语句示例如下：
+
+```sql
+CREATE TABLE exp (
+    id INT,
+    name VARCHAR ( 20 ),
+    UNIQUE INDEX idx_id(id)
+);
+```
+
+上述命令执行结果如下：
+
+<img src="mark-img/image-20220615203720661.png" alt="image-20220615203720661" style="zoom:50%;" />
+
+可以看出，添加唯一性索引的字段，在使用 DESC 命令查询表结构时，Key 列中会显示 UNI，表示该字段添加了唯一性索引。
+
+在创建数据表后添加唯一性索引的 SQL 语句实例如下：
+
+```sql
+ALTER TABLE exp ADD UNIQUE INDEX idx_id(id);
+```
+
+删除唯一性索引的 SQL 语句示例如下：
+
+```sql
+ALTER TABLE exp DROP INDEX idx_id;
+```
+
+### 11.2.3 主键索引
+
+主键索引，是数据库的所有索引中查询速度最快的，并且每个数据表只能有1个主键索引列。同时，主键索引的列，不允许出现重复的数据，也不允许为空值。
+
+注意：主键索引，只能用 KEY，不能用 INDEX！
+
+添加、删除主键索引与普通索引和唯一性索引非常相似，只不过将 Key 换成了 `PRIMARY KEY` 而已。相关 SQL 命令如下：
+
+```sql
+CREATE TABLE exp (
+    id INT,
+    name VARCHAR ( 20 ),
+    PRIMARY KEY idx_id(id)
+);
+```
+
+```sql
+ALTER TABLE exp ADD PRIMARY KEY idx_id(id);
+```
+
+<img src="mark-img/image-20220615204905014.png" alt="image-20220615204905014" style="zoom:50%;" />
+
+主键索引的删除可以执行命令：
+
+```sql
+ALTER TABLE exp DROP PRIMARY KEY;
+```
+
+<img src="mark-img/image-20220615205413361.png" alt="image-20220615205413361" style="zoom:50%;" />
+
+> 有时，我们在尝试删除主键索引时，MySQL 会拒绝，这可能是因为该字段添加了 AUTO_INCREMENT 属性的缘故，我们可以把该字段修饰符删除，就可以删除该字段的主键索引了。
+
+### 11.2.4 复合索引
+
+如果想要创建一个包含不同的列的索引，我们就可以创建复合索引。其实，复合索引在业务场景中应用的非常频繁。比如，如果我们想要记录数据包的内容，则需要将 IP 和 端口号 作为标识数据包的依据，这时就可以把 IP 地址的列和 端口号 的列创建为复合索引。
+
+创建、添加和删除复合索引 SQL 语句示例如下：
+
+```sql
+CREATE TABLE exp (
+    ip VARCHAR ( 15 ),
+    port INT,
+    PRIMARY KEY idx_ip_port(ip, port)
+);
+```
+
+```sql
+ALTER TABLE exp ADD PRIMARY KEY idx_ip_port(ip, port);
+```
+
+```sql
+ALTER TABLE exp DROP PRIMARY KEY;
+```
+
+复合索引在创建后，在使用 DESC 查看数据表结构时，会在 Key 列中发现多个 PRI，这就表示这些含有 PRI 的列就是复合索引的列了。如下所示：
+
+<img src="mark-img/image-20220615210312497.png" alt="image-20220615210312497" style="zoom:50%;" />
+
+> 注意：复合索引相当于一个多列的主键索引。因此，添加复合索引的任何一个列都不允许数据为空，并且这些列不允许数据完全相同，否则 MySQL 数据库会报错。
+
+### 11.2.5 全文索引
+
+全文索引主要是用于解决大数据量的情况下模糊匹配的问题。如果数据库中某个字段的数据量非常大，那么如果我们想要使用 LIKE 通配符的方式进行查找，速度就会变得非常慢。针对这种情况，我们就可以使用全文索引的方式，来加快模糊查询的速度。全文索引的原理是通过分词技术，分析处文本中关键字及其出现的频率，并依次建立索引。全文索引的使用，与数据库版本、数据表引擎乃至字段类型息息相关，主要限制如下：
+
+1. MySQL3.2 版本以后才支持全文索引
+2. MySQL5.6 之前的版本，只有 MyISAM 引擎才支持全文索引
+3. MySQL5.6 以后的版本，MyISAM 引擎和 InnoDB 引擎都支持全文索引
+4. MySQL5.7 版本以后 MySQL 才内置 ngram 插件，全文索引才开始支持中文
+5. 只有字段数据类型为 CHAR、VARCHAR、以及 TEXT 的字段才支持添加全文索引
+
+创建、添加和删除全文索引 SQL 命令如下：
+
+```sql
+CREATE TABLE exp (
+    id INT,
+    content TEXT,
+    FULLTEXT KEY idx_content(content)
+) ENGINE = INNODB DEFAULT CHARSET = utf8;
+```
+
+```sql
+ALTER TABLE exp ADD FULLTEXT INDEX idx_content(content);
+```
+
+```sql
+ALTER TABLE exp DROP INDEX idx_content;
+```
+
+<img src="mark-img/image-20220615212824245.png" alt="image-20220615212824245" style="zoom:50%;" />
+
+在创建了全文索引后，也不能够使用 LIKE 通配符的方式进行模糊查询，全文索引的使用有其特定的语法，如下所示：
+
+```sql
+SELECT * FROM exp WHERE MATCH(content) AGAINST ( 'a' );
+```
+
+其中，MATCH 后面的括号里是含有全文索引的字段，AGAINST 后面的括号里是要模糊匹配的内容。
+
+> 此外，全文索引的作用并不是唯一的，在很多场景下，我们并不会使用 MySQL 数据库内置的全文索引，而是使用第三方类似的索引以实现相同的功能。
+
+三种全文搜索模式：
+
+**（1）自然语言模式（默认情况下为该模式）**
+
+```sql
+SELECT * FROM user WHERE MATCH(userName) AGAINST ( '张三' );
+-- 如果最小搜索长度为 1 的话，则查找包含 张、三、张三 的记录；与布尔搜索模式中的 “+张三” 结果相同
+-- 最小搜索长度在 MySQL 配置文件中设置
+```
+
+**（2）布尔搜索模式（目前了解即可，后续使用再深入研究）**
+
+- 【+】---------- 必须包含此字符串
+- 【-】---------- 必须不包含此字符串
+- 【“”】-------- 双引号内作为整体不能拆词
+- 【>】-------- 提高该词的相关性，查询的结果靠前
+- 【<】-------- 降低该词的相关性，查询的结果靠后
+- 【*】--------- 通配符，只能接在词后面
+- ……
+
+```sql
+SELECT * FROM user WHERE MATCH(userName) AGAINST ( '+"美女" & +"动人"' IN BOOLEAN MODE);
+-- 查询有 “美女” 的又有 “动人” 的记录
+```
+
+## 11.3 MySQL索引使用原则
+
+1. 索引是典型的 “以空间换时间” 的策略，它会消耗计算机存储空间，但是会加快查询速度
+2. 索引的添加，尽管加快了在查询时的查询速度，但是会减慢在插入、删除时的速度。因为在插入、删除数据时需要进行额外的索引更新操作
+3. 索引并非越多越好，数据量不大时不需要添加索引
+4. 如果一个表的值需要频繁的插入和修改，则不适合建立索引，反之如果一个表中某个字段的值要经常进行查询、排序和分组则需要建立索引
+5. 如果一个字段满足建立唯一性索引的条件，就不要建立普通索引
+
 # 十二、权限
 
