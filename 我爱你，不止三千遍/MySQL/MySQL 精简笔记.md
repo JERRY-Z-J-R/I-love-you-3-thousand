@@ -8,8 +8,10 @@
 > * 能通过 SQL 对数据库进行 CRUD
 > * 能通过 SQL 对表进行 CRUD
 > * 能通过 SQL 对数据进行 CRUD
-> * 约束、数据库设计、多表查询
-> * 事务、索引、权限
+> * 约束、数据库设计
+> * 多表查询、视图
+> * 事务、索引
+> * 本文只涉及 MySQL 初级使用的必备知识，后续知识请查阅其他资料……
 
 # 一、数据库相关概念
 
@@ -1565,19 +1567,256 @@ ALTER TABLE tb_order_goods ADD CONSTRAINT fk_goods_id FOREIGN KEY(goods_id) REFE
 
 # 九、多表查询
 
-# 十、事务
+当我们需要同时在多个表中查询数据时，我们便需要使用多表查询。
 
-# 十一、索引
+例如：`SELECT * FROM emp, dept;`
 
-## 11.1 MySQL索引简介
+多表查询的本质是笛卡儿积！
+
+所以，当我们执行上面的语句时，得到的查询结果是将 emp 表与 dept 表的每一行数据都两两组合一遍，最终得到的数据很多是无意义的数据，所以，我们在使用多表查询的时候，一定要限定条件进行约束！例如，连接查询：
+
+```sql
+-- 查询 emp 和 dept 的数据，其中要满足 emp.dep_id = dept.id
+SELECT * FROM emp, dept
+WHERE emp.dep_id = dept.id
+```
+
+多表查询：从多张表查询数据。
+
+<img src="mark-img/image-20220615222004497.png" alt="image-20220615222004497" style="zoom: 25%;" />
+
+- 连接查询
+  - 内连接：相当于查询 A B 交集数据
+  - 外连接：
+    - 左外连接：相当于查询 A 表所有数据和交集部分数据
+    - 右外连接：相当于查询 B 表所有数据和交集部分数据
+- 子查询
+
+## 9.1 内连接
+
+内连接查询语法：
+
+```sql
+-- 隐式内连接
+SELECT 字段列表 FROM 表1, 表2, ... WHERE 条件;
+
+-- 显示内连接
+SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 条件;
+```
+
+```sql
+-- 隐式内连接
+SELECT emp.name, emp.gender, dept.name
+FROM emp, dept
+WHERE emp.dep_id = dept.id;
+
+-- 起别名
+SELECT t1.name, t1.gender, t2.name
+FROM emp AS t1, dept AS t2
+WHERE t1.dep_id = t2.id;
+```
+
+```sql
+-- 显示内连接
+SELECT emp.name, emp.gender, dept.name
+FROM emp
+INNER JOIN dept ON emp.dep_id = dept.id;
+
+-- INNER 可以省略
+SELECT emp.name, emp.gender, dept.name
+FROM emp
+JOIN dept ON emp.dep_id = dept.id;
+```
+
+## 9.2 外连接
+
+外连接查询语法：
+
+```sql
+-- 左外连接
+SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件;
+
+-- 右边连接
+SELECT 字段列表 FROM 表1 RIGHT [OUTER] JOIN 表2 ON 条件;
+```
+
+- 左外连接：符合条件部分 + 左表不符合条件部分
+- 右外连接：符合条件部分 + 右表不符合条件部分
+
+```sql
+-- 左外连接
+-- 查询 emp 表所有数据和对应的部门信息
+SELECT * FROM emp LEFT JOIN dept ON emp.dep_id = dept.did;
+
+-- 右外连接
+-- 查询 dept 表的所有数据和对应的员工信息
+SELECT * FROM emp RIGHT JOIN dept ON emp.dep_id = dept.did;
+```
+
+![image-20220615230535733](mark-img/image-20220615230535733.png)
+
+## 9.3 子查询
+
+子查询的概念：查询中嵌套查询，称嵌套的查询为子查询。
+
+```sql
+-- 查询工资高于猪八戒的员工信息
+
+-- 1、查询猪八戒的工资
+SELECT salary FROM emp WHERE name = "猪八戒";	-- 3600
+-- 2、查询工资高于猪八戒的员工信息
+SELECT * FROM emp WHERE salary > 3600;
+
+-- 子查询
+SELECT * FROM emp
+WHERE salary > (
+    SELECT salary FROM emp
+    WHERE name = "猪八戒"
+);
+```
+
+子查询根据查询结果不同，作用不同：
+
+- 单行单列：作为条件值，使用 `=` `!=` `>` `<` 等进行条件判断
+
+  `SELECT 字段名称 FROM 表 WHERE 字段名 = (子查询);`
+
+  ```sql
+  -- 查询 “财务部” 所有员工信息
+  SELECT * FROM emp 
+  WHERE dep_id = (
+      SELECT did FROM dept
+      WHERE dname = "财务部"
+  );
+  ```
+
+- 多行单列：作为条件值，使用 `in` 等关键字进行条件判断
+
+  `SELECT 字段名称 FROM 表 WHERE 字段名 in (子查询);`
+
+  ```sql
+  -- 查询 “财务部” 和 “市场部” 所有的员工信息
+  
+  -- 拆分
+  SELECT did FROM dept WHERE dname = '财务部' OR dname = '市场部';	 -- 2 3
+  SELECT * FROM emp WHERE dep_id IN ( 2, 3 );
+  
+  -- 多行单列子查询
+  SELECT * FROM emp 
+  WHERE dep_id IN (
+      SELECT did FROM dept 
+      WHERE dname = '财务部' OR dname = '市场部'
+  );
+  ```
+
+- 多行多列：作为虚拟表
+
+  `SELECT 字段名称 FORM (子查询) WHERE 条件;`
+
+  ```sql
+  -- 查询入职日期是 2011-11-11 之后的员工信息和部门信息
+  SELECT * FROM (
+      SELECT * FROM emp
+      WHERE join_date > '2011-11-11'
+  ) AS t1, dept
+  WHERE t1.dep_id = dept.did;
+  ```
+
+# 十、视图
+
+视图是虚拟的表。与包含数据的表不同，视图只包含使用时动态检索数据的查询。
+
+# 十一、事务
+
+## 11.1 事务简介
+
+- 数据库的事务是一种机制、一个操作序列，包含了一组数据库操作命令
+- 事务把所有的命令作为一个整体一起向系统提交或撤销操作请求，即这一组数据库命令要么同时成功，要么同时失败
+- 事务是一个不可分割的工作逻辑单元
+
+> 举例：付款流程
+>
+> 查询买家账号余额 ——> 买家账户余额减500 ——> 商家账号余额增500
+>
+> （凡是以上 3 个步骤没有正常完成任何一个，那么整个流程就失败）
+
+核心：要么同时成功，否则同时失败！
+
+![image-20220616005903550](mark-img/image-20220616005903550.png)
+
+## 11.2 事务的使用
+
+```sql
+-- 开启事务
+START TRANSACTION;
+-- 或者 
+BEGIN;
+
+-- 提交事务
+COMMIT;
+
+-- 回滚事务
+ROLLBACK;
+```
+
+```sql
+-- 创建账户表
+CREATE TABLE account (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR ( 10 ),
+    money DOUBLE ( 10, 2 )
+);
+
+-- 添加数据
+INSERT INTO account ( NAME, money ) VALUES ( '张三', 1000 ),( '李四', 1000 );
+
+-- 转账操作
+-- 开启事务
+BEGIN;
+-- 1、查询李四的余额（此处默认满足条件）
+-- 2、李四金额 -500
+UPDATE account SET money = money - 500 WHERE name = '李四';
+-- 3、张三金额 +500
+UPDATE account SET money = money + 500 WHERE name = '张三';
+-- 提交事务
+COMMIT;
+-- 回滚事务
+ROLLBACK;
+```
+
+## 11.3 事务四大特征
+
+- 原子性：事务时不可分割的最小操作单位，要么同时成功，要么同时失败
+- 一致性：事务完成时，必须使所有的数据都保存一致状态（例如：总金额相同）
+- 隔离性：多个事务之间，操作的可见性（在一个事务执行的过程中，在外界视角上是不可见的）
+- 持久性：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的
+
+## 11.4 MySQL事务默认自动提交
+
+其实，我们的每一条 SQL 操作都是一个事务，只不过 MySQL 是默认自动提交事务的。
+
+```sql
+-- 查看事务的默认提交方式
+SELECT @@autocommit;
+-- 自动提交：1
+-- 手动提交：0
+-- 修改为手动提交方式
+SET @@autocommit = 0;
+
+-- 对于手动提交来说，我们需要手动在语句后加上 COMMIT; 
+```
+
+# 十二、索引
+
+## 12.1 MySQL索引简介
 
 索引是 MySQL 数据库为了加快数据查询速度，给表中的某一个或者是某几个列添加的一种“目录”。MySQL 的索引是一个特殊的文件，但是 InnoDB 类型引擎的表的索引是表空间的一个组成部分。
 
 MySQL 数据库一共支持 5 种类型的索引，分别是：普通索引、唯一性索引、主键索引、复合索引和全文索引，下面将对这四种类型的索引一一介绍。
 
-## 11.2 MySQL五种类型索引详解
+## 12.2 MySQL五种类型索引详解
 
-### 11.2.1 普通索引
+### 12.2.1 普通索引
 
 普通索引是 MySQL 数据库中的一种索引，添加普通索引的列对数据没有特殊要求，普通索引能起到的作用就是加快查询速度。
 
@@ -1635,7 +1874,7 @@ SHOW INDEX FROM exp;
 
 从上面几张图片可以看出，添加普通索引后，在使用 DESC 查看表结构时，会发现 Key 列上出现 MUL，这就表示该列添加了普通索引。
 
-### 11.2.2 唯一性索引
+### 12.2.2 唯一性索引
 
 唯一性索引，是在普通索引的基础上，要求添加该索引的列所有的值只能出现一次。唯一性索引常用于添加在诸如：身份证号、学号等字段中，不可以添加在诸如：姓名、学校等字段中。
 
@@ -1669,7 +1908,7 @@ ALTER TABLE exp ADD UNIQUE INDEX idx_id(id);
 ALTER TABLE exp DROP INDEX idx_id;
 ```
 
-### 11.2.3 主键索引
+### 12.2.3 主键索引
 
 主键索引，是数据库的所有索引中查询速度最快的，并且每个数据表只能有1个主键索引列。同时，主键索引的列，不允许出现重复的数据，也不允许为空值。
 
@@ -1701,7 +1940,7 @@ ALTER TABLE exp DROP PRIMARY KEY;
 
 > 有时，我们在尝试删除主键索引时，MySQL 会拒绝，这可能是因为该字段添加了 AUTO_INCREMENT 属性的缘故，我们可以把该字段修饰符删除，就可以删除该字段的主键索引了。
 
-### 11.2.4 复合索引
+### 12.2.4 复合索引
 
 如果想要创建一个包含不同的列的索引，我们就可以创建复合索引。其实，复合索引在业务场景中应用的非常频繁。比如，如果我们想要记录数据包的内容，则需要将 IP 和 端口号 作为标识数据包的依据，这时就可以把 IP 地址的列和 端口号 的列创建为复合索引。
 
@@ -1729,7 +1968,7 @@ ALTER TABLE exp DROP PRIMARY KEY;
 
 > 注意：复合索引相当于一个多列的主键索引。因此，添加复合索引的任何一个列都不允许数据为空，并且这些列不允许数据完全相同，否则 MySQL 数据库会报错。
 
-### 11.2.5 全文索引
+### 12.2.5 全文索引
 
 全文索引主要是用于解决大数据量的情况下模糊匹配的问题。如果数据库中某个字段的数据量非常大，那么如果我们想要使用 LIKE 通配符的方式进行查找，速度就会变得非常慢。针对这种情况，我们就可以使用全文索引的方式，来加快模糊查询的速度。全文索引的原理是通过分词技术，分析处文本中关键字及其出现的频率，并依次建立索引。全文索引的使用，与数据库版本、数据表引擎乃至字段类型息息相关，主要限制如下：
 
@@ -1794,13 +2033,10 @@ SELECT * FROM user WHERE MATCH(userName) AGAINST ( '+"美女" & +"动人"' IN BO
 -- 查询有 “美女” 的又有 “动人” 的记录
 ```
 
-## 11.3 MySQL索引使用原则
+## 12.3 MySQL索引使用原则
 
 1. 索引是典型的 “以空间换时间” 的策略，它会消耗计算机存储空间，但是会加快查询速度
 2. 索引的添加，尽管加快了在查询时的查询速度，但是会减慢在插入、删除时的速度。因为在插入、删除数据时需要进行额外的索引更新操作
 3. 索引并非越多越好，数据量不大时不需要添加索引
 4. 如果一个表的值需要频繁的插入和修改，则不适合建立索引，反之如果一个表中某个字段的值要经常进行查询、排序和分组则需要建立索引
 5. 如果一个字段满足建立唯一性索引的条件，就不要建立普通索引
-
-# 十二、权限
-
