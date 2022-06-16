@@ -1413,7 +1413,7 @@ CREATE TABLE emp (
 
 ## 7.3 外键约束
 
-概念：外键用来将两个表的数据之间建立连接，保证数据的一致性和完整性。
+概念：外键用来将两个表的数据之间建立联结，保证数据的一致性和完整性。
 
 举例：员工表中每个员工的部门信息来源于部门表。
 
@@ -1573,7 +1573,7 @@ ALTER TABLE tb_order_goods ADD CONSTRAINT fk_goods_id FOREIGN KEY(goods_id) REFE
 
 多表查询的本质是笛卡儿积！
 
-所以，当我们执行上面的语句时，得到的查询结果是将 emp 表与 dept 表的每一行数据都两两组合一遍，最终得到的数据很多是无意义的数据，所以，我们在使用多表查询的时候，一定要限定条件进行约束！例如，连接查询：
+所以，当我们执行上面的语句时，得到的查询结果是将 emp 表与 dept 表的每一行数据都两两组合一遍，最终得到的数据很多是无意义的数据，所以，我们在使用多表查询的时候，一定要限定条件进行约束！例如，联结查询：
 
 ```sql
 -- 查询 emp 和 dept 的数据，其中要满足 emp.dep_id = dept.id
@@ -1585,27 +1585,27 @@ WHERE emp.dep_id = dept.id
 
 <img src="mark-img/image-20220615222004497.png" alt="image-20220615222004497" style="zoom: 25%;" />
 
-- 连接查询
-  - 内连接：相当于查询 A B 交集数据
-  - 外连接：
-    - 左外连接：相当于查询 A 表所有数据和交集部分数据
-    - 右外连接：相当于查询 B 表所有数据和交集部分数据
+- 联结查询
+  - 内联结：相当于查询 A B 交集数据
+  - 外联结：
+    - 左外联结：相当于查询 A 表所有数据和交集部分数据
+    - 右外联结：相当于查询 B 表所有数据和交集部分数据
 - 子查询
 
-## 9.1 内连接
+## 9.1 内联结
 
-内连接查询语法：
+内联结查询语法：
 
 ```sql
--- 隐式内连接
+-- 隐式内联结
 SELECT 字段列表 FROM 表1, 表2, ... WHERE 条件;
 
--- 显示内连接
+-- 显示内联结
 SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 条件;
 ```
 
 ```sql
--- 隐式内连接
+-- 隐式内联结
 SELECT emp.name, emp.gender, dept.name
 FROM emp, dept
 WHERE emp.dep_id = dept.id;
@@ -1617,7 +1617,7 @@ WHERE t1.dep_id = t2.id;
 ```
 
 ```sql
--- 显示内连接
+-- 显示内联结
 SELECT emp.name, emp.gender, dept.name
 FROM emp
 INNER JOIN dept ON emp.dep_id = dept.id;
@@ -1628,27 +1628,27 @@ FROM emp
 JOIN dept ON emp.dep_id = dept.id;
 ```
 
-## 9.2 外连接
+## 9.2 外联结
 
-外连接查询语法：
+外联结查询语法：
 
 ```sql
--- 左外连接
+-- 左外联结
 SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件;
 
--- 右边连接
+-- 右边联结
 SELECT 字段列表 FROM 表1 RIGHT [OUTER] JOIN 表2 ON 条件;
 ```
 
-- 左外连接：符合条件部分 + 左表不符合条件部分
-- 右外连接：符合条件部分 + 右表不符合条件部分
+- 左外联结：符合条件部分 + 左表不符合条件部分
+- 右外联结：符合条件部分 + 右表不符合条件部分
 
 ```sql
--- 左外连接
+-- 左外联结
 -- 查询 emp 表所有数据和对应的部门信息
 SELECT * FROM emp LEFT JOIN dept ON emp.dep_id = dept.did;
 
--- 右外连接
+-- 右外联结
 -- 查询 dept 表的所有数据和对应的员工信息
 SELECT * FROM emp RIGHT JOIN dept ON emp.dep_id = dept.did;
 ```
@@ -1724,7 +1724,112 @@ WHERE salary > (
 
 # 十、视图
 
+## 10.1 视图简介
+
 视图是虚拟的表。与包含数据的表不同，视图只包含使用时动态检索数据的查询。
+
+举例：
+
+```sql
+-- 检索订购了某个特定产品的客户
+SELECT cust_name, cust_contact
+FROM customers, orders, orderitems
+WHERE customers.cust_id = orders.cust_id
+	AND orderitems.order_num = orders.order_num
+	AND prod_id = 'TNT2';
+```
+
+可以发现，任何一个想要实现类似上述查询的人，都首先要对涉及到的表的结构非常清楚，并且熟悉如何进行联结查询。
+
+而利用视图，我们便可以把以上查询操作封装成一个 “虚拟表”，表中的内容包含查询的结果，这样就这样直接使用这个表方便查询。
+
+```sql
+-- 创建视图
+CREATE VIEW productcustomers AS
+SELECT cust_name, cust_contact, prod_id
+FROM customers, orders, orderitems
+WHERE customers.cust_id = orders.cust_id
+	AND orderitems.order_num = orders.order_num;
+-- 作为视图，它不包含表中应该有的任何列或数据，它包含的是一个 SQL 查询
+	
+-- 利用视图
+SELECT cust_name, cust_contact
+FROM productcustomers
+WHERE prod_id = 'TNT2';
+-- 在 MySQL 处理此查询时，它将指定的 WHERE 子句添加到视图查询中已有 WHERE 子句中
+```
+
+> 注意：我们应该创建可重用的视图！
+>
+> 比如在上面的例子中，我们所创建的视图返回了生产所有产品的客户，而不是仅仅是生产 TNT2 的客户，扩展视图的范围不仅使得它能被重用，而且甚至更有用。
+
+视图的作业：
+
+- 重用 SQL 语句
+- 简化复杂的 SQL 操作
+- 使用表的某部分而不是整个表
+- 保护数据
+- 更改数据格式和表示
+
+## 10.2 视图规则
+
+- 与表一样，视图必须唯一命名
+- 视图数量没有限制
+- 为了创建视图，必须有足够的访问权限
+- 视图可以嵌套
+- ORDER BY 可以用在视图中，但如果从该视图检索数据的 SELECT 语句中也包含 ORDER BY，那么该视图中的 ORDER BY 将被覆盖
+- 视图不能索引，也不能有相关的触发器或默认值
+- 视图可以和表一起使用
+
+## 10.3 视图的使用
+
+- 创建
+
+```sql
+CREATE VIEW 视图名 AS
+...
+```
+
+- 查看
+
+```sql
+SHOW CREATE VIEW 视图名;
+```
+
+- 删除
+
+```sql
+DROP VIEW 视图名;
+```
+
+- 更新
+
+```sql
+-- 1、方法
+先用 DROP 再用 CREATE
+
+-- 2、方法
+直接使用 CREATE OR REPLACE VIEW
+-- 如果要更新的视图不存在，则第二种方法会创建一个视图，如果要更新的视图存在，则第二种方法更新语句会替换原有视图
+
+-- 注意：
+/*
+视图不一定都可以更新！
+一般来说，大部分视图是可以更新的（可以对视图使用 INSERT UPDATE DELETE）
+更新一个视图实际上是更新了其基表！即：间接对基表进行增加和删除行！
+*/
+/*
+当视图涉及的基表 MySQL 不能准确完全的确定时，表不允许更新视图，具体来说有以下情况：
+在视图中定义了以下操作：
+分组（使用 GROUP BY 和 HAVIHG）
+联结
+子查询
+并
+聚合函数（Min()、Count()、Sun()等）
+DISTINCT
+导出（计算）列
+*/
+```
 
 # 十一、事务
 
