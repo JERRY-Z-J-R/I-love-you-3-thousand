@@ -510,7 +510,7 @@ public class Main {
 			
 			// 左下递推的规律是：x+1，y-1；终止标志是 y 减少到 1
 			while (x > 1) {
-				aarr[--x][++y] = ++n;
+				arr[--x][++y] = ++n;
 			}
 			
 			arr[x][++y] = ++n;	// 下移一位，然后开始向右上递推
@@ -1126,7 +1126,7 @@ import java.util.Scanner;
 
 public class Main {
 	
-	public s//tatic void main(String[] args) {
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
         // hasNext() 判断是否有输入，有则返回 true，没有则返回 false
 		while (sc.hasNext()) {
@@ -1134,7 +1134,7 @@ public class Main {
 			String s = sc.next();
 			StringBuffer sb = new StringBuffer(s);
 			// equals() 判断两个对象的值是否相等，前提是类型要相同，否则肯定不相等
-            // System.out.println(Arrays.equals(数组1, 数组2));
+             // System.out.println(Arrays.equals(数组1, 数组2));
 			// 所以我们要通过，toString() 方法将 sb 转换为 String 类型
 			if (s.equals(sb.reverse().toString())) {
 				System.out.println("Y");
@@ -1199,7 +1199,6 @@ public class Main {
 		System.out.printf("\t%d\n", j);
 	}
 }
-
 ```
 
 # 【进制问题】
@@ -1224,8 +1223,6 @@ f
 ```
 
 十进制转其他进制：整数部分（除 K 取余法，从下往上取）、小数部分（乘 K 取整法，从上往下取）
-
-https://jingyan.baidu.com/article/eb9f7b6dc692e9c79264e878.html
 
 Java 同时提供专门的方法：
 

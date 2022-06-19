@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.BrandMapper">
+    <!-- <select id="selectAll" resultType="com.itheima.pojo.User"> -->
+    <!-- 通过在 mybatis-config.xml 中配置别名，这里便可以简化书写了-->
+    <select id="selectAll" resultType="brand">
+        SELECT *
+        FROM tb_brand;
+    </select>
+</mapper>
