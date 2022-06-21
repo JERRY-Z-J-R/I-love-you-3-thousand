@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.BrandMapper">
+    <!-- 通过在 mybatis-config.xml 中配置别名，后续便可以简化书写了-->
+
+    <!--
+        数据库表的某些字段名称 和 实体类属性的名称 不一样（数据库中是 C 风格命名，Java 是驼峰命名），所以对于含有下划线名称的数据库字段，则我们查询到的数据为 null
+        解决办法：
+        1、SELECT 语句中指定别名，让别名与实体类的属性名一样
+            缺点：不方便！
+            解决办法：使用 sql 片段来代替（不灵活）
+        2、resultMap
+            （1）定义 resultMap
+            （2）使用 resultMap="brandResultMap"
+    -->
+    <!-- id：唯一标识 -->
+    <!-- type：映射的类型，支持别名 -->
+    <resultMap id="brandResultMap" type="brand">
+        <!--
+            id：完成主键字段的映射
+                column：表的列名
+                property：实体类的属性名
+            result：完成一般字段的映射
+                column：表的列名
+                property：实体类的属性名
+        -->
+        <result column="brand_name" property="brandName"/>
+        <result column="company_name" property="companyName"/>
+    </resultMap>
+
+    <!-- ########################################################### -->
+
+    <!-- 查询所有 -->
+    <!-- 此处要改为：resultMap="brandResultMap" -->
+    <select id="selectAll" resultMap="brandResultMap">
+        SELECT *
+        FROM tb_brand;
+    </select>
+
+    <!-- ########################################################### -->
+
+    <!-- 查询 - 查询详情 -->
+    <!--
+        * 参数占位符：
+            1、#{}：会将其自动替换为 ?，可以防止 sql 注入
+            2、${}：拼 sql，会存在 sql 注入问题
+            3、使用时机：一般情况都用 #
+
+        * 参数类型：parameterType="" 可以省略，比如此时也可以加上 parameterType="int"
+        * 特殊字符处理：比如 < 在 xml 中不能识别为小于语义
+            1、转义字符：&lt;
+            2、CDATA区：<![CDATA[<]]>（注意：在 IDEA 中输入 CD+回车 即可补齐）
+    -->
+    <select id="selectById" resultMap="brandResultMap">
+        SELECT *
+        FROM tb_brand
+        WHERE id = #{id};
+    </select>
+
+    <!-- ########################################################### -->
+
+    <!-- 查询 - 多条件查询 -->
+    <!--
+    <select id="selectByCondition" resultMap="brandResultMap">
+        SELECT *
+        FROM tb_brand
+        WHERE status = #{status}
+          AND company_name LIKE #{companyName}
+          AND brand_name LIKE #{brandName}
+    </select>
+    -->
+
+    <!-- ########################################################### -->
+
+    <!-- 查询 - 多条件 - 动态条件查询 -->
+    <!-- 虽然提供了多个条件，但是用户可能只会用到其中的一部分条件，所以有了 “动态条件”，实现上我们要用到 “动态 SQL” -->
+    <!--
+        MyBatis 对动态 SQL 有很强大的支撑！
+            * if：条件判断
+                * test：逻辑表达式
+            * 存在的问题：假如我们第一个条件 status 没有输入，那么 SQL 语句就变成了：SELECT * FROM tb_brand WHERE AND company_name LIKE ?，那肯定会报错！
+                * 解决方法：
+                    1、在 WHERE 后面 首先加一个恒等式 1 = 1，之后的每条 if 语句里的 SQL 都加上 AND（不推荐！）
+                    2、使用 <where>，这是 MyBatis 提供的用于替换 WHERE 的标签，当然之后的每条 if 语句里的 SQL 也都加上 AND
+
+    -->
+    <select id="selectByCondition" resultMap="brandResultMap">
+        SELECT *
+        FROM tb_brand
+        -- WHERE
+        <where>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                AND company_name LIKE #{companyName}
+            </if>
+            <if test="brandName != null and brandName != ''">
+                AND brand_name LIKE #{brandName}
+            </if>
+        </where>
+    </select>
+
+    <!-- ########################################################### -->
+
+    <!-- 查询 - 单条件 - 动态条件查询 -->
+    <!-- 比如：有一个查询输入框，但是这个输入框配有一个选项，可以选择查询的字段，此时就是在多个条件中选择一个进行查询，就要用 switch 的思想-->
+    <select id="selectByConditionSingle" resultMap="brandResultMap">
+        SELECT *
+        FROM tb_brand
+        WHERE
+        <choose> <!-- 相当于 switch -->
+            <when test="status != null"> <!-- 相当于 case -->
+                status = #{status}
+            </when>
+            <when test="companyName != null and companyName != ''">
+                company_name LIKE #{companyName}
+            </when>
+            <when test="brandName != null and brandName != ''">
+                brand_name LIKE #{brandName}
+            </when>
+            <otherwise> <!-- 相当于 default，解决一个条件也没有的情况，当然更好的做法是把 WHERE 换为 <where> -->
+                1 = 1
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- ########################################################### -->
+
+    <!-- 添加 -->
+    <!-- 主键返回配置： useGeneratedKeys="true" keyProperty="id" -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        -- 除了 ID 都需要添加
+        INSERT INTO tb_brand(brand_name, company_name, ordered, description, status)
+        VALUES (#{brandName}, #{companyName}, #{ordered}, #{description}, #{status});
+    </insert>
+
+    <!-- ########################################################### -->
+
+    <!-- 修改 - 修改全部字段 -->
+    <!-- 缺陷：当我们只修改其中的部分字段时，其它字段会被设为 null，所以我们要使用动态SQL-->
+    <!--
+    <update id="update">
+        UPDATE tb_brand
+        SET brand_name   = #{brandName},
+            company_name = #{companyName},
+            ordered      = #{ordered},
+            description  = #{description},
+            status       = #{status}
+        WHERE id = #{id};
+    </update>
+    -->
+    <!-- 修改 - 动态修改 -->
+    <update id="update">
+        UPDATE tb_brand
+        <set> <!-- 解决全部数据都没有以及最后一个数据没有格式错误问题 -->
+            <if test="brandName != null and brandName != ''">
+                brand_name = #{brandName},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="ordered != null">
+                ordered = #{ordered},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id};
+    </update>
+
+    <!-- ########################################################### -->
+
+    <!-- 删除 - 删除一个 -->
+    <delete id="deleteById">
+        DELETE
+        FROM tb_brand
+        WHERE id = #{id};
+    </delete>
+
+    <!-- ########################################################### -->
+
+    <!-- 删除 - 批量删除 -->
+    <delete id="deleteByIds">
+        DELETE
+        FROM tb_brand
+        WHERE id
+        IN (
+#         ** foreach 标签 **
+#         用来迭代任何可迭代的对象（如数组，集合）。
+#         * collection 属性：
+#         * mybatis 会将数组参数，封装为一个 Map 集合。
+#         * 默认：array = 数组
+#         * 使用 @Param 注解改变 map 集合的默认 key 的名称
+#         * item 属性：本次迭代获取到的元素。
+#         * separator 属性：集合项迭代之间的分隔符。`foreach` 标签不会错误地添加多余的分隔符。也就是最后一次迭代不会加分隔符。
+#         * open 属性：该属性值是在拼接 SQL 语句之前拼接的语句，只会拼接一次
+#         * close 属性：该属性值是在拼接 SQL 语句拼接后拼接的语句，只会拼接一次
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        );
+    </delete>
+
+</mapper>

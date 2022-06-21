@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.jerry</groupId>
+    <artifactId>servlet-demo01</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+            <!--
+              此处为什么需要添加该标签？
+              provided 指的是在编译和测试过程中有效，最后生成的 war 包时不会加入
+              因为 Tomcat 的 lib 目录中已经有 servlet-api 这个 jar 包，如果在生成 war 包的时候生效就会和 Tomcat 中的 jar 包冲突，导致报错
+            -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- tomcat 插件 -->
+            <!-- 只支持到 Tomcat7，但是目前对我们的使用不影响 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
