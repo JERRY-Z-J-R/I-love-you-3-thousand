@@ -15,7 +15,7 @@
     -->
     <!-- id：唯一标识 -->
     <!-- type：映射的类型，支持别名 -->
-    <resultMap id="brandResultMap" type="brand">
+    <resultMap id="brandResultMap" type="Brand">
         <!--
             id：完成主键字段的映射
                 column：表的列名
@@ -188,22 +188,25 @@
     <delete id="deleteByIds">
         DELETE
         FROM tb_brand
-        WHERE id
-        IN (
-#         ** foreach 标签 **
-#         用来迭代任何可迭代的对象（如数组，集合）。
-#         * collection 属性：
-#         * mybatis 会将数组参数，封装为一个 Map 集合。
-#         * 默认：array = 数组
-#         * 使用 @Param 注解改变 map 集合的默认 key 的名称
-#         * item 属性：本次迭代获取到的元素。
-#         * separator 属性：集合项迭代之间的分隔符。`foreach` 标签不会错误地添加多余的分隔符。也就是最后一次迭代不会加分隔符。
-#         * open 属性：该属性值是在拼接 SQL 语句之前拼接的语句，只会拼接一次
-#         * close 属性：该属性值是在拼接 SQL 语句拼接后拼接的语句，只会拼接一次
-        <foreach collection="ids" item="id" separator=",">
-            #{id}
-        </foreach>
-        );
+        <where>
+            id
+            IN (
+            # ** foreach 标签 **
+            # 用来迭代任何可迭代的对象（如数组，集合）。
+            # * collection 属性：
+            # * mybatis 会将数组参数，封装为一个 Map 集合。
+            # * 默认：array = 数组
+            # * 使用 @Param 注解改变 map 集合的默认 key 的名称
+            # * item 属性：本次迭代获取到的元素。
+            # * separator 属性：集合项迭代之间的分隔符。`foreach` 标签不会错误地添加多余的分隔符。也就是最后一次迭代不会加分隔符。
+            # * open 属性：该属性值是在拼接 SQL 语句之前拼接的语句，只会拼接一次
+            # * close 属性：该属性值是在拼接 SQL 语句拼接后拼接的语句，只会拼接一次
+            <foreach collection="ids" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+        </where>
+        ;
     </delete>
 
 </mapper>

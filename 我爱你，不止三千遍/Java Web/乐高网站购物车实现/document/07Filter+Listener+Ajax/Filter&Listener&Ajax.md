@@ -654,7 +654,7 @@ public class AjaxServlet extends HttpServlet {
 * 创建核心对象，不同的浏览器创建的对象是不同的
 
   ```js
-   var xhttp;
+  var xhttp;
   if (window.XMLHttpRequest) {
       xhttp = new XMLHttpRequest();
   } else {

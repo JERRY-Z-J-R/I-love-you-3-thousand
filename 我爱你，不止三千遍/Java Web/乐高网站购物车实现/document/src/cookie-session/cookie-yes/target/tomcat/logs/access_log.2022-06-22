@@ -1,0 +1,7 @@
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:46 +0800] "GET /cookie-yes HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:46 +0800] "GET /cookie-yes HTTP/1.1" 302 - http-bio-8080-exec-3 0
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:47 +0800] "GET /cookie-yes/ HTTP/1.1" 404 973 http-bio-8080-exec-2 30
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:47 +0800] "GET /cookie-yes/ HTTP/1.1" 404 973 http-bio-8080-exec-5 4
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:47 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-6 0
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:52 +0800] "GET /cookie-yes/register.jsp HTTP/1.1" 200 1857 http-bio-8080-exec-7 93
+0:0:0:0:0:0:0:1 - - [22/Jun/2022:00:00:53 +0800] "GET /cookie-yes/checkCodeServlet HTTP/1.1" 200 2705 http-bio-8080-exec-8 440

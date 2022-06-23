@@ -284,7 +284,7 @@ public class MyBatisTest {
     @Test
     public void testDeleteByIds() throws IOException {
         // 接收参数
-        int[] ids = {6, 7, 8}; // 批量删除 5、7、8 号
+        int[] ids = {}; // 批量删除 5、7、8 号
 
         // 1、加载 mybatis 的核心配置文件，获取 SqlSessionFactory
         String resource = "mybatis-config.xml";

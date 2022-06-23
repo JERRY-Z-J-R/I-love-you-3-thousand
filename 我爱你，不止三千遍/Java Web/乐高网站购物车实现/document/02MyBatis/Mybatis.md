@@ -109,6 +109,16 @@
 
     ![image-20210729165337223](assets/image-20210729165337223.png)
 
+#### 1.1.1 技巧步骤
+
+无论如何，通过 MyBatis 操作数据库都是以下步骤：
+
+- 编写接口方法：Mapper 接口（XxxMapper.java）
+- 考虑需要传递什么参数？（WHERE 子句的变量）
+- 考虑需要返回什么结果？（void、单结果、结果集）
+- 编写 SQL 语句：SQL 映射文件（XxxMapper.xml），id 要与 Mapper 里的方法相同，resultType 要与返回结果的实体对应
+- 执行方法
+
 ### 1.2  查询所有数据
 
 <img src="assets/image-20210729165724838.png" alt="image-20210729165724838" style="zoom:80%;" />
@@ -156,7 +166,7 @@ public interface BrandMapper {
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itheima.mapper.BrandMapper">
-    <select id="selectAll" resultType="brand">
+    <select id="selectAll" resultType="Brand">
         select *
         from tb_brand;
     </select>
@@ -191,7 +201,7 @@ public void testSelectAll() throws IOException {
 }
 ```
 
-> 注意：现在我们感觉测试这部分代码写起来特别麻烦，我们可以先忍忍。以后我们只会写上面的第3步的代码，其他的都不需要我们来完成。
+> 注意：现在我们感觉测试这部分代码写起来特别麻烦，我们可以先忍忍。以后我们只会写上面的第3步以及其后的代码，其他的都不需要我们来完成。
 
 执行测试方法结果如下：
 
@@ -202,11 +212,11 @@ public void testSelectAll() throws IOException {
 这个问题可以通过两种方式进行解决：
 
 * 给字段起别名
-* 使用resultMap定义字段和属性的映射关系
+* 使用 resultMap 定义字段和属性的映射关系
 
 #### 1.2.4  起别名解决上述问题
 
-从上面结果可以看到 `brandName` 和 `companyName` 这两个属性的数据没有封装成功，查询 实体类 和 表中的字段 发现，在实体类中属性名是 `brandName` 和 `companyName` ，而表中的字段名为 `brand_name` 和 `company_name`，如下图所示 。那么我们只需要保持这两部分的名称一致这个问题就迎刃而解。
+从上面结果可以看到 `brandName` 和 `companyName` 这两个属性的数据没有封装成功，查询 实体类 和 表中的字段 发现，在实体类中属性名是 `brandName` 和 `companyName` ，而表中的字段名为 `brand_name` 和 `company_name`，我们在 SQL 映射文件中指定了返回的结果类型指向 User 类，但是 MyBatis 的底层是利用查询出来的字段名称与类的实例属性名称进行比对的，由于某些字段的名称与实例属性不一样，所以就会封装不上，得到 null，如下图所示 。那么我们只需要保持这两部分的名称一致这个问题就迎刃而解。
 
 <img src="assets/image-20210729173210433.png" alt="image-20210729173210433" style="zoom:80%;" />
 
@@ -232,7 +242,7 @@ public void testSelectAll() throws IOException {
   </sql>
   ```
 
-  id属性值是唯一标识，引用时也是通过该值进行引用。
+  id 属性值是唯一标识，引用时也是通过该值进行引用。
 
 * 在原sql语句中进行引用
 
@@ -255,7 +265,7 @@ public void testSelectAll() throws IOException {
 * 在映射配置文件中使用resultMap定义 字段 和 属性 的映射关系
 
   ```xml
-  <resultMap id="brandResultMap" type="brand">
+  <resultMap id="brandResultMap" type="Brand">
       <!--
               id：完成主键字段的映射
                   column：表的列名
@@ -304,15 +314,11 @@ public void testSelectAll() throws IOException {
      <result column="company_name" property="companyName"/>
 </resultMap>
 
-
-
 <select id="selectAll" resultMap="brandResultMap">
     select *
     from tb_brand;
 </select>
 ```
-
-
 
 ### 1.3  查询详情
 
@@ -322,19 +328,19 @@ public void testSelectAll() throws IOException {
 
 查看详情功能实现步骤：
 
-* 编写接口方法：Mapper接口
+* 编写接口方法：Mapper 接口
 
   <img src="assets/image-20210729180604529.png" alt="image-20210729180604529" style="zoom:80%;" />
 
   * 参数：id
 
-    查看详情就是查询某一行数据，所以需要根据id进行查询。而id以后是由页面传递过来。
+    查看详情就是查询某一行数据，所以需要根据 id 进行查询。而 id 以后是由页面传递过来。
 
   * 结果：Brand
 
-    根据id查询出来的数据只要一条，而将一条数据封装成一个Brand对象即可
+    根据id查询出来的数据只要一条，而将一条数据封装成一个 Brand 对象即可
 
-* 编写SQL语句：SQL映射文件
+* 编写 SQL 语句：SQL 映射文件
 
   <img src="assets/image-20210729180709318.png" alt="image-20210729180709318" style="zoom:80%;" />
 
@@ -362,7 +368,7 @@ Brand selectById(int id);
 </select>
 ```
 
-> 注意：上述SQL中的 #{id}先这样写，一会我们再详细讲解
+> 注意：上述SQL中的 #{id} 先这样写，一会我们再详细讲解
 
 #### 1.3.3  编写测试方法
 
@@ -400,13 +406,13 @@ public void testSelectById() throws IOException {
 
 #### 1.3.4  参数占位符
 
-查询到的结果很好理解就是id为1的这行数据。而这里我们需要看控制台显示的SQL语句，能看到使用？进行占位。说明我们在映射配置文件中的写的 `#{id}` 最终会被？进行占位。接下来我们就聊聊映射配置文件中的参数占位符。
+查询到的结果很好理解就是 id 为 1 的这行数据。而这里我们需要看控制台显示的 SQL 语句，能看到使用 ？进行占位。说明我们在映射配置文件中的写的 `#{id}` 最终会被 ？进行占位。接下来我们就聊聊映射配置文件中的参数占位符。
 
-mybatis提供了两种参数占位符：
+mybatis 提供了两种参数占位符：
 
-* #{} ：执行SQL时，会将 #{} 占位符替换为？，将来自动设置参数值。从上述例子可以看出使用#{} 底层使用的是 `PreparedStatement`
+* `#{}` ：执行SQL时，会将 #{} 占位符替换为？，将来自动设置参数值。从上述例子可以看出使用#{} 底层使用的是 `PreparedStatement`
 
-* ${} ：拼接SQL。底层使用的是 `Statement`，会存在SQL注入问题。如下图将 映射配置文件中的 #{} 替换成 ${} 来看效果
+* `${}` ：拼接SQL。底层使用的是 `Statement`，会存在 SQL 注入问题。如下图将 映射配置文件中的 #{} 替换成 ${} 来看效果
 
   ```xml
   <select id="selectById"  resultMap="brandResultMap">
@@ -423,7 +429,11 @@ mybatis提供了两种参数占位符：
 
 #### 1.3.5  parameterType使用
 
-对于有参数的mapper接口方法，我们在映射配置文件中应该配置 `ParameterType` 来指定参数类型。只不过该属性都可以省略。如下图：
+对于有参数的 mapper 接口方法，我们在映射配置文件中应该配置 `ParameterType` 来指定参数类型。只不过该属性都可以省略。
+
+原理是 MyBatis 会通过 id 对应方法的参数列表来自动配置类型。
+
+如下图：
 
 ```xml
 <select id="selectById" parameterType="int" resultMap="brandResultMap">
@@ -446,7 +456,7 @@ mybatis提供了两种参数占位符：
 
   <img src="assets/image-20210729185128686.png" alt="image-20210729185128686" style="zoom:60%;" />
 
-* <![CDATA[内容]]>
+* `<![CDATA[内容]]>`
 
   <img src="assets/image-20210729185030318.png" alt="image-20210729185030318" style="zoom:60%;" />
 
@@ -468,7 +478,7 @@ mybatis提供了两种参数占位符：
 * 编写接口方法
   * 参数：所有查询条件
   * 结果：List<Brand>
-* 在映射配置文件中编写SQL语句
+* 在映射配置文件中编写 SQL 语句
 
 * 编写测试方法并执行
 
@@ -476,25 +486,25 @@ mybatis提供了两种参数占位符：
 
 在 `BrandMapper` 接口中定义多条件查询的方法。
 
-而该功能有三个参数，我们就需要考虑定义接口时，参数应该如何定义。Mybatis针对多参数有多种实现
+而该功能有三个参数，我们就需要考虑定义接口时，参数应该如何定义。Mybatis 针对多参数有多种实现
 
-* 使用 `@Param("参数名称")` 标记每一个参数，在映射配置文件中就需要使用 `#{参数名称}` 进行占位
+1. 使用 `@Param("参数名称")` 标记每一个参数，在映射配置文件中就需要使用 `#{参数名称}` 进行占位
 
-  ```java
-  List<Brand> selectByCondition(@Param("status") int status, @Param("companyName") String companyName,@Param("brandName") String brandName);
-  ```
+```java
+List<Brand> selectByCondition(@Param("status") int status, @Param("companyName") String companyName,@Param("brandName") String brandName);
+```
 
-* 将多个参数封装成一个 实体对象 ，将该实体对象作为接口的方法参数。该方式要求在映射配置文件的SQL中使用 `#{内容}` 时，里面的内容必须和实体类属性名保持一致。
+2. 将多个参数封装成一个 实体对象 ，将该实体对象作为接口的方法参数。该方式要求在映射配置文件的 SQL 中使用 `#{内容}` 时，里面的内容必须和实体类属性名保持一致。
 
-  ```java
-  List<Brand> selectByCondition(Brand brand);
-  ```
+```java
+List<Brand> selectByCondition(Brand brand);
+```
 
-* 将多个参数封装到map集合中，将map集合作为接口的方法参数。该方式要求在映射配置文件的SQL中使用 `#{内容}` 时，里面的内容必须和map集合中键的名称一致。
+3. 将多个参数封装到 map 集合中，将 map 集合作为接口的方法参数。该方式要求在映射配置文件的SQL中使用 `#{内容}` 时，里面的内容必须和 map 集合中键的名称一致。
 
-  ```
-  List<Brand> selectByCondition(Map map);
-  ```
+```java
+List<Brand> selectByCondition(Map map);
+```
 
 #### 1.4.2  编写SQL语句
 

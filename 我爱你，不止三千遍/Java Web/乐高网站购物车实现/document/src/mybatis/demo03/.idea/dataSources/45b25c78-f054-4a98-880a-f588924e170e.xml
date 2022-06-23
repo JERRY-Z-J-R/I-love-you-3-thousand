@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.39">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.40">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -4433,12 +4433,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Unique>1</Unique>
     </index>
     <key id="599" parent="234" name="PRIMARY">
-      <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>user_id</UnderlyingIndexColNames>
     </key>
     <key id="600" parent="234" name="account_one">
-      <ColNames>account</ColNames>
       <UnderlyingIndexName>account_one</UnderlyingIndexName>
     </key>
     <column id="601" parent="235" name="exam_id">
@@ -4473,10 +4472,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="607" parent="235" name="PRIMARY">
-      <ColNames>exam_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>exam_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="608" parent="236" name="course_id">
       <AutoIncrement>323138</AutoIncrement>
@@ -4507,9 +4506,9 @@ user_id</ColNames>
       <Position>5</Position>
     </column>
     <key id="613" parent="236" name="PRIMARY">
-      <ColNames>course_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>course_id</UnderlyingIndexColNames>
     </key>
     <column id="614" parent="237" name="coures_discuss_id">
       <AutoIncrement>1</AutoIncrement>
@@ -4546,9 +4545,9 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="620" parent="237" name="PRIMARY">
-      <ColNames>coures_discuss_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_discuss_id</UnderlyingIndexColNames>
     </key>
     <column id="621" parent="238" name="coures_video_id">
       <Comment>视频编号</Comment>
@@ -4592,9 +4591,9 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="629" parent="238" name="PRIMARY">
-      <ColNames>coures_video_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_video_id</UnderlyingIndexColNames>
     </key>
     <column id="630" parent="239" name="coures_id">
       <Comment>课程编号</Comment>
@@ -4630,10 +4629,10 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="636" parent="239" name="PRIMARY">
-      <ColNames>coures_id
-exam_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_id
+exam_id</UnderlyingIndexColNames>
     </key>
     <column id="637" parent="240" name="course_id">
       <AutoIncrement>1</AutoIncrement>
@@ -4670,10 +4669,10 @@ exam_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="643" parent="240" name="PRIMARY">
-      <ColNames>course_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>course_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="644" parent="241" name="notice_id">
       <AutoIncrement>1</AutoIncrement>
@@ -4699,9 +4698,9 @@ user_id</ColNames>
       <Position>4</Position>
     </column>
     <key id="648" parent="241" name="PRIMARY">
-      <ColNames>notice_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>notice_id</UnderlyingIndexColNames>
     </key>
     <column id="649" parent="242" name="points_id">
       <DataType>varchar(255)|0s</DataType>
@@ -4718,10 +4717,10 @@ user_id</ColNames>
       <Position>3</Position>
     </column>
     <key id="652" parent="242" name="PRIMARY">
-      <ColNames>points_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>points_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="653" parent="243" name="problem_id">
       <AutoIncrement>374</AutoIncrement>
@@ -4781,9 +4780,9 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="666" parent="243" name="PRIMARY">
-      <ColNames>problem_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>problem_id</UnderlyingIndexColNames>
     </key>
     <column id="667" parent="244" name="problem_id">
       <Comment>考题编号</Comment>
@@ -4815,10 +4814,10 @@ user_id</ColNames>
       <RefTableName>cxtc_problem</RefTableName>
     </foreign-key>
     <key id="672" parent="244" name="PRIMARY">
-      <ColNames>problem_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>problem_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="673" parent="245" name="user_id">
       <Comment>用户编号</Comment>
@@ -4922,9 +4921,9 @@ user_id</ColNames>
       <Position>20</Position>
     </column>
     <key id="693" parent="245" name="PRIMARY">
-      <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>user_id</UnderlyingIndexColNames>
     </key>
     <column id="694" parent="246" name="coures_discuss_id">
       <Comment>课程讨论编号</Comment>
@@ -4965,10 +4964,10 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="701" parent="246" name="PRIMARY">
-      <ColNames>coures_discuss_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_discuss_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="702" parent="247" name="account">
       <Comment>账户名</Comment>
@@ -5012,9 +5011,9 @@ user_id</ColNames>
       <Position>6</Position>
     </column>
     <key id="711" parent="309" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="712" parent="310" name="id">
       <AutoIncrement>4</AutoIncrement>
@@ -5039,9 +5038,9 @@ user_id</ColNames>
       <Position>5</Position>
     </column>
     <key id="717" parent="310" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="718" parent="311" name="Column_priv">
       <DataType>set(&apos;Select&apos;, &apos;Insert&apos;, &apos;Update&apos;, &apos;References&apos;)|0e</DataType>
@@ -5051,13 +5050,13 @@ user_id</ColNames>
       <CollationName>utf8_general_ci</CollationName>
     </column>
     <key id="719" parent="311" name="PRIMARY">
-      <ColNames>Host
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>Host
 Db
 User
 Table_name
-Column_name</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
+Column_name</UnderlyingIndexColNames>
     </key>
     <column id="720" parent="312" name="Select_priv">
       <DataType>enum(&apos;N&apos;, &apos;Y&apos;)|0e</DataType>
@@ -5197,18 +5196,18 @@ Column_name</ColNames>
       <Type>btree</Type>
     </index>
     <key id="740" parent="312" name="PRIMARY">
-      <ColNames>Host
-Db
-User</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Host
+Db
+User</UnderlyingIndexColNames>
     </key>
     <key id="741" parent="313" name="PRIMARY">
-      <ColNames>cost_name
-engine_name
-device_type</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>cost_name
+engine_name
+device_type</UnderlyingIndexColNames>
     </key>
     <column id="742" parent="314" name="db">
       <DataType>char(64)|0s</DataType>
@@ -5254,10 +5253,10 @@ device_type</ColNames>
       <CollationName>utf8_bin</CollationName>
     </column>
     <key id="749" parent="314" name="PRIMARY">
-      <ColNames>db
-name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>db
+name</UnderlyingIndexColNames>
     </key>
     <column id="750" parent="315" name="type">
       <DataType>enum(&apos;function&apos;, &apos;aggregate&apos;)|0e</DataType>
@@ -5266,15 +5265,15 @@ name</ColNames>
       <CollationName>utf8_general_ci</CollationName>
     </column>
     <key id="751" parent="315" name="PRIMARY">
-      <ColNames>name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>name</UnderlyingIndexColNames>
     </key>
     <key id="752" parent="317" name="PRIMARY">
-      <ColNames>source_uuid
-interval_start</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>source_uuid
+interval_start</UnderlyingIndexColNames>
     </key>
     <index id="753" parent="318" name="name">
       <ColNames>name</ColNames>
@@ -5282,12 +5281,11 @@ interval_start</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="754" parent="318" name="PRIMARY">
-      <ColNames>help_category_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>help_category_id</UnderlyingIndexColNames>
     </key>
     <key id="755" parent="318" name="name">
-      <ColNames>name</ColNames>
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
     <index id="756" parent="319" name="name">
@@ -5296,19 +5294,18 @@ interval_start</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="757" parent="319" name="PRIMARY">
-      <ColNames>help_keyword_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>help_keyword_id</UnderlyingIndexColNames>
     </key>
     <key id="758" parent="319" name="name">
-      <ColNames>name</ColNames>
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
     <key id="759" parent="320" name="PRIMARY">
-      <ColNames>help_keyword_id
-help_topic_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>help_keyword_id
+help_topic_id</UnderlyingIndexColNames>
     </key>
     <index id="760" parent="321" name="name">
       <ColNames>name</ColNames>
@@ -5316,39 +5313,38 @@ help_topic_id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="761" parent="321" name="PRIMARY">
-      <ColNames>help_topic_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>help_topic_id</UnderlyingIndexColNames>
     </key>
     <key id="762" parent="321" name="name">
-      <ColNames>name</ColNames>
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
     <key id="763" parent="322" name="PRIMARY">
-      <ColNames>database_name
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>database_name
 table_name
 index_name
-stat_name</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
+stat_name</UnderlyingIndexColNames>
     </key>
     <key id="764" parent="323" name="PRIMARY">
-      <ColNames>database_name
-table_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>database_name
+table_name</UnderlyingIndexColNames>
     </key>
     <key id="765" parent="324" name="PRIMARY">
-      <ColNames>epoch
-orig_server_id
-orig_epoch</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>epoch
+orig_server_id
+orig_epoch</UnderlyingIndexColNames>
     </key>
     <key id="766" parent="325" name="PRIMARY">
-      <ColNames>name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>name</UnderlyingIndexColNames>
     </key>
     <column id="767" parent="326" name="db">
       <DataType>char(64)|0s</DataType>
@@ -5386,11 +5382,11 @@ orig_epoch</ColNames>
       <CollationName>utf8_bin</CollationName>
     </column>
     <key id="773" parent="326" name="PRIMARY">
-      <ColNames>db
-name
-type</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>db
+name
+type</UnderlyingIndexColNames>
     </key>
     <column id="774" parent="327" name="Routine_name">
       <DataType>char(64)|0s</DataType>
@@ -5411,35 +5407,35 @@ type</ColNames>
       <Type>btree</Type>
     </index>
     <key id="777" parent="327" name="PRIMARY">
-      <ColNames>Host
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>Host
 Db
 User
 Routine_name
-Routine_type</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
+Routine_type</UnderlyingIndexColNames>
     </key>
     <index id="778" parent="328" name="Grantor">
       <ColNames>Grantor</ColNames>
       <Type>btree</Type>
     </index>
     <key id="779" parent="328" name="PRIMARY">
-      <ColNames>Host
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>Host
 User
 Proxied_host
-Proxied_user</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
+Proxied_user</UnderlyingIndexColNames>
     </key>
     <key id="780" parent="329" name="PRIMARY">
-      <ColNames>cost_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>cost_name</UnderlyingIndexColNames>
     </key>
     <key id="781" parent="330" name="PRIMARY">
-      <ColNames>Server_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Server_name</UnderlyingIndexColNames>
     </key>
     <column id="782" parent="331" name="Master_log_name">
       <Comment>The name of the master binary log currently being read from the master.</Comment>
@@ -5533,9 +5529,9 @@ Proxied_user</ColNames>
       <CollationName>utf8_bin</CollationName>
     </column>
     <key id="797" parent="331" name="PRIMARY">
-      <ColNames>Channel_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Channel_name</UnderlyingIndexColNames>
     </key>
     <column id="798" parent="332" name="Relay_log_name">
       <Comment>The name of the current relay log file.</Comment>
@@ -5552,9 +5548,9 @@ Proxied_user</ColNames>
       <CollationName>utf8_bin</CollationName>
     </column>
     <key id="800" parent="332" name="PRIMARY">
-      <ColNames>Channel_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Channel_name</UnderlyingIndexColNames>
     </key>
     <column id="801" parent="333" name="Relay_log_name">
       <DataType>text|0s</DataType>
@@ -5581,10 +5577,10 @@ Proxied_user</ColNames>
       <CollationName>utf8_bin</CollationName>
     </column>
     <key id="805" parent="333" name="PRIMARY">
-      <ColNames>Channel_name
-Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Channel_name
+Id</UnderlyingIndexColNames>
     </key>
     <column id="806" parent="335" name="Table_priv">
       <DataType>set(&apos;Select&apos;, &apos;Insert&apos;, &apos;Update&apos;, &apos;Delete&apos;, &apos;Create&apos;, &apos;Drop&apos;, &apos;Grant&apos;, &apos;References&apos;, &apos;Index&apos;, &apos;Alter&apos;, &apos;Create View&apos;, &apos;Show view&apos;, &apos;Trigger&apos;)|0e</DataType>
@@ -5605,12 +5601,12 @@ Id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="809" parent="335" name="PRIMARY">
-      <ColNames>Host
-Db
-User
-Table_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Host
+Db
+User
+Table_name</UnderlyingIndexColNames>
     </key>
     <column id="810" parent="336" name="Time_zone_id">
       <AutoIncrement>1</AutoIncrement>
@@ -5619,31 +5615,31 @@ Table_name</ColNames>
       <Position>1</Position>
     </column>
     <key id="811" parent="336" name="PRIMARY">
-      <ColNames>Time_zone_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Time_zone_id</UnderlyingIndexColNames>
     </key>
     <key id="812" parent="337" name="PRIMARY">
-      <ColNames>Transition_time</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Transition_time</UnderlyingIndexColNames>
     </key>
     <key id="813" parent="338" name="PRIMARY">
-      <ColNames>Name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Name</UnderlyingIndexColNames>
     </key>
     <key id="814" parent="339" name="PRIMARY">
-      <ColNames>Time_zone_id
-Transition_time</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Time_zone_id
+Transition_time</UnderlyingIndexColNames>
     </key>
     <key id="815" parent="340" name="PRIMARY">
-      <ColNames>Time_zone_id
-Transition_type_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Time_zone_id
+Transition_type_id</UnderlyingIndexColNames>
     </key>
     <column id="816" parent="341" name="Select_priv">
       <DataType>enum(&apos;N&apos;, &apos;Y&apos;)|0e</DataType>
@@ -5870,10 +5866,10 @@ Transition_type_id</ColNames>
       <CollationName>utf8_general_ci</CollationName>
     </column>
     <key id="848" parent="341" name="PRIMARY">
-      <ColNames>Host
-User</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>Host
+User</UnderlyingIndexColNames>
     </key>
     <column id="849" parent="342" name="user_id">
       <Comment>用户编号</Comment>
@@ -5915,12 +5911,11 @@ User</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="856" parent="342" name="PRIMARY">
-      <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>user_id</UnderlyingIndexColNames>
     </key>
     <key id="857" parent="342" name="account_one">
-      <ColNames>account</ColNames>
       <UnderlyingIndexName>account_one</UnderlyingIndexName>
     </key>
     <column id="858" parent="343" name="exam_id">
@@ -5955,10 +5950,10 @@ User</ColNames>
       <Type>btree</Type>
     </index>
     <key id="864" parent="343" name="PRIMARY">
-      <ColNames>exam_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>exam_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="865" parent="344" name="course_id">
       <AutoIncrement>323138</AutoIncrement>
@@ -5989,9 +5984,9 @@ user_id</ColNames>
       <Position>5</Position>
     </column>
     <key id="870" parent="344" name="PRIMARY">
-      <ColNames>course_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>course_id</UnderlyingIndexColNames>
     </key>
     <column id="871" parent="345" name="coures_discuss_id">
       <AutoIncrement>1</AutoIncrement>
@@ -6028,9 +6023,9 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="877" parent="345" name="PRIMARY">
-      <ColNames>coures_discuss_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_discuss_id</UnderlyingIndexColNames>
     </key>
     <column id="878" parent="346" name="coures_video_id">
       <Comment>视频编号</Comment>
@@ -6074,9 +6069,9 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="886" parent="346" name="PRIMARY">
-      <ColNames>coures_video_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_video_id</UnderlyingIndexColNames>
     </key>
     <column id="887" parent="347" name="coures_id">
       <Comment>课程编号</Comment>
@@ -6112,10 +6107,10 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="893" parent="347" name="PRIMARY">
-      <ColNames>coures_id
-exam_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_id
+exam_id</UnderlyingIndexColNames>
     </key>
     <column id="894" parent="348" name="course_id">
       <AutoIncrement>1</AutoIncrement>
@@ -6152,10 +6147,10 @@ exam_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="900" parent="348" name="PRIMARY">
-      <ColNames>course_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>course_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="901" parent="349" name="notice_id">
       <AutoIncrement>1</AutoIncrement>
@@ -6181,9 +6176,9 @@ user_id</ColNames>
       <Position>4</Position>
     </column>
     <key id="905" parent="349" name="PRIMARY">
-      <ColNames>notice_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>notice_id</UnderlyingIndexColNames>
     </key>
     <column id="906" parent="350" name="points_id">
       <DataType>varchar(255)|0s</DataType>
@@ -6200,10 +6195,10 @@ user_id</ColNames>
       <Position>3</Position>
     </column>
     <key id="909" parent="350" name="PRIMARY">
-      <ColNames>points_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>points_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="910" parent="351" name="problem_id">
       <AutoIncrement>499</AutoIncrement>
@@ -6263,9 +6258,9 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="923" parent="351" name="PRIMARY">
-      <ColNames>problem_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>problem_id</UnderlyingIndexColNames>
     </key>
     <column id="924" parent="352" name="problem_id">
       <Comment>考题编号</Comment>
@@ -6297,10 +6292,10 @@ user_id</ColNames>
       <RefTableName>cxtc_problem</RefTableName>
     </foreign-key>
     <key id="929" parent="352" name="PRIMARY">
-      <ColNames>problem_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>problem_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="930" parent="353" name="user_id">
       <Comment>用户编号</Comment>
@@ -6404,9 +6399,9 @@ user_id</ColNames>
       <Position>20</Position>
     </column>
     <key id="950" parent="353" name="PRIMARY">
-      <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>user_id</UnderlyingIndexColNames>
     </key>
     <column id="951" parent="354" name="coures_discuss_id">
       <Comment>课程讨论编号</Comment>
@@ -6447,10 +6442,10 @@ user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="958" parent="354" name="PRIMARY">
-      <ColNames>coures_discuss_id
-user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>coures_discuss_id
+user_id</UnderlyingIndexColNames>
     </key>
     <column id="959" parent="355" name="account">
       <Comment>账户名</Comment>
@@ -6694,9 +6689,9 @@ user_id</ColNames>
       <CollationName>utf8_bin</CollationName>
     </column>
     <key id="1004" parent="491" name="PRIMARY">
-      <ColNames>variable</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>variable</UnderlyingIndexColNames>
     </key>
     <trigger id="1005" parent="491" name="sys_config_insert_set_user">
       <Definer>mysql.sys@localhost</Definer>

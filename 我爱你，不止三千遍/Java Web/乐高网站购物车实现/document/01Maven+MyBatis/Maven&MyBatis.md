@@ -98,7 +98,7 @@ Maven是专门用于管理和构建Java项目的工具，它的主要功能有�
 
 * 远程仓库(私服)：一般由公司团队搭建的私有仓库
 
-  今天我们只学习远程仓库的使用，并不会搭建。
+  今天我们只学习中央仓库的使用，并不会搭建。
 
 当项目中使用坐标引入对应依赖jar包后，首先会查找本地仓库中是否有对应的jar包：
 
@@ -319,7 +319,7 @@ Maven 对项目构建的生命周期划分为3套：
 
 > ==注意：==
 >
-> * 上面所说的资源可以是插件、依赖、当前项目。
+> * 上面所说的资源可以是插件、依赖、其它项目。
 > * 我们的项目如果被其他的项目依赖时，也是需要坐标来引入的。
 
 #### 1.4.3  IDEA 创建 Maven项目
@@ -388,11 +388,11 @@ Maven 对项目构建的生命周期划分为3套：
 
 **使用坐标引入jar包的步骤：**
 
-* 在项目的 pom.xml 中编写 <dependencies> 标签
+* 在项目的 pom.xml 中编写 <dependencies> 标签（依赖标签）
 
-* 在 <dependencies> 标签中 使用 <dependency> 引入坐标
+* 在 <dependencies> 标签中 使用 <dependency> 引入坐标（依赖）
 
-* 定义坐标的 groupId，artifactId，version
+* 定义坐标的 groupId（组织），artifactId（项目），version（版本）
 
   <img src="assets/image-20210726193105765.png" alt="image-20210726193105765" style="zoom:70%;" />
 
@@ -476,9 +476,9 @@ Maven 对项目构建的生命周期划分为3套：
 
 **持久层：**
 
-* 负责将数据到保存到数据库的那一层代码。
+* 负责将数据保存到数据库的那一层代码。
 
-  以后开发我们会将操作数据库的Java代码作为持久层。而Mybatis就是对jdbc代码进行了封装。
+  以后开发我们会将操作数据库的 Java 代码作为持久层。而 Mybatis 就是对 jdbc 代码进行了封装。
 
 * JavaEE三层架构：表现层、业务层、持久层
 
@@ -614,6 +614,32 @@ Maven 对项目构建的生命周期划分为3套：
 
   注意：需要在项目的 resources 目录下创建logback的配置文件
 
+  ```xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <configuration>
+      <!--
+          CONSOLE：表示当前的日志信息是可以输出到控制台的。
+      -->
+      <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+          <encoder>
+              <pattern>[%level] %cyan([%thread]) %boldGreen(%logger{15}) - %msg %n</pattern>
+          </encoder>
+      </appender>
+  
+      <logger name="com.itheima" level="DEBUG" additivity="false">
+          <appender-ref ref="Console"/>
+      </logger>
+  
+      <!--
+        level：用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，默认debug
+        <root>可以包含零个或多个 <appender-ref> 元素，标识这个输出位置将会被本日志级别控制。
+        -->
+      <root level="DEBUG">
+          <appender-ref ref="Console"/>
+      </root>
+  </configuration>
+  ```
+
 * 编写 MyBatis 核心配置文件 -- > 替换连接信息 解决硬编码问题
 
   在模块下的 resources 目录下创建mybatis的配置文件 `mybatis-config.xml`，内容如下：
@@ -706,7 +732,11 @@ Maven 对项目构建的生命周期划分为3套：
             //2. 获取SqlSession对象，用它来执行sql
             SqlSession sqlSession = sqlSessionFactory.openSession();
             //3. 执行sql
-            List<User> users = sqlSession.selectList("test.selectAll"); //参数是一个字符串，该字符串必须是映射配置文件的namespace.id
+            // selectList 查询所有
+            // selectOne 查询一个
+            // 参数是一个字符串，该字符串必须是映射配置文件的 namespace.id
+            // 自动封装结果集
+            List<User> users = sqlSession.selectList("test.selectAll"); 
             System.out.println(users);
             //4. 释放资源
             sqlSession.close();
@@ -859,12 +889,14 @@ Mybatis 官网也是推荐使用 Mapper 代理的方式。下图是截止官网�
 
 #### 2.4.1  多环境配置
 
-在核心配置文件的 `environments` 标签中其实是可以配置多个 `environment` ，使用 `id` 给每段环境起名，在 `environments` 中使用 `default='环境id'` 来指定使用哪儿段配置。我们一般就配置一个 `environment` 即可。
+在核心配置文件的 `environments` 标签中其实是可以配置多个 `environment` ，每个 environment 可以连接不同的数据库，使用 `id` 给每段环境起名，在 `environments` 中使用 `default='环境id'` 来指定使用哪儿段配置。我们一般就配置一个 `environment` 即可。
 
 ```xml
 <environments default="development">
     <environment id="development">
+        <!-- 事务管理方式，默认用 JDBC 的管理方式 -->
         <transactionManager type="JDBC"/>
+        <!-- MyBatis 数据库连接池，默认为 POOLED -->
         <dataSource type="POOLED">
             <!--数据库连接信息-->
             <property name="driver" value="com.mysql.jdbc.Driver"/>
@@ -884,7 +916,7 @@ Mybatis 官网也是推荐使用 Mapper 代理的方式。下图是截止官网�
             <property name="password" value="1234"/>
         </dataSource>
     </environment>
-</environments>=
+</environments>
 ```
 
 #### 2.4.2  类型别名
@@ -894,19 +926,62 @@ Mybatis 官网也是推荐使用 Mapper 代理的方式。下图是截止官网�
 首先需要现在核心配置文件中配置类型别名，也就意味着给pojo包下所有的类起了别名（别名就是类名），不区分大小写。内容如下：
 
 ```xml
+<!-- 配置类型别名 -->
 <typeAliases>
-    <!--name属性的值是实体类所在包-->
+    <!--name 属性的值是实体类所在包-->
+    <!-- 这样做，相当于 com.itheima.pojo 下的所有实体类都默认在前面加上了 com.itheima.pojo -->
     <package name="com.itheima.pojo"/> 
 </typeAliases>
+
+<environments default="development">
+    <environment id="development">
+        <!-- 事务管理方式，默认用 JDBC 的管理方式 -->
+        <transactionManager type="JDBC"/>
+        <!-- MyBatis 数据库连接池，默认为 POOLED -->
+        <dataSource type="POOLED">
+            <!--数据库连接信息-->
+            <property name="driver" value="com.mysql.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql:///mybatis?useSSL=false"/>
+            <property name="username" value="root"/>
+            <property name="password" value="1234"/>
+        </dataSource>
+    </environment>
+
+    <environment id="test">
+        <transactionManager type="JDBC"/>
+        <dataSource type="POOLED">
+            <!--数据库连接信息-->
+            <property name="driver" value="com.mysql.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql:///mybatis?useSSL=false"/>
+            <property name="username" value="root"/>
+            <property name="password" value="1234"/>
+        </dataSource>
+    </environment>
+</environments>
 ```
 
 通过上述的配置，我们就可以简化映射配置文件中 `resultType` 属性值的编写
 
 ```xml
 <mapper namespace="com.itheima.mapper.UserMapper">
-    <select id="selectAll" resultType="user">
+    <select id="selectAll" resultType="User">
         select * from tb_user;
     </select>
 </mapper>
 ```
+
+#### 2.4.3 配置文件要遵守层次顺序（先后顺序）
+
+- properties 属性
+- settings 属性
+- typeAliases 类型别名
+- typeHandlers 类型处理器
+- objectFactory 工厂对象
+- plugins 插件
+- environments 环境配置
+  - environment 环境变量
+    - transactionManager 事务管理器
+    - dataSource 数据源
+- databaseIdProvider 数据库厂商标识
+- mappers 映射器
 

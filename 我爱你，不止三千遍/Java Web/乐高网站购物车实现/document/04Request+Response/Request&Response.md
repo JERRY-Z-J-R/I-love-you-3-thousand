@@ -1139,7 +1139,7 @@ public class RequestDemo5 extends HttpServlet {
 
 说明请求已经转发到了`/req6`
 
-3. 请求转发资源间共享数据:使用Request对象
+#### 2.5.1 请求转发资源间共享数据:使用Request对象
 
 此处主要解决的问题是把请求从`/req5`转发到`/req6`的时候，如何传递数据给`/req6`。
 
@@ -1227,7 +1227,7 @@ public class RequestDemo6 extends HttpServlet {
 
 此时就可以实现在转发多个资源之间共享数据。
 
-4. 请求转发的特点
+#### 2.5.2 请求转发的特点
 
 * 浏览器地址栏路径不发生变化
 

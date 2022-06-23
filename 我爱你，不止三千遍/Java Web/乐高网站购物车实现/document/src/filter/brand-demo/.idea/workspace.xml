@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4bb50db-9db9-4f4a-a9c3-e99ee5b17fef" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/../../cookie-session/cookie-demo/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../cookie-session/cookie-demo/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../cookie-session/cookie-demo/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../cookie-session/cookie-demo/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../cookie-session/cookie-yes/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/itheima/mapper/BrandMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/itheima/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../filter-demo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../servlet/servlet-demo01/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01Maven+MyBatis/Maven&amp;MyBatis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../01Maven+MyBatis/Maven&amp;MyBatis.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../02MyBatis/Mybatis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../02MyBatis/Mybatis.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../04Request+Response/Request&amp;Response.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../04Request+Response/Request&amp;Response.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../07Filter+Listener+Ajax/Filter&amp;Listener&amp;Ajax.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../07Filter+Listener+Ajax/Filter&amp;Listener&amp;Ajax.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo01/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo01/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo01/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo01/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo01/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo01/target/classes/com/itheima/MyBatisDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo01/target/classes/com/itheima/MyBatisDemo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo01/target/classes/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo01/target/classes/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo02/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo02/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo02/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/.idea/dataSources/45b25c78-f054-4a98-880a-f588924e170e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/.idea/dataSources/45b25c78-f054-4a98-880a-f588924e170e.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/src/main/resources/com/itheima/mapper/BrandMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/src/main/resources/com/itheima/mapper/BrandMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/src/test/java/com/itheima/test/MyBatisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/src/test/java/com/itheima/test/MyBatisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/target/classes/com/itheima/mapper/BrandMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/target/classes/com/itheima/mapper/BrandMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/target/classes/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/target/classes/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis/demo03/target/test-classes/com/itheima/test/MyBatisTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis/demo03/target/test-classes/com/itheima/test/MyBatisTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../servlet/servlet-demo01/target/classes/com/itheima/web/ServletDemo05.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../servlet/servlet-demo02/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../servlet/servlet-demo02/target/classes/com/itheima/uitl/SqlSessionFactoryUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../servlet/servlet-demo02/target/classes/com/itheima/web/user/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../servlet/servlet-demo02/target/classes/com/itheima/web/user/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../servlet/servlet-demo02/target/classes/com/itheima/web/user/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../servlet/servlet-demo02/target/classes/com/itheima/web/user/Register.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../乐高网站购物车——数据库设计.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../乐高网站购物车——数据库设计.xmind" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/apache-maven-3.6.1" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.6.1\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2AtYB800BuMJFpVbCYxUW53bUBs" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "F:/MyGit/I-love-you-3-thousand/我爱你，不止三千遍/Java Web/乐高网站购物车实现/document/src/filter/brand-demo",
+    "project.structure.last.edited": "Facet",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\filter\brand-demo\src\main\webapp" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\filter\brand-demo\src\main\java" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\filter\brand-demo\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\filter\brand-demo\src\main\webapp" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="e4bb50db-9db9-4f4a-a9c3-e99ee5b17fef" name="变更" comment="" />
+      <created>1655830220228</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655830220228</updated>
+      <workItem from="1655830222963" duration="622000" />
+      <workItem from="1655866469223" duration="213000" />
+      <workItem from="1655972705214" duration="497000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -15,21 +15,21 @@
 
     <dependencies>
 
-        <!--mybatis 依赖-->
+        <!-- mybatis 依赖 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>3.5.5</version>
         </dependency>
 
-        <!--mysql 驱动-->
+        <!-- mysql 驱动 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.46</version>
         </dependency>
 
-        <!--junit 单元测试-->
+        <!-- junit 单元测试 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -37,26 +37,26 @@
             <scope>test</scope>
         </dependency>
 
-
-        <!-- 添加slf4j日志api -->
+        <!-- 添加 slf4j 日志 api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.20</version>
         </dependency>
-        <!-- 添加logback-classic依赖 -->
+
+        <!-- 添加 logback-classic 依赖 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
-        <!-- 添加logback-core依赖 -->
+
+        <!-- 添加 logback-core 依赖 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
         </dependency>
-
     </dependencies>
 
 </project>

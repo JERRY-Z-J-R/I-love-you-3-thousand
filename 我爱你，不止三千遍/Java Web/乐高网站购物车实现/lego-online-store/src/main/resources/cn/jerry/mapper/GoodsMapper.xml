@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jerry.mapper.GoodsMapper">
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="Goods">
+        SELECT *
+        FROM goods
+    </select>
+
+    <!-- 根据 goodssname 模糊查询 -->
+    <select id="selectVague" resultType="Goods">
+        SELECT *
+        FROM goods
+        WHERE goodsname LIKE #{goodsname}
+    </select>
+
+    <!-- 根据 goodsid 查询 -->
+    <select id="selectById" resultType="Goods">
+        SELECT *
+        FROM goods
+        WHERE goodsid = #{goodsid}
+    </select>
+
+    <!-- 根据 int[] goodsids 批量查询 -->
+    <select id="selectByIds" resultType="Goods">
+        SELECT *
+        FROM goods
+        WHERE goodsid IN
+        <foreach collection="goodsids" item="goodsid" separator="," open="(" close=")">
+            #{goodsid}
+        </foreach>
+    </select>
+
+</mapper>
