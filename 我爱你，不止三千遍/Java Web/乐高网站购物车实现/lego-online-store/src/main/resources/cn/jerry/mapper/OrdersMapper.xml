@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jerry.mapper.OrdersMapper">
+    <!-- 生成订单 -->
+    <insert id="add">
+        INSERT INTO orders(userid, ordertime, orderpay, orderstate)
+        VALUES (#{userid}, #{ordertime}, #{orderpay}, #{orderstate})
+    </insert>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="Order">
+        SELECT *
+        FROM orders
+    </select>
+
+    <!-- 更新订单状态 -->
+    <update id="updateState">
+        UPDATE orders
+        SET orderstate = #{orderstate}
+        WHERE orderid = #{orderid}
+    </update>
+</mapper>

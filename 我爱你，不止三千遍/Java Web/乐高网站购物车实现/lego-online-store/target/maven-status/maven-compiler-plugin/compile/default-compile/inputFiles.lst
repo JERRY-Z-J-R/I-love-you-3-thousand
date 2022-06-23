@@ -5,7 +5,6 @@ F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\mapper\ShoppingCartMapper.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\pojo\Goods.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\service\impl\GoodsServiceImpl.java
-F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\mapper\OrderMapper.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\service\AddressService.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\web\servlet\LoveServlet.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\pojo\Order.java
@@ -24,6 +23,7 @@ F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\mapper\AddressMapper.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\service\OrderService.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\service\UserService.java
+F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\mapper\OrdersMapper.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\service\impl\OrderServiceImpl.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\util\SqlSessionFactoryUtils.java
 F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\lego-online-store\src\main\java\cn\jerry\mapper\GoodsMapper.java

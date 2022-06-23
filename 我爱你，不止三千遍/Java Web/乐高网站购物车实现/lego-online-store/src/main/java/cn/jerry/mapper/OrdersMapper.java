@@ -1,11 +1,11 @@
-package cn.jerry.service;
+package cn.jerry.mapper;
 
 import cn.jerry.pojo.Order;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface OrderService {
+public interface OrdersMapper {
     /**
      * 生成订单
      *
@@ -26,5 +26,5 @@ public interface OrderService {
      * @param orderid
      * @param orderstate
      */
-    void updateState(int orderid, int orderstate);
+    void updateState(@Param("orderid") int orderid, @Param("orderstate") int orderstate);
 }

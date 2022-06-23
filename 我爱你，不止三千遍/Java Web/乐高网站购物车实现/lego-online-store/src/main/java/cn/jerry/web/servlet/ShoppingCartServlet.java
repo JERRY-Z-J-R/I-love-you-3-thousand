@@ -93,6 +93,7 @@ public class ShoppingCartServlet extends BaseServlet {
         request.setAttribute("goodsids", goodsids);
         // 请求转发
         request.getRequestDispatcher("/goods/selectByIds").forward(request, response);
+        // 注意：处理存储数据转发处理的方式外，也可以直接把 selectByIds 实现在此处，这里只是为了演示存储转发的使用
     }
 
     /**

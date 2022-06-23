@@ -2,6 +2,7 @@ cn\jerry\pojo\Address.class
 cn\jerry\pojo\Goods.class
 cn\jerry\mapper\AddressMapper.class
 cn\jerry\service\impl\ShoppingCartServiceImpl.class
+cn\jerry\mapper\OrdersMapper.class
 cn\jerry\pojo\Love.class
 cn\jerry\mapper\LoveMapper.class
 cn\jerry\mapper\GoodsMapper.class
@@ -20,7 +21,6 @@ cn\jerry\service\UserService.class
 cn\jerry\web\servlet\base\BaseServlet.class
 cn\jerry\service\ShoppingCartService.class
 cn\jerry\web\servlet\LoveServlet.class
-cn\jerry\mapper\OrderMapper.class
 cn\jerry\mapper\ShoppingCartMapper.class
 cn\jerry\service\AddressService.class
 cn\jerry\web\servlet\GoodsServlet.class
