@@ -84,7 +84,7 @@ public class OrderServlet extends BaseServlet {
      * @throws IOException
      */
     public void addC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 接收 userid
+        // 接收 userid orderstate
         String _userid = request.getParameter("userid");
         String _orderstate = request.getParameter("orderstate");
         int userid = Integer.parseInt(_userid);
@@ -134,7 +134,7 @@ public class OrderServlet extends BaseServlet {
 
     /**
      * /order/selectAll
-     * 查询所有
+     * 根据 userid 查询所有
      *
      * @param request
      * @param response
@@ -142,8 +142,12 @@ public class OrderServlet extends BaseServlet {
      * @throws IOException
      */
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 接收 userid
+        String _userid = request.getParameter("userid");
+        int userid = Integer.parseInt(_userid);
+
         // 调用 service 查询所有
-        List<Order> orders = orderService.selectAll();
+        List<Order> orders = orderService.selectAll(userid);
 
         // 转为 JSON
         String jsonString = JSON.toJSONString(orders);

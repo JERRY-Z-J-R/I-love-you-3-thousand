@@ -14,11 +14,12 @@ public interface OrderService {
     void add(Order order);
 
     /**
-     * 查询所有
+     * 根据 userid 查询所有
      *
+     * @param userid
      * @return
      */
-    List<Order> selectAll();
+    List<Order> selectAll(int userid);
 
     /**
      * 更新订单状态

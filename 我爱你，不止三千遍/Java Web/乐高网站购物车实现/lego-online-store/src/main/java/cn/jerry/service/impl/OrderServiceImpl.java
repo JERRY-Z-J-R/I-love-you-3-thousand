@@ -34,19 +34,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 查询所有
+     * 根据 userid 查询所有
      *
+     * @param userid
      * @return
      */
     @Override
-    public List<Order> selectAll() {
+    public List<Order> selectAll(int userid) {
         // 获取 SqlSession 对象
         SqlSession sqlSession = factory.openSession();
         // 获取 OrderMapper
         OrdersMapper mapper = sqlSession.getMapper(OrdersMapper.class);
 
         // 调用方法
-        List<Order> orders = mapper.selectAll();
+        List<Order> orders = mapper.selectAll(userid);
 
         // 释放资源
         sqlSession.close();

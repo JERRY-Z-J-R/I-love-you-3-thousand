@@ -9,10 +9,11 @@
         VALUES (#{userid}, #{ordertime}, #{orderpay}, #{orderstate})
     </insert>
 
-    <!-- 查询所有 -->
+    <!-- 根据 userid 查询所有 -->
     <select id="selectAll" resultType="Order">
         SELECT *
         FROM orders
+        WHERE userid = #{userid}
     </select>
 
     <!-- 更新订单状态 -->
