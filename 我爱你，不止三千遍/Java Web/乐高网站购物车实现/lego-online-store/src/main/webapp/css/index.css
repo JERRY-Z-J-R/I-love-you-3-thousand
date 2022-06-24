@@ -1,0 +1,169 @@
+/* body */
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 980px;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+    color: #006DB7;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* -------------------------------------------------------- */
+
+/* 布局容器 */
+.header-top {
+    line-height: 50px;
+}
+
+.el-main {
+    padding: 10px 0 0 0 !important;
+}
+
+body > .el-container {
+    margin-bottom: 40px;
+}
+
+.footer {
+    width: 100%;
+}
+
+/* -------------------------------------------------------- */
+
+.header-top {
+    background-color: #FFFFFF;
+}
+
+.header-top-btn {
+    margin-left: 3% !important;
+    color: #000000 !important;
+}
+
+.header-top-link {
+    float: right;
+    margin-right: 18%;
+    color: #2c2c2c;
+    font-size: 14px;
+}
+
+.header-nav {
+    background-color: #FFCF00;
+    line-height: 76px;
+}
+
+.header-logo-div {
+    float: left;
+    height: 76px;
+    margin: 0 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-logo {
+    width: 54px;
+}
+
+.header-logo-div:hover {
+    cursor: pointer;
+}
+
+.header-nav-btn {
+    float: left;
+    padding: 0 35px;
+    color: #000000;
+    font-size: 18px;
+}
+
+.header-nav-btn:hover {
+    background-color: #ffdd56;
+    cursor: pointer;
+}
+
+.header-nav-search {
+    float: right;
+    height: 76px;
+    margin-right: 54px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-search {
+    width: 240px !important;
+}
+
+.header-search-btn:hover {
+    color: #000000 !important;
+}
+
+.goods {
+    width: 90%;
+    /* height: 50px; */
+    margin: 0 auto;
+}
+
+.el-row {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.el-col {
+    margin-bottom: 24px;
+    border-radius: 10px;
+}
+
+.goods-card {
+    border-radius: 18px !important;
+}
+
+.goods-card:hover {
+    box-shadow: #e8e8e8 0 0 24px 6px !important;
+}
+
+.image {
+    width: 100%;
+    display: block;
+}
+
+.goods-title {
+    height: 50px;
+}
+
+.goods-name {
+    padding-top: 10px;
+    float: left;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.goods-price {
+    float: right;
+    padding-top: 3px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ff2367;
+}
+
+.goods-btn {
+    width: 100%;
+    margin-top: 18px;
+}
+
+.goods-outline-box {
+    color: #4f4f4f;
+    font-size: 14px;
+    line-height: 20px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

@@ -1,10 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>乐高 | LEGO - 商店</title>
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link href="./css/index.css" rel="stylesheet">
 </head>
 <body>
-<h1>首页</h1>
+<div id="app">
+    <!-- 布局容器  -->
+    <el-container>
+        <!-- 顶栏容器 -->
+        <el-header class="header-top" height="54px">
+            <el-button class="header-top-btn" type="primary" icon="el-icon-back" size="mini" plain round>乐高官网
+            </el-button>
+            <span class="header-top-link">与我们一起欢庆乐高集团 90 周年纪念日。<a
+                    href="https://www.lego.com/zh-cn/90-years-of-play?icmp=HP-SHH-Standard-NO_Hero_90th_anniversary_HP-MP-NO-B2CDR6EY9E">了解更多</a></span>
+        </el-header>
+        <el-header class="header-nav" height="76px">
+            <div class="header-logo-div"><img class="header-logo" src="./img/LEGO.png" alt="LEGO" title="回到首页"
+                                              v-on:click="selectAllGoods()"></div>
+            <div class="header-nav-btn" @click="dialogLogin = true">我的</div>
+            <div class="header-nav-btn">收藏</div>
+            <div class="header-nav-btn">订单</div>
+            <div class="header-nav-btn">购物车</div>
+            <div class="header-nav-search">
+                <el-input class="header-search" v-model="searchText" v-on:keyup.enter.native="search()"
+                          placeholder="请输入内容">
+                    <el-button class="header-search-btn" slot="append" icon="el-icon-search"
+                               v-on:click="search()"></el-button>
+                </el-input>
+            </div>
+        </el-header>
+        <el-dialog
+                title="登 录"
+                :visible.sync="dialogLogin"
+                width="30%"
+                center
+        >
+        </el-dialog>
+        <!-- 主要区域容器 -->
+        <el-main>
+            <!-- 轮播图 -->
+            <el-carousel height="93px" indicator-position="none">
+                <el-carousel-item>
+                    <img src="./img/banner02.png" alt="" style="width: 100%;">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="./img/banner01.png" alt="" style="width: 100%">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="./img/banner03.png" alt="" style="width: 100%;">
+                </el-carousel-item>
+            </el-carousel>
+            <!-- 商品列表 -->
+            <div class="goods">
+                <el-row :gutter="24">
+                    <el-col :span="6" v-for="goods in goodses">
+                        <el-card class="goods-card" :body-style="{ padding: '24px' }">
+                            <img v-bind:src="'http://localhost:8080/lego-online-store/goods/getGoodsImg?goodsid='+goods.goodsid"
+                                 class="image">
+                            <div style="padding: 14px;">
+                                <div class="goods-title">
+                                    <div class="goods-name">{{goods.goodsname}}</div>
+                                    <div class="goods-price"><span style="font-size: 18px">￥</span>{{goods.goodsprice}}
+                                    </div>
+                                </div>
+                                <div class="goods-outline-box">
+                                    {{goods.goodsoutline}}}
+                                </div>
+                                <div class="goods-btn">
+                                    <el-button type="primary" icon="el-icon-star-off" plain circle></el-button>
+                                    <el-button type="success" icon="el-icon-goods" plain circle></el-button>
+                                    <el-button type="danger" icon="el-icon-circle-check" round style="float: right">
+                                        &nbsp;&nbsp;购&nbsp;买&nbsp;&nbsp;
+                                    </el-button>
+                                </div>
+                            </div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </div>
+        </el-main>
+        <!-- 底栏容器 -->
+        <img class="footer" src="./img/footer.png" alt="footer">
+    </el-container>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                searchText: "",
+                goodses: [],
+                user: {
+                    userid: "",
+                    username: "",
+                    password: "",
+                },
+                dialogLogin: false
+            }
+        }, methods: {
+            selectAllGoods() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/goods/selectAll"
+                }).then(resp => {
+                    this.goodses = resp.data;
+                    this.searchText = "";
+                })
+            },
+            search() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/goods/selectVague?goodsname=" + this.searchText
+                }).then(resp => {
+                    this.goodses = resp.data;
+                    if (this.searchText === "") {
+                    } else if (this.goodses.length !== 0) {
+                        this.$notify({
+                            title: '成功',
+                            message: '成功查询到符合的商品！',
+                            type: 'success',
+                            offset: 130,
+                            duration: 1500
+                        });
+                    } else {
+                        this.$notify({
+                            title: '哦豁',
+                            message: '没有查询到符合的商品！',
+                            type: 'warning',
+                            offset: 130,
+                            duration: 1500
+                        });
+                    }
+                })
+            },
+            me() {
+                if (this.user.username === "") {
+                    this.dialogLogin = true;
+                }
+            }
+        }, created() {
+        }, beforeMount() {
+        }, mounted() {
+            this.selectAllGoods();
+        }
+    })
+</script>
 </body>
 </html>

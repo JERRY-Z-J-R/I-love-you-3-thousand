@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -124,5 +126,36 @@ public class GoodsServlet extends BaseServlet {
         // 写数据
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
+    }
+
+    /**
+     * goods/getGoodsImg
+     * 根据 goodsid 返回图片
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void getGoodsImg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 接收 userid 数据
+        String _goodsid = request.getParameter("goodsid");
+        int goodsid = Integer.parseInt(_goodsid);
+
+        // 调用 service 查询
+        Goods goods = brandService.selectById(goodsid);
+
+        String imagePath = goods.getGoodsimg();
+
+        FileInputStream fis = new FileInputStream(imagePath);
+        int size = fis.available(); // 得到文件大小
+        byte data[] = new byte[size];
+        fis.read(data);  // 读数据
+        fis.close();
+        response.setContentType("image/gif"); // 设置返回的文件类型
+        OutputStream os = response.getOutputStream();
+        os.write(data);
+        os.flush();
+        os.close();
     }
 }
