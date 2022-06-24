@@ -3,8 +3,11 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/cn/jerry/mapper/GoodsMapper.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/cn/jerry/mapper/ShoppingCartMapper.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/cn/jerry/mapper/AddressMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/cn/jerry/mapper/GoodsMapper.xml" dialect="CassandraQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/cn/jerry/mapper/LoveMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/cn/jerry/mapper/OrdersMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/cn/jerry/mapper/ShoppingCartMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/cn/jerry/mapper/UserMapper.xml" dialect="MySQL" />
   </component>
 </project>

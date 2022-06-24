@@ -3,4 +3,46 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jerry.mapper.LoveMapper">
+    <!-- 加入收藏 -->
+    <insert id="addLove">
+        INSERT INTO love(userid, goodsid)
+        VALUES (#{userid}, #{goodsid})
+    </insert>
+
+    <!-- 根据 userid goodsid 查询收藏商品 -->
+    <select id="selectByUGId" resultType="Love">
+        SELECT *
+        FROM love
+        WHERE userid = #{userid}
+          AND goodsid = #{goodsid}
+    </select>
+
+    <!-- 根据 userid 查询收藏商品列表 -->
+    <select id="selectAll" resultType="Love">
+        SELECT *
+        FROM love
+        WHERE userid = #{userid}
+    </select>
+
+    <!-- 根据 userid goodsid 删除收藏商品 -->
+    <delete id="deleteByUGid">
+        DELETE
+        FROM love
+        WHERE userid = #{userid}
+          AND goodsid = #{goodsid}
+    </delete>
+
+    <!-- 根据 loveid 删除收藏商品 -->
+    <delete id="deleteById">
+        DELETE
+        FROM love
+        WHERE loveid = #{loveid}
+    </delete>
+
+    <!-- 根据 userid 删除商品列表（清空收藏夹） -->
+    <delete id="deleteAll">
+        DELETE
+        FROM love
+        WHERE userid = #{userid}
+    </delete>
 </mapper>

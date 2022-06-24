@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
         // 自动填入值
         // 获取 Cookie
         // 获取 Cookie 数组
+        // 并设置到用户名何密码框中
         Cookie[] cookies = request.getCookies();
         // 遍历数组
         int flag = 0;
@@ -66,7 +67,7 @@ public class LoginServlet extends HttpServlet {
                 // 设置 Cookie 的存活时间
                 c_username.setMaxAge(60 * 60 * 24 * 7);
                 c_password.setMaxAge(60 * 60 * 24 * 7);
-                // 发送
+                // 发送 Cookie
                 response.addCookie(c_username);
                 response.addCookie(c_password);
             }

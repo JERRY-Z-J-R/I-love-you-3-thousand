@@ -77,9 +77,6 @@ public class ShoppingCartServlet extends BaseServlet {
         // 调用 service 得到 商品列表
         List<ShoppingCart> _goodsids = shoppingCartService.selectByUserid(userid);
 
-        // 转为 JSON
-        String jsonString = JSON.toJSONString(_goodsids);
-
         // 获取 List 长度
         int length = _goodsids.size();
 
@@ -98,7 +95,7 @@ public class ShoppingCartServlet extends BaseServlet {
 
     /**
      * /shoppingCart/deleteCart
-     * 根据 cartid 删除购物车商品
+     * 根据 userid goodsid 移除购物车
      *
      * @param request
      * @param response
@@ -106,12 +103,31 @@ public class ShoppingCartServlet extends BaseServlet {
      * @throws IOException
      */
     public void deleteCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 接收 cartid
-        String _cartid = request.getParameter("cartid");
-        int cartid = Integer.parseInt(_cartid);
+        // 接收 userid goodsid
+        String _userid = request.getParameter("userid");
+        String _goodsid = request.getParameter("goodsid");
+        int userid = Integer.parseInt(_userid);
+        int goodsid = Integer.parseInt(_goodsid);
 
-        // 调用 service 删除购物车商品
-        shoppingCartService.deleteCart(cartid);
+        // 新建 ShoppingCart 对象
+        ShoppingCart shoppingCart = new ShoppingCart();
+        // 存入 userid、goodsid
+        shoppingCart.setUserid(userid);
+        shoppingCart.setGoodsid(goodsid);
+
+        // 调用 service 得到 cgcount
+        Integer cgcount = shoppingCartService.getCgcount(userid, goodsid);
+
+        // 判断是移除还是减少
+        if (cgcount > 1) {
+            // 数量 - 1
+            shoppingCart.setCgcount(--cgcount);
+            // 调用 service 更新购物车
+            shoppingCartService.updateCgcount(shoppingCart);
+        } else {
+            // 调用 service 删除购物车
+            shoppingCartService.deleteByUGid(userid, goodsid);
+        }
 
         // 响应成功的标识
         response.getWriter().write("success");

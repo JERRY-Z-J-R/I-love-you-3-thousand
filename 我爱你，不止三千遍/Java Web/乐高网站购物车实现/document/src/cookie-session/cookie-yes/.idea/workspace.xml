@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="cookie-yes:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bfac9fd4-c49f-49aa-a845-f4fa0349b63d" name="变更" comment="">
+      <change beforePath="$PROJECT_DIR$/../cookie-demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../cookie-demo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itheima/web/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itheima/web/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../filter/brand-demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../filter/brand-demo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/AddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/AddressMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/LoveMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/LoveMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/ShoppingCartMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/ShoppingCartMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/AddressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/LoveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/LoveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/ShoppingCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/ShoppingCartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/AddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/LoveServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/LoveServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/ShoppingCartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/ShoppingCartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/AddressServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/AddressServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/LoveServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/LoveServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/OrderServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/OrderServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/ShoppingCartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/ShoppingCartServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/java/cn/jerry/web/servlet/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/AddressMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/AddressMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/LoveMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/LoveMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/ShoppingCartMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/ShoppingCartMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/src/main/resources/cn/jerry/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/AddressMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/AddressMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/AddressMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/AddressMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/LoveMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/LoveMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/LoveMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/LoveMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/OrderMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/ShoppingCartMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/ShoppingCartMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/ShoppingCartMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/ShoppingCartMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/AddressService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/AddressService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/LoveService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/LoveService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/ShoppingCartService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/ShoppingCartService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/AddressServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/AddressServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/LoveServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/LoveServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/ShoppingCartServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/ShoppingCartServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/AddressServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/AddressServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/LoveServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/LoveServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/OrderServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/OrderServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/ShoppingCartServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/ShoppingCartServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/UserServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/classes/cn/jerry/web/servlet/UserServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../lego-online-store/target/tomcat/logs/access_log.2022-06-24" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../lego-online-store/target/tomcat/logs/access_log.2022-06-24" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../乐高网站购物车——业务流程.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../乐高网站购物车——业务流程.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/apache-maven-3.6.1" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.6.1\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2AtGH53gHBKm9xrkHEsWnG6MHlD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "F:/MyGit/I-love-you-3-thousand/我爱你，不止三千遍/Java Web/乐高网站购物车实现/document/src/cookie-session/cookie-yes",
+    "project.structure.last.edited": "Facet",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\cookie-session\cookie-yes\src\main\java\com\itheima\web" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\cookie-session\cookie-yes\src\main\java\com\itheima\util" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\cookie-session\cookie-yes\src\main\webapp" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\cookie-session\cookie-yes\src\main\java\com\itheima\service" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\cookie-session\cookie-yes\src\main\java\com\itheima\pojo" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Java Web\乐高网站购物车实现\document\src\cookie-session\cookie-yes\src\main\webapp" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="register.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.77" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/register.jsp" />
+      <deployment>
+        <artifact name="cookie-yes:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/cookie_yes_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="fc59d415-6600-4dc1-9c00-8ac7764d6744" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="cookie-yes:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Tomcat 服务器.register.jsp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="bfac9fd4-c49f-49aa-a845-f4fa0349b63d" name="变更" comment="" />
+      <created>1655821383063</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655821383063</updated>
+      <workItem from="1655821385096" duration="5282000" />
+      <workItem from="1655827120348" duration="229000" />
+      <workItem from="1655828506412" duration="28000" />
+      <workItem from="1655887267280" duration="281000" />
+      <workItem from="1656038139667" duration="5397000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -38,6 +38,14 @@ public interface ShoppingCartMapper {
     List<ShoppingCart> selectByUserid(int userid);
 
     /**
+     * 根据 userid goodsid 删除购物车商品
+     *
+     * @param userid
+     * @param goodsid
+     */
+    void deleteByUGid(@Param("userid") int userid, @Param("goodsid") int goodsid);
+
+    /**
      * 根据 cartid 删除购物车商品
      *
      * @param cartid

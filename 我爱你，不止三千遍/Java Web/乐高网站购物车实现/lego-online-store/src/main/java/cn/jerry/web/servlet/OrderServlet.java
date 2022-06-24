@@ -3,6 +3,8 @@ package cn.jerry.web.servlet;
 import cn.jerry.pojo.Goods;
 import cn.jerry.pojo.Order;
 import cn.jerry.pojo.ShoppingCart;
+import cn.jerry.service.GoodsService;
+import cn.jerry.service.OrderService;
 import cn.jerry.service.ShoppingCartService;
 import cn.jerry.service.impl.GoodsServiceImpl;
 import cn.jerry.service.impl.OrderServiceImpl;
@@ -22,8 +24,8 @@ import java.util.List;
 
 @WebServlet("/order/*")
 public class OrderServlet extends BaseServlet {
-    private OrderServiceImpl orderService = new OrderServiceImpl();
-    private GoodsServiceImpl goodsService = new GoodsServiceImpl();
+    private OrderService orderService = new OrderServiceImpl();
+    private GoodsService goodsService = new GoodsServiceImpl();
     private ShoppingCartService shoppingCartService = new ShoppingCartServiceImpl();
 
     /**

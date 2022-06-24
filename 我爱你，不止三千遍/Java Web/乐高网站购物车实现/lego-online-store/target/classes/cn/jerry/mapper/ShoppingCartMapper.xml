@@ -32,6 +32,14 @@
         WHERE userid = #{userid}
     </select>
 
+    <!-- 根据 userid goodsid 删除购物车商品 -->
+    <delete id="deleteByUGid">
+        DELETE
+        FROM shopping_cart
+        WHERE userid = #{userid}
+          AND goodsid = #{goodsid}
+    </delete>
+
     <!-- 根据 cartid 删除购物车商品 -->
     <delete id="deleteCart">
         DELETE

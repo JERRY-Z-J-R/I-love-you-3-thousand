@@ -95,6 +95,27 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     /**
+     * 根据 userid goodsid 删除购物车商品
+     *
+     * @param userid
+     * @param goodsid
+     */
+    @Override
+    public void deleteByUGid(int userid, int goodsid) {
+        // 获取 SqlSession 对象
+        SqlSession sqlSession = factory.openSession();
+        // 获取 ShoppingCartMapper
+        ShoppingCartMapper mapper = sqlSession.getMapper(ShoppingCartMapper.class);
+
+        // 调用方法
+        mapper.deleteByUGid(userid, goodsid);
+        // 提交事务
+        sqlSession.commit();
+        // 释放资源
+        sqlSession.close();
+    }
+
+    /**
      * 根据 cartid 删除购物车商品
      *
      * @param cartid
