@@ -30,6 +30,15 @@ public interface UserMapper {
     User selectUser(@Param("username") String username, @Param("password") String password);
 
     /**
+     * 根据 username password 查询用户 id
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    Integer selectUsId(@Param("username") String username, @Param("password") String password);
+
+    /**
      * 更新密码
      *
      * @param userid

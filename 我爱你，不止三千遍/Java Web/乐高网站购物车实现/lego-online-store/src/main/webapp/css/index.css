@@ -120,6 +120,7 @@ body > .el-container {
 }
 
 .goods-card {
+    overflow: hidden !important;
     border-radius: 18px !important;
 }
 
@@ -128,8 +129,14 @@ body > .el-container {
 }
 
 .image {
-    width: 100%;
+    margin: 0 auto;
+    width: 94%;
     display: block;
+    transition: all .4s;
+}
+
+.image:hover {
+    transform: scale(1.05) !important;
 }
 
 .goods-title {

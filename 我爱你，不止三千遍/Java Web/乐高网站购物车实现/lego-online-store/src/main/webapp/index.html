@@ -20,7 +20,7 @@
         <el-header class="header-nav" height="76px">
             <div class="header-logo-div"><img class="header-logo" src="./img/LEGO.png" alt="LEGO" title="回到首页"
                                               v-on:click="selectAllGoods()"></div>
-            <div class="header-nav-btn" @click="dialogLogin = true">我的</div>
+            <div class="header-nav-btn" @click="me()">我的</div>
             <div class="header-nav-btn">收藏</div>
             <div class="header-nav-btn">订单</div>
             <div class="header-nav-btn">购物车</div>
@@ -32,12 +32,103 @@
                 </el-input>
             </div>
         </el-header>
+        <!-- 登录二级界面 -->
         <el-dialog
                 title="登 录"
                 :visible.sync="dialogLogin"
-                width="30%"
+                width="24%"
                 center
         >
+            <el-input
+                    placeholder="请输入用户名"
+                    prefix-icon="el-icon-user"
+                    v-model="user.username"
+                    style="margin-bottom: 18px"
+            >
+            </el-input>
+            <el-input placeholder="请输入密码" prefix-icon="el-icon-lock" v-model="user.password" show-password
+                      style="margin-bottom: 18px"></el-input>
+            <el-input placeholder="请确认密码" prefix-icon="el-icon-lock" v-model="password2" show-password
+                      style="margin-bottom: 18px"></el-input>
+            <div style="text-align: center">
+                <el-button type="primary" v-on:click="login()">登 录</el-button>
+                <el-button v-on:click="loginReset()">重 置</el-button>
+                <el-button type="success" icon="el-icon-user-solid" circle plain title="注册"
+                           v-on:click="loginToRegister()"></el-button>
+            </div>
+        </el-dialog>
+        <!-- 注册二级界面 -->
+        <el-dialog
+                title="注 册"
+                :visible.sync="dialogRegister"
+                width="24%"
+                center
+        >
+            <el-input
+                    placeholder="请输入用户名"
+                    prefix-icon="el-icon-user"
+                    v-model="user.username"
+                    style="margin-bottom: 18px"
+            >
+            </el-input>
+            <el-input placeholder="请输入密码" prefix-icon="el-icon-lock" v-model="user.password" show-password
+                      style="margin-bottom: 18px"></el-input>
+            <div style="text-align: center">
+                <el-input id="changeImg" placeholder="请输入验证码" prefix-icon="el-icon-finished" v-model="checkCode"
+                          style="margin-bottom: 18px"></el-input>
+                <img id="checkCodeImg" src="http://localhost:8080/lego-online-store/user/checkCode" alt="验证码"
+                     v-on:click="newcheckCode()" style="margin-bottom: 18px; border-radius: 2px">
+            </div>
+            <div style="text-align: center">
+                <el-button type="primary" v-on:click="register()">注 册</el-button>
+                <el-button v-on:click="registerReset()">重 置</el-button>
+            </div>
+        </el-dialog>
+        <!-- 用户信息二级界面 -->
+        <el-dialog
+                title="我的信息"
+                :visible.sync="dialogMe"
+                width="40%"
+                center
+        >
+            <div id="dialogUsMsg" style="height: 50px">
+                <el-avatar size="large" icon="el-icon-user-solid" style="float: left; margin-left: 28%"></el-avatar>
+                <span style="float: left; font-size: 24px; margin: 6px 24px 0 24px;">{{user.username}}</span>
+                <el-button type="danger" round plain size="mini" style="float: right; margin: 10px 28% 0 0"
+                           v-on:click="logout()">&nbsp;&nbsp;登&nbsp;出&nbsp;&nbsp;
+                </el-button>
+            </div>
+            <el-table
+                    :data="address"
+                    stripe
+                    max-height="240"
+                    style="width: 90%; margin: 0 auto">
+                <el-table-column
+                        prop="address"
+                        label="收货地址">
+                </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="删除"
+                        width="120">
+                    <!-- 利用插槽，自定义数据 -->
+                    <template slot-scope="scope">
+                        <!-- <template> -->
+                        <el-button type="danger" icon="el-icon-delete" slot="reference" circle
+                                   size="small" v-on:click="delAddress(scope.row.addressid)"></el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!-- 修改用户密码及新增收货地址 -->
+            <div style="text-align: center; margin: 30px 24px 10px 24px">
+                <el-button type="primary" round plain icon="el-icon-edit" style="margin: 0 10px"
+                           v-on:click="updatePassword()">修改用户密码
+                </el-button>
+                <el-button type="success" round plain icon="el-icon-sell" style="margin: 0 10px"
+                           v-on:click="addAddress()">新增收货地址
+                </el-button>
+            </div>
+
         </el-dialog>
         <!-- 主要区域容器 -->
         <el-main>
@@ -59,7 +150,7 @@
                     <el-col :span="6" v-for="goods in goodses">
                         <el-card class="goods-card" :body-style="{ padding: '24px' }">
                             <img v-bind:src="'http://localhost:8080/lego-online-store/goods/getGoodsImg?goodsid='+goods.goodsid"
-                                 class="image">
+                                 class="image" alt="">
                             <div style="padding: 14px;">
                                 <div class="goods-title">
                                     <div class="goods-name">{{goods.goodsname}}</div>
@@ -96,16 +187,24 @@
     new Vue({
         el: "#app",
         data() {
-            return {
+            // 刷新页面，缓存数据，防止用户信息丢失
+            let cache = localStorage.getItem("cache") ? JSON.parse(localStorage.getItem("cache")) : {}
+            return Object.assign({
                 searchText: "",
                 goodses: [],
+                address: [],
                 user: {
                     userid: "",
                     username: "",
                     password: "",
                 },
-                dialogLogin: false
-            }
+                password2: "",
+                checkCode: "",
+                dialogLogin: false,
+                dialogRegister: false,
+                dialogMe: false,
+                visible: false
+            }, cache)
         }, methods: {
             selectAllGoods() {
                 axios({
@@ -143,14 +242,187 @@
                 })
             },
             me() {
-                if (this.user.username === "") {
+                if (this.user.userid === "") {
+                    // 如果不存在用户信息那么登录
                     this.dialogLogin = true;
+                } else {
+                    // 如果存在用户信息那么查询信息
+                    this.dialogMe = true;
+                    this.getAddress();
                 }
+            },
+            loginReset() {
+                this.user.username = "";
+                this.user.password = "";
+                this.password2 = "";
+            },
+            login() {
+                // 检查密码
+                if (this.user.username === "" || this.user.password === "" || this.password2 === null) {
+                    this.$message.error("请输入用户名及密码！");
+                } else if (this.user.password === this.password2) {
+                    // 进行登录
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/user/login?username=" + this.user.username + "&password=" + this.user.password
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.$message({
+                                message: '登陆成功！',
+                                type: 'success'
+                            });
+                            this.dialogLogin = false;
+                            // 获取 userid
+                            this.userid();
+                        } else {
+                            this.$message.error("用户名或密码不正确！");
+                        }
+                    })
+                } else {
+                    this.$message.error("两次密码输入不相等！");
+                    this.password2 = "";
+                }
+            },
+            loginToRegister() {
+                this.dialogLogin = false;
+                this.dialogRegister = true;
+                this.registerReset();
+            },
+            registerReset() {
+                this.user.username = "";
+                this.user.password = "";
+                this.checkCode = "";
+            },
+            newcheckCode() {
+                document.getElementById("checkCodeImg").src = "http://localhost:8080/lego-online-store/user/checkCode?" + new Date().getMilliseconds();
+            },
+            register() {
+                if (this.user.username === "" || this.user.password === "") {
+                    this.$message.error("请输入用户名及密码！");
+                } else if (this.user.password.length < 6 || this.user.password.length > 16 || this.user.password.indexOf(" ") !== -1) {
+                    this.$message.error("密码必须满足 6-16 位长度之间！且不包含空格");
+                } else if (this.checkCode === "") {
+                    this.$message.error("验证码不能为空！");
+                } else {
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/user/register?username=" + this.user.username + "&password=" + this.user.password + "&checkCode=" + this.checkCode
+                    }).then(resp => {
+                        if (resp.data === "checkError") {
+                            this.$message.error("验证码不正确！");
+                        } else if (resp.data === "error") {
+                            this.$message.error("用户名已存在！");
+                        } else {
+                            this.$message({
+                                message: '注册成功！',
+                                type: 'success'
+                            });
+                            this.dialogRegister = false;
+                            this.dialogLogin = true;
+                        }
+                    })
+                }
+            },
+            userid() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/user/selectUsId?username=" + this.user.username + "&password=" + this.user.password
+                }).then(resp => {
+                    this.user.userid = resp.data;
+                })
+            },
+            logout() {
+                this.user.userid = "";
+                this.user.username = "";
+                this.user.password = "";
+                this.password2 = "";
+                this.dialogMe = false;
+                this.$message({
+                    message: '已登出！',
+                    type: 'success'
+                });
+            },
+            getAddress() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/address/selectByUsId?userid=" + this.user.userid
+                }).then(resp => {
+                    this.address = resp.data;
+                })
+            },
+            delAddress(addressid) {
+                this.$confirm('此操作将永久删除该地址, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    // 删除地址
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/address/deleteById?addressid=" + addressid
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                            this.getAddress();
+                        }
+                    });
+                }).catch(() => {
+                })
+            },
+            addAddress() {
+                this.$prompt('请输入收货地址', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /^.+$/,
+                    inputErrorMessage: '地址不能为空'
+                }).then(({value}) => {
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/address/addAddress?userid=" + this.user.userid + "&address=" + value
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.$message({
+                                type: 'success',
+                                message: '收货地址添加成功！'
+                            });
+                            this.getAddress();
+                        }
+                    });
+                }).catch(() => {
+                });
+            }, updatePassword() {
+                this.$prompt('请输入新密码', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /^[0-9a-zA-Z]{6,16}$/,
+                    inputErrorMessage: '密码格式不正确（6-16位，无空格）'
+                }).then(({value}) => {
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/user/updateUser?userid=" + this.user.userid + "&password=" + value
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.$message({
+                                type: 'success',
+                                message: '密码修改成功！'
+                            });
+                            this.user.password = value;
+                        }
+                    });
+                }).catch(() => {
+                });
             }
         }, created() {
         }, beforeMount() {
         }, mounted() {
             this.selectAllGoods();
+        }, beforeUpdate() {
+            // 刷新页面，缓存数据，防止用户信息丢失
+            console.log(this.$data);
+            localStorage.setItem("cache", JSON.stringify(this.$data))
         }
     })
 </script>

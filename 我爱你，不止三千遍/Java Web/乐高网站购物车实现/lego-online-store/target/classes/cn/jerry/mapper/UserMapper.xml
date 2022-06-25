@@ -24,6 +24,14 @@
           AND password = #{password}
     </select>
 
+    <!-- 根据 username password 查询用户 id -->
+    <select id="selectUsId" resultType="Integer">
+        SELECT userid
+        FROM user
+        WHERE username = #{username}
+          AND password = #{password}
+    </select>
+
     <!-- 更新密码 -->
     <update id="updateUser">
         UPDATE user

@@ -77,6 +77,28 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 根据 username password 查询用户 id
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @Override
+    public Integer selectUsId(String username, String password) {
+        // 获取 SqlSession 对象
+        SqlSession sqlSession = factory.openSession();
+        // 获取 UserMapper
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        // 调用方法
+        Integer userid = mapper.selectUsId(username, password);
+        // 释放资源
+        sqlSession.close();
+
+        return userid;
+    }
+
+    /**
      * 更新密码
      *
      * @param userid

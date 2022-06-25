@@ -126,4 +126,47 @@ public class UserServlet extends BaseServlet {
         // 把 HttpSession session = request.getSession(); 放在返回字节流之前，否则会报错
         session.setAttribute("checkCodeGen", checkCode);
     }
+
+    /**
+     * /user/selectUsId
+     * 根据 username password 查询用户 id
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void selectUsId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 获取用户名和密码
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        // Get 中文乱码
+        username = new String(username.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+
+        // 调用 service 查询用户
+        int userid = userService.selectUsId(username, password);
+
+        response.getWriter().write(userid + "");
+    }
+
+    /**
+     * /user/updateUser
+     * 更新密码
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 获取用户 id 和 密码
+        String userid = request.getParameter("userid");
+        String password = request.getParameter("password");
+
+        // 调用 service 更新密码
+        userService.updateUser(Integer.parseInt(userid), password);
+
+        // 响应成功的标识
+        response.getWriter().write("success");
+    }
 }

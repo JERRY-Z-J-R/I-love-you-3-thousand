@@ -30,6 +30,15 @@ public interface UserService {
     User selectUser(String username, String password);
 
     /**
+     * 根据 username password 查询用户 id
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    Integer selectUsId(String username, String password);
+
+    /**
      * 更新密码
      *
      * @param userid
