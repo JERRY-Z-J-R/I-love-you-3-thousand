@@ -20,6 +20,7 @@ cn\jerry\mapper\UserMapper.class
 cn\jerry\service\UserService.class
 cn\jerry\web\servlet\base\BaseServlet.class
 cn\jerry\service\ShoppingCartService.class
+cn\jerry\pojo\CartGoods.class
 cn\jerry\web\servlet\LoveServlet.class
 cn\jerry\mapper\ShoppingCartMapper.class
 cn\jerry\service\AddressService.class

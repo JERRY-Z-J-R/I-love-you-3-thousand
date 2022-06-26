@@ -12,8 +12,10 @@
     <el-container>
         <!-- 顶栏容器 -->
         <el-header class="header-top" height="54px">
-            <el-button class="header-top-btn" type="primary" icon="el-icon-back" size="mini" plain round>乐高官网
-            </el-button>
+            <a href="https://www.lego.com/zh-cn">
+                <el-button class="header-top-btn" type="primary" icon="el-icon-back" size="mini" plain round>乐高官网
+                </el-button>
+            </a>
             <span class="header-top-link">与我们一起欢庆乐高集团 90 周年纪念日。<a
                     href="https://www.lego.com/zh-cn/90-years-of-play?icmp=HP-SHH-Standard-NO_Hero_90th_anniversary_HP-MP-NO-B2CDR6EY9E">了解更多</a></span>
         </el-header>
@@ -21,9 +23,9 @@
             <div class="header-logo-div"><img class="header-logo" src="./img/LEGO.png" alt="LEGO" title="回到首页"
                                               v-on:click="selectAllGoods()"></div>
             <div class="header-nav-btn" @click="me()">我的</div>
-            <div class="header-nav-btn">收藏</div>
-            <div class="header-nav-btn">订单</div>
-            <div class="header-nav-btn">购物车</div>
+            <div class="header-nav-btn" @click="love()">收藏</div>
+            <div class="header-nav-btn" @click="ordersjm()">订单</div>
+            <div class="header-nav-btn" @click="shoppingCart()">购物车</div>
             <div class="header-nav-search">
                 <el-input class="header-search" v-model="searchText" v-on:keyup.enter.native="search()"
                           placeholder="请输入内容">
@@ -128,8 +130,122 @@
                            v-on:click="addAddress()">新增收货地址
                 </el-button>
             </div>
-
         </el-dialog>
+        <!-- 购物车二级界面 -->
+        <el-drawer
+                :with-header="false"
+                :visible.sync="drawerShoppingCar">
+            <el-page-header @back="drawerShoppingCar = false" content="购物车" style="margin: 24px; position: relative">
+            </el-page-header>
+            <el-row :gutter="24" v-infinite-scroll="load">
+                <el-col :span="24" v-for="cartGoods in cartGoodses">
+                    <el-card :body-style="{ padding: '10px' }" style="margin: 0 15px">
+                        <div style="width: 25%; float: left">
+                            <img v-bind:src="'http://localhost:8080/lego-online-store/goods/getGoodsImg?goodsid='+cartGoods.goodsid"
+                                 alt="" style="width: 100%">
+                        </div>
+                        <div style="float: left; width: 35%; margin-left: 5%">
+                            <div style="font-size: 18px; font-weight: 700; margin:10px 0">{{cartGoods.goodsname}}</div>
+                            <span style="font-size: 24px; color: #ff2367"><span
+                                    style="font-size: 14px">￥</span>{{cartGoods.goodsprice * cartGoods.cgcount}}</span>
+                        </div>
+                        <div style="float: left; width: 35%">
+                            <div style="width:100%; height: 20%">
+                                <i class="el-icon-close" style="font-size: 20px; float: right" title="删除商品"
+                                   v-on:click="deleteCart(cartGoods.goodsid)"></i>
+                            </div>
+                            <div style="width:100%; height: 80%;">
+                                <el-input-number v-model="cartGoods.cgcount"
+                                                 @change="cartChange(cartGoods.goodsid, cartGoods.cgcount)" :min="1"
+                                                 size="small"
+                                                 style="width: 90%; margin-top: 24px"></el-input-number>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <div style="width: 100%; height: 124px; position: absolute; bottom: 66px" v-if="total !== 0">
+                <div style="width: 50%; height: 124px; float: left; font-size: 50px; margin-left: 24px">
+                    <span style="font-size: 28px">合计：</span><span style="font-size: 24px">￥</span>{{total}}
+                </div>
+                <div style="width: 40%; height: 124px; float: left">
+                    <el-button type="info" icon="el-icon-delete" round plain
+                               style="float: right; margin-right: 20px; margin-top: 24px" size="small"
+                               v-on:click="clearCart()">清空购物车
+                    </el-button>
+                    <el-button id="cart-pay" type="danger" round v-on:click="toPay()"
+                               style="background-color: #ff004e; width: 180px; height: 54px; margin-top: 17px; margin-left: -10px; font-size: 18px">
+                        去 结 算
+                    </el-button>
+                </div>
+            </div>
+        </el-drawer>
+        <!-- 支付确认界面 -->
+        <el-dialog
+                title="支 付"
+                :visible.sync="dialogPay"
+                width="30%"
+                center
+                :before-close="handleClose">
+
+            <div v-if="okPayShow === false" style="text-align: center">
+                <div style="width: 100%; font-size: 66px; color: #ff004e; margin: 0 0 24px; text-align: center;">
+                    <span style="font-size: 30px">￥</span>{{total}}&nbsp;
+                </div>
+                <div style="width: 100%; margin: 0 auto; font-size: 18px; text-align: center;">（请选择收货地址）</div>
+                <el-select placeholder="请选择收货地址" style="padding-top: 24px">
+                    <el-option
+                            v-for="ad in address"
+                            :label="ad.address">
+                    </el-option>
+                </el-select>
+            </div>
+            <div v-if="okPayShow === true" style="text-align: center">
+                <i class="el-icon-success" style="font-size: 69px; color: #67C23A"></i>
+                <div style="margin: 20px 0">&nbsp;&nbsp;支付成功！</div>
+                <div style="margin: 20px 0">请在订单页查看订单后续状态</div>
+                <el-button type="primary" size="medium" v-on:click="yes()">返回</el-button>
+            </div>
+            <span slot="footer" class="dialog-footer" v-if="okPayShow === false">
+                    <el-button @click="noPay()">暂不支付</el-button>
+                    <el-button type="primary" @click="pay()" :loading="okPay">确认付款</el-button>
+            </span>
+        </el-dialog>
+        <!-- 订单二级界面 -->
+        <el-drawer
+                :with-header="false"
+                :visible.sync="drawerOrders"
+        >
+            <el-page-header @back="drawerOrders = false" content="订单" style="margin: 24px; position: relative">
+            </el-page-header>
+            <div style="width: 90%; margin: 0 auto">
+                <el-table
+                        :data="orders"
+                        max-height="700">
+                    <el-table-column
+                            prop="ordertime"
+                            label="订单时间"
+                            width="180"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                            label="订单金额"
+                    >
+                        <template slot-scope="scope">
+                            ￥<span style="font-size: 18px">{{scope.row.orderpay}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            label="订单状态"
+                    >
+                        <template slot-scope="scope">
+                            <span style="color: #13ce66" v-if="scope.row.orderstate === 1">已支付</span>
+                            <span style="color: #ff2367" v-if="scope.row.orderstate === 0">未支付</span>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </el-drawer>
         <!-- 主要区域容器 -->
         <el-main>
             <!-- 轮播图 -->
@@ -158,12 +274,15 @@
                                     </div>
                                 </div>
                                 <div class="goods-outline-box">
-                                    {{goods.goodsoutline}}}
+                                    {{goods.goodsoutline}}
                                 </div>
                                 <div class="goods-btn">
-                                    <el-button type="primary" icon="el-icon-star-off" plain circle></el-button>
-                                    <el-button type="success" icon="el-icon-goods" plain circle></el-button>
-                                    <el-button type="danger" icon="el-icon-circle-check" round style="float: right">
+                                    <el-button type="primary" icon="el-icon-star-off" plain circle
+                                               v-on:click="loveOne(goods.goodsid)"></el-button>
+                                    <el-button type="success" icon="el-icon-goods" plain circle
+                                               v-on:click="addCart(goods.goodsid)"></el-button>
+                                    <el-button type="danger" icon="el-icon-circle-check" round style="float: right"
+                                               v-on:click="payOne(goods.goodsid, goods.goodsprice)">
                                         &nbsp;&nbsp;购&nbsp;买&nbsp;&nbsp;
                                     </el-button>
                                 </div>
@@ -193,6 +312,9 @@
                 searchText: "",
                 goodses: [],
                 address: [],
+                cartGoodses: [],
+                orders: [],
+                payGoodsid: "",
                 user: {
                     userid: "",
                     username: "",
@@ -200,10 +322,18 @@
                 },
                 password2: "",
                 checkCode: "",
+                asdf: "asdf",
                 dialogLogin: false,
                 dialogRegister: false,
+                drawerShoppingCar: false,
                 dialogMe: false,
-                visible: false
+                visible: false,
+                dialogPay: false,
+                okPay: false,
+                okPayShow: false,
+                drawerOrders: false,
+                total: "",
+                buyWhat: ""
             }, cache)
         }, methods: {
             selectAllGoods() {
@@ -393,7 +523,8 @@
                     });
                 }).catch(() => {
                 });
-            }, updatePassword() {
+            },
+            updatePassword() {
                 this.$prompt('请输入新密码', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -414,12 +545,264 @@
                     });
                 }).catch(() => {
                 });
+            },
+            shoppingCart() {
+                if (this.user.userid !== "") {
+                    this.selectCG();
+                    this.drawerShoppingCar = true;
+                } else {
+                    this.$message({
+                        message: '请先登录！',
+                        type: 'warning'
+                    });
+                    this.dialogLogin = true;
+                }
+            },
+            love() {
+                if (this.user.userid !== "") {
+                } else {
+                    this.$message({
+                        message: '请先登录！',
+                        type: 'warning'
+                    });
+                    this.dialogLogin = true;
+                }
+            },
+            ordersjm() {
+                if (this.user.userid !== "") {
+                    this.selectOrders();
+                    this.drawerOrders = true;
+                } else {
+                    this.$message({
+                        message: '请先登录！',
+                        type: 'warning'
+                    });
+                    this.dialogLogin = true;
+                }
+            },
+            selectCG() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/shoppingCart/selectCGByUsId?userid=" + this.user.userid
+                }).then(resp => {
+                    this.cartGoodses = resp.data;
+                    this.setTotal();
+                })
+            }, addCart(goodsid) {
+                if (this.user.userid !== "") {
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/shoppingCart/add?userid=" + this.user.userid + "&goodsid=" + goodsid
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.$message({
+                                type: 'success',
+                                message: '添加购物车成功！'
+                            });
+                        }
+                    })
+                } else {
+                    this.$message({
+                        message: '请先登录！',
+                        type: 'warning'
+                    });
+                    this.dialogLogin = true;
+                }
+            }, deleteCart(goodsid) {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/shoppingCart/deleteCart?userid=" + this.user.userid + "&goodsid=" + goodsid
+                }).then(resp => {
+                    if (resp.data === "success") {
+                        this.selectCG();
+                        this.$message({
+                            type: 'success',
+                            message: '商品已移除购物车！'
+                        });
+                    }
+                });
+            }, setTotal() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/shoppingCart/getTotal?userid=" + this.user.userid
+                }).then(resp => {
+                    this.total = resp.data;
+                });
+            },
+            cartChange(goodsid, cgcount) {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/shoppingCart/updateCart?userid=" + this.user.userid + "&goodsid=" + goodsid + "&cgcount=" + cgcount
+                }).then(resp => {
+                    if (resp.data === "success") {
+                        this.selectCG();
+                    }
+                });
+            },
+            clearCart() {
+                this.$confirm('此操作将清空购物车, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                }).then(() => {
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/shoppingCart/deleteByUserid?userid=" + this.user.userid
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.selectCG();
+                            this.$message({
+                                type: 'success',
+                                message: '已清空!'
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消！'
+                    });
+                });
+            }, yes() {
+                this.dialogPay = false;
+                this.drawerShoppingCar = false;
+            }, pay() {
+                this.okPay = true;
+                let that = this;
+                // 判断是单独购买还是结算购物车
+                if (this.buyWhat === 1) {
+                    // 单独购买
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/order/addG?userid=" + this.user.userid + "&goodsid=" + this.payGoodsid + "&orderstate=" + 1
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            setTimeout(function () {
+                                that.okPay = false;
+                                that.okPayShow = true;
+                                that.$notify({
+                                    title: '成功',
+                                    message: '支付成功！订单已生成！',
+                                    type: 'success',
+                                    offset: 130,
+                                    duration: 3000
+                                });
+                            }, 1000);
+                        }
+                    });
+                }
+                if (this.buyWhat === 2) {
+                    // 结算购物车
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/order/addC?userid=" + this.user.userid + "&orderstate=" + 1
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            setTimeout(function () {
+                                that.okPay = false;
+                                that.okPayShow = true;
+                                that.$notify({
+                                    title: '成功',
+                                    message: '支付成功！订单已生成！',
+                                    type: 'success',
+                                    offset: 130,
+                                    duration: 3000
+                                });
+                                that.selectCG();
+                            }, 1000);
+                        }
+                    });
+                }
+            }, noPay() {
+                // 判断是单独购买还是结算购物车
+                if (this.buyWhat === 1) {
+                    // 单独购买
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/order/addG?userid=" + this.user.userid + "&goodsid=" + this.payGoodsid + "&orderstate=" + 0
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.okPay = false;
+                            this.$notify({
+                                title: '支付失败',
+                                message: '暂未支付，后续可在订单中查看！',
+                                type: 'warning',
+                                offset: 130,
+                                duration: 3000
+                            });
+                            this.dialogPay = false;
+                        }
+                    });
+                }
+                if (this.buyWhat === 2) {
+                    // 结算购物车
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lego-online-store/order/addC?userid=" + this.user.userid + "&orderstate=" + 0
+                    }).then(resp => {
+                        if (resp.data === "success") {
+                            this.$notify({
+                                title: '支付失败',
+                                message: '暂未支付，后续可在订单中查看！',
+                                type: 'warning',
+                                offset: 130,
+                                duration: 3000
+                            });
+                            this.dialogPay = false;
+                            this.drawerShoppingCar = false;
+                        }
+                    });
+                }
+            },
+            toPay() {
+                this.buyWhat = 2;
+                this.okPay = false;
+                this.dialogPay = true;
+                this.okPayShow = false;
+            },
+            payOne(goodsid, goodsprice) {
+                if (this.user.userid !== "") {
+                    this.buyWhat = 1;
+                    this.payGoodsid = goodsid;
+                    this.total = goodsprice;
+                    this.dialogPay = true;
+                    this.okPayShow = false;
+                } else {
+                    this.$message({
+                        message: '请先登录！',
+                        type: 'warning'
+                    });
+                    this.dialogLogin = true;
+                }
+            },
+            selectOrders() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lego-online-store/order/selectAll?userid=" + this.user.userid
+                }).then(resp => {
+                    this.orders = resp.data;
+                })
+            }, loveOne(goodsid) {
+                if (this.user.userid !== "") {
+                } else {
+                    this.$message({
+                        message: '请先登录！',
+                        type: 'warning'
+                    });
+                    this.dialogLogin = true;
+                }
             }
         }, created() {
-        }, beforeMount() {
-        }, mounted() {
+        }
+        ,
+        beforeMount() {
+        }
+        ,
+        mounted() {
             this.selectAllGoods();
-        }, beforeUpdate() {
+        }
+        ,
+        beforeUpdate() {
             // 刷新页面，缓存数据，防止用户信息丢失
             console.log(this.$data);
             localStorage.setItem("cache", JSON.stringify(this.$data))

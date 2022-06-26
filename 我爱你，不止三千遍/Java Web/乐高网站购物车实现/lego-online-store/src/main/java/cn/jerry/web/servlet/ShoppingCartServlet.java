@@ -1,7 +1,10 @@
 package cn.jerry.web.servlet;
 
+import cn.jerry.pojo.CartGoods;
 import cn.jerry.pojo.ShoppingCart;
+import cn.jerry.service.GoodsService;
 import cn.jerry.service.ShoppingCartService;
+import cn.jerry.service.impl.GoodsServiceImpl;
 import cn.jerry.service.impl.ShoppingCartServiceImpl;
 import cn.jerry.web.servlet.base.BaseServlet;
 import com.alibaba.fastjson.JSON;
@@ -17,6 +20,7 @@ import java.util.List;
 @WebServlet("/shoppingCart/*")
 public class ShoppingCartServlet extends BaseServlet {
     private ShoppingCartService shoppingCartService = new ShoppingCartServiceImpl();
+    private GoodsService goodsService = new GoodsServiceImpl();
 
     /**
      * /shoppingCart/add
@@ -94,15 +98,39 @@ public class ShoppingCartServlet extends BaseServlet {
     }
 
     /**
-     * /shoppingCart/deleteCart
-     * 根据 userid goodsid 移除购物车
+     * /shoppingCart/selectCGByUsId
+     * 根据 userid 查询购物车商品列表（包含商品数量）
      *
      * @param request
      * @param response
      * @throws ServletException
      * @throws IOException
      */
-    public void deleteCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void selectCGByUsId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 接收 userid
+        String _userid = request.getParameter("userid");
+        int userid = Integer.parseInt(_userid);
+        // 调用 service 得到 商品列表
+        List<CartGoods> cartGoodses = shoppingCartService.selectCGByUsId(userid);
+
+        // 转为 JSON
+        String jsonString = JSON.toJSONString(cartGoodses);
+
+        // 写数据
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+
+    /**
+     * /shoppingCart/reduceCart
+     * 根据 userid goodsid 减少购物车商品数量
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void reduceCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 接收 userid goodsid
         String _userid = request.getParameter("userid");
         String _goodsid = request.getParameter("goodsid");
@@ -133,6 +161,19 @@ public class ShoppingCartServlet extends BaseServlet {
         response.getWriter().write("success");
     }
 
+    public void deleteCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 接收 userid goodsid
+        String _userid = request.getParameter("userid");
+        String _goodsid = request.getParameter("goodsid");
+        int userid = Integer.parseInt(_userid);
+        int goodsid = Integer.parseInt(_goodsid);
+
+        // 调用 service 删除购物车
+        shoppingCartService.deleteByUGid(userid, goodsid);
+        // 响应成功的标识
+        response.getWriter().write("success");
+    }
+
     /**
      * /shoppingCart/deleteByUserid
      * 根据 userid 删除购物车商品（清空购物车）
@@ -149,6 +190,75 @@ public class ShoppingCartServlet extends BaseServlet {
 
         // 调用 service 删除购物车商品（清空购物车）
         shoppingCartService.deleteByUserid(userid);
+
+        // 响应成功的标识
+        response.getWriter().write("success");
+    }
+
+
+    /**
+     * /shoppingCart/getTotal
+     * 根据 userid 查询购物车合计金额
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void getTotal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 接收 userid
+        String _userid = request.getParameter("userid");
+        int userid = Integer.parseInt(_userid);
+
+        // 调用 service 得到 购物车列表
+        List<ShoppingCart> shoppingCarts = shoppingCartService.selectByUserid(userid);
+
+        // 总金额
+        double count = 0.0;
+
+        // 计算总金额
+        for (ShoppingCart s : shoppingCarts) {
+            // 每次都利用 goodsid 到 Goods 中查询单个商品价格 × 数量，再不断累加
+            count += goodsService.selectById(s.getGoodsid()).getGoodsprice() * s.getCgcount();
+        }
+
+        // 返回总金额数据
+        response.getWriter().write(count + "");
+    }
+
+    /**
+     * /shoppingCart/updateCart
+     * 更新购物车
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void updateCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 接收 userid goodsid cgcount
+        String _userid = request.getParameter("userid");
+        String _goodsid = request.getParameter("goodsid");
+        String _cgcount = request.getParameter("cgcount");
+        int userid = Integer.parseInt(_userid);
+        int goodsid = Integer.parseInt(_goodsid);
+        int cgcount = Integer.parseInt(_cgcount);
+
+        if (cgcount == 0) {
+            // 删除购物车商品
+            // 调用 service 删除购物车
+            shoppingCartService.deleteByUGid(userid, goodsid);
+        } else {
+            // 更新购物车商品
+            // 新建 ShoppingCart 对象
+            ShoppingCart shoppingCart = new ShoppingCart();
+            // 存入 userid、goodsid
+            shoppingCart.setUserid(userid);
+            shoppingCart.setGoodsid(goodsid);
+            shoppingCart.setCgcount(cgcount);
+            // 调用 service 更新购物车
+            shoppingCartService.updateCgcount(shoppingCart);
+        }
 
         // 响应成功的标识
         response.getWriter().write("success");

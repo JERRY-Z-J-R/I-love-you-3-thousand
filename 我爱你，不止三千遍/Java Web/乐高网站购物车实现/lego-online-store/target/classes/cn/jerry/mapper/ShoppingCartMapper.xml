@@ -32,6 +32,15 @@
         WHERE userid = #{userid}
     </select>
 
+    <!-- 根据 userid 查询购物车商品列表（包含商品数量） -->
+    <select id="selectCGByUsId" resultType="CartGoods">
+        SELECT goods.goodsid, goods.goodsname, goods.goodsprice, goods.goodsimg, shopping_cart.cgcount
+        FROM shopping_cart,
+             goods
+        WHERE shopping_cart.userid = #{userid}
+          AND shopping_cart.goodsid = goods.goodsid;
+    </select>
+
     <!-- 根据 userid goodsid 删除购物车商品 -->
     <delete id="deleteByUGid">
         DELETE

@@ -174,3 +174,7 @@ body > .el-container {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.cart-pay:hover {
+    background-color: #000000 !important;
+}

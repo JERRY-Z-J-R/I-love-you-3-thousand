@@ -1,5 +1,6 @@
 package cn.jerry.service;
 
+import cn.jerry.pojo.CartGoods;
 import cn.jerry.pojo.ShoppingCart;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,6 +37,14 @@ public interface ShoppingCartService {
      * @return
      */
     List<ShoppingCart> selectByUserid(int userid);
+
+    /**
+     * 根据 userid 查询购物车商品列表（包含商品数量）
+     *
+     * @param userid
+     * @return
+     */
+    List<CartGoods> selectCGByUsId(int userid);
 
     /**
      * 根据 userid goodsid 删除购物车商品

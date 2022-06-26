@@ -1,6 +1,7 @@
 package cn.jerry.service.impl;
 
 import cn.jerry.mapper.ShoppingCartMapper;
+import cn.jerry.pojo.CartGoods;
 import cn.jerry.pojo.ShoppingCart;
 import cn.jerry.service.ShoppingCartService;
 import cn.jerry.util.SqlSessionFactoryUtils;
@@ -92,6 +93,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         // 释放资源
         sqlSession.close();
         return goodsids;
+    }
+
+    /**
+     * 根据 userid 查询购物车商品列表（包含商品数量）
+     *
+     * @param userid
+     * @return
+     */
+    @Override
+    public List<CartGoods> selectCGByUsId(int userid) {
+        // 获取 SqlSession 对象
+        SqlSession sqlSession = factory.openSession();
+        // 获取 ShoppingCartMapper
+        ShoppingCartMapper mapper = sqlSession.getMapper(ShoppingCartMapper.class);
+
+        // 调用方法
+        List<CartGoods> cartGoodses = mapper.selectCGByUsId(userid);
+        // 释放资源
+        sqlSession.close();
+        return cartGoodses;
     }
 
     /**
