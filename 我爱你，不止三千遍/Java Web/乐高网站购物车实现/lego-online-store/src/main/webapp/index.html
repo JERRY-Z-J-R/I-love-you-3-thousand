@@ -193,10 +193,12 @@
                     <span style="font-size: 30px">￥</span>{{total}}&nbsp;
                 </div>
                 <div style="width: 100%; margin: 0 auto; font-size: 18px; text-align: center;">（请选择收货地址）</div>
-                <el-select placeholder="请选择收货地址" style="padding-top: 24px">
+                <el-select v-model="value" placeholder="请选择收货地址" style="padding-top: 24px">
                     <el-option
-                            v-for="ad in address"
-                            :label="ad.address">
+                            v-for="item in address"
+                            :key="item.address"
+                            :value="item.address"
+                            :label="item.address">
                     </el-option>
                 </el-select>
             </div>
@@ -333,7 +335,8 @@
                 okPayShow: false,
                 drawerOrders: false,
                 total: "",
-                buyWhat: ""
+                buyWhat: "",
+                value: ''
             }, cache)
         }, methods: {
             selectAllGoods() {

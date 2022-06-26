@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 22/06/2022 16:16:50
+ Date: 26/06/2022 15:46:42
 */
 
 SET NAMES utf8mb4;
@@ -28,7 +28,7 @@ CREATE TABLE `address`  (
   PRIMARY KEY (`addressid`) USING BTREE,
   INDEX `address_ibfk_1`(`userid`) USING BTREE,
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of address
@@ -51,10 +51,10 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES (1, 'iphone 13 pro max', '地球上最牛比的手机', 9999, 54, NULL);
-INSERT INTO `goods` VALUES (2, 'MacBook Pro 16 M1Max', '地球上最牛逼的笔记本电脑', 35000, 24, NULL);
-INSERT INTO `goods` VALUES (3, '小米 13 pro', '雷军认为最好的手机', 4500, 300, NULL);
-INSERT INTO `goods` VALUES (4, '联想 拯救者 Y9000X 3060', '最漂亮的轻薄游戏本', 9500, 230, NULL);
+INSERT INTO `goods` VALUES (1, '永恒族审判者', '漫威阿里瑟姆的阴影带来了深受孩子们喜爱的超级英雄大对决，其中包含 4 个永恒族、一个异常者和一个天神组。', 1540, 999, 'src/main/webapp/img/goods01.jpg');
+INSERT INTO `goods` VALUES (2, '银河护卫队飞船', '最具标志性的宇宙飞船之一源自漫威《复仇者联盟》电影，粉丝们现在可以重现其逼真的细节和炫酷的风格。', 1780, 999, 'src/main/webapp/img/goods02.jpg');
+INSERT INTO `goods` VALUES (3, '终局之战母舰', '漫威圣殿 II 宇宙飞船带有 4 个机翼、一系列令人胆战心惊的 6 凸粒发射器，可以把精彩的漫威电影行动放到孩子的手中。', 1240, 999, 'src/main/webapp/img/goods03.jpg');
+INSERT INTO `goods` VALUES (4, '复仇者联盟母舰', '漫威复仇者联盟天空母舰拼搭玩具可将孩子们载上超酷的复仇者联盟天空母舰，他们可以与钢铁侠、惊奇队长、托尔、黑寡妇、战争机器和尼克‧弗瑞一起大战大脑袋的超级恶棍魔多客。', 2400, 999, 'src/main/webapp/img/goods04.jpg');
 
 -- ----------------------------
 -- Table structure for love
@@ -76,22 +76,22 @@ CREATE TABLE `love`  (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for order
+-- Table structure for orders
 -- ----------------------------
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order`  (
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`  (
   `orderid` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单编号',
   `userid` int(11) NOT NULL COMMENT '用户编号',
-  `ordertime` datetime NOT NULL COMMENT '订单时间',
+  `ordertime` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单时间',
   `orderpay` double NOT NULL COMMENT '订单金额',
   `orderstate` int(11) NOT NULL COMMENT '订单状态（1：已支付）（0：未支付）',
   PRIMARY KEY (`orderid`) USING BTREE,
   INDEX `userid`(`userid`) USING BTREE,
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of order
+-- Records of orders
 -- ----------------------------
 
 -- ----------------------------
@@ -108,7 +108,7 @@ CREATE TABLE `shopping_cart`  (
   INDEX `goodsid`(`goodsid`) USING BTREE,
   CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `shopping_cart_ibfk_2` FOREIGN KEY (`goodsid`) REFERENCES `goods` (`goodsid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of shopping_cart
@@ -123,12 +123,11 @@ CREATE TABLE `user`  (
   `username` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   PRIMARY KEY (`userid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '张三', '123456');
-INSERT INTO `user` VALUES (2, '李四', '654321');
+INSERT INTO `user` VALUES (1, '周吉瑞', '245424');
 
 SET FOREIGN_KEY_CHECKS = 1;
