@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jerry.mapper.UserMapper">
+    <!-- 新增用户 -->
+    <insert id="addUser">
+        INSERT INTO user(username, password)
+        VALUES (#{username}, #{password})
+    </insert>
+
+    <!-- 根据 username 查询用户 -->
+    <select id="selectUserByName" resultType="User">
+        SELECT *
+        FROM user
+        WHERE username = #{username}
+    </select>
+
+    <!-- 根据 username password 查询用户 -->
+    <select id="selectUser" resultType="User">
+        SELECT *
+        FROM user
+        WHERE username = #{username}
+          AND password = #{password}
+    </select>
+
+    <!-- 根据 username password 查询用户 id -->
+    <select id="selectUsId" resultType="Integer">
+        SELECT userid
+        FROM user
+        WHERE username = #{username}
+          AND password = #{password}
+    </select>
+
+    <!-- 更新密码 -->
+    <update id="updateUser">
+        UPDATE user
+        SET password = #{password}
+        WHERE userid = #{userid}
+    </update>
+</mapper>

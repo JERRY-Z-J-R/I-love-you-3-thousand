@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jerry.mapper.AddressMapper">
+    <!-- 添加地址 -->
+    <insert id="addAddress">
+        INSERT INTO address(userid, address)
+        VALUES (#{userid}, #{address})
+    </insert>
+
+    <!-- 根据 userid 查询地址列表 -->
+    <select id="selectByUsId" resultType="Address">
+        SELECT *
+        FROM address
+        WHERE userid = #{userid}
+    </select>
+
+    <!-- 根据 addressid 删除地址 -->
+    <delete id="deleteById">
+        DELETE
+        FROM address
+        WHERE addressid = #{addressid}
+    </delete>
+</mapper>

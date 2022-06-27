@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jerry.mapper.ShoppingCartMapper">
+    <!-- 加入购物车 -->
+    <insert id="add">
+        INSERT INTO shopping_cart(userid, goodsid, cgcount)
+        VALUES (#{userid}, #{goodsid}, #{cgcount})
+    </insert>
+
+    <!-- 更新玩具商品数量 -->
+    <update id="updateCgcount">
+        UPDATE shopping_cart
+        SET cgcount = #{cgcount}
+        WHERE userid = #{userid}
+          AND goodsid = #{goodsid}
+    </update>
+
+    <!-- 根据 userid goodsid 获取购物车商品 cgcount -->
+    <select id="getCgcount" resultType="java.lang.Integer">
+        SELECT cgcount
+        FROM shopping_cart
+        WHERE userid = #{userid}
+          AND goodsid = #{goodsid}
+    </select>
+
+    <!-- 根据 userid 查询购物车商品列表 -->
+    <select id="selectByUserid" resultType="ShoppingCart">
+        SELECT *
+        FROM shopping_cart
+        WHERE userid = #{userid}
+    </select>
+
+    <!-- 根据 userid 查询购物车商品列表（包含商品数量） -->
+    <select id="selectCGByUsId" resultType="CartGoods">
+        SELECT goods.goodsid, goods.goodsname, goods.goodsprice, goods.goodsimg, shopping_cart.cgcount
+        FROM shopping_cart,
+             goods
+        WHERE shopping_cart.userid = #{userid}
+          AND shopping_cart.goodsid = goods.goodsid;
+    </select>
+
+    <!-- 根据 userid goodsid 删除购物车商品 -->
+    <delete id="deleteByUGid">
+        DELETE
+        FROM shopping_cart
+        WHERE userid = #{userid}
+          AND goodsid = #{goodsid}
+    </delete>
+
+    <!-- 根据 cartid 删除购物车商品 -->
+    <delete id="deleteCart">
+        DELETE
+        FROM shopping_cart
+        WHERE cartid = #{cartid}
+    </delete>
+
+    <!-- 根据 userid 删除购物车商品（清空购物车） -->
+    <delete id="deleteByUserid">
+        DELETE
+        FROM shopping_cart
+        WHERE userid = #{userid}
+    </delete>
+</mapper>
