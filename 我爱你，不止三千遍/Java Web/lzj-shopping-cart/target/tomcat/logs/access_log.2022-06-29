@@ -1,0 +1,3 @@
+0:0:0:0:0:0:0:1 - - [29/Jun/2022:23:05:56 +0800] "GET /lzj-shopping-cart HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [29/Jun/2022:23:05:56 +0800] "GET /lzj-shopping-cart/ HTTP/1.1" 200 167 http-bio-8080-exec-3 34
+0:0:0:0:0:0:0:1 - - [29/Jun/2022:23:05:56 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-4 0

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>卢赵俊-购物车</title>
+    <link href="./css/index.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <!-- 导航栏 -->
+    <div style="text-align: center; margin: 24px 0 50px 0">
+        <el-button type="info" plain v-on:click="pageL()">登录</el-button>
+        <el-button type="info" plain v-on:click="pageG()">商品页</el-button>
+        <el-button type="info" plain v-on:click="pageC()">购物车</el-button>
+    </div>
+
+    <!-- 内容页 -->
+    <div style="width: 666px; margin: 0 auto">
+        <!-- 登录页 -->
+        <div v-if="pageLogin === 1" style="width: 60%; margin: 0 auto">
+            <el-input
+                    placeholder="请输入用户名"
+                    prefix-icon="el-icon-user"
+                    v-model="user.username"
+                    style="margin-bottom: 18px"
+            >
+            </el-input>
+            <el-input placeholder="请输入密码" prefix-icon="el-icon-lock" v-model="user.password" show-password
+                      style="margin-bottom: 18px"></el-input>
+            <div style="text-align: center">
+                <el-button type="primary" v-on:click="login()">登 录</el-button>
+                <el-button v-on:click="loginReset()">重 置</el-button>
+                <el-button v-on:click="loginOut()">登 出</el-button>
+            </div>
+        </div>
+
+        <!-- 商品页 -->
+        <div v-if="pageGoods === 1" style="width: 100%;">
+            <el-table
+                    :data="goodses"
+                    stripe
+                    style="width: 100%">
+                <el-table-column
+                        prop="goodsname"
+                        label="美食名称"
+                        width="366">
+                </el-table-column>
+                <el-table-column
+                        prop="goodsprice"
+                        label="单价">
+                </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-button type="success" round plain size="small" v-on:click="addCart(scope.row.goodsid)">
+                            加入购物车
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+
+        <!-- 购物车 -->
+        <div v-if="pageCart === 1" style="width: 100%;">
+            <el-table
+                    :data="cartGoodses"
+                    stripe
+                    style="width: 100%">
+                <el-table-column
+                        prop="goodsname"
+                        label="美食名称"
+                        width="320">
+                </el-table-column>
+                <el-table-column
+                        prop="goodsprice"
+                        label="单价">
+                </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.cgcount"
+                                         @change="updateCart(scope.row.goodsid, scope.row.cgcount)" :min="0"
+                                         label="数量" size="small"></el-input-number>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div style="font-size: 24px; text-align: center; margin-top: 24px">总计：￥{{total}}</div>
+        </div>
+    </div>
+</div>
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            // 刷新页面，缓存数据，防止用户信息丢失
+            let cache = localStorage.getItem("cache") ? JSON.parse(localStorage.getItem("cache")) : {}
+            return Object.assign({
+                pageLogin: 0,
+                pageGoods: 1,
+                pageCart: 0,
+                user: {
+                    userid: "",
+                    username: "",
+                    password: "",
+                },
+                goodses: [],
+                cartGoodses: [],
+                total: ""
+            }, cache)
+        },
+        methods: {
+            selectAllGoods() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lzj-shopping-cart/goods/selectAll"
+                }).then(resp => {
+                    this.goodses = resp.data;
+                })
+            },
+            pageL() {
+                this.pageLogin = 1;
+                this.pageGoods = 0;
+                this.pageCart = 0;
+            },
+            pageG() {
+                this.pageLogin = 0;
+                this.pageGoods = 1;
+                this.pageCart = 0;
+            },
+            pageC() {
+                if (this.user.userid === "") {
+                    window.alert("请先登录！")
+                } else {
+                    this.selectCart();
+                    this.getTotal();
+                    this.pageLogin = 0;
+                    this.pageGoods = 0;
+                    this.pageCart = 1;
+                }
+            },
+            login() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lzj-shopping-cart/user/login?username=" + this.user.username + "&password=" + this.user.password
+                }).then(resp => {
+                    if (resp.data === "error") {
+                        this.$notify.error({
+                            title: '错误',
+                            message: '用户名或密码不正确！'
+                        });
+                    } else {
+                        this.user = resp.data;
+                        this.$notify({
+                            title: '成功',
+                            message: '登录成功！',
+                            type: 'success'
+                        });
+                        this.pageG();
+                    }
+                })
+            },
+            loginReset() {
+                this.user.username = "";
+                this.user.password = "";
+            },
+            loginOut() {
+                this.user.userid = "";
+                this.user.username = "";
+                this.user.password = "";
+            },
+            addCart(goodsid) {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lzj-shopping-cart/shoppingCart/add?userid=" + this.user.userid + "&goodsid=" + goodsid
+                }).then(resp => {
+                    this.$notify({
+                        title: '成功',
+                        message: '加入购物车成功！',
+                        type: 'success'
+                    });
+                })
+            },
+            selectCart() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lzj-shopping-cart/shoppingCart/selectCGByUsId?userid=" + this.user.userid
+                }).then(resp => {
+                    this.cartGoodses = resp.data;
+                })
+            },
+            getTotal() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lzj-shopping-cart/shoppingCart/getTotal?userid=" + this.user.userid
+                }).then(resp => {
+                    this.total = resp.data;
+                })
+            },
+            updateCart(goodsid, cgcount) {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/lzj-shopping-cart/shoppingCart/updateCart?userid=" + this.user.userid + "&goodsid=" + goodsid + "&cgcount=" + cgcount
+                }).then(resp => {
+                    this.selectCart();
+                    this.getTotal();
+                })
+            }
+        },
+        created() {
+        },
+        beforeMount() {
+        },
+        mounted() {
+            this.selectAllGoods();
+        },
+        beforeUpdate() {
+            // 刷新页面，缓存数据，防止用户信息丢失
+            console.log(this.$data);
+            localStorage.setItem("cache", JSON.stringify(this.$data))
+        },
+    })
+</script>
+</body>
+</html>

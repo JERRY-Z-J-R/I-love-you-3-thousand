@@ -21,7 +21,7 @@ import java.util.List;
 
 @WebServlet("/goods/*")
 public class GoodsServlet extends BaseServlet {
-    private GoodsService brandService = new GoodsServiceImpl();
+    private GoodsService goodsService = new GoodsServiceImpl();
 
     /**
      * /goods/selectAll
@@ -34,7 +34,7 @@ public class GoodsServlet extends BaseServlet {
      */
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 调用 service 查询
-        List<Goods> goodses = brandService.selectAll();
+        List<Goods> goodses = goodsService.selectAll();
 
         // 转为 JSON
         String jsonString = JSON.toJSONString(goodses);
@@ -62,7 +62,7 @@ public class GoodsServlet extends BaseServlet {
         goodsname = "%" + goodsname + "%";
 
         // 调用 service 查询
-        List<Goods> goodses = brandService.selectVague(goodsname);
+        List<Goods> goodses = goodsService.selectVague(goodsname);
 
         // 转为 JSON
         String jsonString = JSON.toJSONString(goodses);
@@ -87,7 +87,7 @@ public class GoodsServlet extends BaseServlet {
         int goodsid = Integer.parseInt(_goodsid);
 
         // 调用 service 查询
-        Goods goods = brandService.selectById(goodsid);
+        Goods goods = goodsService.selectById(goodsid);
 
         // 转为 JSON
         String jsonString = JSON.toJSONString(goods);
@@ -115,9 +115,9 @@ public class GoodsServlet extends BaseServlet {
         int[] goodsidstemp = {-1};
         List<Goods> goodses;
         if (goodsids.length == 0) {
-            goodses = brandService.selectByIds(goodsidstemp);
+            goodses = goodsService.selectByIds(goodsidstemp);
         } else {
-            goodses = brandService.selectByIds(goodsids);
+            goodses = goodsService.selectByIds(goodsids);
         }
 
         // 转为 JSON
@@ -143,7 +143,7 @@ public class GoodsServlet extends BaseServlet {
         int goodsid = Integer.parseInt(_goodsid);
 
         // 调用 service 查询
-        Goods goods = brandService.selectById(goodsid);
+        Goods goods = goodsService.selectById(goodsid);
 
         String imagePath = goods.getGoodsimg();
 
