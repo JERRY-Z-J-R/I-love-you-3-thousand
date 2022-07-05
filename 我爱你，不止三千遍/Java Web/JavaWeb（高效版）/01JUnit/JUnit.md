@@ -9,7 +9,7 @@
 1. 黑盒测试：不需要写代码，输入值后看程序是否能够输出期望的值。
 2. 白盒测试：需要写代码测试，关注程序具体的执行流程。
 
-<img src="C:/Users/JERRY/Downloads/641.jpg" alt="641" style="zoom: 33%;" />
+<img src="mark-img/61.jpg" alt="61" style="zoom:50%;" />
 
 > 单元测试属于白盒测试，JUnit 就是一个单元测试的 Java 框架。
 
