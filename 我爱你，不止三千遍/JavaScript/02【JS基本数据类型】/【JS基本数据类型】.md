@@ -4,11 +4,11 @@
 
 # 一、数据类型简介和检测
 
-## 1.1 JavaScript 中两大类数据类型
+## 1.1 JavaScript 中两大数据类型
 
 **（1）基本数据类型**
 
-> JS 没有字符型，JS 的 String 是基本类型
+> JS 没有字符型，JS 的 String 是基本类型！
 
 - Number
 - String
@@ -35,7 +35,7 @@
 > typeof 是一个运算符，而不是内置函数，所以不用加 `()`，如果加了也不会报错，但是并不推荐。
 
 ```javascript
-typeof 5;		// number
+typeof 5;		  // number
 typeof '周吉瑞';	// string
 ```
 
@@ -56,13 +56,13 @@ console.log(typeof a);
 
 ## 1.3 5种基本数据类型的 typeof 检测结果
 
-| 类型名         | typeof 检测结果 | 值举例          |
-| -------------- | --------------- | --------------- |
-| 数字类型       | number          | `5`、`2.5`      |
-| 字符串类型     | string          | `'慕课网'`      |
-| 布尔类型       | boolean         | `true`、`false` |
-| undefined 类型 | undefined       | `undefined`     |
-| null 类型      | object          | `null`          |
+| 类型名         | typeof 检测结果            | 值举例          |
+| -------------- | -------------------------- | --------------- |
+| 数字类型       | number                     | `5`、`2.5`      |
+| 字符串类型     | string                     | `'慕课网'`      |
+| 布尔类型       | boolean                    | `true`、`false` |
+| undefined 类型 | undefined                  | `undefined`     |
+| null 类型      | object（可以理解为空对象） | `null`          |
 
 # 二、Number（数字）类型
 
@@ -126,7 +126,7 @@ typeof NaN;	// number
 ```
 
 - 0 除以 0 的结果是 NaN，事实上，在数学运算中，若结果不能得到数字，其结果往往都是 NaN
-- NaN 有一个 “奇怪” 的性质：不自等。这个知识点将在后续课程中讲解
+- NaN 有一个 “奇怪” 的性质：不自等（这个知识点将在后续课程中讲解）
 
 ```javascript
 0 / 0;	// NaN
@@ -135,7 +135,7 @@ typeof NaN;	// number
 "我" * "你";	// NaN
 "我" / "你";	// NaN
 "我" + "你";	// "我你"
-NaN == NaN;  // false
+NaN == NaN;   // false
 ```
 
 > 再次强调：NaN 是一个值（特殊的值），不是类型。
@@ -208,6 +208,8 @@ console.log(typeof a);	// string
 ## 3.5 字符串的 length 属性
 
 > 通过对 String 类型 “打点” 的方式，可以调用其内置属性。
+>
+> > 注意：在 JS 中，String 是基本类型，之所以 String 可以 “打点” 调用属性和方法，那是因为 JS 的解释器会自动将基本类型包装成对应的对象类型。
 
 字符串的 length 属性表示字符串的长度。
 
@@ -334,7 +336,7 @@ console.log(typeof a);	// string
 
 ```javascript
 "I Love You".toUpperCase();		// "I LOVE YOU"
-"IMooc".toLowerCase();			// "imooc"
+"IMooc".toLowerCase();		    // "imooc"
 ```
 
 > 注意：toUpperCase() 和 toLowerCase()，只是返回一个大小写格式，变量本身的值并没有改变。
@@ -342,9 +344,9 @@ console.log(typeof a);	// string
 > ```javascript
 > var str = "I Love You";
 > console.log(str.toUpperCase());		// "I LOVE YOU"
-> console.log(str);					// "I Love You"
+> console.log(str);				   // "I Love You"
 > str = str.toUpperCase();
-> console.log(str);					// "I LOVE YOU"
+> console.log(str);				   // "I LOVE YOU"
 > ```
 
 ### 3.6.4 indexOf() 方法
@@ -395,11 +397,13 @@ typeof false;	// boolean
 5 >= 100; // false
 ```
 
+> 注意：在 JS 中，1 可以 “代表” true，0或-0 可以 “代表” false，原理是类型的自动转换，但非常不建议以数字来代替布尔值！
+
 # 五、Undefined 类型
 
 一个没有赋值的变量的默认值是 `undefined`，而 undefined 的类型也是 undefined。
 
-即：undefined 既是类型，又是值（且这种类型只有它自己一个值）。
+即：undefined 既是类型，又是值（且这种类型只有它自身一个值）。
 
 ```javascript
 typeof undefined;	// undefined
@@ -411,7 +415,7 @@ typeof undefined;	// undefined
 
 # 六、Null 类型
 
-`null` 表示 “空”，它是 “空对象”。
+`null` 表示 “空”，可以理解为它是 “空对象”。
 
 当我们需要将对象销毁、数组销毁或者删除事件监听时，通常将它们设置为 null。
 
@@ -443,14 +447,16 @@ typeof null;	// object
 **（1）字符串——>数字**
 
 ```javascript
-Number('123');			// 123
-Number('123.45');		// 123.45
-Number('-123');			// -123
-Number('-123.45');		// -123.45
-Number('123年');	    	// NaN 
+Number('123');			 // 123
+Number('123.45');		 // 123.45
+Number('-123');			 // -123
+Number('-123.45');		 // -123.45
+// 字符串中不支持有非数值字符
+Number('123年');	    	// NaN
 Number('2e3');			// 2000
 Number('');				// 0
 
+// 字符串不支持是数学表达式
 Number('1+1');			// NaN
 // 除了字符串外，还可以直接放一个表达式
 Number(1+1);			// 2
@@ -671,23 +677,13 @@ function() {
 > str01 = "zjr";
 > str02 = new String("zjr");
 > str03 = String("zjr");
-> console.log(typeof str01);
-> console.log(typeof str02);
-> console.log(typeof str03);
-> console.log(str01 === str02);
-> console.log(str02 === str03);
-> console.log(str01 === str03);
+> console.log(typeof str01);		// string
+> console.log(typeof str02);		// object
+> console.log(typeof str03);		// string
+> console.log(str01 === str02);	// false
+> console.log(str02 === str03);	// false
+> console.log(str01 === str03);	// true
 > // Number、Boolean 同理
-> 
-> /*
-> 运行结果：
-> string
-> object
-> string
-> false
-> false
-> true
-> */
 > ```
 
-复杂数据类型都是 “引用类型”（type: object），引用类型的特性将在数组一课中介绍。
+复杂数据类型都是 “引用类型”（type: object），将在后续课程中介绍。
