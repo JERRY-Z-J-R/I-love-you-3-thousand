@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" bgcolor="white">
 	<img width="42" src="images/jerry.png">
     <img width="254" src="images/love.png">
     <img src="images/readme.jpg">
