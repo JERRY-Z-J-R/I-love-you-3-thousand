@@ -1708,6 +1708,90 @@ oBox.addEventListener('click', function(){}, true);
 
 <img src="mark-img/22f213b615f64aef95c28b60c3fdd260.png" style="zoom:50%;" />
 
+## 10.4 removeEventListener()方法
+
+当我们 addEventListener() 后，该监听事件就会一直生效，直到关闭页面或是移除该对应的监听！
+
+removeEventListener() 方法用来移除监听事件（只能移除具名函数的监听，且方法名称后面不能带 `()`）
+
+```javascript
+var body = document.querySelector('body'),
+var clickTarget = document.getElementById('click-target'),
+var mouseOverTarget = document.getElementById('mouse-over-target'),
+var toggle = false;
+
+// 具名函数
+function makeBackgroundYellow() {
+    'use strict';
+
+    if (toggle) {
+        body.style.backgroundColor = 'white';
+    } else {
+        body.style.backgroundColor = 'yellow';
+    }
+
+    toggle = !toggle;
+}
+
+// 注册监听
+clickTarget.addEventListener('click',
+    makeBackgroundYellow,
+    false
+);
+
+// 注册监听
+mouseOverTarget.addEventListener('mouseover', function () {
+    'use strict';
+
+    // 移除监听
+    clickTarget.removeEventListener('click',
+        makeBackgroundYellow,
+        false
+    );
+});
+```
+
+## 10.5 特别注意
+
+addEventListener() 一但注册某个事件，那么这个事件是会一直生效的，就算是该注册事件写在某个函数中，那个函数调用已经结束了，但是该事件还是会存在！因为事件的注册是直接绑定到相应的元素上的，并且是异步的，除非页面被关闭，或者是移除该监听！
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <script>
+        var btn = document.getElementById('btn');
+
+        function demo() {
+            console.log('btn');
+        }
+
+        function test() {
+            btn.addEventListener('click', demo, false);
+            return 'over';
+        }
+        
+        console.log(test());
+    </script>
+</body>
+
+</html>
+
+执行结果：
+over
+（点击按钮）
+btn
+```
+
 # 十一、事件对象
 
 ## 11.1 什么是事件对象
