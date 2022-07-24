@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>姓名案例（计算属性简写）</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    姓：<input type="text" v-model="firstName"> <br>
+    名：<input type="text" v-model="lastName"> <br>
+    <!-- 计算属性不能加()，即便是简写形式！！！ -->
+    全名：<span>{{fullName}}</span> <br>
+</div>
+<script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            firstName: '张',
+            lastName: '三'
+        },
+        computed: {
+            // fullName: {
+            //     get() {
+            //         return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+            //     }
+            // }
+
+            // 当只存在 get 而不存在 set 时，才能使用简写形式
+            fullName() {
+                return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+            }
+        }
+    })
+</script>
+</body>
+</html>

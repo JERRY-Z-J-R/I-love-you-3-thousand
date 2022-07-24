@@ -3,15 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>回顾Object.defineProperty方法</title>
 </head>
 
 <body>
-
-</body>
-
 <script>
     let number = 18
     let person = {
@@ -20,16 +15,18 @@
     }
 
     /*
-    Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
-    备注：应当直接在 Object 构造器对象上调用此方法，而不是在任意一个 Object 类型的实例上调用。
+    Object.defineProperty() 方法可以直接在一个原有的对象上定义一个新属性，或者修改该对象的现有属性，并返回此对象。
+    备注：前提是直接在 Object 构造器对象上调用此方法，而不是在任意一个 Object 类型的实例上调用。
      */
+
     /*
      Object.defineProperty()可以对添加的属性进行很多高级的限制
      Object.defineProperty()方法参数：
-     参数1：给哪个对象添加属性
-     参数2：添加的属性名
-     参数3：配置项（以对象的方式配置）
+        参数 1：给哪个对象添加属性
+        参数 2：添加的属性名
+        参数 3：配置项（以对象的方式配置）
     */
+
     // 向 person 对象中增加 age: 18 属性
     Object.defineProperty(person, 'age', {
         //【基本配置项】
@@ -89,5 +86,6 @@
     console.log(person);
     // {name: "张三", sex: "男"}
 </script>
+</body>
 
 </html>

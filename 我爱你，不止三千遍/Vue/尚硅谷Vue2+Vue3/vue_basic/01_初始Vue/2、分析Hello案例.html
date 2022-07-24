@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分析Hello案例</title>
     <script src="../js/vue.js"></script>
 </head>
@@ -13,18 +11,18 @@
 <!--
     1、Vue 实例和容器是 “第一对应” 的关系：
         “一个容器只会对应一个实例，一个实例也只能作用于一个容器”！
-        <1> 两个相同 id 的容器，一个 Vue 实例，那么这个 Vue 实例只会为第一个容器服务。
+        <1> 两个相同 class 的容器，一个 Vue 实例，那么这个 Vue 实例只会为第一个容器服务。
         <2> 两个 el 相同的 Vue 实例，一个容器，那么该容器只接受第一个 Vue 实例的服务。
     2、真实开发中只有一个 Vue 实例，并且会配合着组件一起使用（这样的机制解决了实例臃肿的问题）
     3、{{xxx}} 中的 xxx 要写 js 表达式，且 xxx 可以自动读取到 data 中的所有属性。
-        <1> 表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方
+        <1> 表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方 ✔
             （1）a
             （2）a + b
             （3）func(24)
             （4）x === y ? 'a' : 'b'
                 …………
 
-        <2> js 代码（语句）
+        <2> js 代码（语句）×
             （1）if(){}
             （2）for(){}
                 …………
@@ -38,8 +36,7 @@
        可以看一看 Vue 源码的实现：
         function Vue (options) {
             // 判断实例对象中的 this 是不是指向 Vue，如果不是证明并不是 new 出来的
-            if (!(this instanceof Vue)
-            ) {
+            if (!(this instanceof Vue)) {
               warn('Vue is a constructor and should be called with the `new` keyword');
             }
             this._init(options);
@@ -51,8 +48,6 @@
 <div id="root">
     <h1>Hello, {{name.toUpperCase()}}，{{address}}，{{Date.now()}}</h1>
 </div>
-</body>
-
 <script>
     Vue.config.productionTip = false;
 
@@ -65,5 +60,6 @@
         }
     })
 </script>
+</body>
 
 </html>

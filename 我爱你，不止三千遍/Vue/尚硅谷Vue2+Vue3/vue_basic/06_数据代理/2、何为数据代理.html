@@ -3,18 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>何为数据代理</title>
 </head>
 
 <body>
-
-</body>
-
 <script>
     // 数据代理：通过一个对象代理另一个对象中属性的操作（读/写）
-    let obj = {
+    let obj1 = {
         x: 100
     }
 
@@ -25,12 +20,13 @@
     // 用 obj2 代理 obj1 中属性的操作，也是就可以通过 obj2 操作 obj1 中的属性！
     Object.defineProperty(obj2, 'x', {
         get() {
-            return obj.x
+            return obj1.x
         },
         set(value) {
-            obj.x = value
+            obj1.x = value
         }
     })
 </script>
+</body>
 
 </html>

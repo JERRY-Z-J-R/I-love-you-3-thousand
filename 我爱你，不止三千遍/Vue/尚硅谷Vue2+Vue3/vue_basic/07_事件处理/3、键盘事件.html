@@ -3,21 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>键盘事件</title>
     <script src="../js/vue.js"></script>
 </head>
 
 <body>
 <!--
-1、Vue 中常用的按键别名
+键盘事件：
+    keyup：按下放开才触发（常用）
+    keydown：按下即触发
+
+1、Vue 中常用的按键别名（键盘事件修饰符）
     回车：enter
-    删除：delete（捕获“删除”和“退格键”）
-    推出：esc
+    删除：delete（捕获 “删除” 和 “退格键”）
+    退出：esc
     空格：space
-    制表：tab（特殊，必须配合 keydown 使用）
-    上：  up
+    制表：tab（特殊，必须配合 keydown 使用，因为 tab 本来就有焦点切换功能，如果是 keyup，按下 tab 的同时焦点已经切走了，那么事件就不会正常生效，所以要用 keydown）
     下：  down
     左：  left
     右：  right
@@ -35,8 +36,6 @@
     <input type="text" placeholder="按下回车键提示输入" @keyup.enter="showInfo">
     <input type="text" placeholder="按下回车键提示输入" @keyup.huiche="showInfo">
 </div>
-</body>
-
 <script>
     Vue.config.productionTip = false;
     // Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
@@ -53,5 +52,6 @@
         }
     })
 </script>
+</body>
 
 </html>

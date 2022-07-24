@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>事件修饰符</title>
     <script src="../js/vue.js"></script>
     <style>
@@ -64,17 +62,16 @@
     </div>
 
     <!-- self：只有 event.target 是当前操作的元素是才触发事件 -->
-    <!-- 这里我们点击 button 那么，无论如何冒泡，event.target 都是这个 button 元素， -->
+    <!-- 这里，当我们点击 button 那么无论如何冒泡，最终 button 和 div 的 event.target 都是这个 button 元素 -->
     <!-- 所以我们在上级 div 中加 .self 的意思就是，当这个 div 的 click 事件被触发，并且 event.target 还得是这个 div 那么，事件才会生效！ -->
+    <!-- 所以 .self 就可以用来实现阻止事件冒泡 -->
     <div class="demo1" @click.self="showInfo">
         <button @click="showInfo">点我提示信息</button>
     </div>
 
     <!-- passive：事件的默认行为立即执行，无需等待事件回调执行完毕 -->
-    <!-- 举例：某些事件（非常少，比如：wheel），如果回调函数非常复杂（耗时较长），那么该事件的默认事件会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题。 -->
+    <!-- 举例：某些事件（非常少，比如：wheel），如果回调函数非常复杂（耗时较长），那么该事件的默认事件行为会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题。 -->
 </div>
-</body>
-
 <script>
     Vue.config.productionTip = false
 
@@ -95,5 +92,6 @@
         }
     })
 </script>
+</body>
 
 </html>

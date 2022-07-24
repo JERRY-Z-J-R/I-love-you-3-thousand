@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>el与data的两种写法</title>
     <script src="../js/vue.js"></script>
 </head>
@@ -46,7 +44,7 @@
 
         // data 的第二种写法：函数式
         data: function () {
-            // 这个函数式 Vue 实例帮我们自动调用的
+            // 这个函数式 Vue 实例会帮我们自动调用的
             console.log(this) // 这里的 this 为 Vue 实例对象（前提是要把 data 写成 function，不能用箭头函数！）
             // 必须有 return
             return {
