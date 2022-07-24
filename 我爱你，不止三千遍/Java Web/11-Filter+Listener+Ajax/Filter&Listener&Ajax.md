@@ -1,13 +1,11 @@
 ## Filter&Listener&Ajax
 
-**今日目标：**
-
 > * 能够使用 Filter 完成登陆状态校验功能
 > * 能够使用 axios 发送 ajax 请求
 > * 熟悉 json 格式，并能使用 Fastjson 完成 java 对象和 json 串的相互转换
 > * 使用 axios + json 完成综合案例
 
-## 1，Filter
+## 1、Filter
 
 ### 1.1  Filter概述
 
@@ -522,7 +520,7 @@ public class LoginFilter implements Filter {
 }
 ```
 
-## 2，Listener
+## 2、Listener
 
 ### 2.1  概述
 
@@ -575,7 +573,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
 启动服务器，就可以在启动的日志信息中看到 `contextInitialized()` 方法输出的内容，同时也说明了 `ServletContext` 对象在服务器启动的时候被创建了。
 
-## 3，Ajax
+## 3、Ajax
 
 ### 3.1  概述
 
@@ -884,7 +882,7 @@ document.getElementById("username").onblur = function () {
 }
 ```
 
-## 4，axios
+## 4、axios
 
 Axios 对原生的AJAX进行封装，简化书写。
 
@@ -1063,7 +1061,7 @@ axios.post("http://localhost:8080/ajax-demo/axiosServlet","username=zhangsan").t
 })
 ```
 
-## 5，JSON
+## 5、JSON
 
 ### 5.1  概述
 
@@ -1264,7 +1262,7 @@ axios({
 
 #### 5.3.1  Fastjson 概述
 
-`Fastjson` 是阿里巴巴提供的一个Java语言编写的高性能功能完善的 `JSON` 库，是目前Java语言中最快的 `JSON` 库，可以实现 `Java` 对象和 `JSON` 字符串的相互转换。
+`Fastjson` 是阿里巴巴提供的一个 Java 语言编写的高性能功能完善的 `JSON` 库，是目前 Java 语言中最快的 `JSON` 库，可以实现 `Java` 对象和 `JSON` 字符串的相互转换。
 
 #### 5.3.2  Fastjson 使用
 
@@ -1280,7 +1278,7 @@ axios({
    </dependency>
    ```
 
-2. **Java对象转JSON**
+2. **Java 对象转 JSON**
 
    ```java
    String jsonStr = JSON.toJSONString(obj);
@@ -1288,7 +1286,7 @@ axios({
 
    将 Java 对象转换为 JSON 串，只需要使用 `Fastjson` 提供的 `JSON` 类中的 `toJSONString()` 静态方法即可。
 
-3. **JSON字符串转Java对象**
+3. **JSON 字符串转 Java 对象**
 
    ```java
    User user = JSON.parseObject(jsonStr, User.class);
@@ -1318,14 +1316,13 @@ axios({
   
           //2. 将JSON字符串转为Java对象
           User u = JSON.parseObject("{\"id\":1,\"password\":\"123\",\"username\":\"zhangsan\"}", User.class);
-          System.out.println(u);
+          System.out.pritln(u);
       }
   }
   ```
 
-  
 
-## 6，案例
+## 6、案例
 
 ### 6.1  需求
 

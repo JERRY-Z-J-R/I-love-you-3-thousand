@@ -1,15 +1,13 @@
 ## JSP
 
-**今日目标：**
-
 > * 理解 JSP 及 JSP 原理
 > * 能在 JSP中使用 `EL表达式` 和 `JSTL标签`
 > * 理解 `MVC模式` 和 `三层架构`
 > * 能完成品牌数据的增删改查功能
 
-## 1，JSP 概述
+## 1、JSP 概述
 
-==JSP（全称：Java Server Pages）：Java 服务端页面。==是一种动态的网页技术，其中既可以定义 HTML、JS、CSS等静态内容，还可以定义 Java代码的动态内容，也就是 `JSP = HTML + Java`。如下就是jsp代码
+==JSP（全称：Java Server Pages）：Java 服务端页面。==是一种动态的网页技术，其中既可以定义 HTML、JS、CSS 等静态内容，还可以定义 Java 代码的动态内容，也就是 `JSP = HTML + Java`。如下就是 jsp 代码：
 
 ```jsp
 <html>
@@ -55,9 +53,9 @@
 
 上面代码可以看到里面基本都是 `HTML` 标签，而动态数据使用 Java 代码进行展示；这样操作看起来要比用 `servlet` 实现要舒服很多。
 
-JSP 作用：简化开发，避免了在Servlet中直接输出HTML标签。
+JSP 作用：简化开发，避免了在 Servlet 中直接输出 HTML 标签。
 
-## 2，JSP 快速入门
+## 2、JSP 快速入门
 
 接下来我们做一个简单的快速入门代码。
 
@@ -120,7 +118,7 @@ JSP 作用：简化开发，避免了在Servlet中直接输出HTML标签。
 </dependency>
 ```
 
-该依赖的 `scope` 必须设置为 `provided`，因为 tomcat 中有这个jar包了，所以在打包时我们是不希望将该依赖打进到我们工程的war包中。
+该依赖的 `scope` 必须设置为 `provided`，因为 tomcat 中有这个 jar 包了，所以在打包时我们是不希望将该依赖打进到我们工程的 war 包中。
 
 ### 2.3  创建 jsp 页面
 
@@ -142,7 +140,6 @@ JSP 作用：简化开发，避免了在Servlet中直接输出HTML标签。
 </head>
 <body>
     <h1>hello jsp</h1>
-
     <%
         System.out.println("hello,jsp~");
     %>
@@ -156,13 +153,13 @@ JSP 作用：简化开发，避免了在Servlet中直接输出HTML标签。
 
 <img src="assets/image-20210818110122438.png" alt="image-20210818110122438" style="zoom:70%;" />
 
-同时也可以看到在 `idea` 的控制台看到输出的 `hello,jsp~` 内容。
+同时也可以看到在 `idea` 的控制台看到输出的 `hello, jsp~` 内容。
 
-## 3，JSP 原理
+## 3、JSP 原理
 
 我们之前说 JSP 就是一个页面，那么在 JSP 中写 `html` 标签，我们能理解，但是为什么还可以写 `Java` 代码呢？
 
-因为 ==JSP 本质上就是一个 Servlet。==接下来我们聊聊访问jsp时的流程
+因为 ==JSP 本质上就是一个 Servlet。==接下来我们聊聊访问 jsp 时的流程
 
 <img src="assets/image-20210818111039350.png" alt="image-20210818111039350" style="zoom:70%;" />
 
@@ -191,19 +188,19 @@ JSP 作用：简化开发，避免了在Servlet中直接输出HTML标签。
 
 <img src="assets/image-20210818114008998.png" alt="image-20210818114008998" style="zoom:80%;" />
 
-以前我们自己写 `servlet` 时，这部分代码是由我们自己来写，现在有了 `jsp` 后，由tomcat完成这部分功能。
+以前我们自己写 `servlet` 时，这部分代码是由我们自己来写，现在有了 `jsp` 后，由 tomcat 完成这部分功能。
 
-## 4，JSP 脚本
+## 4、JSP 脚本
 
-JSP脚本用于在 JSP页面内定义 Java代码。在之前的入门案例中我们就在 JSP 页面定义的 Java 代码就是 JSP 脚本。
+JSP 脚本用于在 JSP 页面内定义 Java 代码。在之前的入门案例中我们就在 JSP 页面定义的 Java 代码就是 JSP 脚本。
 
 ### 4.1  JSP 脚本分类
 
 JSP 脚本有如下三个分类：
 
-* <%...%>：内容会直接放到_jspService()方法之中
-* <%=…%>：内容会放到out.print()中，作为out.print()的参数
-* <%!…%>：内容会放到_jspService()方法之外，被类直接包含
+* <%...%>：内容会直接放到 _jspService() 方法之中
+* <%=…%>：内容会放到 out.print() 中，作为 out.print() 的参数
+* <%!…%>：内容会放到 _jspService() 方法之外，被类直接包含
 
 **代码演示：**
 
@@ -248,7 +245,7 @@ JSP 脚本有如下三个分类：
 
 #### 4.2.1  需求
 
-使用JSP脚本展示品牌数据
+使用 JSP 脚本展示品牌数据
 
 <img src="assets/image-20210818125203390.png" alt="image-20210818125203390" style="zoom:80%;" />
 
@@ -382,7 +379,6 @@ JSP 脚本有如下三个分类：
           <th>品牌介绍</th>
           <th>状态</th>
           <th>操作</th>
-  
       </tr>
       
       <%
@@ -405,11 +401,11 @@ JSP 脚本有如下三个分类：
      
   </table>
   ```
-
+  
   > 注意：<%%> 里面写的是 Java 代码，而外边写的是 HTML 标签
-
+  
   上面代码中的 `td` 标签中的数据都需要是动态的，所以还需要改进
-
+  
   ```jsp
   <table border="1" cellspacing="0" width="800">
       <tr>
@@ -420,9 +416,8 @@ JSP 脚本有如下三个分类：
           <th>品牌介绍</th>
           <th>状态</th>
           <th>操作</th>
-  
       </tr>
-      
+   
       <%
        for (int i = 0; i < brands.size(); i++) {
            //获取集合中的 每一个 Brand 对象
@@ -455,9 +450,9 @@ JSP 脚本有如下三个分类：
 <%
     // 查询数据库
     List<Brand> brands = new ArrayList<Brand>();
-    brands.add(new Brand(1,"三只松鼠","三只松鼠",100,"三只松鼠，好吃不上火",1));
-    brands.add(new Brand(2,"优衣库","优衣库",200,"优衣库，服适人生",0));
-    brands.add(new Brand(3,"小米","小米科技有限公司",1000,"为发烧而生",1));
+    brands.add(new Brand(1, "三只松鼠", "三只松鼠", 100, "三只松鼠，好吃不上火", 1));
+    brands.add(new Brand(2, "优衣库", "优衣库", 200, "优衣库，服适人生" ,0));
+    brands.add(new Brand(3, "小米", "小米科技有限公司", 1000, "为发烧而生", 1));
 %>
 
 
@@ -513,7 +508,7 @@ JSP 脚本有如下三个分类：
 
 通过上面的案例，我们可以看到 JSP 的很多缺点。
 
-由于 JSP页面内，既可以定义 HTML 标签，又可以定义 Java代码，造成了以下问题：
+由于 JSP 页面内，既可以定义 HTML 标签，又可以定义 Java 代码，造成了以下问题：
 
 * 书写麻烦：特别是复杂的页面
 
@@ -525,9 +520,9 @@ JSP 脚本有如下三个分类：
 
 * 复杂度高：运行需要依赖于各种环境，JRE，JSP容器，JavaEE…
 
-* 占内存和磁盘：JSP会自动生成.java和.class文件占磁盘，运行的是.class文件占内存
+* 占内存和磁盘：JSP 会自动生成 .java 和 .class 文件占磁盘，运行的是 .class 文件占内存
 
-* 调试困难：出错后，需要找到自动生成的.java文件进行调试
+* 调试困难：出错后，需要找到自动生成的 .java 文件进行调试
 
 * 不利于团队协作：前端人员不会 Java，后端人员不精 HTML
 
@@ -554,7 +549,7 @@ JSP 脚本有如下三个分类：
 
 接下来我们来学习第三阶段，使用 `EL表达式` 和 `JSTL` 标签库替换 `JSP` 中的 `Java` 代码。
 
-## 5，EL 表达式
+## 5、EL 表达式
 
 ### 5.1  概述
 
@@ -566,7 +561,7 @@ EL 表达式的主要作用是 ==获取数据==。其实就是从域对象中获
 
 ### 5.2  代码演示
 
-* 定义servlet，在 servlet 中封装一些数据并存储到 request 域对象中并转发到 `el-demo.jsp` 页面。
+* 定义 servlet，在 servlet 中封装一些数据并存储到 request 域对象中并转发到 `el-demo.jsp` 页面。
 
   ```java
   @WebServlet("/demo1")
@@ -626,13 +621,13 @@ el 表达式获取数据，会依次从这4个域中寻找，直到找到为止�
 
 <img src="assets/image-20210818152857407.png" alt="image-20210818152857407" style="zoom:60%;" />
 
-例如： ${brands}，el 表达式获取数据，会先从page域对象中获取数据，如果没有再到 requet 域对象中获取数据，如果再没有再到 session 域对象中获取，如果还没有才会到 application 中获取数据。
+例如： ${brands}，el 表达式获取数据，会先从 page 域对象中获取数据，如果没有再到 requet 域对象中获取数据，如果再没有再到 session 域对象中获取，如果还没有才会到 application 中获取数据。
 
-## 6，JSTL标签
+## 6、JSTL标签
 
 ### 6.1  概述
 
-JSP标准标签库(Jsp Standarded Tag Library) ，使用标签取代JSP页面上的Java代码。如下代码就是JSTL标签
+JSP标准标签库(Jsp Standarded Tag Library) ，使用标签取代 JSP 页面上的 Java 代码。如下代码就是 JSTL 标签
 
 ```jsp
 <c:if test="${flag == 1}">
@@ -668,7 +663,7 @@ JSTL 使用也是比较简单的，分为如下步骤：
   </dependency>
   ```
 
-* 在JSP页面上引入JSTL标签库
+* 在 JSP 页面上引入 JSTL 标签库
 
   ```jsp
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
@@ -727,11 +722,11 @@ JSTL 使用也是比较简单的，分为如下步骤：
       <%--
           c:if：来完成逻辑判断，替换java  if else
       --%>
-      <c:if test="${status ==1}">
+      <c:if test="${status == 1}">
           启用
       </c:if>
   
-      <c:if test="${status ==0}">
+      <c:if test="${status == 0}">
           禁用
       </c:if>
   </body>
@@ -744,11 +739,11 @@ JSTL 使用也是比较简单的，分为如下步骤：
 
 ### 6.3  forEach 标签
 
-`<c:forEach>`：相当于 for 循环。java中有增强for循环和普通for循环，JSTL 中的 `<c:forEach>` 也有两种用法
+`<c:forEach>`：相当于 for 循环。java 中有增强 for 循环和普通 for 循环，JSTL 中的 `<c:forEach>` 也有两种用法
 
 #### 6.3.1  用法一
 
-类似于 Java 中的增强for循环。涉及到的 `<c:forEach>` 中的属性如下
+类似于 Java 中的增强 for 循环。涉及到的 `<c:forEach>` 中的属性如下
 
 * items：被遍历的容器
 
@@ -756,7 +751,7 @@ JSTL 使用也是比较简单的，分为如下步骤：
 
 * varStatus：遍历状态对象
 
-如下代码，是从域对象中获取名为 brands 数据，该数据是一个集合；遍历遍历，并给该集合中的每一个元素起名为 `brand`，是 Brand对象。在循环里面使用 EL表达式获取每一个Brand对象的属性值
+如下代码，是从域对象中获取名为 brands 数据，该数据是一个集合；遍历遍历，并给该集合中的每一个元素起名为 `brand`，是 Brand对象。在循环里面使用 EL 表达式获取每一个 Brand 对象的属性值
 
 ```jsp
 <c:forEach items="${brands}" var="brand">
@@ -823,7 +818,7 @@ JSTL 使用也是比较简单的，分为如下步骤：
 
 #### 6.3.2  用法二
 
-类似于 Java 中的普通for循环。涉及到的 `<c:forEach>` 中的属性如下
+类似于 Java 中的普通 for 循环。涉及到的 `<c:forEach>` 中的属性如下
 
 * begin：开始数
 
@@ -833,7 +828,7 @@ JSTL 使用也是比较简单的，分为如下步骤：
 
 实例代码：
 
-从0循环到10，变量名是 `i` ，每次自增1
+从 0 循环到 10，变量名是 `i` ，每次自增 1
 
 ```jsp
 <c:forEach begin="0" end="10" step="1" var="i">
@@ -841,7 +836,7 @@ JSTL 使用也是比较简单的，分为如下步骤：
 </c:forEach>
 ```
 
-## 7，MVC模式和三层架构
+## 7、MVC模式和三层架构
 
 MVC 模式和三层架构是一些理论的知识，将来我们使用了它们进行代码开发会让我们代码维护性和扩展性更好。
 
@@ -873,11 +868,11 @@ MVC 是一种分层开发的模式，其中：
 
 <img src="assets/image-20210818164301154.png" alt="image-20210818164301154" style="zoom:60%;" />
 
-* 数据访问层：对数据库的CRUD基本操作
+* 数据访问层：对数据库的 CRUD 基本操作
 * 业务逻辑层：对业务逻辑进行封装，组合数据访问层层中基本功能，形成复杂的业务逻辑功能。例如 `注册业务功能` ，我们会先调用 `数据访问层` 的 `selectByName()` 方法判断该用户名是否存在，如果不存在再调用 `数据访问层` 的 `insert()` 方法进行数据的添加操作
 * 表现层：接收请求，封装数据，调用业务逻辑层，响应数据
 
-而整个流程是，浏览器发送请求，表现层的Servlet接收请求并调用业务逻辑层的方法进行业务逻辑处理，而业务逻辑层方法调用数据访问层方法进行数据的操作，依次返回到serlvet，然后servlet将数据交由 JSP 进行展示。
+而整个流程是，浏览器发送请求，表现层的 Servlet 接收请求并调用业务逻辑层的方法进行业务逻辑处理，而业务逻辑层方法调用数据访问层方法进行数据的操作，依次返回到 serlvet，然后 servlet 将数据交由 JSP 进行展示。
 
 三层架构的每一层都有特有的包名称：
 
@@ -899,7 +894,7 @@ MVC 是一种分层开发的模式，其中：
 
 可以将 `MVC 模式` 理解成是一个大的概念，而 `三层架构` 是对 `MVC 模式` 实现架构的思想。 那么我们以后按照要求将不同层的代码写在不同的包下，每一层里功能职责做到单一，将来如果将表现层的技术换掉，而业务逻辑层和数据访问层的代码不需要发生变化。
 
-## 8，案例
+## 8、案例
 
 **需求：完成品牌数据的增删改查操作**
 
@@ -1586,7 +1581,7 @@ public class AddServlet extends HttpServlet {
 
 ##### 8.4.1.2  编写BrandService方法
 
-在 `BrandService` 类中定义根据id查询数据方法 `selectById(int id)` 
+在 `BrandService` 类中定义根据 id 查询数据方法 `selectById(int id)` 
 
 ```java
     /**
@@ -1739,7 +1734,7 @@ void update(Brand brand);
 
 ##### 8.4.2.2  编写BrandService方法
 
-在 `BrandService` 类中定义根据id查询数据方法 `update(Brand brand)` 
+在 `BrandService` 类中定义根据 id 查询数据方法 `update(Brand brand)` 
 
 ```java
 	/**
@@ -1764,7 +1759,7 @@ void update(Brand brand);
 
 在 `web` 包下创建 `AddServlet` 的 `servlet`，该 `servlet` 的逻辑如下:
 
-* 设置处理post请求乱码的字符集
+* 设置处理 post 请求乱码的字符集
 * 接收客户端提交的数据
 * 将接收到的数据封装到 `Brand` 对象中
 * 调用 `BrandService` 的`update()` 方法进行添加的业务逻辑处理
@@ -1815,7 +1810,7 @@ public class UpdateServlet extends HttpServlet {
 
 ==存在问题：update.jsp 页面提交数据时是没有携带主键数据的，而后台修改数据需要根据主键进行修改。==
 
-针对这个问题，我们不希望页面将主键id展示给用户看，但是又希望在提交数据时能将主键id提交到后端。此时我们就想到了在学习 HTML 时学习的隐藏域，在 `update.jsp` 页面的表单中添加如下代码：
+针对这个问题，我们不希望页面将主键 id 展示给用户看，但是又希望在提交数据时能将主键 id 提交到后端。此时我们就想到了在学习 HTML 时学习的隐藏域，在 `update.jsp` 页面的表单中添加如下代码：
 
 ```jsp
 <%--隐藏域，提交id--%>

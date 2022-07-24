@@ -72,6 +72,13 @@
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
         </dependency>
+
+        <!-- IO 实用程序库 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -5,8 +5,10 @@ import cn.jerry.service.GoodsService;
 import cn.jerry.service.impl.GoodsServiceImpl;
 import cn.jerry.web.servlet.base.BaseServlet;
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -147,15 +149,23 @@ public class GoodsServlet extends BaseServlet {
 
         String imagePath = goods.getGoodsimg();
 
+        // FileInputStream fis = new FileInputStream(imagePath);
+        // int size = fis.available(); // 得到文件大小
+        // byte data[] = new byte[size];
+        // fis.read(data);  // 读数据
+        // fis.close();
+        // response.setContentType("image/gif"); // 设置返回的文件类型
+        // OutputStream os = response.getOutputStream();
+        // os.write(data);
+        // os.flush();
+        // os.close();
+
+        //1. 读取文件
         FileInputStream fis = new FileInputStream(imagePath);
-        int size = fis.available(); // 得到文件大小
-        byte data[] = new byte[size];
-        fis.read(data);  // 读数据
+        //2. 获取response字节输出流
+        ServletOutputStream os = response.getOutputStream();
+        //3. 完成流的copy
+        IOUtils.copy(fis, os);
         fis.close();
-        response.setContentType("image/gif"); // 设置返回的文件类型
-        OutputStream os = response.getOutputStream();
-        os.write(data);
-        os.flush();
-        os.close();
     }
 }
