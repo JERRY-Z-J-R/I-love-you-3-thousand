@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>watch对比computed</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    姓：<input type="text" v-model="firstName"> <br>
+    名：<input type="text" v-model="lastName"> <br>
+    全名：<span>{{fullName}}</span> <br>
+</div>
+<script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            firstName: '张',
+            lastName: '三',
+            fullName: '张 - 三'
+        },
+        // 用 computed 实现功能
+        // computed: {
+        //     fullName() {
+        //         return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+        //     }
+        // }
+
+        // 用 watch 实现功能
+        // watch: {
+        //     firstName(newValue) {
+        //         this.fullName = newValue.slice(0, 3) + ' - ' + this.lastName;
+        //     },
+        //     lastName(newValue) {
+        //         this.fullName = this.firstName.slice(0, 3) + ' - ' + newValue;
+        //     }
+        // }
+
+        /*
+            总结：通过上述计算属性与监视属性的实现可以看到，计算属性能实现的功能一般来说监视属性也可以实现，
+                 但是，监视属性写起来要更麻烦，每一个监视的变量都需要一个单独的部分来处理。
+
+            注意：目前，Vue 官方已经将监视属性的中文译文改为“侦听属性”。
+         */
+
+        // ----------------------------------------------------------------------
+
+        // 特殊情况：提一个需求，当姓发生改变的时候，全名延迟 1 秒钟再发生改变，名改变的时候，不做要求
+
+        // 用 computed 实现（无法实现）
+        // computed: {
+        //     fullName() {
+        //         // 这样的方式是不行的！因为 return 是返回给了那个箭头函数，而不是 fullName 函数！
+        //         // 也就是说：计算属性是不能开启异步任务去维护数据的！
+        //         setTimeout(() => {
+        //             return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+        //         })
+        //     }
+        // },
+
+        // 用 watch 实现
+        watch: {
+            firstName(newValue) {
+                setTimeout(() => {
+                    this.fullName = newValue.slice(0, 3) + ' - ' + this.lastName;
+                }, 1000)
+            },
+            lastName(newValue) {
+                this.fullName = this.firstName.slice(0, 3) + ' - ' + newValue;
+            }
+        }
+
+        /*
+            总结：
+                computed 和 watch 之间的区别：
+                   1、computed 能完成的功能，watch 都可以完成
+                   2、watch 能完成的功能，computed 不一定能完成，例如：watch 可以进行异步操作
+
+                两个重要的小技巧：
+                    1、所有被 Vue 管理的函数，最好写成普通函数，这样 this 的指向才是 vm 或组件实例对象
+                    2、所有不被 Vue 所管理的函数（定时器的回调函数、Ajax的回调函数、Promise……），最好写成箭头函数，
+                       这样 this 的指向才是 vm 或组件实例对象
+         */
+    })
+</script>
+</body>
+</html>
