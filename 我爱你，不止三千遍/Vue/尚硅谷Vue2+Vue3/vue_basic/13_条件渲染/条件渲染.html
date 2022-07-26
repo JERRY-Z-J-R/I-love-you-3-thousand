@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!-- 条件渲染1：v-show -->
+    <!-- v-show 的原理：在样式中加上 display: none -->
+    <h2 v-show="true">show：欢迎到来{{name}} 1</h2>
+    <h2 v-show="false">show：欢迎到来{{name}} 2</h2>
+    <h2 v-show="2-1 === 1">show：欢迎到来{{name}} 3</h2>
+    <h2 v-show="1 === 2">show：欢迎到来{{name}} 4</h2>
+    <h2 v-show="show">show：欢迎到来{{name}} 5</h2>
+
+    <!-- -------------------------------------- -->
+
+    <!-- 条件渲染2：v-if -->
+    <!-- v-if 的原理：直接不会渲染到 DOM 上 -->
+    <h2 v-if="true">if：欢迎到来{{name}} 1</h2>
+    <h2 v-if="false">if：欢迎到来{{name}} 2</h2>
+    <h2 v-if="2-1 === 1">if：欢迎到来{{name}} 3</h2>
+    <h2 v-if="1 === 2">show：欢迎到来{{name}} 4</h2>
+    <!-- v-else-if -->
+    <h2 v-if="a">if：欢迎到来{{name}} 5</h2>
+    <h2 v-else-if="b">if：欢迎到来{{name}} 6</h2>
+    <h2 v-else-if="c">if：欢迎到来{{name}} 7</h2>
+    <h2 v-else>if：欢迎到来{{name}} 8</h2>
+    <!-- 注意：v-if v-else-if v-else 之间不能再有其它标签 -->
+
+    <!-- -------------------------------------- -->
+    <!-- 用法： -->
+    <!-- 1、频繁进行显示及隐藏操作的使用 v-show -->
+    <!-- 2、不频繁显示及隐藏并且不想渲染到 DOM 上的使用 v-if -->
+    <!-- v-if 比 v-show 的性能开销大很多 -->
+    <!-- -------------------------------------- -->
+
+    <!-- 同样的条件，这样写太繁琐 -->
+    <h2 v-if="n">你好</h2>
+    <h2 v-if="n">尚硅谷</h2>
+    <h2 v-if="n">北京</h2>
+
+    <!-- 用 div 包裹比较方便，但是无缘无故多了一个 div 嵌套，对于层级关系是个破坏 -->
+    <div v-if="n">
+        <h2>你好</h2>
+        <h2>尚硅谷</h2>
+        <h2>北京</h2>
+    </div>
+
+    <!-- 无论显示还是隐藏都会自动脱去 template，直接暴露里面的结构 -->
+    <!-- template 不支持 v-show -->
+    <template v-if="n">
+        <h2>你好</h2>
+        <h2>尚硅谷</h2>
+        <h2>北京</h2>
+    </template>
+
+</div>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            name: '尚硅谷',
+            show: true,
+            a: false,
+            b: true,
+            c: true,
+            n: false
+        }
+    })
+</script>
+</body>
+</html>

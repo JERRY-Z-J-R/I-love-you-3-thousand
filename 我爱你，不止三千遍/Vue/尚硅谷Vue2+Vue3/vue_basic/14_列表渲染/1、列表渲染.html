@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!--
+    <ul>
+        <li v-for="p in persons">{{p.name}} {{p.age}}</li>
+    </ul>
+    -->
+
+    <!-- 一、遍历数组 -->
+    <!-- 在 Vue 中也许 v-for 不加 key 可能不会报错，但是千万不要这么做！ -->
+    <!-- 所以，在使用 v-for 时，请自觉加上 key，一般用绑定 id 的形式 :key -->
+    <ul>
+        <li v-for="p in persons" :key="p.id">{{p.name}} {{p.age}} {{p.id}}</li>
+    </ul>
+    <!-- key 也可以通过 index 直接指定在 v-for 中 -->
+    <!-- index 默认从 0 开始 逐个累加 1 -->
+    <!-- 注意：直接使用 index 作为 key 有一定的风险（慎用）：1、重复渲染，影响性能 2、乱序操作时某些时候会发生Bug -->
+    <ul>
+        <li v-for="(p, index) in persons" :key="index">{{p.name}} {{p.age}} {{index}}</li>
+    </ul>
+
+    <!-- 二、遍历对象 -->
+    <!-- key 指代对象的 key -->
+    <ul>
+        <li v-for="(value, key) in car" :key="key">{{key}}：{{value}}</li>
+    </ul>
+
+    <!-- 三、遍历字符串 -->
+    <ul>
+        <li v-for="(char, index) in str" :key="index">{{index}}：{{char}}</li>
+    </ul>
+
+    <!-- 四、遍历指定次数 -->
+    <ul>
+        <li v-for="(number, index) in 5" :key="index">{{index}} {{number}}</li>
+    </ul>
+</div>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            persons: [
+                {
+                    id: '001',
+                    name: '张三',
+                    age: 18
+                },
+                {
+                    id: '002',
+                    name: '李四',
+                    age: 19
+                },
+                {
+                    id: '003',
+                    name: '王五',
+                    age: 20
+                }
+            ],
+            car: {
+                name: '奔驰G63-AMG',
+                price: '240万'
+            },
+            str: 'hello'
+        }
+    })
+</script>
+</body>
+</html>

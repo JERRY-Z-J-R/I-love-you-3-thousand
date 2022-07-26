@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>key属性的原理及作用.html</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!--
+            总结：vue 中的 key 有什么作用？（key 的内部原理）
+                1. 虚拟 DOM 中 key 的作用：
+                   key 是虚拟 DOM 对象的标识，当数据发生变化时，Vu e会根据【新数据】生成【新的虚拟DOM】,
+                   随后 Vue 进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+                2.对比规则：
+                   (1).旧虚拟 DOM 中找到了与新虚拟 DOM 相同的 key：
+                        ①.若虚拟 DOM 中内容没变, 直接使用之前的真实 DOM！
+                        ②.若虚拟 DOM 中内容变了, 则生成新的真实 DOM，随后替换掉页面中之前的真实DOM。
+                   (2).旧虚拟 DOM 中未找到与新虚拟 DOM 相同的 key
+                        创建新的真实 DOM，随后渲染到到页面。
+                3. 用 index 作为 key 可能会引发的问题：
+                   1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:
+                        会产生没有必要的真实 DOM 更新 ==> 界面效果没问题, 但效率低。
+                   2. 如果结构中还包含输入类的 DOM：
+                        会产生错误 DOM 更新 ==> 界面有问题。
+                4. 开发中如何选择 key?:
+                   1.最好使用每条数据的唯一标识作为 key, 比如id、手机号、身份证号、学号等唯一值。
+                   2.如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，
+                        使用 index 作为 key 是没有问题的。
+       -->
+    <h2>人员列表</h2>
+    <button @click.once="add">添加一个老刘</button>
+    <ul>
+        <!--key 唯一标识: 属性 key 是被 vue 给征用的，并不反应在真实 dom 上-->
+        <li v-for='(person, index) in persons' :key="person.id">
+            {{person.name}} - {{ person.age }}
+            <input type="text"/>
+        </li>
+    </ul>
+    <ul>
+        <!--key唯一标识: 身份证，属性 key 是被 vue 给征用的，并不反应在真实 dom 上-->
+        <li v-for='(person, index) in persons' :key="index">
+            {{person.name}} - {{ person.age }}
+            <!--为了看到 key 值的不正确滥用所导致的问题，我们添加一个 input 框-->
+            <input type="text"/>
+        </li>
+    </ul>
+</div>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            persons: [
+                {id: '001', name: '张三', age: 18},
+                {id: '002', name: '李四', age: 19},
+                {id: '003', name: '王五', age: 20}
+            ]
+        },
+        methods: {
+            add() {
+                // 往数组的头添加元素
+                this.persons.unshift({
+                    id: '004',
+                    name: '老刘',
+                    age: 40
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
