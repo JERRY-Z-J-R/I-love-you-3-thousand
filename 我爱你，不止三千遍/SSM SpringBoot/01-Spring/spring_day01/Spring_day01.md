@@ -59,7 +59,13 @@
   
   综上所述，对于 Spring 的学习，主要学习四块内容：
   
-  ==(1) IOC，(2) 整合Mybatis(IOC的具体应用)，(3) AOP，(4) 声明式事务(AOP的具体应用)==
+  ==(1) IOC==
+  
+  ==(2) 整合Mybatis（IOC的具体应用）==
+  
+  ==(3) AOP==
+  
+  ==(4) 声明式事务（AOP的具体应用）==
 
 ### 1.3 怎么学？
 
@@ -945,6 +951,8 @@ Exception in thread "main" org.springframework.beans.factory.BeanCreationExcepti
 
 接下来研究 Spring 中的第二种 bean 的创建方式`静态工厂实例化`：
 
+<img src="mark-img/image-20220727091817495.png" alt="image-20220727091817495" style="zoom:50%;" />
+
 ##### 4.2.4.1 工厂方式创建bean
 
 在讲这种方式之前，我们需要先回顾一个知识点是使用工厂来创建对象的方式：
@@ -1001,12 +1009,20 @@ public class AppForInstanceOrder {
 (1) 在 Spring 的配置文件 application.properties 中添加以下内容：
 
 ```xml
-<bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 方式一：构造方法实例化 bean -->
+    <!-- <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/> -->
+
+    <!-- 方式二：使用静态工厂实例化 bean -->
+    <bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/>
+</beans>
 ```
 
 class：工厂类的类全名
 
-factory-mehod：具体工厂类中创建对象的方法名
+factory-mehod：工厂类中具体创建对象的方法名
 
 对应关系如下图：
 
@@ -1018,11 +1034,8 @@ factory-mehod：具体工厂类中创建对象的方法名
 public class AppForInstanceOrder {
     public static void main(String[] args) {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-
         OrderDao orderDao = (OrderDao) ctx.getBean("orderDao");
-
         orderDao.save();
-
     }
 }
 ```
@@ -1056,6 +1069,8 @@ public class OrderDaoFactory {
 
 接下来继续来研究 Spring 的第三种 bean 的创建方式`实例工厂实例化`：
 
+<img src="mark-img/image-20220727092706304.png" alt="image-20220727092706304" style="zoom:50%;" />
+
 ##### 4.2.3.1 环境准备
 
 (1) 准备一个 UserDao 和 UserDaoImpl 类
@@ -1064,7 +1079,9 @@ public class OrderDaoFactory {
 public interface UserDao {
     public void save();
 }
+```
 
+```java
 public class UserDaoImpl implements UserDao {
     public void save() {
         System.out.println("user dao save ...");
@@ -1108,15 +1125,27 @@ public class AppForInstanceUser {
 (1) 在 Spring 的配置文件中添加以下内容：
 
 ```xml
-<bean id="userFactory" class="com.itheima.factory.UserDaoFactory"/>
-<bean id="userDao" factory-method="getUserDao" factory-bean="userFactory"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 方式一：构造方法实例化 bean -->
+    <!-- <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/> -->
+
+
+    <!-- 方式二：使用静态工厂实例化 bean -->
+    <!-- <bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/> -->
+
+    <!-- 方式三：使用实例工厂实例化 bean-->
+    <bean id="userFactory" class="com.itheima.factory.UserDaoFactory"/>
+    <bean id="userDao" factory-method="getUserDao" factory-bean="userFactory"/>
+</beans>
 ```
 
 实例化工厂运行的顺序是：
 
 * 创建实例化工厂对象，对应的是第一行配置
 
-* 调用对象中的方法来创建bean，对应的是第二行配置
+* 调用对象中的方法来创建 bean，对应的是第二行配置
 
   * factory-bean：工厂的实例对象
 
@@ -1131,8 +1160,7 @@ factory-mehod：具体工厂类中创建对象的方法名
 ```java
 public class AppForInstanceUser {
     public static void main(String[] args) {
-        ApplicationContext ctx = new 
-            ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserDao userDao = (UserDao) ctx.getBean("userDao");
         userDao.save();
     }
@@ -1167,10 +1195,28 @@ public class UserDaoFactoryBean implements FactoryBean<UserDao> {
 (2) 在 Spring 的配置文件中进行配置
 
 ```xml
-<bean id="userDao" class="com.itheima.factory.UserDaoFactoryBean"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 方式一：构造方法实例化 bean -->
+    <!-- <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/> -->
+
+
+    <!-- 方式二：使用静态工厂实例化 bean-->
+    <!-- <bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/> -->
+
+    <!-- 方式三：使用实例工厂实例化 bean -->
+    <!-- 
+	<bean id="userFactory" class="com.itheima.factory.UserDaoFactory"/>
+    <bean id="userDao" factory-method="getUserDao" factory-bean="userFactory"/>
+	-->
+
+    <!-- 方式四：使用 FactoryBean 实例化 bean -->
+    <bean id="userDao" class="com.itheima.factory.UserDaoFactoryBean" />
+</beans>
 ```
 
-(3) AppForInstanceUser 运行类不用做任何修改，直接运行
+(3) AppForInstanceUser 运行类不用做任何修改，直接运行：
 
 ![1629788769436](assets/1629788769436.png)
 
@@ -1184,7 +1230,7 @@ T getObject() throws Exception;
 Class<?> getObjectType();
 
 default boolean isSingleton() {
-		return true;
+    return true;
 }
 ```
 
@@ -1212,7 +1258,7 @@ public class AppForInstanceUser {
 
 ![1629790070607](assets/1629790070607.png)
 
-通过验证，会发现默认是单例，那如果想改成单例具体如何实现？
+通过验证，会发现默认是单例，那如果想改成非单例具体如何实现？
 
 只需要将 isSingleton() 方法进行重写，修改返回为 false，即可。
 
@@ -1266,7 +1312,7 @@ public class UserDaoFactoryBean implements FactoryBean<UserDao> {
 关于 bean 的相关知识还有最后一个是`bean的生命周期`，对于生命周期，我们主要围绕着`bean生命周期控制`来讲解：
 
 * 首先理解下什么是生命周期？
-  * 从创建到消亡的完整过程,例如人从出生到死亡的整个过程就是一个生命周期。
+  * 从创建到消亡的完整过程，例如人从出生到死亡的整个过程就是一个生命周期。
 * bean 生命周期是什么？
   * bean 对象从创建到销毁的整体过程。
 * bean 生命周期控制是什么？
@@ -1278,32 +1324,38 @@ public class UserDaoFactoryBean implements FactoryBean<UserDao> {
 
 还是老规矩，为了方便大家后期代码的阅读，我们重新搭建下环境：
 
-- 创建一个Maven项目
-- pom.xml添加依赖
-- resources下添加spring的配置文件applicationContext.xml
+- 创建一个 Maven 项目
+- pom.xml 添加依赖
+- resources 下添加 Spring 的配置文件applicationContext.xml
 
-这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下:
+这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下：
 
 ![1629791473409](assets/1629791473409.png)
 
-(1)项目中添加BookDao、BookDaoImpl、BookService和BookServiceImpl类
+(1) 项目中添加 BookDao、BookDaoImpl、BookService 和 BookServiceImpl 类
 
 ```java
 public interface BookDao {
     public void save();
 }
+```
 
+```java
 public class BookDaoImpl implements BookDao {
     public void save() {
         System.out.println("book dao save ...");
     }
 }
+```
 
+```java
 public interface BookService {
     public void save();
 }
+```
 
-public class BookServiceImpl implements BookService{
+```java
+public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     public void setBookDao(BookDao bookDao) {
@@ -1317,7 +1369,7 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-(2)resources下提供spring的配置文件
+(2) resources 下提供 Spring 的配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1329,13 +1381,12 @@ public class BookServiceImpl implements BookService{
 </beans>
 ```
 
-(3)编写AppForLifeCycle运行类，加载Spring的IOC容器，并从中获取对应的bean对象
+(3) 编写 AppForLifeCycle 运行类，加载 Spring 的 IOC 容器，并从中获取对应的 bean 对象
 
 ```java
 public class AppForLifeCycle {
     public static void main( String[] args ) {
-        ApplicationContext ctx = new 
-        	ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         BookDao bookDao = (BookDao) ctx.getBean("bookDao");
         bookDao.save();
     }
@@ -1344,104 +1395,119 @@ public class AppForLifeCycle {
 
 #### 4.3.2 生命周期设置
 
-接下来，在上面这个环境中来为BookDao添加生命周期的控制方法，具体的控制有两个阶段:
+接下来，在上面这个环境中来为 BookDao 添加生命周期的控制方法，具体的控制有两个阶段:
 
-* bean创建之后，想要添加内容，比如用来初始化需要用到资源
-* bean销毁之前，想要添加内容，比如用来释放用到的资源
+* bean 创建之后，想要添加内容，比如用来初始化需要用到资源
+* bean 销毁之前，想要添加内容，比如用来释放用到的资源
 
-##### 步骤1:添加初始化和销毁方法
+##### 步骤1：添加初始化和销毁方法
 
-针对这两个阶段，我们在BooDaoImpl类中分别添加两个方法，==方法名任意==
+针对这两个阶段，我们在 BooDaoImpl 类中分别添加两个方法，==方法名任意==
 
 ```java
 public class BookDaoImpl implements BookDao {
     public void save() {
         System.out.println("book dao save ...");
     }
-    //表示bean初始化对应的操作
+    // 表示 bean 初始化对应的操作
     public void init(){
         System.out.println("init...");
     }
-    //表示bean销毁前对应的操作
+    // 表示 bean 销毁前对应的操作
     public void destory(){
         System.out.println("destory...");
     }
 }
 ```
 
-##### 步骤2:配置生命周期
+##### 步骤2：配置生命周期
 
-在配置文件添加配置，如下:
+在配置文件添加配置，如下：
 
 ```xml
 <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl" init-method="init" destroy-method="destory"/>
 ```
 
-##### 步骤3:运行程序
+##### 步骤3：运行程序
 
-运行AppForLifeCycle打印结果为:
+运行 AppForLifeCycle 打印结果为：
 
 ![1629792339889](assets/1629792339889.png)
 
-从结果中可以看出，init方法执行了，但是destroy方法却未执行，这是为什么呢?
+从结果中可以看出，init 方法执行了，但是 destroy 方法却未执行，这是为什么呢？
 
-* Spring的IOC容器是运行在JVM中
-* 运行main方法后,JVM启动,Spring加载配置文件生成IOC容器,从容器获取bean对象，然后调方法执行
-* main方法执行完后，JVM退出，这个时候IOC容器中的bean还没有来得及销毁就已经结束了
-* 所以没有调用对应的destroy方法
+* Spring 的 IOC 容器是运行在 JVM 中
+* 运行 main 方法后，JVM 启动，Spring 加载配置文件生成 IOC 容器，从容器获取 bean 对象，然后调方法执行
+* main 方法执行完后，JVM 退出，这个时候 IOC 容器中的 bean 还没有来得及销毁就已经结束了
+* 所以没有调用对应的 destroy 方法
 
-知道了出现问题的原因，具体该如何解决呢?
+知道了出现问题的原因，具体该如何解决呢？
 
-#### 4.3.3 close关闭容器
+#### 4.3.3 方式一：close关闭容器
 
-* ApplicationContext中没有close方法
+* ApplicationContext 中没有 close 方法
 
-* 需要将ApplicationContext更换成ClassPathXmlApplicationContext
+* 需要将 ApplicationContext 更换成 ClassPathXmlApplicationContext
 
   ```java
-  ClassPathXmlApplicationContext ctx = new 
-      ClassPathXmlApplicationContext("applicationContext.xml");
+  ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+  ```
+  
+* 调用 ctx 的 close() 方法
+
+  ```java
+  public class AppForLifeCycle {
+      public static void main(String[] args) {
+          ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+          BookDao bookDao = (BookDao) ctx.getBean("bookDao");
+          bookDao.save();
+          // 关闭容器
+          ctx.close();
+      }
+  }
   ```
 
-* 调用ctx的close()方法
-
-  ```
-  ctx.close();
-  ```
-
-* 运行程序，就能执行destroy方法的内容
+* 运行程序，就能执行 destroy 方法的内容
 
   ![1629792857608](assets/1629792857608.png)
 
-#### 4.3.4 注册钩子关闭容器
+#### 4.3.4 方式二：注册钩子关闭容器
 
-* 在容器未关闭之前，提前设置好回调函数，让JVM在退出之前回调此函数来关闭容器
+* 在容器未关闭之前，提前设置好回调函数，让 JVM 在退出之前回调此函数来关闭容器
 
-* 调用ctx的registerShutdownHook()方法
+* 调用 ctx 的 registerShutdownHook() 方法
 
+  ```java
+  public class AppForLifeCycle {
+      public static void main(String[] args) {
+          ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+          BookDao bookDao = (BookDao) ctx.getBean("bookDao");
+          bookDao.save();
+          // 注册关闭钩子函数，在虚拟机退出之前回调此函数，关闭容器
+          ctx.registerShutdownHook();
+      }
+  }
   ```
-  ctx.registerShutdownHook();
-  ```
 
-  **注意:**registerShutdownHook在ApplicationContext中也没有
+  **注意：**registerShutdownHook 在 ApplicationContext 中也没有，需要 ClassPathXmlApplicationContext
 
-* 运行后，查询打印结果
+* 运行后，查询打印结果：
 
   ![1629792857608](assets/1629792857608.png)
 
-两种方式介绍完后，close和registerShutdownHook选哪个?
+两种方式介绍完后，close 和 registerShutdownHook 选哪个？
 
-相同点:这两种都能用来关闭容器
+相同点：这两种都能用来关闭容器
 
-不同点:close()是在调用的时候关闭，registerShutdownHook()是在JVM退出前调用关闭。
+不同点：close() 是在调用的时候关闭，registerShutdownHook() 是在 JVM 退出前调用关闭。
 
 分析上面的实现过程，会发现添加初始化和销毁方法，即需要编码也需要配置，实现起来步骤比较多也比较乱。
 
-Spring提供了两个接口来完成生命周期的控制，好处是可以不用再进行配置`init-method`和`destroy-method`
+Spring 提供了两个接口来完成生命周期的控制，好处是可以不用再进行配置`init-method`和`destroy-method`
 
-接下来在BookServiceImpl完成这两个接口的使用:
+接下来在 BookServiceImpl 完成这两个接口的使用：
 
-修改BookServiceImpl类，添加两个接口`InitializingBean`， `DisposableBean`并实现接口中的两个方法`afterPropertiesSet`和`destroy`
+修改BookServiceImpl类，添加两个接口`InitializingBean`，`DisposableBean`并实现接口中的两个方法`afterPropertiesSet`和`destroy`
 
 ```java
 public class BookServiceImpl implements BookService, InitializingBean, DisposableBean {
@@ -1453,16 +1519,16 @@ public class BookServiceImpl implements BookService, InitializingBean, Disposabl
         System.out.println("book service save ...");
         bookDao.save(); 
     }
-    public void destroy() throws Exception {
-        System.out.println("service destroy");
-    }
     public void afterPropertiesSet() throws Exception {
         System.out.println("service init");
+    }
+    public void destroy() throws Exception {
+        System.out.println("service destroy");
     }
 }
 ```
 
-重新运行AppForLifeCycle类，
+重新运行 AppForLifeCycle 类：
 
 ![1629794527419](assets/1629794527419.png)
 
@@ -1470,86 +1536,87 @@ public class BookServiceImpl implements BookService, InitializingBean, Disposabl
 
 **小细节**
 
-* 对于InitializingBean接口中的afterPropertiesSet方法，翻译过来为`属性设置之后`。
+* 对于 InitializingBean 接口中的 afterPropertiesSet 方法，翻译过来为`属性设置之后`
 
-* 对于BookServiceImpl来说，bookDao是它的一个属性
+* 对于 BookServiceImpl 来说，bookDao 是它的一个属性
 
-* setBookDao方法是Spring的IOC容器为其注入属性的方法
+* setBookDao 方法是 Spring 的 IOC 容器为其注入属性的方法
 
-* 思考:afterPropertiesSet和setBookDao谁先执行?
+* 思考：afterPropertiesSet 和 setBookDao 谁先执行？
 
-  * 从方法名分析，猜想应该是setBookDao方法先执行
+  * 从方法名分析，猜想应该是 setBookDao 方法先执行
 
-  * 验证思路，在setBookDao方法中添加一句话
+  * 验证思路，在 setBookDao 方法中添加一句话
 
     ```java
     public void setBookDao(BookDao bookDao) {
-            System.out.println("set .....");
-            this.bookDao = bookDao;
-        }
-    
+        System.out.println("set .....");
+        this.bookDao = bookDao;
+    }
     ```
-
-  * 重新运行AppForLifeCycle，打印结果如下:
-
-    ![1629794928636](assets/1629794928636.png)
-
-    验证的结果和我们猜想的结果是一致的，所以初始化方法会在类中属性设置之后执行。
+  
+* 重新运行 AppForLifeCycle，打印结果如下：
+  
+  ![1629794928636](assets/1629794928636.png)
+  
+  验证的结果和我们猜想的结果是一致的，所以初始化方法会在类中属性设置之后执行。
 
 #### 4.3.5 bean生命周期小结
 
-(1)关于Spring中对bean生命周期控制提供了两种方式:
+(1) 关于 Spring 中对 bean 生命周期控制提供了两种方式：
 
-* 在配置文件中的bean标签中添加`init-method`和`destroy-method`属性
-* 类实现`InitializingBean`与`DisposableBean`接口，这种方式了解下即可。
+* 在配置文件中的 bean 标签中添加`init-method`和`destroy-method`属性
+* 类实现`InitializingBean`与`DisposableBean`接口（这种方式了解下即可）
 
-(2)对于bean的生命周期控制在bean的整个生命周期中所处的位置如下:
+(2) 对于 bean 的生命周期控制在 bean 的整个生命周期中所处的位置如下：
 
 * 初始化容器
-  * 1.创建对象(内存分配)
-  * 2.执行构造方法
-  * 3.执行属性注入(set操作)
-  * ==4.执行bean初始化方法==
+  * 1、创建对象(内存分配)
+  * 2、执行构造方法
+  * 3、执行属性注入(set操作)
+  * 4、执行 bean 初始化方法
 * 使用bean
-  * 1.执行业务操作
+  * 1、执行业务操作
 * 关闭/销毁容器
-  * ==1.执行bean销毁方法==
+  * 1、执行 bean 销毁方法
 
-(3)关闭容器的两种方式:
+(3) 关闭容器的两种方式：
 
-* ConfigurableApplicationContext是ApplicationContext的子类
-  * close()方法
-  * registerShutdownHook()方法
+* ConfigurableApplicationContext 是 ApplicationContext 的子类
+  * close() 方法
+  * registerShutdownHook() 方法
 
-## 5，DI相关内容
+注意：生命周期了解即可，在后面的 Web 开发中，生命周期不用我们自己来管理。
 
-前面我们已经完成了bean相关操作的讲解，接下来就进入第二个大的模块`DI依赖注入`，首先来介绍下Spring中有哪些注入方式?
+## 5、DI相关内容
+
+前面我们已经完成了 bean 相关操作的讲解，接下来就进入第二个大的模块`DI依赖注入`，首先来介绍下 Spring 中有哪些注入方式？
 
 我们先来思考
 
-* 向一个类中传递数据的方式有几种?
-  * 普通方法(set方法)
+* 向一个类中传递数据的方式有几种？
+  * 普通方法（set方法）
   * 构造方法
-* 依赖注入描述了在容器中建立bean与bean之间的依赖关系的过程，如果bean运行需要的是数字或字符串呢?
+* 依赖注入描述了在容器中建立 bean 与 bean 之间的依赖关系的过程，如果 bean 运行需要的是数字或字符串呢？
   * 引用类型
-  * 简单类型(基本数据类型与String)
+  * 简单类型（基本数据类型与String）
 
-Spring就是基于上面这些知识点，为我们提供了两种注入方式，分别是:
+Spring 就是基于上面这些知识点，为我们提供了两种注入方式，分别是：
 
-* setter注入
+* setter 注入
   * 简单类型
-  * ==引用类型==
+  * 引用类型（之前已经学过）
 * 构造器注入
   * 简单类型
   * 引用类型
 
-依赖注入的方式已经介绍完，接下来挨个学习下:
+依赖注入的方式已经介绍完，接下来挨个学习下：
 
 ### 5.1 setter注入
 
-1. 对于setter方式注入引用类型的方式之前已经学习过，快速回顾下:
+1、对于 setter 方式注入引用类型的方式之前已经学习过，快速回顾下：
 
-* 在bean中定义引用类型属性，并提供可访问的==set==方法
+* 在 bean 中定义引用类型属性，并提供可访问的==set==方法
 
 ```java
 public class BookServiceImpl implements BookService {
@@ -1572,41 +1639,53 @@ public class BookServiceImpl implements BookService {
 
 #### 5.1.1 环境准备
 
-为了更好的学习下面内容，我们依旧准备一个新环境:
+为了更好的学习下面内容，我们依旧准备一个新环境：
 
-- 创建一个Maven项目
-- pom.xml添加依赖
-- resources下添加spring的配置文件
+- 创建一个 Maven 项目
+- pom.xml 添加依赖
+- resources下添加 Spring 的配置文件
 
-这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下:
+这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下：
 
 ![1629799214191](assets/1629799214191.png)
 
-(1)项目中添加BookDao、BookDaoImpl、UserDao、UserDaoImpl、BookService和BookServiceImpl类
+(1) 项目中添加 BookDao、BookDaoImpl、UserDao、UserDaoImpl、BookService 和 BookServiceImpl 类
 
 ```java
 public interface BookDao {
     public void save();
 }
+```
 
+```java
 public class BookDaoImpl implements BookDao {
     public void save() {
         System.out.println("book dao save ...");
     }
 }
+```
+
+```java
 public interface UserDao {
     public void save();
 }
+```
+
+```java
 public class UserDaoImpl implements UserDao {
     public void save() {
         System.out.println("user dao save ...");
     }
 }
+```
 
+```java
 public interface BookService {
     public void save();
 }
+```
 
+```java
 public class BookServiceImpl implements BookService{
     private BookDao bookDao;
 
@@ -1621,7 +1700,7 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-(2)resources下提供spring的配置文件
+(2) resources 下提供 Spring 的配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1636,7 +1715,7 @@ public class BookServiceImpl implements BookService{
 </beans>
 ```
 
-(3)编写AppForDISet运行类，加载Spring的IOC容器，并从中获取对应的bean对象
+(3) 编写 AppForDISet 运行类，加载 Spring 的 IOC 容器，并从中获取对应的 bean 对象
 
 ```java
 public class AppForDISet {
@@ -1648,21 +1727,21 @@ public class AppForDISet {
 }
 ```
 
-接下来，在上面这个环境中来完成setter注入的学习:
+接下来，在上面这个环境中来完成 setter 注入的学习：
 
 #### 5.1.2 注入引用数据类型
 
-> 需求:在bookServiceImpl对象中注入userDao
+> 需求：在 bookServiceImpl 对象中注入 userDao
 >
-> 1.在BookServiceImpl中声明userDao属性
+> 1、在 BookServiceImpl 中声明 userDao 属性
 >
-> 2.为userDao属性提供setter方法
+> 2、为 userDao 属性提供 setter 方法
 >
-> 3.在配置文件中使用property标签注入
+> 3、在配置文件中使用 property 标签注入
 
-##### 步骤1:声明属性并提供setter方法
+##### 步骤1：声明属性并提供 setter 方法
 
-在BookServiceImpl中声明userDao属性，并提供setter方法
+在 BookServiceImpl 中声明 userDao 属性，并提供 setter 方法
 
 ```java
 public class BookServiceImpl implements BookService{
@@ -1684,9 +1763,9 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-##### 步骤2:配置文件中进行注入配置
+##### 步骤2：配置文件中进行注入配置
 
-在applicationContext.xml配置文件中使用property标签注入
+在 applicationContext.xml 配置文件中使用 property 标签注入
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1703,33 +1782,33 @@ public class BookServiceImpl implements BookService{
 </beans>
 ```
 
-##### 步骤3:运行程序
+##### 步骤3：运行程序
 
-运行AppForDISet类，查看结果，说明userDao已经成功注入。
+运行 AppForDISet 类，查看结果，说明 userDao 已经成功注入。
 
 ![1629799873386](assets/1629799873386.png)
 
 #### 5.1.3 注入简单数据类型
 
-> 需求：给BookDaoImpl注入一些简单数据类型的数据
+> 需求：给 BookDaoImpl 注入一些简单数据类型的数据
 >
-> 参考引用数据类型的注入，我们可以推出具体的步骤为:
+> 参考引用数据类型的注入，我们可以推出具体的步骤为：
 >
-> 1.在BookDaoImpl类中声明对应的简单数据类型的属性
+> 1、在 BookDaoImpl 类中声明对应的简单数据类型的属性
 >
-> 2.为这些属性提供对应的setter方法
+> 2、为这些属性提供对应的 setter 方法
 >
-> 3.在applicationContext.xml中配置
+> 3、在 applicationContext.xml 中配置
 
-**思考:**
+**思考：**
 
-引用类型使用的是`<property name="" ref=""/>`,简单数据类型还是使用ref么?
+引用类型使用的是`<property name="" ref=""/>`，简单数据类型还是使用 ref 么？
 
-ref是指向Spring的IOC容器中的另一个bean对象的，对于简单数据类型，没有对应的bean对象，该如何配置?
+ref 是指向 Spring 的 IOC 容器中的另一个 bean 对象的，对于简单数据类型，没有对应的 bean 对象，该如何配置？
 
-##### 步骤1:声明属性并提供setter方法
+##### 步骤1：声明属性并提供 setter 方法
 
-在BookDaoImpl类中声明对应的简单数据类型的属性,并提供对应的setter方法
+在 BookDaoImpl 类中声明对应的简单数据类型的属性，并提供对应的 setter 方法
 
 ```java
 public class BookDaoImpl implements BookDao {
@@ -1746,14 +1825,14 @@ public class BookDaoImpl implements BookDao {
     }
 
     public void save() {
-        System.out.println("book dao save ..."+databaseName+","+connectionNum);
+        System.out.println("book dao save ..." + databaseName + "," + connectionNum);
     }
 }
 ```
 
-##### 步骤2:配置文件中进行注入配置
+##### 步骤2：配置文件中进行注入配置
 
-在applicationContext.xml配置文件中使用property标签注入
+在 applicationContext.xml 配置文件中使用 property 标签注入
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1773,25 +1852,25 @@ public class BookDaoImpl implements BookDao {
 </beans>
 ```
 
-**说明:**
+**说明：**
 
-value:后面跟的是简单数据类型，对于参数类型，Spring在注入的时候会自动转换，但是不能写成
+value：后面跟的是简单数据类型，对于参数类型，Spring 在注入的时候会自动转换，但是不能写成
 
 ```xml
 <property name="connectionNum" value="abc"/>
 ```
 
-这样的话，spring在将`abc`转换成int类型的时候就会报错。
+这样的话，Spring 在将`abc`转换成 int 类型的时候就会报错。
 
-##### 步骤3:运行程序
+##### 步骤3：运行程序
 
-运行AppForDISet类，查看结果，说明userDao已经成功注入。
+运行 AppForDISet 类，查看结果，说明 userDao 已经成功注入。
 
 ![1629800324721](assets/1629800324721.png)
 
-**注意:**两个property注入标签的顺序可以任意。
+**注意：**两个 property 注入标签的顺序可以任意。
 
-对于setter注入方式的基本使用就已经介绍完了，
+对于 setter 注入方式的基本使用就已经介绍完了，
 
 * 对于引用数据类型使用的是`<property name="" ref=""/>`
 * 对于简单数据类型使用的是`<property name="" value=""/>`
@@ -1800,25 +1879,26 @@ value:后面跟的是简单数据类型，对于参数类型，Spring在注入�
 
 #### 5.2.1 环境准备
 
-构造器注入也就是构造方法注入，学习之前，还是先准备下环境:
+构造器注入也就是构造方法注入，学习之前，还是先准备下环境：
 
-- 创建一个Maven项目
-- pom.xml添加依赖
-- resources下添加spring的配置文件
+- 创建一个 Maven 项目
+- pom.xml 添加依赖
+- resources 下添加 Spring 的配置文件
 
-这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下:
+这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下：
 
 ![1629800748639](assets/1629800748639.png)
 
-(1)项目中添加BookDao、BookDaoImpl、UserDao、UserDaoImpl、BookService和BookServiceImpl类
+(1) 项目中添加 BookDao、BookDaoImpl、UserDao、UserDaoImpl、BookService 和 BookServiceImpl 类
 
 ```java
 public interface BookDao {
     public void save();
 }
+```
 
+```java
 public class BookDaoImpl implements BookDao {
-    
     private String databaseName;
     private int connectionNum;
     
@@ -1826,19 +1906,29 @@ public class BookDaoImpl implements BookDao {
         System.out.println("book dao save ...");
     }
 }
+```
+
+```java
 public interface UserDao {
     public void save();
 }
+```
+
+```java
 public class UserDaoImpl implements UserDao {
     public void save() {
         System.out.println("user dao save ...");
     }
 }
+```
 
+```java
 public interface BookService {
     public void save();
 }
+```
 
+```java
 public class BookServiceImpl implements BookService{
     private BookDao bookDao;
 
@@ -1853,7 +1943,7 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-(2)resources下提供spring的配置文件
+(2) resources 下提供 Spring 的配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1868,7 +1958,7 @@ public class BookServiceImpl implements BookService{
 </beans>
 ```
 
-(3)编写AppForDIConstructor运行类，加载Spring的IOC容器，并从中获取对应的bean对象
+(3) 编写 AppForDIConstructor 运行类，加载 Spring 的 IOC 容器，并从中获取对应的 bean 对象
 
 ```java
 public class AppForDIConstructor {
@@ -1882,19 +1972,19 @@ public class AppForDIConstructor {
 
 #### 5.2.2 构造器注入引用数据类型
 
-接下来，在上面这个环境中来完成构造器注入的学习:
+接下来，在上面这个环境中来完成构造器注入的学习：
 
-> 需求：将BookServiceImpl类中的bookDao修改成使用构造器的方式注入。
+> 需求：将 BookServiceImpl 类中的 bookDao 修改成使用构造器的方式注入。
 >
-> 1.将bookDao的setter方法删除掉
+> 1、将 bookDao 的 setter 方法删除掉
 >
-> 2.添加带有bookDao参数的构造方法
+> 2、添加带有 bookDao 参数的构造方法
 >
-> 3.在applicationContext.xml中配置
+> 3、在 applicationContext.xml 中配置
 
-##### 步骤1:删除setter方法并提供构造方法
+##### 步骤1：删除 setter 方法并提供构造方法
 
-在BookServiceImpl类中将bookDao的setter方法删除掉,并添加带有bookDao参数的构造方法
+在 BookServiceImpl 类中将 bookDao 的 setter 方法删除掉，并添加带有 bookDao 参数的构造方法
 
 ```java
 public class BookServiceImpl implements BookService{
@@ -1911,9 +2001,9 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-##### 步骤2:配置文件中进行配置构造方式注入
+##### 步骤2：配置文件中进行配置构造方式注入
 
-在applicationContext.xml中配置
+在 applicationContext.xml 中配置
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1923,38 +2013,39 @@ public class BookServiceImpl implements BookService{
 
     <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>
     <bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
+        <!-- name 是形参名称，ref 是 bean id -->
         <constructor-arg name="bookDao" ref="bookDao"/>
     </bean>
 </beans>
 ```
 
-**说明:**
+**说明：**
 
-标签<constructor-arg>中
+标签`<constructor-arg>`中
 
-* name属性对应的值为构造函数中方法形参的参数名，必须要保持一致。
+* name 属性对应的值为构造函数中方法形参的参数名，必须要保持一致。
 
-* ref属性指向的是spring的IOC容器中其他bean对象。
+* ref 属性指向的是 spring 的 IOC 容器中其他 bean 对象。
 
 ##### 步骤3：运行程序
 
-运行AppForDIConstructor类，查看结果，说明bookDao已经成功注入。
+运行 AppForDIConstructor 类，查看结果，说明 bookDao 已经成功注入。
 
 ![1629802656916](assets/1629802656916.png)
 
 #### 5.2.3 构造器注入多个引用数据类型
 
-> 需求:在BookServiceImpl使用构造函数注入多个引用数据类型，比如userDao
+> 需求：在 BookServiceImpl 使用构造函数注入多个引用数据类型，比如 userDao
 >
-> 1.声明userDao属性
+> 1、声明 userDao 属性
 >
-> 2.生成一个带有bookDao和userDao参数的构造函数
+> 2、生成一个带有 bookDao 和 userDao 参数的构造函数
 >
-> 3.在applicationContext.xml中配置注入
+> 3、在 applicationContext.xml 中配置注入
 
-##### 步骤1:提供多个属性的构造函数
+##### 步骤1：提供多个属性的构造函数
 
-在BookServiceImpl声明userDao并提供多个参数的构造函数
+在 BookServiceImpl 声明 userDao 并提供多个参数的构造函数
 
 ```java
 public class BookServiceImpl implements BookService{
@@ -1974,9 +2065,9 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-步骤2:配置文件中配置多参数注入
+**步骤2：配置文件中配置多参数注入**
 
-在applicationContext.xml中配置注入
+在 applicationContext.xml 中配置注入
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1993,27 +2084,27 @@ public class BookServiceImpl implements BookService{
 </beans>
 ```
 
-**说明:**这两个`<contructor-arg>`的配置顺序可以任意
+**说明：**这两个`<contructor-arg>`的配置顺序可以任意
 
-##### 步骤3:运行程序
+##### 步骤3：运行程序
 
-运行AppForDIConstructor类，查看结果，说明userDao已经成功注入。
+运行 AppForDIConstructor 类，查看结果，说明 userDao 已经成功注入。
 
 ![1629802697318](assets/1629802697318.png)
 
 #### 5.2.4 构造器注入多个简单数据类型
 
-> 需求:在BookDaoImpl中，使用构造函数注入databaseName和connectionNum两个参数。
+> 需求：在 BookDaoImpl 中，使用构造函数注入 databaseName 和 connectionNum 两个参数。
 >
-> 参考引用数据类型的注入，我们可以推出具体的步骤为:
+> 参考引用数据类型的注入，我们可以推出具体的步骤为：
 >
-> 1.提供一个包含这两个参数的构造方法
+> 1、提供一个包含这两个参数的构造方法
 >
-> 2.在applicationContext.xml中进行注入配置
+> 2、在 applicationContext.xml 中进行注入配置
 
-##### 步骤1:添加多个简单属性并提供构造方法
+##### 步骤1：添加多个简单属性并提供构造方法
 
-修改BookDaoImpl类，添加构造方法
+修改 BookDaoImpl 类，添加构造方法
 
 ```java
 public class BookDaoImpl implements BookDao {
@@ -2026,14 +2117,14 @@ public class BookDaoImpl implements BookDao {
     }
 
     public void save() {
-        System.out.println("book dao save ..."+databaseName+","+connectionNum);
+        System.out.println("book dao save ..." + databaseName + "," + connectionNum);
     }
 }
 ```
 
-##### 步骤2:配置完成多个属性构造器注入
+##### 步骤2：配置完成多个属性构造器注入
 
-在applicationContext.xml中进行注入配置
+在 applicationContext.xml 中进行注入配置
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2053,24 +2144,24 @@ public class BookDaoImpl implements BookDao {
 </beans>
 ```
 
-**说明:**这两个`<contructor-arg>`的配置顺序可以任意
+**说明：**这两个`<contructor-arg>`的配置顺序可以任意
 
-##### 步骤3:运行程序
+##### 步骤3：运行程序
 
-运行AppForDIConstructor类，查看结果
+运行 AppForDIConstructor 类，查看结果
 
 ![1629803111769](assets/1629803111769.png)
 
-上面已经完成了构造函数注入的基本使用，但是会存在一些问题:
+上面已经完成了构造函数注入的基本使用，但是会存在一些问题：
 
 ![1629803529598](assets/1629803529598.png)
 
-* 当构造函数中方法的参数名发生变化后，配置文件中的name属性也需要跟着变
-* 这两块存在紧耦合，具体该如何解决?
+* 当构造函数中方法的参数名发生变化后，配置文件中的 name 属性也需要跟着变
+* 这两块存在紧耦合，具体该如何解决？
 
 在解决这个问题之前，需要提前说明的是，这个参数名发生变化的情况并不多，所以上面的还是比较主流的配置方式，下面介绍的，大家都以了解为主。
 
-方式一:删除name属性，添加type属性，按照类型注入
+方式一：删除 name 属性，添加 type 属性，按照类型注入
 
 ```xml
 <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
@@ -2082,7 +2173,7 @@ public class BookDaoImpl implements BookDao {
 * 这种方式可以解决构造函数形参名发生变化带来的耦合问题
 * 但是如果构造方法参数中有类型相同的参数，这种方式就不太好实现了
 
-方式二:删除type属性，添加index属性，按照索引下标注入，下标从0开始
+方式二：删除 type 属性，添加 index 属性，按照索引下标注入，下标从 0 开始
 
 ```xml
 <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
@@ -2094,20 +2185,20 @@ public class BookDaoImpl implements BookDao {
 * 这种方式可以解决参数类型重复问题
 * 但是如果构造方法参数顺序发生变化后，这种方式又带来了耦合问题
 
-介绍完两种参数的注入方式，具体我们该如何选择呢?
+介绍完两种参数的注入方式，具体我们该如何选择呢？
 
-1. 强制依赖使用构造器进行，使用setter注入有概率不进行注入导致null对象出现
+1. 强制依赖使用构造器进行，使用 setter 注入有概率不进行注入，导致 null 对象出现
    * 强制依赖指对象在创建的过程中必须要注入指定的参数
-2. 可选依赖使用setter注入进行，灵活性强
+2. 可选依赖使用 setter 注入进行，灵活性强
    * 可选依赖指对象在创建过程中注入的参数可有可无
-3. Spring框架倡导使用构造器，第三方框架内部大多数采用构造器注入的形式进行数据初始化，相对严谨
-4. 如果有必要可以两者同时使用，使用构造器注入完成强制依赖的注入，使用setter注入完成可选依赖的注入
-5. 实际开发过程中还要根据实际情况分析，如果受控对象没有提供setter方法就必须使用构造器注入
-6. **==自己开发的模块推荐使用setter注入==**
+3. Spring 框架倡导使用构造器，第三方框架内部大多数采用构造器注入的形式进行数据初始化，相对严谨
+4. 如果有必要可以两者同时使用，使用构造器注入完成强制依赖的注入，使用 setter 注入完成可选依赖的注入
+5. 实际开发过程中还要根据实际情况分析，如果受控对象没有提供 setter 方法就必须使用构造器注入
+6. **==自己开发的模块推荐使用 setter 注入==**
 
-这节中主要讲解的是Spring的依赖注入的实现方式:
+这节中主要讲解的是 Spring 的依赖注入的实现方式：
 
-* setter注入
+* setter 注入
 
   * 简单数据类型
 
@@ -2145,53 +2236,54 @@ public class BookDaoImpl implements BookDao {
 
 * 依赖注入的方式选择上
 
-  * 建议使用setter注入
+  * 建议使用 setter 注入
   * 第三方技术根据情况选择
 
 ### 5.3 自动配置
 
-前面花了大量的时间把Spring的注入去学习了下，总结起来就一个字==麻烦==。
+前面花了大量的时间把 Spring 的注入去学习了下，总结起来就一个字==麻烦==。
 
-问:麻烦在哪?
+问：麻烦在哪？
 
-答:配置文件的编写配置上。
+答：配置文件的编写配置上。
 
-问:有更简单方式么?
+问：有更简单方式么？
 
-答:有，自动配置
+答：有，自动配置
 
 什么是自动配置以及如何实现自动配置，就是接下来要学习的内容：
 
 #### 5.3.1 什么是依赖自动装配?
 
-* IoC容器根据bean所依赖的资源在容器中自动查找并注入到bean中的过程称为自动装配
+* IoC 容器根据 bean 所依赖的资源在容器中自动查找并注入到 bean 中的过程称为自动装配
 
 #### 5.3.2 自动装配方式有哪些?
 
-* ==按类型（常用）==
+* 按类型（常用）
 * 按名称
 * 按构造方法
 * 不启用自动装配
 
 #### 5.3.3 准备下案例环境
 
-- 创建一个Maven项目
-- pom.xml添加依赖
-- resources下添加spring的配置文件
+- 创建一个 Maven 项目
+- pom.xml 添加依赖
+- resources 下添加 spring 的配置文件
 
-这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下:
+这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下：
 
 ![1629805387647](assets/1629805387647.png)
 
-(1)项目中添加BookDao、BookDaoImpl、BookService和BookServiceImpl类
+(1) 项目中添加 BookDao、BookDaoImpl、BookService 和 BookServiceImpl 类
 
 ```java
 public interface BookDao {
     public void save();
 }
+```
 
+```java
 public class BookDaoImpl implements BookDao {
-    
     private String databaseName;
     private int connectionNum;
     
@@ -2199,10 +2291,15 @@ public class BookDaoImpl implements BookDao {
         System.out.println("book dao save ...");
     }
 }
+```
+
+```java
 public interface BookService {
     public void save();
 }
+```
 
+```java
 public class BookServiceImpl implements BookService{
     private BookDao bookDao;
 
@@ -2217,7 +2314,7 @@ public class BookServiceImpl implements BookService{
 }
 ```
 
-(2)resources下提供spring的配置文件
+(2) resources 下提供 Spring 的配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2232,7 +2329,7 @@ public class BookServiceImpl implements BookService{
 </beans>
 ```
 
-(3)编写AppForAutoware运行类，加载Spring的IOC容器，并从中获取对应的bean对象
+(3) 编写 AppForAutoware 运行类，加载 Spring 的 IOC 容器，并从中获取对应的 bean 对象
 
 ```java
 public class AppForAutoware {
@@ -2246,13 +2343,13 @@ public class AppForAutoware {
 
 #### 5.3.4 完成自动装配的配置
 
-接下来，在上面这个环境中来完成`自动装配`的学习:
+接下来，在上面这个环境中来完成`自动装配`的学习：
 
-自动装配只需要修改applicationContext.xml配置文件即可:
+自动装配只需要修改 applicationContext.xml 配置文件即可：
 
-(1)将`<property>`标签删除
+(1) 将`<property>`标签删除
 
-(2)在`<bean>`标签中添加autowire属性
+(2) 在`<bean>`标签中添加 autowire 属性
 
 首先来实现按照类型注入的配置
 
@@ -2263,19 +2360,18 @@ public class AppForAutoware {
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="com.itheima.dao.impl.BookDaoImpl"/>
-    <!--autowire属性：开启自动装配，通常使用按类型装配-->
+    <!-- autowire 属性：开启自动装配，通常使用按类型装配 -->
     <bean id="bookService" class="com.itheima.service.impl.BookServiceImpl" autowire="byType"/>
-
 </beans>
 ```
 
 ==注意事项:==
 
-* 需要注入属性的类中对应属性的setter方法不能省略
-* 被注入的对象必须要被Spring的IOC容器管理
-* 按照类型在Spring的IOC容器中如果找到多个对象，会报`NoUniqueBeanDefinitionException`
+* 需要注入属性的类中对应属性的 setter 方法不能省略
+* 被注入的对象必须要被 Spring 的 IOC 容器管理
+* 按照类型在 Spring 的 IOC 容器中如果找到多个对象，会报`NoUniqueBeanDefinitionException`
 
-一个类型在IOC中有多个对象，还想要注入成功，这个时候就需要按照名称注入，配置方式为:
+一个类型在 IOC 中有多个对象，还想要注入成功，这个时候就需要按照名称注入，配置方式为：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2284,43 +2380,42 @@ public class AppForAutoware {
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="com.itheima.dao.impl.BookDaoImpl"/>
-    <!--autowire属性：开启自动装配，通常使用按类型装配-->
+    <!-- autowire 属性：开启自动装配，通常使用按类型装配 -->
     <bean id="bookService" class="com.itheima.service.impl.BookServiceImpl" autowire="byName"/>
-
 </beans>
 ```
 
 ==注意事项:==
 
-* 按照名称注入中的名称指的是什么?
+* 按照名称注入中的名称指的是什么？
 
   ![1629806856156](assets/1629806856156.png)
 
-  * bookDao是private修饰的，外部类无法直接方法
-  * 外部类只能通过属性的set方法进行访问
-  * 对外部类来说，setBookDao方法名，去掉set后首字母小写是其属性名
-    * 为什么是去掉set首字母小写?
-    * 这个规则是set方法生成的默认规则，set方法的生成是把属性名首字母大写前面加set形成的方法名
-  * 所以按照名称注入，其实是和对应的set方法有关，但是如果按照标准起名称，属性名和set对应的名是一致的
+  * bookDao 是 private 修饰的，外部类无法直接方法
+  * 外部类只能通过属性的 set 方法进行访问
+  * 对外部类来说，setBookDao 方法名，去掉 set 后首字母小写是其属性名
+    * 为什么是去掉 set 首字母小写？
+    * 这个规则是 set 方法生成的默认规则，set 方法的生成是把属性名首字母大写前面加 set 形成的方法名
+  * 所以按照名称注入，其实是和对应的 set 方法有关，但是如果按照标准起名称，属性名和 set 对应的名是一致的
 
-* 如果按照名称去找对应的bean对象，找不到则注入Null
+* 如果按照名称去找对应的 bean 对象，找不到则注入 Null
 
-* 当某一个类型在IOC容器中有多个对象，按照名称注入只找其指定名称对应的bean对象，不会报错 
+* 当某一个类型在 IOC 容器中有多个对象，按照名称注入只找其指定名称对应的 bean 对象，不会报错 
 
 两种方式介绍完后，以后用的更多的是==按照类型==注入。
 
-最后对于依赖注入，需要注意一些其他的配置特征:
+最后对于依赖注入，需要注意一些其他的配置特征：
 
 1. 自动装配用于引用类型依赖注入，不能对简单类型进行操作
-2. 使用按类型装配时（byType）必须保障容器中相同类型的bean唯一，推荐使用
-3. 使用按名称装配时（byName）必须保障容器中具有指定名称的bean，因变量名与配置耦合，不推荐使用
-4. 自动装配优先级低于setter注入与构造器注入，同时出现时自动装配配置失效
+2. 使用按类型装配时（byType）必须保障容器中相同类型的 bean 唯一（推荐使用）
+3. 使用按名称装配时（byName）必须保障容器中具有指定名称的 bean，因变量名与配置耦合，不推荐使用
+4. 自动装配优先级低于 setter 注入与构造器注入，同时出现时自动装配配置失效
 
 ### 5.4 集合注入
 
-前面我们已经能完成引入数据类型和简单数据类型的注入，但是还有一种数据类型==集合==，集合中既可以装简单数据类型也可以装引用数据类型，对于集合，在Spring中该如何注入呢?
+前面我们已经能完成引入数据类型和简单数据类型的注入，但是还有一种数据类型==集合==，集合中既可以装简单数据类型也可以装引用数据类型，对于集合，在 Spring 中该如何注入呢？
 
-先来回顾下，常见的集合类型有哪些?
+先来回顾下，常见的集合类型有哪些？
 
 * 数组
 * List
@@ -2328,29 +2423,28 @@ public class AppForAutoware {
 * Map
 * Properties
 
-针对不同的集合类型，该如何实现注入呢?
+针对不同的集合类型，该如何实现注入呢？
 
 #### 5.4.1 环境准备
 
-- 创建一个Maven项目
-- pom.xml添加依赖
-- resources下添加spring的配置文件applicationContext.xml
+- 创建一个 Maven 项目
+- pom.xml 添加依赖
+- resources 下添加 Spring 的配置文件 applicationContext.xml
 
-这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下:
+这些步骤和前面的都一致，大家可以快速的拷贝即可，最终项目的结构如下：
 
 ![1629807579330](assets/1629807579330.png)
 
-(1)项目中添加添加BookDao、BookDaoImpl类
+(1) 项目中添加添加 BookDao、BookDaoImpl 类
 
 ```java
 public interface BookDao {
     public void save();
 }
+```
 
+```java
 public class BookDaoImpl implements BookDao {
-    
-public class BookDaoImpl implements BookDao {
-
     private int[] array;
 
     private List<String> list;
@@ -2374,11 +2468,11 @@ public class BookDaoImpl implements BookDao {
 
         System.out.println("遍历Properties" + properties);
     }
-	//setter....方法省略，自己使用工具生成
+	// setter....方法省略，自己使用工具生成
 }
 ```
 
-(2)resources下提供spring的配置文件，applicationContext.xml
+(2) resources 下提供 Spring 的配置文件，applicationContext.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2390,7 +2484,7 @@ public class BookDaoImpl implements BookDao {
 </beans>
 ```
 
-(3)编写AppForDICollection运行类，加载Spring的IOC容器，并从中获取对应的bean对象
+(3) 编写 AppForDICollection 运行类，加载 Spring 的 IOC 容器，并从中获取对应的 bean 对象
 
 ```java
 public class AppForDICollection {
@@ -2402,9 +2496,9 @@ public class AppForDICollection {
 }
 ```
 
-接下来，在上面这个环境中来完成`集合注入`的学习:
+接下来，在上面这个环境中来完成`集合注入`的学习：
 
-下面的所以配置方式，都是在bookDao的bean标签中使用<property>进行注入
+下面的所以配置方式，都是在 bookDao 的 bean 标签中使用`<property>`进行注入
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2480,12 +2574,62 @@ public class AppForDICollection {
 </property>
 ```
 
-配置完成后，运行下看结果:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
+        <!-- 数组注入 -->
+        <property name="array">
+            <array>
+                <value>100</value>
+                <value>200</value>
+                <value>300</value>
+            </array>
+        </property>
+        <!-- list 集合注入 -->
+        <property name="list">
+            <list>
+                <value>itcast</value>
+                <value>itheima</value>
+                <value>boxuegu</value>
+                <value>chuanzhihui</value>
+            </list>
+        </property>
+        <!-- set 集合注入 -->
+        <property name="set">
+            <set>
+                <value>itcast</value>
+                <value>itheima</value>
+                <value>boxuegu</value>
+                <value>boxuegu</value>
+            </set>
+        </property>
+        <!-- map 集合注入 -->
+        <property name="map">
+            <map>
+                <entry key="country" value="china" />
+                <entry key="province" value="henan" />
+                <entry key="city" value="kaifeng" />
+            </map>
+        </property>
+        <!-- Properties 注入 -->
+        <property name="properties">
+            <props>
+                <prop key="country">china</prop>
+                <prop key="province">henan</prop>
+                <prop key="city">kaifeng</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
+```
+
+配置完成后，运行下看结果：
 
 ![1629808046783](assets/1629808046783.png)
 
 **说明：**
 
-* property标签表示setter方式注入，构造方式注入constructor-arg标签内部也可以写`<array>`、`<list>`、`<set>`、`<map>`、`<props>`标签
-* List的底层也是通过数组实现的，所以`<list>`和`<array>`标签是可以混用
+* property 标签表示 setter 方式注入，构造方式注入 constructor-arg 标签内部也可以写`<array>`、`<list>`、`<set>`、`<map>`、`<props>`标签
+* List 的底层也是通过数组实现的，所以`<list>`和`<array>`标签是可以混用
 * 集合中要添加引用类型，只需要把`<value>`标签改成`<ref>`标签，这种方式用的比较少                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
