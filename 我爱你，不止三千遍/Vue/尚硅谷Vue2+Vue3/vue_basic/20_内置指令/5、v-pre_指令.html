@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>v-pre指令</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<!--
+    v-pre 指令（不带值）：
+    	1、跳过其所在节点的编译过程。
+    	2、可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。
+    通俗解释：当加了 v-pre 后，vue 自动跳过不会做任何处理！
+    		所以，有 {{}} 及指令的标签肯定不能加 v-pre
+-->
+<div id="root">
+    <h2 v-pre>Vue其实很简单</h2>
+    <h2>当前的n值是:{{n}}</h2>
+    <button @click="n++">点我n+1</button>
+</div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    new Vue({
+        el: '#root',
+        data: {
+            n: 1
+        }
+    })
+</script>
+</html>
