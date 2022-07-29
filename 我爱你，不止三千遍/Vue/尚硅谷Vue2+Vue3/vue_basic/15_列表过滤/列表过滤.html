@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表过滤</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h2>人员列表</h2>
+    <input type="text" placeholder="请输入名字" v-model="keyword"/>
+    <ul v-for="p in filPersons" :key="p.id">
+        <li>{{p.name}} - {{ p.age }} - {{ p.sex }}</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    // 用监视属性书写功能（不推荐）
+    // new Vue({
+    //     el:'#root',
+    //     data: {
+    //         keyword : '',
+    //         persons: [
+    //             {id: "001", name: '周冬雨', age: 20, sex: '女'},
+    //             {id: "002", name: '马冬梅', age: 19, sex: '女'},
+    //             {id: "003", name: '周杰伦', age: 21, sex: '男'},
+    //             {id: "004", name: '温兆伦', age: 22, sex: '男'},
+    //         ],
+    //         filPersons: []
+    //     },
+    //     // watch 监听用户输入项 keyword 的变化
+    //     // 监视属性的调用时机：所以依赖属性改变时调用一下
+    //     watch: {
+    //         keyword: {
+    //            // 自动先执行一次，让监视获得到的 newValue 是 ''，否则一上来 filPersons 为空，页面没有任何数据
+    //            immediate: true,
+    //            handler(newValue) {
+    //                // filter 是一个常用的操作，它用于把 Array 的某些元素过滤掉，然后返回剩下的元素
+    //                // Array 的 filter() 接收一个函数，filter() 把传入的函数依次作用于每个元素，然后根据返回值是 true 还是 false 决定保留还是丢弃该元素
+    //                // 不包含某字符串时，indexOf()，返回 -1
+    //                // 注意：字符串.indexOf('') 是 0 而不是 -1（任何字符串都默认包含空字符串）
+    //                this.filPersons = this.persons.filter(p => p.name.indexOf(newValue) !== -1);
+    //            }
+    //         }
+    //     }
+    // })
+
+    // 用计算属性书写功能（最佳实践）
+    // 当 computed 和 watch 都可以实现基本功能时优先考虑 computed (重要)
+    new Vue({
+        el: '#root',
+        data: {
+            keyword: '',
+            persons: [
+                {id: "001", name: '周冬雨', age: 20, sex: '女'},
+                {id: "002", name: '马冬梅', age: 19, sex: '女'},
+                {id: "003", name: '周杰伦', age: 21, sex: '男'},
+                {id: "004", name: '温兆伦', age: 22, sex: '男'},
+            ],
+        },
+        // 计算属性的调用时机：1、起始时自动调用一下，2、所以依赖属性改变时调用一下
+        computed: {
+            filPersons() {
+                return this.persons.filter(p => p.name.indexOf(this.keyword) !== -1);
+            }
+        }
+    })
+</script>
+</body>
+</html>

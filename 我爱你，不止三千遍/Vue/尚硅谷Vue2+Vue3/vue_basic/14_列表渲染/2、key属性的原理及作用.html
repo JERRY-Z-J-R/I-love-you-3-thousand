@@ -31,17 +31,17 @@
     <h2>人员列表</h2>
     <button @click.once="add">添加一个老刘</button>
     <ul>
-        <!--key 唯一标识: 属性 key 是被 vue 给征用的，并不反应在真实 dom 上-->
+        <!-- key 唯一标识: 属性 key 是被 vue 给征用的，并不反应在真实 dom 上 -->
         <li v-for='(person, index) in persons' :key="person.id">
             {{person.name}} - {{ person.age }}
             <input type="text"/>
         </li>
     </ul>
     <ul>
-        <!--key唯一标识: 身份证，属性 key 是被 vue 给征用的，并不反应在真实 dom 上-->
+        <!-- key 唯一标识: 身份证，属性 key 是被 vue 给征用的，并不反应在真实 dom 上 -->
         <li v-for='(person, index) in persons' :key="index">
             {{person.name}} - {{ person.age }}
-            <!--为了看到 key 值的不正确滥用所导致的问题，我们添加一个 input 框-->
+            <!-- 为了看到 key 值的不正确滥用所导致的问题，我们添加一个 input 框 -->
             <input type="text"/>
         </li>
     </ul>

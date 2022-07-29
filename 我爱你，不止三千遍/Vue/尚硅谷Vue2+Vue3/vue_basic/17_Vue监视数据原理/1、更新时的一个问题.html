@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新时的一个问题</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h2>人员列表</h2>
+    <button @click="updateMa">更新马冬梅信息</button>
+    <ul v-for="p in persons" :key="p.id">
+        <li>{{p.name}} - {{ p.age }} - {{ p.sex }}</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            persons: [
+                {id: "001", name: '周冬雨', age: 20, sex: '女'},
+                {id: "002", name: '马冬梅', age: 19, sex: '女'},
+                {id: "003", name: '周杰伦', age: 21, sex: '男'},
+                {id: "004", name: '温兆伦', age: 22, sex: '男'},
+            ],
+        },
+        methods: {
+            updateMa() {
+                // this.persons[1].name = '马老师';       // 奏效
+                // this.persons[1].age = 50;             // 奏效
+                // this.persons[1].sex = '男';           // 奏效
+                // 下面这列的写法，修改后是不奏效的，vue 无法监测其数据
+                // 从代码的角度来看，确实 persons 中的第一项已经在内存中被替换了，但是 Vue 监视不到
+                // 要弄清除原因，我们必须知道 Vue 底层监视数据的原理！
+                // this.persons[1] = {id: '002', name: '马老师', age: 50, sex: '男'};
+                // 要实现修改数组的需求，我们需要这样做：（具体原因后面讲解）
+                this.persons.splice(1, 1, {id: '002', name: '马老师', age: 50, sex: '男'});
+            }
+        }
+    });
+</script>
+</body>
+</html>
