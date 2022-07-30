@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>自定义指令</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<!--
+        需求1：定义一个 v-big 指令，和 v-text 功能类似，但会把绑定的数值放大 10 倍。
+        需求2：定义一个 v-fbind 指令，和 v-bind 功能类似，但可以让其所绑定的 input 元素默认获取焦点。
+        自定义指令总结：
+                自定义属性需要我们手动操作 DOM 实现自定义功能，其 this 为 window
+                一、定义语法：
+                            (1) 局部指令：
+                                        new Vue({							new Vue({
+                                            directives:{指令名: 配置对象}  或   	directives{指令名: 回调函数}
+                                        }) 									})
+                            (2) 全局指令：
+                                        Vue.directive(指令名, 配置对象) 或 Vue.directive(指令名, 回调函数)
+
+                二、配置对象中常用的3个回调：
+                            (1) bind：指令与元素成功绑定时调用。
+                            (2) inserted：指令所在元素被插入页面时调用。
+                            (3) update：指令所在模板结构被重新解析时调用。
+
+                三、备注：
+                            1、指令定义时不加 v-，但使用时要加 v-；
+                            2、指令名如果是多个单词，要使用 kebab-case 命名方式，不要用 camelCase 命名。
+-->
+<div id="root">
+    <h2>{{name}}</h2>
+    <h2>当前的n值是：<span v-text="n"></span></h2>
+    <!-- <h2>放大10倍后的n值是：<span v-big-number="n"></span> </h2> -->
+    <h2>放大10倍后的n值是：<span v-big="n"></span></h2>
+    <button @click="n++">点我n+1</button>
+    <hr/>
+    <input type="text" v-fbind:value="n">
+</div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    /*
+    // 定义全局指令
+    Vue.directive('fbind', {
+        bind(element, binding){
+            element.value = binding.value
+        },
+        inserted(element, binding){
+            element.focus()
+        },
+        update(element, binding){
+            element.value = binding.value
+        }
+    })
+    */
+
+    new Vue({
+        el: '#root',
+        data: {
+            name: '尚硅谷',
+            n: 1
+        },
+        directives: {
+
+            /*
+            // 指令名如果是多个单词，要使用 kebab-case 命名方式
+            'big-number'(element, binding) {
+                element.innerText = binding.value * 10;
+            },
+            */
+
+            // 方式一：写成函数形式（能实现的功能细节局限）
+            // big函数何时会被调用？ 1、指令与元素成功绑定时（一上来）。 2、指令所在的模板被重新解析时（只要 data 中的任何数据有变化，都会调用，无论指令用没用到）
+            // element：指令所在的真实 DOM
+            // binding：
+            //      指令所携带的表达式：binding.expression（不常用）
+            //      指令所携带的值（表达式计算后的值）：binding.value（重点）
+            big(element, binding) {
+                // console.log(this); // 注意此处的 this 是 window
+                element.innerText = binding.value * 10;
+            },
+
+            // 方式二：写成对象形式（能实现的功能比较细节）
+            fbind: {
+                // 指令与元素成功绑定时（一上来）
+                bind(element, binding) {
+                    // 注意此处的 this 是 window
+                    element.value = binding.value;
+                },
+                // 指令所在元素被插入页面时
+                inserted(element, binding) {
+                    // 注意此处的 this 是 window
+                    element.focus();
+                },
+                // 指令所在的模板被重新解析时
+                update(element, binding) {
+                    // 注意此处的 this 是 window
+                    element.value = binding.value;
+                }
+            }
+        }
+    })
+
+</script>
+</html>
