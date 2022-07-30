@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>VueComponent</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<!--
+    关于 VueComponent：
+        1、school 组件本质是一个名为 VueComponent 的构造函数，且不是程序员定义的，是 Vue.extend 生成的。
+
+        2、我们只需要写 <school/> 或 <school></school>，Vue 解析时会帮我们创建 school 组件的实例对象，
+          即 Vue 帮我们执行的：new VueComponent(options)。
+
+        3、特别注意：每次调用 Vue.extend，返回的都是一个全新的 VueComponent！！！！
+
+        4、关于 this 指向：
+           (1) 组件配置中：
+                data 函数、methods 中的函数、watch 中的函数、computed 中的函数 它们的 this 均是【VueComponent 实例对象】
+           (2) new Vue(options) 配置中：
+                data 函数、methods 中的函数、watch 中的函数、computed 中的函数 它们的 this 均是【Vue 实例对象】
+
+        5、VueComponent 的实例对象，以后简称 vc（也可称之为：组件实例对象）。
+           Vue 的实例对象，以后简称 vm。
+-->
+<!-- 准备好一个容器 -->
+<div id="root">
+    <school></school>
+    <hello></hello>
+</div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    // 定义 school 组件
+    const school = Vue.extend({
+        name: 'school',
+        template: `
+          <div>
+          <h2>学校名称：{{ name }}</h2>
+          <h2>学校地址：{{ address }}</h2>
+          <button @click="showName">点我提示学校名</button>
+          </div>
+        `,
+        data() {
+            return {
+                name: '尚硅谷',
+                address: '北京'
+            }
+        },
+        methods: {
+            showName() {
+                console.log('showName', this);
+            }
+        },
+    })
+
+    const test = Vue.extend({
+        template: `<span>atguigu</span>`
+    })
+
+    // 定义 hello 组件
+    const hello = Vue.extend({
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <test></test>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '你好啊！'
+            }
+        },
+        components: {test}
+    })
+
+    // 所谓的组件实际上是一个名为 VueComponent 的构造函数！！！
+    // console.log(school);
+    // console.log(hello);
+
+    // 创建 vm
+    const vm = new Vue({
+        el: '#root',
+        components: {school, hello}
+    })
+
+    // vm 中会存在 $children: Array(2)，里面就是 school 的 vc 和 hello 的 vc
+    // 这也就证明了 vm 在管理全部的组件
+    // 同理，在 vc 中如果有子组件，那么也会在该 vc 中存在其 $children: Array
+</script>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>练习一下单文件组件的语法</title>
+</head>
+<body>
+<!-- 准备一个容器 -->
+<div id="root"></div>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="./main.js"></script>
+
+<!--
+到这里，单文件组件就基本搭建完成了，但是目前浏览器依旧运行会报错！
+原因是：像 export、import 等这些 ES6 模块化的语法浏览器并不认识，需要借助 webpack 打包编译
+不过，webpack 要想给 vue 项目打包得需要依赖非常多的插件及配置，而 vue-cli Vue 脚手架就是帮我们进行项目构建打包的工具，我们后面继续学习……
+-->
+</body>
+</html>

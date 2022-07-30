@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <!-- 针对 IE 浏览器的一个特殊配置，含义是让 IE 浏览器以最高的渲染级别渲染页面（注：Vue 不支持 IE8 及以下版本） -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 开启移动端的理想视口 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 配置页签图标 -->
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 配置网站标题（package.json 中的 name） -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+<!-- 当浏览器不支持 JavaScript 时，noscript 中的内容就会在页面上进行显示 -->
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+<!-- 容器 -->
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
+</html>

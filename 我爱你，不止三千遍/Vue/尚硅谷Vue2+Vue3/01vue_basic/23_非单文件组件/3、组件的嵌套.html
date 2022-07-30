@@ -8,9 +8,7 @@
 </head>
 <body>
 <!-- 准备好一个容器 -->
-<div id="root">
-
-</div>
+<div id="root"></div>
 </body>
 
 <script type="text/javascript">
@@ -67,7 +65,7 @@
         }
     })
 
-    // 定义 app 组件
+    // 定义 app 组件（用于管理所有组件，“一人之下（vm），万人之上（其它组件）”）
     const app = Vue.extend({
         template: `
           <div>
