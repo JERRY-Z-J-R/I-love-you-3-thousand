@@ -14,26 +14,26 @@
 <script>
 export default {
   name: 'MyFooter',
-  props: ['todos'],
+  props: ['todos', 'checkAllTodo', 'clearAllTodo'],
   computed: {
     // 总数
     total() {
-      return this.todos.length;
+      return this.todos.length
     },
     // 已完成数
     doneTotal() {
       // 此处使用 reduce 方法做条件统计
-      return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0);
+      return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
     },
     // 控制全选框
     isAll: {
       // 全选框是否勾选（当有数据并且已完成=总数时勾选）
       get() {
-        return this.doneTotal === this.total && this.total > 0;
+        return this.doneTotal === this.total && this.total > 0
       },
       // isAll 被修改时 set 被调用
       set(value) {
-        this.$emit('checkAllTodo', value);
+        this.checkAllTodo(value)
       }
     }
   },
@@ -48,9 +48,9 @@ export default {
 
     // 清空所有已完成
     clearAll() {
-      this.$emit('clearAllTodo');
+      this.clearAllTodo()
     }
-  }
+  },
 }
 </script>
 

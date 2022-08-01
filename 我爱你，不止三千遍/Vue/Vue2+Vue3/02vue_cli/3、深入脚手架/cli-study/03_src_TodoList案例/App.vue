@@ -2,9 +2,9 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <MyHeader @addTodo="addTodo"/>
+        <MyHeader :addTodo="addTodo"/>
         <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
-        <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearAllTodo="clearAllTodo"/>
+        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
       </div>
     </div>
   </div>
@@ -24,8 +24,11 @@ export default {
   data() {
     return {
       // 由于todos是MyHeader组件和MyFooter组件都在使用，所以放在App（父组件）中（状态提升）
-      // 从localStorage中获取数据，如果localStorage中todos没有数据，那么就获取为[]，保证todos一定是一个数组而不是null，否则todos.length会报错
-      todos: JSON.parse(localStorage.getItem('todos')) || []
+      todos: [
+        {id: '001', title: '抽烟', done: true},
+        {id: '002', title: '喝酒', done: false},
+        {id: '003', title: '开车', done: true}
+      ]
     }
   },
   // 数据在哪里，操作数据的方法就在哪里！！！
@@ -57,16 +60,6 @@ export default {
       this.todos = this.todos.filter((todo) => {
         return !todo.done
       })
-    }
-  },
-  watch: {
-    // 每次监听到todos的变化就将其存储到localStorage中
-    // 此处必须要使用深度监视，因为当todos.done改变时也要更新localStorage
-    todos: {
-      deep: true,
-      handler(value) {
-        localStorage.setItem('todos', JSON.stringify(value))
-      }
     }
   }
 }
