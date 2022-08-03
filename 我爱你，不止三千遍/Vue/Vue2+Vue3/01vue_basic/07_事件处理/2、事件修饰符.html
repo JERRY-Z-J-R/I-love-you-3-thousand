@@ -73,7 +73,7 @@
     <!-- 举例：某些事件（非常少，比如：wheel），如果回调函数非常复杂（耗时较长），那么该事件的默认事件行为会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题。 -->
 </div>
 <script>
-    Vue.config.productionTip = false
+    Vue.config.productionTip = false;
 
     new Vue({
         el: '#root',
@@ -82,12 +82,12 @@
         },
         methods: {
             showInfo(event) {
-                // event.preventDefault()    // 阻止默认行为，当然可以利用事件修饰符在模板中设置
-                // event.stopPropagation()   // 组织事件冒泡，当然可以利用事件修饰符在模板中设置
-                alert('同学你好！')
+                // event.preventDefault();    // 阻止默认行为，当然可以利用事件修饰符在模板中设置
+                // event.stopPropagation();   // 组织事件冒泡，当然可以利用事件修饰符在模板中设置
+                alert('同学你好！');
             },
             showMsg(msg) {
-                console.log(msg)
+                console.log(msg);
             }
         }
     })

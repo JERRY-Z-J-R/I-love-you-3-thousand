@@ -20,9 +20,9 @@
 -->
 <div id="root">
     <!--
-    // 我们直接 data.name 是会报错的，因为 data 只是实例化 Vue 的一个参数，并不在存在 data 属性，data 实际上是被 _data 属性代替了！
-    // 所以，实际上应该是：Vue 先将 data 用 _data 来保存了，然后用 vm 对象来代理了 _data 中的数据的操作。
-    // 注意：在 _data 中，除了 name、address 外，还有另外的很多东西，甚至还有 get、set，但是这部分与数据代理无关（否则就套娃了），而是与数据劫持有关（用于实现 _data 变视图也同时变）
+    // 我们直接 data.name 是会报错的，因为 data 只是实例化 Vue 的一个参数，并不在存在 data 属性，data 实际上是被实例化 vm 中的 _data 属性代替了！
+    // 所以，实际上应该是：Vue 先将 data 用 _data 来代替了（同时做了数据劫持），然后用 vm 对象来代理了 _data 中的数据的操作。
+    // 注意：在 _data 中，除了 name、address 外，还有另外的很多东西，甚至还有 get、set，但是这部分与数据代理无关（否则就套娃了），而是与数据劫持有关（之后学习）
     <h1>学校名称：{{_data.name}}</h1>
     <h2>学校地址：{{_data.address}}</h2>
     -->
@@ -38,11 +38,13 @@
             name: '尚硅谷',
             address: '宏福科技园'
         }
-    })
+    });
 
     console.log(vm);
     console.log(vm._data.name);     // 尚硅谷
     console.log(vm._data.address);  // 宏福科技园
+    console.log(vm.name);           // 尚硅谷（vm 数据代理了 _data）
+    console.log(vm.address);        // 宏福科技园（vm 数据代理了 _data）
 </script>
 </body>
 

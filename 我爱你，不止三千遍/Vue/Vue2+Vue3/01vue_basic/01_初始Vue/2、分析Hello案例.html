@@ -26,7 +26,7 @@
             （1）if(){}
             （2）for(){}
                 …………
-    4、一但 data 中的数据发生改变，那么页面中用到该数据的地方也会自动更新。
+    4、一但 data 中的数据发生改变，那么页面中用到该数据的地方也会自动更新（数据驱动视图）。
     5、假如我们不用 new 来实例化 Vue 对象，那么就会报错：
        [Vue warn]: Vue is a constructor and should be called with the `new` keyword
        Uncaught TypeError: Cannot read properties of undefined (reading '_init')
@@ -35,7 +35,7 @@
        第二、第三行为 “底层” 报错提示，开发版和生产版都有。
        可以看一看 Vue 源码的实现：
         function Vue (options) {
-            // 判断实例对象中的 this 是不是指向 Vue，如果不是证明并不是 new 出来的
+            // 判断实例对象中的 this 是不是指向 Vue，如果不是的话就可以证明并不是 new 出来的
             if (!(this instanceof Vue)) {
               warn('Vue is a constructor and should be called with the `new` keyword');
             }

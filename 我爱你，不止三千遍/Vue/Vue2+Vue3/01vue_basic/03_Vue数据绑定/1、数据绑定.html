@@ -13,7 +13,7 @@
         1、单向绑定（v-bind）：数据只能从 data 流向页面。
         2、双向绑定（v-model）：数据不仅能从 data 流向页面，还可以从页面流向 data。
             备注：
-                1、双向绑定只能应用在表单类元素上（如：input、select等）
+                1、双向绑定只能应用在表单类元素上（如：input、select 等）
                 2、v-model:value 可以简写为 v-model，因为 v-model 默认收集的就是 value 的值。
 -->
 
@@ -22,10 +22,13 @@
     <!--
     单向数据绑定：<input type="text" v-bind:value="name"><br />
     双向数据绑定：<input type="text" v-model:value="name"><br />
-     -->
+    -->
 
     <!-- 简写写法 -->
+    <!-- 单向数据绑定：<input type="text" v-bing:value="name"> -->
     单向数据绑定：<input type="text" :value="name"><br/>
+
+    <!-- 双向数据绑定：<input type="text" v-model:value="name"> -->
     双向数据绑定：<input type="text" v-model="name"><br/>
 
     <!-- 如下代码是错误的，因为 v-model 只能应用在表单类元素上 -->

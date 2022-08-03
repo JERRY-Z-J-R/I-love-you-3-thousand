@@ -16,7 +16,6 @@
         2、指令语法：
             功能：用于解析标签（包括：标签属性、标签体内容、绑定事件……）
             举例：绑定属性，v-bind:href="xxx" 或 简写为 :href="xxx"，xxx 同样要写 js 表达式且可以直接读取到 data 中的所有属性。
-                再次注意：v-bind:href="xxx" 或 :href="xxx" 中 xxx 表面上看是字符串实际上是 js 表达式！
             备注： Vue 中有很多的指令，且形式都是：v-????，此处我们只是拿 v-bind 举个例子。
 -->
 
@@ -25,7 +24,7 @@
     <h3>你好，{{name}}</h3>
     <hr/>
     <h1>指令语法</h1>
-    <a v-bind:href="school.url.toUpperCase()">点我去{{school.name}}学习1</a>
+    <a v-bind:href="school.url.toUpperCase()">点我去{{school.name}}学习1</a><br>
     <a :href="school.url">点我去{{school.name}}学习2</a>
 </div>
 <script>

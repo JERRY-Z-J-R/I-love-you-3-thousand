@@ -20,10 +20,10 @@
     // 用 obj2 代理 obj1 中属性的操作，也是就可以通过 obj2 操作 obj1 中的属性！
     Object.defineProperty(obj2, 'x', {
         get() {
-            return obj1.x
+            return obj1.x;
         },
         set(value) {
-            obj1.x = value
+            obj1.x = value;
         }
     })
 </script>
