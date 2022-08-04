@@ -23,7 +23,7 @@
             lastName: '三'
         },
         methods: {
-            // data 中的数据一但变化，那么 Vue 整个模板中对应数据部分会重新解析
+            // data 中的数据一但变化，那么 Vue 整个模板中对应数据部分会重新解析，并重新调用该函数
             fullName() {
                 return this.firstName.slice(0, 3) + ' - ' + this.lastName;
             }

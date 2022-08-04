@@ -19,6 +19,7 @@
     退出：esc
     空格：space
     制表：tab（特殊，必须配合 keydown 使用，因为 tab 本来就有焦点切换功能，如果是 keyup，按下 tab 的同时焦点已经切走了，那么事件就不会正常生效，所以要用 keydown）
+    上：  up
     下：  down
     左：  left
     右：  right
@@ -39,7 +40,7 @@
 <script>
     Vue.config.productionTip = false;
     // Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
-    Vue.config.keyCodes.huiche = 13;    // 定义了一个别名按键
+    Vue.config.keyCodes.huiche = 13;    // 定义了一个别名按键（enter）
 
     new Vue({
         el: '#root',
