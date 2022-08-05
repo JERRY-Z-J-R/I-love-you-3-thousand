@@ -9,7 +9,7 @@
 <body>
 <!--
         1、一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
-        2、为什么要有这个关系：让组件实例对象（vc）可以访问到 Vue 原型上的属性、方法。
+        2、这个关系的重要作用：让组件实例对象（vc）可以访问到 Vue 原型上的属性、方法。（后面的学习会用到）
 -->
 <!-- 准备好一个容器-->
 <div id="root">
@@ -67,14 +67,14 @@
 
     console.log(Demo.prototype);     // 显示原型属性
 
-    console.log(d.__proto__);       // 隐式原型属性
+    console.log(d.__proto__);        // 隐式原型属性
 
     console.log(Demo.prototype === d.__proto__);    // true
 
     // 程序员通过显示原型属性操作原型对象，追加一个 x 属性，值为 99
     Demo.prototype.x = 99;
 
-    console.log(d.x);              // 99
+    console.log(d.x);                // 99
     */
 
 </script>
