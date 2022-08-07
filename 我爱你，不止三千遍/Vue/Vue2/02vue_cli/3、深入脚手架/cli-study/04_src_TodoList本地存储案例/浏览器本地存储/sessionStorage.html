@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>sessionStorage</title>
+    <!-- 注意：这里的 session 不是服务器存储那个 session，这里单纯只浏览器的“会话”，sessionStorage：浏览器会话存储 -->
+    <!-- SessionStorage 存储的内容会随着浏览器窗口关闭而消失 -->
+</head>
+<body>
+<h2>sessionStorage</h2>
+<button onclick="saveData()">点我保存一个数据</button>
+<button onclick="readData()">点我读取一个数据</button>
+<button onclick="deleteData()">点我删除一个数据</button>
+<button onclick="deleteAllData()">点我清空一个数据</button>
+
+<script type="text/javascript">
+    let p = {name: '张三', age: 18};
+
+    function saveData() {
+        sessionStorage.setItem('msg', 'hello!!!');
+        sessionStorage.setItem('msg2', 666);
+        sessionStorage.setItem('person', JSON.stringify(p));
+    }
+
+    function readData() {
+        console.log(sessionStorage.getItem('msg'));
+        console.log(sessionStorage.getItem('msg2'));
+
+        const result = sessionStorage.getItem('person');
+        console.log(JSON.parse(result));
+
+        // 如果 xxx 对应的 value 获取不到，那么 getItem 的返回值是 null
+        // JSON.parse(null) 的结果依然是 null
+    }
+
+    function deleteData() {
+        sessionStorage.removeItem('msg2');
+    }
+
+    function deleteAllData() {
+        sessionStorage.clear();
+    }
+</script>
+</body>
+</html>
