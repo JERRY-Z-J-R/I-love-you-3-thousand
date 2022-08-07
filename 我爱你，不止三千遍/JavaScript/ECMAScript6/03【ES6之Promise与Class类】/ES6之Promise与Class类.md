@@ -26,13 +26,38 @@ Promise 是异步操作的一种解决方案。
 >
 > 现在有一个按钮，如果我们设置它的 onclick 事件为一个死循环，那么当这个按钮按下，整个网页将失去响应。
 >
-> 为了避免这种情况的发生，我们常常用子线程来完成一些可能消耗时间足够长以至于被用户察觉的事情，比如读取一个大文件或者发出一个网络请求。因为子线程独立于主线程，所以即使出现阻塞也不会影响主线程的运行。但是子线程有一个局限：一旦发射了以后就会与主线程失去同步，我们无法确定它的结束，如果结束之后需要处理一些事情，比如处理来自服务器的信息，我们是无法将它合并到主线程中去的。
+> 为了避免这种情况的发生，我们常常用子线程来完成一些可能消耗时间足够长以至于被用户察觉的事情（或者是一些需要等待某个时机在背后自动执行的任务，比如：事件监听），比如读取一个大文件或者发出一个网络请求。因为子线程独立于主线程，所以即使出现阻塞也不会影响主线程的运行。但是子线程有一个局限：一旦发射了以后就会与主线程失去同步，我们无法确定它的结束，如果结束之后需要处理一些事情，比如处理来自服务器的信息，我们是无法将它合并到主线程中去的。
 >
-> JavaScript 是单线程语言，为了解决多线程问题，JavaScript 中的异步操作函数往往通过回调函数来实现异步任务的结果处理。
+> JavaScript 是单线程语言，为了解决多线程问题，JavaScript 中的异步操作函数往往通过**回调函数**来实现异步任务的结果处理。
 >
-> ### 回调函数
+> ### 回调函数（callback function）
 >
-> 回调函数就是一个函数（作为函数参数的函数），它是在我们启动一个异步任务的时候就告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务的状态了，他自己会善始善终。
+> > 在 JavaScript 中，回调函数具体的定义为：函数A 作为参数（函数引用）传递到另一个 函数B 中，并且这个 函数B 执行函数A。我们就说 函数A 叫做回调函数。如果没有名称（函数表达式），就叫做匿名回调函数。
+>
+> 回调函数就是一个作为参数的函数，它是在我们启动一个异步任务的时候就告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务的状态了，他自己会善始善终。
+>
+> > 注意：回调和异步不是同一个东西，许多人误认为 js 中每个回调函数都是异步处理的，实际上并不是，可以同步回调，也可以异步回调。只不过说：**回调可以是同步也可以是异步，异步必须放在回调里执行，也就是对于一个异步任务只有回调函数里的才是异步的部分。**
+> >
+> > 回调同步的例子：
+> >
+> > ```javascript
+> > const test = function (func) {
+> >     func();
+> > }
+> > 
+> > test(() => {
+> >     console.log('func');
+> > })
+> > ```
+> >
+> > 回调异步的例子：
+> >
+> > ```javascript
+> > setTimeout(()=>{
+> >     console.log('one');
+> > }, 3000);
+> > console.log('two');
+> > ```
 >
 > ## 实例
 >
@@ -45,21 +70,21 @@ Promise 是异步操作的一种解决方案。
 > <html>
 > 
 > <head>
->  <meta charset="utf-8">
->  <title>菜鸟教程(runoob.com)</title>
+> <meta charset="utf-8">
+> <title>菜鸟教程(runoob.com)</title>
 > </head>
 > 
 > <body>
 > 
->  <p>回调函数等待 3 秒后执行。</p>
->  <p id="demo"></p>
->  <p>异步方式，不影响后续执行。</p>
->  <script>
->      function print() {
->          document.getElementById("demo").innerHTML = "RUNOOB!";
->      }
->      setTimeout(print, 3000);
->  </script>
+> <p>回调函数等待 3 秒后执行。</p>
+> <p id="demo"></p>
+> <p>异步方式，不影响后续执行。</p>
+> <script>
+>   function print() {
+>       document.getElementById("demo").innerHTML = "RUNOOB!";
+>   }
+>   setTimeout(print, 3000);
+> </script>
 > 
 > </body>
 > 
@@ -79,25 +104,25 @@ Promise 是异步操作的一种解决方案。
 > <html>
 > 
 > <head>
->  <meta charset="utf-8">
->  <title>菜鸟教程(runoob.com)</title>
+> <meta charset="utf-8">
+> <title>菜鸟教程(runoob.com)</title>
 > </head>
 > 
 > <body>
 > 
->  <p>回调函数等待 3 秒后执行。</p>
->  <p id="demo"></p>
->  <p>异步方式，不影响后续执行。</p>
->  <script>
->      setTimeout(function () {
->          document.getElementById("demo").innerHTML = "RUNOOB!";
->      }, 3000);
->      /* ES6 箭头函数写法
->      setTimeout(() => {
->          document.getElementById("demo").innerHTML = "RUNOOB!";
->      }, 3000);
->      */
->  </script>
+> <p>回调函数等待 3 秒后执行。</p>
+> <p id="demo"></p>
+> <p>异步方式，不影响后续执行。</p>
+> <script>
+>   setTimeout(function () {
+>       document.getElementById("demo").innerHTML = "RUNOOB!";
+>   }, 3000);
+>   /* ES6 箭头函数写法
+>   setTimeout(() => {
+>       document.getElementById("demo").innerHTML = "RUNOOB!";
+>   }, 3000);
+>   */
+> </script>
 > 
 > </body>
 > 
@@ -113,21 +138,21 @@ Promise 是异步操作的一种解决方案。
 > <html>
 > 
 > <head>
->  <meta charset="utf-8">
->  <title>菜鸟教程(runoob.com)</title>
+> <meta charset="utf-8">
+> <title>菜鸟教程(runoob.com)</title>
 > </head>
 > 
 > <body>
 > 
->  <p>回调函数等待 3 秒后执行。</p>
->  <p id="demo1"></p>
->  <p id="demo2"></p>
->  <script>
->      setTimeout(function () {
->          document.getElementById("demo1").innerHTML = "RUNOOB-1!";
->      }, 3000);
->      document.getElementById("demo2").innerHTML = "RUNOOB-2!";
->  </script>
+> <p>回调函数等待 3 秒后执行。</p>
+> <p id="demo1"></p>
+> <p id="demo2"></p>
+> <script>
+>   setTimeout(function () {
+>       document.getElementById("demo1").innerHTML = "RUNOOB-1!";
+>   }, 3000);
+>   document.getElementById("demo2").innerHTML = "RUNOOB-2!";
+> </script>
 > 
 > </body>
 > 
@@ -293,7 +318,7 @@ Promise 有三个状态：pending（等待）、fulfilled 或 resolved（成功�
 
 当我们实例化 Promise 后得到的 Promise 对象便具有一个 `then` 方法。
 
-then 方法具有两个回调函数作为参数，`() => {}, () => {}`。
+then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 
 - 当 Promise 对象为成功状态时就默认自动执行 then 方法的第一个回调函数
 - 当 Promise 对象为失败状态时就默认自动执行 then 方法的第二个回调函数
@@ -313,7 +338,7 @@ then 方法具有两个回调函数作为参数，`() => {}, () => {}`。
 
 1. then 方法的两个回调函数什么时候执行
 
-   - pending——>fulfilled 时，执行 then 的第一个回调函数
+   - pending——>resolved时，执行 then 的第一个回调函数
    - pending——>rejected 时，执行 then 的第二个回调函数
 
 2. then 方法执行后的返回值
@@ -355,7 +380,7 @@ then 方法具有两个回调函数作为参数，`() => {}, () => {}`。
          return 24;
          // 相当于：return new Promise(resolve => {resolve(24);});
      }).then((data) => {
-         console.log(data);	// 打印 undefined
+         console.log(data);	// 打印 24
      });
      ```
 
@@ -374,6 +399,14 @@ then 方法具有两个回调函数作为参数，`() => {}, () => {}`。
          console.log(errData);	// 失败
      });
      ```
+
+> **总结**：Promise 是一个构造函数，需要 new 才能使用。在 new Promise() 的时候需要传递一个匿名回调函数作为 Promise() 唯一的参数，这个回调函数有两个参数 resolve reject，这两个参数也是函数，当回调函数执行第一个 resolve 函数后 Promise 便变为了成功状态，反之回调函数执行了 reject 后 Promise 便变为了失败状态，且每个 Promise 只能要么执行 resolve，要么执行 reject，不能同时执行！当 Promise 被 new 之后就会有一个 then 方法，该方法默认接收两个匿名回调函数作为参数，其中第一个回调函数是在 Promise 为成功状态时自动调用的，反之第二个回调函数是在 Promise 为失败状态时自动调用的，并且这两个回调函数是可以接收参数的，参数就来自于 resolve 或 reject 调用时传递的实参！在 then 方法执行后会默认返回 undefined（在没有指定返回值的情况下），ES6 会将其包装为一个新的成功态的 Promise，该 Promise 会自动执行 resolve 函数，该函数的参数来自于 then 方法的返回值（如果没有返回值那么默认就返回 undefined）。如果需要返回一个失败态的 Promise，那么需要在 then 中手动指定返回值：
+>
+> ```javascript
+> return new Promise((resolve, reject) => {
+> 	reject(参数);
+> }
+> ```
 
 学习了以上知识，现在我们来用 Promise 改造之前的两个回调地狱案例。
 
@@ -484,6 +517,8 @@ then 方法具有两个回调函数作为参数，`() => {}, () => {}`。
 </body>
 </html>
 ```
+
+通过上述两个改造后的例子，可以看到，Promise 让原先回调的“嵌套”型模式转变为了 Promise 的“并列”型模式，这就解决了回调地狱的问题。
 
 ## 1.4 catch()
 
@@ -836,7 +871,7 @@ Promise.all([
 
 【异步加载图片】
 
-异步加载：也称为图片的预加载。利用js代码提前加载图片，用户需要时可以直接从本地缓存获取，但是会增加服务器前端的压力。这样做可以提高用户的体验，因为同步加载大图片的时候，图片会一层一层的显示处理，但是经过预加载后，直接显示出整张图片。
+异步加载：也称为图片的预加载。利用 js 代码提前加载图片，用户需要时可以直接从本地缓存获取，但是会增加服务器前端的压力。这样做可以提高用户的体验，因为同步加载大图片的时候，图片会一层一层的显示处理，但是经过预加载后，直接显示出整张图片。
 
 ```html
  <!DOCTYPE html>
@@ -913,8 +948,6 @@ Promise.all([
 `class Person{}`
 
 注意：类名 Person 后没有 `()`，同时 `{}` 后也不应该加 `;`。
-
-> 注意：所有 JavaScipt 语句的 `{}` 后都不需要加 `;`。
 
 每一个类中都包含一个构造方法，这个构造方法可以手动写出来，也可以不写，如果手动不写那么浏览器也会默认自动添加。
 

@@ -163,14 +163,14 @@ func();
 var age = 18;
 function add() {}
 console.log(window.age);			// 18
-console.log(window.add === add);	// true
+console.log(window.add === add);	 // true
 ```
 
 ```javascript
 let age = 18;
 const add = function() {}
 console.log(window.age);			// undefined
-console.log(window.add === add);	// false
+console.log(window.add === add);	 // false
 ```
 
 ### 1.3.5 块级作用域
@@ -613,7 +613,7 @@ const add = (x, y) => ({value: x + y});
 const add = (x, y) => [x, y];
 ```
 
-> 推荐：最好不要简写！
+> 推荐：一般情况最好不要简写！
 
 ## 3.3 非箭头函数中的 this 指向
 
@@ -728,7 +728,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
                 'click',
                 function () {
                     setInterval(function () {
-                        console.log(this);	// window 计时器由于没有人去调用它，所以它的 this 是指向 window
+                        console.log(this);	// 计时器 this 是指向 window
                         this.time++;
                         result.innerHTML = this.time;
                     }, 1000);
@@ -906,7 +906,7 @@ console.log(a, b);	// 1 2
 ```javascript
 const [a = 1, b = 2] = [3, 0];		// 3 0
 const [a = 1, b = 2] = [3, null];	// 3 null
-const [a = 1, b = 2] = [3];			// 3 2
+const [a = 1, b = 2] = [3];		    // 3 2
 ```
 
 **（3）默认值表达式**
