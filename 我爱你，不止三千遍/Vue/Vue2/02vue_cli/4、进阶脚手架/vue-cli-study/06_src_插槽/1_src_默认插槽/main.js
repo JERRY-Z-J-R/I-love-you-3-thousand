@@ -1,19 +1,16 @@
-//引入Vue
 import Vue from 'vue'
-//引入App
 import App from './App.vue'
-//引入插件
-import vueResource from 'vue-resource'
-//关闭Vue的生产提示
-Vue.config.productionTip = false
-//使用插件
-Vue.use(vueResource)
 
-//创建vm
+Vue.config.productionTip = false
+
 new Vue({
-	el:'#app',
-	render: h => h(App),
-	beforeCreate() {
-		Vue.prototype.$bus = this
-	}
+    el: '#app',
+    render: h => h(App),
+    beforeCreate() {
+        Vue.prototype.$bus = this
+    }
 })
+
+/*
+插槽：让父组件可以向子组件指定位置插入 html 结构，也是一种组件间通信的方式，适用于 父组件 ===> 子组件
+ */
