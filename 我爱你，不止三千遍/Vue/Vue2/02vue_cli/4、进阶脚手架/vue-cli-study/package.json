@@ -1,5 +1,5 @@
 {
-  "name": "cli-study",
+  "name": "vue-cli-study",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,10 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "core-js": "^3.8.3",
-    "less-loader": "^11.0.0",
-    "nanoid": "^4.0.0",
-    "pubsub-js": "^1.9.4",
     "vue": "^2.6.14"
   },
   "devDependencies": {
