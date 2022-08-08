@@ -2,15 +2,14 @@
 <template>
   <div>
     <button @click="isShow = !isShow">显示/隐藏</button>
-    <transition-group
+    <transition
         appear
         name="animate__animated animate__bounce"
-        enter-active-class="animate__swing"
-        leave-active-class="animate__backOutUp"
+        enter-active-class="animate__flipInX"
+        leave-active-class="animate__zoomOutUp"
     >
-      <h1 v-show="!isShow" key="1">你好啊！</h1>
-      <h1 v-show="isShow" key="2">尚硅谷！</h1>
-    </transition-group>
+      <h1 v-show="isShow" key="1">你好啊！</h1>
+    </transition>
   </div>
 </template>
 
