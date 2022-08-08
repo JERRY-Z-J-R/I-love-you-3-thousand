@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "nanoid": "^4.0.0",
     "pubsub-js": "^1.9.4",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vue-resource": "^1.5.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
