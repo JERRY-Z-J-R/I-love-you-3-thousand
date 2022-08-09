@@ -1,23 +1,14 @@
-//引入Vue
 import Vue from 'vue'
-//引入App
 import App from './App.vue'
-//引入插件
-import vueResource from 'vue-resource'
-//引入store
+// 引入store
+// 如果文件名为 index，那么不指定的情况下就是这个 index 文件
 import store from './store'
 
-//关闭Vue的生产提示
-Vue.config.productionTip = false
-//使用插件
-Vue.use(vueResource)
+Vue.config.productionTip = false;
 
-//创建vm
 new Vue({
-	el:'#app',
-	render: h => h(App),
-	store,
-	beforeCreate() {
-		Vue.prototype.$bus = this
-	}
+    el: '#app',
+    render: h => h(App),
+    // key 与 value 相同时，可以简写为 key
+    store,
 })
