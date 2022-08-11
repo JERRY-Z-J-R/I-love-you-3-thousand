@@ -6,19 +6,21 @@
     <div class="row">
       <div class="col-xs-2 col-xs-offset-2">
         <div class="list-group">
-					<!-- 原始html中我们使用a标签实现页面的跳转 -->
+          <!-- 原始html中我们使用a标签实现页面的跳转 -->
           <!-- <a class="list-group-item active" href="./about.html">About</a> -->
           <!-- <a class="list-group-item" href="./home.html">Home</a> -->
 
-					<!-- Vue中借助router-link标签实现路由的切换 -->
-					<router-link class="list-group-item" active-class="active" to="/about">About</router-link>
+          <!-- Vue中借助router-link标签实现路由的切换 -->
+          <!-- 利用 name 别名（此处不建议这么写，因为路径只有一级没必要依靠别名） -->
+           <router-link class="list-group-item" active-class="active" :to="{name: 'guanyu'}">About</router-link>
+          <!--<router-link class="list-group-item" active-class="active" to="/about">About</router-link>-->
           <router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
         </div>
       </div>
       <div class="col-xs-6">
         <div class="panel">
           <div class="panel-body">
-						<!-- 指定组件的呈现位置 -->
+            <!-- 指定组件的呈现位置 -->
             <router-view></router-view>
           </div>
         </div>
@@ -28,9 +30,10 @@
 </template>
 
 <script>
-	import Banner from './components/Banner'
-	export default {
-		name:'App',
-		components:{Banner}
-	}
+import Banner from './components/Banner'
+
+export default {
+  name: 'App',
+  components: {Banner}
+}
 </script>
