@@ -2,10 +2,6 @@
   <div>
     <ul>
       <li v-for="m in messageList" :key="m.id">
-        <!-- 跳转路由并携带params参数，to的字符串写法 -->
-        <!-- <router-link :to="`/home/message/detail/${m.id}/${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
-
-        <!-- 跳转路由并携带params参数，to的对象写法 -->
         <router-link :to="{
 					name: 'xiangqing',
 					query: {
@@ -37,6 +33,10 @@ export default {
     }
   },
   methods: {
+    /*
+    $router：路由器中（实际是其原型对象上）包含控制路由跳转的API $router.push $router.replace
+    其中：$router.push 是压栈、$router.replace 是压栈后替换
+     */
     pushShow(m) {
       this.$router.push({
         name: 'xiangqing',

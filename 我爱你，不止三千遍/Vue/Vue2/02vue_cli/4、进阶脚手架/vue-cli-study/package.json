@@ -11,6 +11,7 @@
     "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "element-ui": "^2.15.9",
     "nanoid": "^4.0.0",
     "pubsub-js": "^1.9.4",
     "vue": "^2.6.14",
@@ -24,6 +25,7 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "babel-plugin-component": "^1.1.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "vue-template-compiler": "^2.6.14"
