@@ -1,0 +1,756 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:day1</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h2 id="0-">0. 资源地址</h2>
+<ol>
+<li>线上 DEMO 项目地址：<a href="http://www.escook.cn:8086/">http://www.escook.cn:8086/</a></li>
+<li>项目的 API 接口地址： <a href="https://www.showdoc.cc/escook?page_id=3707158761215217">https://www.showdoc.cc/escook?page_id=3707158761215217</a></li>
+</ol>
+<h2 id="1-">1. 项目前期的准备工作</h2>
+<h3 id="1-1-">1.1 初始化项目结构</h3>
+<ol>
+<li>将 <code>素材</code> 目录下的 <code>assets</code> 和 <code>home</code> 文件夹，拷贝到 <code>code</code> 目录下</li>
+<li>在 <code>code</code> 目录下新建 <code>login.html</code> 和 <code>index.html</code> 页面</li>
+</ol>
+<h3 id="1-2-github-">1.2 使用GitHub管理大事件的项目</h3>
+<ol>
+<li>在 <code>code</code> 目录中运行 <code>git init</code> 命令</li>
+<li>在 <code>code</code> 目录中运行 <code>git add .</code> 命令</li>
+<li>在 <code>code</code> 目录下运行 <code>git commit -m &quot;init project&quot;</code> 命令</li>
+<li>新建 Github 仓库 <code>web_bigevent</code></li>
+<li>将本地仓库和Github仓库建立关联关系</li>
+<li>将本地仓库的代码推送到Github仓库中</li>
+<li>运行 <code>git checkout -b login</code> 命令，创建并切换到 <code>login</code> 分支</li>
+</ol>
+<h3 id="1-3-vscode-live-server-">1.3 安装VSCode的Live Server插件辅助开发</h3>
+<ol>
+<li>在插件市场，搜索 <code>Live Server</code> 并安装</li>
+<li>在页面上鼠标右键，选择 <code>Open With Live Server</code> 即可快速使用 http 协议访问页面</li>
+</ol>
+<h2 id="2-">2. 登录注册</h2>
+<h3 id="2-1-login-">2.1 绘制login页面的基本结构</h3>
+<ol>
+<li><p>编写 HTML 结构：</p>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;大事件-登录/注册&lt;/title&gt;
+    &lt;!-- 导入 LayUI 的样式 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/lib/layui/css/layui.css&quot; /&gt;
+    &lt;!-- 导入自己的样式表 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/login.css&quot; /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- 头部的 Logo 区域 --&gt;
+    &lt;div class=&quot;layui-main&quot;&gt;
+      &lt;img src=&quot;/assets/images/logo.png&quot; alt=&quot;&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 登录注册区域 --&gt;
+    &lt;div class=&quot;loginAndRegBox&quot;&gt;
+      &lt;div class=&quot;title-box&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+</li>
+<li><p>美化样式：</p>
+<pre><code class="lang-css">html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: url(&#39;/assets/images/login_bg.jpg&#39;) no-repeat center;
+  background-size: cover;
+}
+
+.loginAndRegBox {
+  width: 400px;
+  height: 310px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title-box {
+  height: 60px;
+  background: url(&#39;/assets/images/login_title.png&#39;) no-repeat center;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="2-2-">2.2 实现登录和注册的按需切换</h3>
+<ol>
+<li><p>编写 HTML 结构：</p>
+<pre><code class="lang-html">    &lt;!-- 登录注册区域 --&gt;
+    &lt;div class=&quot;loginAndRegBox&quot;&gt;
+      &lt;div class=&quot;title-box&quot;&gt;&lt;/div&gt;
+      &lt;!-- 登录的div --&gt;
+      &lt;div class=&quot;login-box&quot;&gt;&lt;/div&gt;
+      &lt;!-- 注册的div --&gt;
+      &lt;div class=&quot;reg-box&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+</code></pre>
+</li>
+<li><p>编写样式：</p>
+<pre><code class="lang-css">.reg-box {
+  display: none;
+}
+</code></pre>
+</li>
+<li><p>编写 JavaScript 代码：</p>
+<pre><code class="lang-js">$(function() {
+  // 点击“去注册账号”的链接
+  $(&#39;#link_reg&#39;).on(&#39;click&#39;, function() {
+    $(&#39;.login-box&#39;).hide()
+    $(&#39;.reg-box&#39;).show()
+  })
+
+  // 点击“去登录”的链接
+  $(&#39;#link_login&#39;).on(&#39;click&#39;, function() {
+    $(&#39;.login-box&#39;).show()
+    $(&#39;.reg-box&#39;).hide()
+  })
+})
+</code></pre>
+</li>
+</ol>
+<h3 id="2-3-">2.3 绘制登录表单的基本结构</h3>
+<ol>
+<li><p>编写 HTML 结构：</p>
+<pre><code class="lang-html">  &lt;!-- 登录的div --&gt;
+  &lt;div class=&quot;login-box&quot;&gt;
+    &lt;!-- 登录的表单 --&gt;
+    &lt;form class=&quot;layui-form&quot; action=&quot;&quot;&gt;
+      &lt;!-- 用户名 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;i class=&quot;layui-icon layui-icon-username&quot;&gt;&lt;/i&gt;
+        &lt;input type=&quot;text&quot; name=&quot;username&quot; required lay-verify=&quot;required&quot; placeholder=&quot;请输入用户名&quot; autocomplete=&quot;off&quot; class=&quot;layui-input&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 密码 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;i class=&quot;layui-icon layui-icon-password&quot;&gt;&lt;/i&gt;
+        &lt;input type=&quot;password&quot; name=&quot;password&quot; required lay-verify=&quot;required&quot; placeholder=&quot;请输入密码&quot; autocomplete=&quot;off&quot; class=&quot;layui-input&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 登录按钮 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;!-- 注意：表单提交按钮和普通按钮的区别，就是 lay-submit 属性 --&gt;
+        &lt;button class=&quot;layui-btn layui-btn-fluid layui-btn-normal&quot; lay-submit&gt;登录&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;layui-form-item links&quot;&gt;
+        &lt;a href=&quot;javascript:;&quot; id=&quot;link_reg&quot;&gt;去注册账号&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="2-4-">2.4 美化登录表单的样式</h3>
+<ol>
+<li><p>编写样式：</p>
+<pre><code class="lang-css">.layui-form {
+  padding: 0 30px;
+}
+
+.links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.links a {
+  font-size: 12px;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="2-5-">2.5 绘制文本框前面的小图标</h3>
+<ol>
+<li><p>在用户名的文本框之前，添加如下的标签结构：</p>
+<pre><code class="lang-html">&lt;i class=&quot;layui-icon layui-icon-username&quot;&gt;&lt;/i&gt;
+</code></pre>
+</li>
+<li><p>在密码框之前，添加如下的标签结构：</p>
+<pre><code class="lang-html">&lt;i class=&quot;layui-icon layui-icon-password&quot;&gt;&lt;/i&gt;
+</code></pre>
+</li>
+<li><p>美化样式：</p>
+<pre><code class="lang-css">.layui-form-item {
+  position: relative;
+}
+
+.layui-icon {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.layui-input {
+  padding-left: 32px;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="2-6-">2.6 快速绘制注册的表单</h3>
+<ol>
+<li><p>将登录的表单复制一份，并修改为注册的表单即可：</p>
+<pre><code class="lang-html">  &lt;!-- 注册的div --&gt;
+  &lt;div class=&quot;reg-box&quot;&gt;
+    &lt;!-- 注册的表单 --&gt;
+    &lt;form class=&quot;layui-form&quot; action=&quot;&quot;&gt;
+      &lt;!-- 用户名 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;i class=&quot;layui-icon layui-icon-username&quot;&gt;&lt;/i&gt;
+        &lt;input type=&quot;text&quot; name=&quot;username&quot; required lay-verify=&quot;required&quot; placeholder=&quot;请输入用户名&quot; autocomplete=&quot;off&quot; class=&quot;layui-input&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 密码 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;i class=&quot;layui-icon layui-icon-password&quot;&gt;&lt;/i&gt;
+        &lt;input type=&quot;password&quot; name=&quot;password&quot; required lay-verify=&quot;required&quot; placeholder=&quot;请输入密码&quot; autocomplete=&quot;off&quot; class=&quot;layui-input&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 密码确认框 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;i class=&quot;layui-icon layui-icon-password&quot;&gt;&lt;/i&gt;
+        &lt;input type=&quot;password&quot; name=&quot;repassword&quot; required lay-verify=&quot;required&quot; placeholder=&quot;再次确认密码&quot; autocomplete=&quot;off&quot; class=&quot;layui-input&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 注册按钮 --&gt;
+      &lt;div class=&quot;layui-form-item&quot;&gt;
+        &lt;!-- 注意：表单提交按钮和普通按钮的区别，就是 lay-submit 属性 --&gt;
+        &lt;button class=&quot;layui-btn layui-btn-fluid layui-btn-normal&quot; lay-submit&gt;注册&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;layui-form-item links&quot;&gt;
+        &lt;a href=&quot;javascript:;&quot; id=&quot;link_login&quot;&gt;去登录&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="2-7-">2.7 实现登录表单的验证</h3>
+<ol>
+<li><p>导入 layui 的 js 文件：</p>
+<pre><code class="lang-html">&lt;script src=&quot;/assets/lib/layui/layui.all.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+</li>
+<li><p>为需要验证的表单项添加 <code>lay-verify</code> 属性，同时指定具体的校验规则即可。</p>
+</li>
+</ol>
+<h3 id="2-8-">2.8 自定义校验规则</h3>
+<ol>
+<li><p>从 layui 中获取 form 对象：</p>
+<pre><code class="lang-js">var form = layui.form
+</code></pre>
+</li>
+<li><p>通过 form.verify() 函数自定义校验规则：</p>
+<pre><code class="lang-js">  form.verify({
+    // 自定义了一个叫做 pwd 校验规则
+    pwd: [/^[\S]{6,12}$/, &#39;密码必须6到12位，且不能出现空格&#39;],
+    // 校验两次密码是否一致的规则
+    repwd: function(value) {
+      // 通过形参拿到的是确认密码框中的内容
+      // 还需要拿到密码框中的内容
+      // 然后进行一次等于的判断
+      // 如果判断失败,则return一个提示消息即可
+      var pwd = $(&#39;.reg-box [name=password]&#39;).val()
+      if (pwd !== value) {
+        return &#39;两次密码不一致！&#39;
+      }
+    }
+  })
+</code></pre>
+</li>
+<li><p>按需为表单项添加校验规则：</p>
+<pre><code class="lang-html">&lt;input type=&quot;password&quot; name=&quot;repassword&quot; required lay-verify=&quot;required|pwd|repwd&quot; placeholder=&quot;再次确认密码&quot; autocomplete=&quot;off&quot; class=&quot;layui-input&quot; /&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="2-9-ajax-">2.9 发起注册用户的Ajax请求</h3>
+<ol>
+<li><p>为注册表单添加Id：</p>
+<pre><code class="lang-html">&lt;!-- 注册的表单 --&gt;
+&lt;form class=&quot;layui-form&quot; id=&quot;form_reg&quot;&gt;&lt;/form&gt;
+</code></pre>
+</li>
+<li><p>监听提交事件：</p>
+<pre><code class="lang-js">// 监听注册表单的提交事件
+  $(&#39;#form_reg&#39;).on(&#39;submit&#39;, function(e) {
+    // 1. 阻止默认的提交行为
+    e.preventDefault()
+    // 2. 发起Ajax的POST请求
+    var data = {
+      username: $(&#39;#form_reg [name=username]&#39;).val(),
+      password: $(&#39;#form_reg [name=password]&#39;).val()
+    }
+    $.post(&#39;http://ajax.frontend.itheima.net/api/reguser&#39;, data, function(res) {
+      if (res.status !== 0) {
+        return layer.msg(res.message)
+      }
+   layer.msg(&#39;注册成功，请登录！&#39;)
+      // 模拟人的点击行为
+      $(&#39;#link_login&#39;).click()
+    })
+  })
+</code></pre>
+</li>
+</ol>
+<h3 id="2-10-layer-">2.10 使用layer提示消息</h3>
+<ol>
+<li><p>导入 layer：</p>
+<pre><code class="lang-js">var layer = layui.layer
+</code></pre>
+</li>
+<li><p>调用 <code>layer.msg()</code> 提示消息：</p>
+<pre><code class="lang-js">layer.msg(&#39;注册成功，请登录！&#39;)
+</code></pre>
+</li>
+</ol>
+<h3 id="2-11-ajax-">2.11 发起登录的Ajax请求</h3>
+<ol>
+<li><p>为登录表单添加id：</p>
+<pre><code class="lang-html">&lt;form class=&quot;layui-form&quot; id=&quot;form_login&quot;&gt;&lt;/form&gt;
+</code></pre>
+</li>
+<li><p>监听提交事件：</p>
+<pre><code class="lang-js">  // 监听登录表单的提交事件
+  $(&#39;#form_login&#39;).submit(function(e) {
+    // 阻止默认提交行为
+    e.preventDefault()
+    $.ajax({
+      url: &#39;/api/login&#39;,
+      method: &#39;POST&#39;,
+      // 快速获取表单中的数据
+      data: $(this).serialize(),
+      success: function(res) {
+        if (res.status !== 0) {
+          return layer.msg(&#39;登录失败！&#39;)
+        }
+        layer.msg(&#39;登录成功！&#39;)
+        // 将登录成功得到的 token 字符串，保存到 localStorage 中
+        localStorage.setItem(&#39;token&#39;, res.token)
+        // 跳转到后台主页
+        location.href = &#39;/index.html&#39;
+      }
+    })
+  })
+</code></pre>
+</li>
+</ol>
+<h3 id="2-12-ajaxprefilter-">2.12 在ajaxPrefilter中统一拼接请求的根路径</h3>
+<ol>
+<li><p>在 <code>/assets/js</code> 目录中新建 <code>baseAPI.js</code></p>
+</li>
+<li><p>编写如下代码：</p>
+<pre><code class="lang-js">// 注意：每次调用 $.get() 或 $.post() 或 $.ajax() 的时候，
+// 会先调用 ajaxPrefilter 这个函数
+// 在这个函数中，可以拿到我们给Ajax提供的配置对象
+$.ajaxPrefilter(function(options) {
+  // 在发起真正的 Ajax 请求之前，统一拼接请求的根路径
+  options.url = &#39;http://ajax.frontend.itheima.net&#39; + options.url
+})
+
+</code></pre>
+</li>
+</ol>
+<h3 id="2-13-login-github">2.13 提交login分支的代码到GitHub</h3>
+<ol>
+<li>运行 <code>git add .</code> 命令</li>
+<li>运行 <code>git commit -m &quot;完成了登录和注册的功能&quot;</code> 命令</li>
+<li>运行 <code>git push -u origin login</code> 命令</li>
+<li>运行 <code>git checkout master</code> 命令</li>
+<li>运行 <code>git merge login</code> 命令</li>
+<li>运行 <code>git push</code> 命令</li>
+<li>运行 <code>git checkout -b index</code> 命令</li>
+</ol>
+<h2 id="3-">3. 后台主页</h2>
+<h3 id="3-1-">3.1 快速实现后台主页的布局效果</h3>
+<ol>
+<li><p>从 layUI 官方文档中粘贴布局的主要代码，并修改如下：</p>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;后台主页&lt;/title&gt;
+    &lt;!-- 导入 layui 的样式表 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/lib/layui/css/layui.css&quot; /&gt;
+  &lt;/head&gt;
+  &lt;body class=&quot;layui-layout-body&quot;&gt;
+    &lt;div class=&quot;layui-layout layui-layout-admin&quot;&gt;
+      &lt;div class=&quot;layui-header&quot;&gt;
+        &lt;div class=&quot;layui-logo&quot;&gt;
+          &lt;img src=&quot;/assets/images/logo.png&quot; alt=&quot;&quot; /&gt;
+        &lt;/div&gt;
+        &lt;!-- 头部区域（可配合layui已有的水平导航） --&gt;
+        &lt;ul class=&quot;layui-nav layui-layout-right&quot;&gt;
+          &lt;li class=&quot;layui-nav-item&quot;&gt;
+            &lt;a href=&quot;javascript:;&quot;&gt;
+              &lt;img src=&quot;http://t.cn/RCzsdCq&quot; class=&quot;layui-nav-img&quot; /&gt;
+              个人中心
+            &lt;/a&gt;
+            &lt;dl class=&quot;layui-nav-child&quot;&gt;
+              &lt;dd&gt;&lt;a href=&quot;&quot;&gt;基本资料&lt;/a&gt;&lt;/dd&gt;
+              &lt;dd&gt;&lt;a href=&quot;&quot;&gt;更换头像&lt;/a&gt;&lt;/dd&gt;
+              &lt;dd&gt;&lt;a href=&quot;&quot;&gt;重置密码&lt;/a&gt;&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;退出&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;layui-side layui-bg-black&quot;&gt;
+        &lt;div class=&quot;layui-side-scroll&quot;&gt;
+          &lt;!-- 左侧导航区域（可配合layui已有的垂直导航） --&gt;
+          &lt;ul class=&quot;layui-nav layui-nav-tree&quot; lay-filter=&quot;test&quot;&gt;
+            &lt;li class=&quot;layui-nav-item layui-nav-itemed&quot;&gt;
+              &lt;a class=&quot;&quot; href=&quot;javascript:;&quot;&gt;所有商品&lt;/a&gt;
+              &lt;dl class=&quot;layui-nav-child&quot;&gt;
+                &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表一&lt;/a&gt;&lt;/dd&gt;
+                &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表二&lt;/a&gt;&lt;/dd&gt;
+                &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表三&lt;/a&gt;&lt;/dd&gt;
+                &lt;dd&gt;&lt;a href=&quot;&quot;&gt;超链接&lt;/a&gt;&lt;/dd&gt;
+              &lt;/dl&gt;
+            &lt;/li&gt;
+            &lt;li class=&quot;layui-nav-item&quot;&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;解决方案&lt;/a&gt;
+              &lt;dl class=&quot;layui-nav-child&quot;&gt;
+                &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表一&lt;/a&gt;&lt;/dd&gt;
+                &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表二&lt;/a&gt;&lt;/dd&gt;
+                &lt;dd&gt;&lt;a href=&quot;&quot;&gt;超链接&lt;/a&gt;&lt;/dd&gt;
+              &lt;/dl&gt;
+            &lt;/li&gt;
+            &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;云市场&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;发布商品&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;layui-body&quot;&gt;
+        &lt;!-- 内容主体区域 --&gt;
+        &lt;div style=&quot;padding: 15px;&quot;&gt;内容主体区域&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;layui-footer&quot;&gt;
+        &lt;!-- 底部固定区域 --&gt;
+        © layui.com - 底部固定区域
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 导入 layui 的JS文件 --&gt;
+    &lt;script src=&quot;/assets/lib/layui/layui.all.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="3-2-">3.2 修改侧边栏的结构</h3>
+<pre><code class="lang-html">&lt;div class=&quot;layui-side layui-bg-black&quot;&gt;
+        &lt;div class=&quot;layui-side-scroll&quot;&gt;
+          &lt;!-- 左侧导航区域（可配合layui已有的垂直导航） --&gt;
+          &lt;ul class=&quot;layui-nav layui-nav-tree&quot;&gt;
+            &lt;li class=&quot;layui-nav-item&quot;&gt;
+              &lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li class=&quot;layui-nav-item&quot;&gt;
+              &lt;a class=&quot;&quot; href=&quot;javascript:;&quot;&gt;文章管理&lt;/a&gt;
+              &lt;dl class=&quot;layui-nav-child&quot;&gt;
+                &lt;dd&gt;
+                  &lt;a href=&quot;javascript:;&quot;&gt;文章类别&lt;/a&gt;
+                &lt;/dd&gt;
+                &lt;dd&gt;
+                  &lt;a href=&quot;javascript:;&quot;&gt;文章列表&lt;/a&gt;
+                &lt;/dd&gt;
+                &lt;dd&gt;
+                  &lt;a href=&quot;javascript:;&quot;&gt;发布文章&lt;/a&gt;
+                &lt;/dd&gt;
+              &lt;/dl&gt;
+            &lt;/li&gt;
+            &lt;li class=&quot;layui-nav-item&quot;&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;个人中心&lt;/a&gt;
+              &lt;dl class=&quot;layui-nav-child&quot;&gt;
+                &lt;dd&gt;
+                  &lt;a href=&quot;javascript:;&quot;&gt;基本资料&lt;/a&gt;
+                &lt;/dd&gt;
+                &lt;dd&gt;
+                  &lt;a href=&quot;javascript:;&quot;&gt;更换头像&lt;/a&gt;
+                &lt;/dd&gt;
+                &lt;dd&gt;
+                  &lt;a href=&quot;javascript:;&quot;&gt;重置密码&lt;/a&gt;
+                &lt;/dd&gt;
+              &lt;/dl&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+</code></pre>
+<h3 id="3-3-lay-shrink-">3.3 使用lay-shrink实现左侧菜单互斥效果</h3>
+<pre><code class="lang-html">      &lt;div class=&quot;layui-side layui-bg-black&quot;&gt;
+        &lt;div class=&quot;layui-side-scroll&quot;&gt;
+          &lt;!-- 左侧导航区域（可配合layui已有的垂直导航） --&gt;
+          &lt;ul class=&quot;layui-nav layui-nav-tree&quot; lay-shrink=&quot;all&quot;&gt;
+            &lt;!-- 省略其他代码 --&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+</code></pre>
+<h3 id="3-4-">3.4 为菜单项添加图标</h3>
+<ol>
+<li><p>导入第三方的图标库：</p>
+<pre><code class="lang-html">&lt;!-- 导入第三方图标库 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/fonts/iconfont.css&quot; /&gt;
+</code></pre>
+</li>
+<li><p>修改左侧菜单的结构：</p>
+<pre><code class="lang-html">  &lt;div class=&quot;layui-side layui-bg-black&quot;&gt;
+    &lt;div class=&quot;layui-side-scroll&quot;&gt;
+      &lt;!-- 左侧导航区域（可配合layui已有的垂直导航） --&gt;
+      &lt;ul class=&quot;layui-nav layui-nav-tree&quot; lay-shrink=&quot;all&quot;&gt;
+        &lt;li class=&quot;layui-nav-item&quot;&gt;
+          &lt;a href=&quot;&quot;&gt;&lt;span class=&quot;iconfont icon-home&quot;&gt;&lt;/span&gt;首页&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;layui-nav-item&quot;&gt;
+          &lt;a class=&quot;&quot; href=&quot;javascript:;&quot;&gt;&lt;span class=&quot;iconfont icon-16&quot;&gt;&lt;/span&gt;文章管理&lt;/a&gt;
+          &lt;dl class=&quot;layui-nav-child&quot;&gt;
+            &lt;dd&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-app&quot;&gt;&lt;/i&gt;文章类别&lt;/a&gt;
+            &lt;/dd&gt;
+            &lt;dd&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-app&quot;&gt;&lt;/i&gt;文章列表&lt;/a&gt;
+            &lt;/dd&gt;
+            &lt;dd&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-app&quot;&gt;&lt;/i&gt;发布文章&lt;/a&gt;
+            &lt;/dd&gt;
+          &lt;/dl&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;layui-nav-item&quot;&gt;
+          &lt;a href=&quot;javascript:;&quot;&gt;&lt;span class=&quot;iconfont icon-user&quot;&gt;&lt;/span&gt;个人中心&lt;/a&gt;
+          &lt;dl class=&quot;layui-nav-child&quot;&gt;
+            &lt;dd&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-app&quot;&gt;&lt;/i&gt;基本资料&lt;/a&gt;
+            &lt;/dd&gt;
+            &lt;dd&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-app&quot;&gt;&lt;/i&gt;更换头像&lt;/a&gt;
+            &lt;/dd&gt;
+            &lt;dd&gt;
+              &lt;a href=&quot;javascript:;&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-app&quot;&gt;&lt;/i&gt;重置密码&lt;/a&gt;
+            &lt;/dd&gt;
+          &lt;/dl&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre>
+</li>
+<li><p>修改头部“退出”按钮的结构：</p>
+<pre><code class="lang-html">&lt;li class=&quot;layui-nav-item&quot;&gt;
+    &lt;a href=&quot;&quot;&gt;&lt;span class=&quot;iconfont icon-tuichu&quot;&gt;&lt;/span&gt;退出&lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+</li>
+<li><p>导入自己的样式表文件：</p>
+<pre><code class="lang-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/index.css&quot; /&gt;
+</code></pre>
+</li>
+<li><p>编写自己的样式：</p>
+<pre><code class="lang-css">.layui-footer {
+  text-align: center;
+  font-size: 12px;
+}
+
+.iconfont {
+  margin-right: 8px;
+}
+
+.layui-icon {
+  margin-right: 8px;
+  margin-left: 20px;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="3-5-iframe-">3.5 使用iframe标签在内容主体区域显示网页内容</h3>
+<ol>
+<li><p>在页面主体的 div 中添加 <code>iframe</code>：</p>
+<pre><code class="lang-html">  &lt;div class=&quot;layui-body&quot;&gt;
+    &lt;!-- 内容主体区域 --&gt;
+    &lt;iframe name=&quot;fm&quot; src=&quot;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+</code></pre>
+</li>
+<li><p>为<code>首页</code>链接添加<code>href</code>和<code>target</code>属性：</p>
+<pre><code class="lang-html">&lt;a href=&quot;/home/dashboard.html&quot; target=&quot;fm&quot;&gt;&lt;span class=&quot;iconfont icon-home&quot;&gt;&lt;/span&gt;首页&lt;/a&gt;
+</code></pre>
+</li>
+<li><p>美化样式：</p>
+<pre><code class="lang-css">iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.layui-body {
+  overflow: hidden;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="3-6-3-">3.6 解决3个小问题</h3>
+<ol>
+<li><p>为 <code>iframe</code> 指定默认页面：</p>
+<pre><code class="lang-html">&lt;iframe name=&quot;fm&quot; src=&quot;/home/dashboard.html&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+</code></pre>
+</li>
+<li><p>为 <code>首页</code> 对应的导航 Item 项添加 <code>layui-this</code> 属性：</p>
+<pre><code class="lang-html">&lt;li class=&quot;layui-nav-item layui-this&quot;&gt;
+  &lt;a href=&quot;/home/dashboard.html&quot; target=&quot;fm&quot;&gt;&lt;span class=&quot;iconfont icon-home&quot;&gt;&lt;/span&gt;首页&lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+</li>
+<li><p>强制清除 <code>&lt;a&gt;</code> 链接的 CSS3 动画：</p>
+<pre><code class="lang-css">a {
+  transition: none !important;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="3-7-">3.7 渲染图片头像和文字头像</h3>
+<ol>
+<li><p>修改头部区域的的头像结构如下：</p>
+<pre><code class="lang-html">&lt;a href=&quot;javascript:;&quot; class=&quot;userinfo&quot;&gt;
+  &lt;img src=&quot;http://t.cn/RCzsdCq&quot; class=&quot;layui-nav-img&quot; /&gt;
+  &lt;span class=&quot;text-avatar&quot;&gt;A&lt;/span&gt;
+  个人中心
+&lt;/a&gt;
+</code></pre>
+</li>
+<li><p>在左侧导航区域的 <code>ul</code> 之前添加如下头像结构：</p>
+<pre><code class="lang-html">&lt;div class=&quot;userinfo&quot;&gt;
+    &lt;img src=&quot;http://t.cn/RCzsdCq&quot; class=&quot;layui-nav-img&quot; /&gt;
+    &lt;span class=&quot;text-avatar&quot;&gt;A&lt;/span&gt;
+    &lt;span id=&quot;welcome&quot;&gt;欢迎 ***&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+</li>
+<li><p>添加样式美化 UI 结构：</p>
+<pre><code class="lang-css">.userinfo {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 12px;
+  user-select: none;
+}
+
+.layui-side-scroll .userinfo {
+  border-bottom: 1px solid #282b33;
+}
+
+.layui-nav-img {
+  width: 40px;
+  height: 40px;
+}
+
+.text-avatar {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: #009688;
+  border-radius: 50%;
+  line-height: 40px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  position: relative;
+  top: 4px;
+  margin-right: 10px;
+}
+</code></pre>
+</li>
+</ol>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
