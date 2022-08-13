@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>index首页</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-image: linear-gradient(to bottom right, red, gold);
+    }
+
+    .box {
+      width: 400px;
+      height: 250px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 6px;
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      box-shadow: 1px 1px 10px #fff;
+      text-shadow: 0px 1px 30px white;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 70px;
+      user-select: none;
+      padding: 0 20px;
+
+      /* 盒子投影 */
+      -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0%, transparent), to(rgba(250, 250, 250, .2)));
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div id="HH">00</div>
+    <div>:</div>
+    <div id="mm">00</div>
+    <div>:</div>
+    <div id="ss">00</div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      // 定时器，每隔 1 秒执行 1 次
+      setInterval(() => {
+        var dt = new Date()
+        var HH = dt.getHours()
+        var mm = dt.getMinutes()
+        var ss = dt.getSeconds()
+
+        // 为页面上的元素赋值
+        document.querySelector('#HH').innerHTML = padZero(HH)
+        document.querySelector('#mm').innerHTML = padZero(mm)
+        document.querySelector('#ss').innerHTML = padZero(ss)
+      }, 1000)
+    }
+
+    // 补零函数
+    function padZero(n) {
+      return n > 9 ? n : '0' + n
+    }
+  </script>
+</body>
+
+</html>
