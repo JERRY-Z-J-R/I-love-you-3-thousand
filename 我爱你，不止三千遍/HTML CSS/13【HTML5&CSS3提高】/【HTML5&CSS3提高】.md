@@ -1134,6 +1134,173 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 
 ![](mark-img/20210423160237686.gif)
 
+## 2.6 CSS3 变量
+
+`var()` 函数用于插入 CSS 变量的值。
+
+使用 CSS 变量的一种好方法涉及设计的颜色。您可以将它们放在变量中，而不必一遍又一遍地复制和粘贴相同的颜色。
+
+【传统方式】
+
+以下例子显示了在样式表中定义一些颜色的传统方式（通过为每个特定元素定义要使用的颜色）：
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: #1e90ff;
+}
+
+h2 {
+  border-bottom: 2px solid #1e90ff;
+}
+
+.container {
+  color: #1e90ff;
+  background-color: #ffffff;
+  padding: 15px;
+}
+
+button {
+  background-color: #ffffff;
+  color: #1e90ff;
+  border: 1px solid #1e90ff;
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+
+<h1>传统方式</h1>
+
+<div class="container">
+  <h2>Welcome to Shanghai!</h2>
+  <p>Shanghai is one of the four direct-administered municipalities of the People's Republic of China.</p>
+  <p>Shanghai is one of the four direct-administered municipalities of the People's Republic of China.</p>
+  <p>
+    <button>Yes</button>
+    <button>No</button>
+  </p>
+</div>
+
+</body>
+</html>
+```
+
+【var() 函数的语法】
+
+var() 函数用于插入 CSS 变量的值。
+
+var() 函数的语法如下：
+
+```css
+var(name, value)
+```
+
+| 值      | 描述                                     |
+| :------ | :--------------------------------------- |
+| *name*  | 必需。变量名（以两条破折号 `--` 开头）。 |
+| *value* | 可选。回退值（在未找到变量时使用）。     |
+
+**注释：**变量名称必须以两个破折号 `--` 开头，且区分大小写！
+
+【var() 如何工作】
+
+首先：CSS 变量可以有全局或局部作用域。
+
+全局变量可以在整个文档中进行访问/使用，而局部变量只能在声明它的选择器内部使用。
+
+如需创建具有全局作用域的变量，请在 `:root` 选择器中声明它，`:root` 选择器匹配文档的根元素。
+
+如需创建具有局部作用域的变量，请在将要使用它的选择器中声明它。
+
+下面的例子与上面的例子相同，但是在这里我们使用 var() 函数。
+
+首先，我们声明两个全局变量（--blue 和 --white）。然后，我们使用 var() 函数稍后在样式表中插入变量的值：
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff; 
+}
+
+body {
+  background-color: var(--blue);
+}
+
+h2 {
+  border-bottom: 2px solid var(--blue);
+}
+
+.container {
+  color: var(--blue);
+  background-color: var(--white);
+  padding: 15px;
+}
+
+button {
+  background-color: var(--white);
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+
+<h1>使用 var() 函数</h1>
+
+<div class="container">
+  <h2>Welcome to Shanghai!</h2>
+  <p>Shanghai is one of the four direct-administered municipalities of the People's Republic of China.</p>
+  <p>Shanghai is one of the four direct-administered municipalities of the People's Republic of China.</p>
+  <p>
+    <button>Yes</button>
+    <button>No</button>
+  </p>
+</div>
+
+</body>
+</html>
+```
+
+使用 var() 有如下优势：
+
+- 使代码更易于阅读（更容易理解）
+- 使修改颜色值更加容易
+
+如需将蓝色和白色改为较柔和的蓝色和白色，您只需要修改两个变量值：
+
+```css
+:root {
+  --blue: #6495ed;
+  --white: #faf0e6;
+}
+
+body { background-color: var(--blue); }
+
+h2 { border-bottom: 2px solid var(--blue); }
+
+.container {
+  color: var(--blue);
+  background-color: var(--white);
+  padding: 15px;
+}
+
+button {
+  background-color: var(--white);
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  padding: 5px;
+}
+```
+
 # 三、狭义的 HTML5 CSS3
 
 1. HTML5 结构本身
