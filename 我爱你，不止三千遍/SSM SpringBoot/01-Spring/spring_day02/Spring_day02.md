@@ -7,7 +7,7 @@
 > * 掌握IOC/DI注解管理第三方bean
 > * 完成Spring与Mybatis及Junit的整合开发
 
-## 1，IOC/DI配置管理第三方bean
+## 1、IOC/DI配置管理第三方bean
 
 前面所讲的知识点都是基于我们自己写的类，现在如果有需求让我们去管理第三方jar包中的类，该如何管理?
 
@@ -541,7 +541,7 @@ public class App {
     ${key}
     ```
 
-## 2，核心容器
+## 2、核心容器
 
 前面已经完成bean与依赖注入的相关知识学习，接下来我们主要学习的是IOC容器中的==核心容器==。
 
@@ -781,7 +781,7 @@ public class BookDaoImpl implements BookDao {
 
 ![1629986848563](assets/1629986848563.png)
 
-## 3，IOC/DI注解开发
+## 3、IOC/DI注解开发
 
 Spring的IOC/DI对应的配置开发就已经讲解完成，但是使用起来相对来说还是比较复杂的，复杂的地方在==配置文件==。
 
@@ -1625,7 +1625,7 @@ public class BookDaoImpl implements BookDao {
 | 作用 | 加载properties文件中的属性值                                 |
 | 属性 | value（默认）：设置加载的properties文件对应的文件名或文件名组成的数组 |
 
-## 4，IOC/DI注解开发管理第三方bean
+## 4、IOC/DI注解开发管理第三方bean
 
 前面定义bean的时候都是在自己开发的类上面写个注解就完成了，但如果是第三方的类，这些类都是在jar包中，我们没有办法在类上面添加注解，这个时候该怎么办?
 
@@ -2039,13 +2039,13 @@ public DataSource dataSource(BookDao bookDao){
 
 
 
-## 5，注解开发总结
+## 5、注解开发总结
 
 前面我们已经完成了XML配置和注解的开发实现，至于两者之间的差异，咱们放在一块去对比回顾下:
 
 ![1630134786448](assets/1630134786448.png)
 
-## 6，Spring整合
+## 6、Spring整合
 
 课程学习到这里，已经对Spring有一个简单的认识了，Spring有一个容器，叫做IoC容器，里面保存bean。在进行企业级开发的时候，其实除了将自己写的类让Spring管理之外，还有一部分重要的工作就是使用第三方的技术。前面已经讲了如何管理第三方bean了，下面结合IoC和DI，整合2个常用技术，进一步加深对Spring的使用理解。
 

@@ -7,7 +7,7 @@
 > * 能运用AOP相关知识完成对应的案例编写
 > * 重点掌握Spring的声明式事务管理
 
-## 1，AOP简介
+## 1、AOP简介
 
 前面我们在介绍Spring的时候说过，Spring有两个核心的概念，一个是`IOC/DI`，一个是`AOP`。
 
@@ -119,7 +119,7 @@ public class BookDaoImpl implements BookDao {
   * 通知类
   * 切面
 
-## 2，AOP入门案例
+## 2、AOP入门案例
 
 ### 2.1 需求分析
 
@@ -373,7 +373,7 @@ public class App {
 | 位置 | 通知方法定义上方                                             |
 | 作用 | 设置当前通知方法与切入点之间的绑定关系，当前通知方法在原始切入点方法前运行 |
 
-## 3，AOP工作流程
+## 3、AOP工作流程
 
 AOP的入门案例已经完成，对于刚才案例的执行过程，我们就得来分析分析，这一节我们主要讲解两个知识点:`AOP工作流程`和`AOP核心概念`。其中核心概念是对前面核心概念的补充。
 
@@ -522,7 +522,7 @@ SpringAOP是在不改变原有设计(代码)的前提下对其进行增强的，
   * 代理
 * SpringAOP的本质或者可以说底层实现是通过代理模式。
 
-## 4，AOP配置管理
+## 4、AOP配置管理
 
 ### 4.1 AOP切入点表达式
 
@@ -2040,7 +2040,7 @@ public class ResourcesDaoImpl implements ResourcesDao {
 
 ![1630242491831](assets/1630242491831.png)
 
-## 5，AOP总结
+## 5、AOP总结
 
 AOP的知识就已经讲解完了，接下来对于AOP的知识进行一个总结:
 
@@ -2104,7 +2104,7 @@ AOP的知识就已经讲解完了，接下来对于AOP的知识进行一个总�
   - 抛出异常后通知
   - 环绕通知
 
-## 6，AOP事务管理
+## 6、AOP事务管理
 
 ### 6.1 Spring事务简介
 
@@ -2606,7 +2606,7 @@ public class SpringConfig {
       
       }
       ```
-      
+  
 * 出现这个问题的原因是，Spring的事务只会对`Error异常`和`RuntimeException异常`及其子类进行事务回顾，其他的异常类型是不会回滚的，对应IOException不符合上述条件所以不回滚
       
     * 此时就可以使用rollbackFor属性来设置出现IOException异常不回滚

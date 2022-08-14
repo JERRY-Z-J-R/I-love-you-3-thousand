@@ -6,7 +6,7 @@
 > * 熟练使用SpringBoot配置信息修改服务器配置
 > * 基于SpringBoot的完成SSM整合项目开发
 
-## 1，SpringBoot简介
+## 1、SpringBoot简介
 
 `SpringBoot` 是由 `Pivotal` 团队提供的全新框架，其设计目的是用来==简化== `Spring` 应用的==初始搭建==以及==开发过程==。
 
@@ -446,7 +446,7 @@ public class Springboot01QuickstartApplication {
 
 通过切换服务器，我们不难发现在使用 `SpringBoot` 换技术时只需要导入该技术的起步依赖即可。
 
-## 2，配置文件
+## 2、配置文件
 
 ### 2.1  配置文件格式
 
@@ -1157,7 +1157,7 @@ server:
 >
 > SpringBoot 2.5.0版本存在一个bug，我们在使用这个版本时，需要在 `jar` 所在位置的 `config` 目录下创建一个任意名称的文件夹
 
-## 3，SpringBoot整合junit
+## 3、SpringBoot整合junit
 
 回顾 `Spring` 整合 `junit`
 
@@ -1235,7 +1235,7 @@ class Springboot07TestApplicationTests {
 >
 > 如果不满足这个要求的话，就需要在使用 `@SpringBootTest` 注解时，使用 `classes` 属性指定引导类的字节码对象。如 `@SpringBootTest(classes = Springboot07TestApplication.class)`
 
-## 4，SpringBoot整合mybatis
+## 4、SpringBoot整合mybatis
 
 ### 4.1  回顾Spring整合Mybatis
 
@@ -1432,7 +1432,7 @@ public interface BookDao {
       type: com.alibaba.druid.pool.DruidDataSource
   ```
 
-## 5，案例
+## 5、案例
 
 `SpringBoot` 到这就已经学习完毕，接下来我们将学习 `SSM` 时做的三大框架整合的案例用 `SpringBoot` 来实现一下。我们完成这个案例基本是将之前做的拷贝过来，修改成 `SpringBoot` 的即可，主要从以下几部分完成
 

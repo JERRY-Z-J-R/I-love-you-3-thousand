@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6dd4f7a8-ad8a-4e8a-8d14-0fc3219d2850" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/itheima/config/ServletContainersInitConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/itheima/config/SpringMvcConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/itheima/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc_02_bean_jia_zai_kong_zhi/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc_03_request_mapping/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc_04_request_param/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc_05_response/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc_06_rest/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc_07_rest_an_li/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../01-Spring/spring_day02/Spring_day02.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../01-Spring/spring_day02/Spring_day02.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../01-Spring/spring_day03/Spring_day03.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../01-Spring/spring_day03/Spring_day03.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day01/SpringMVC_day01.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day01/SpringMVC_day01.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day02/SpringMVC_day02.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day02/SpringMVC_day02.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03-Maven高级/Maven高级.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../03-Maven高级/Maven高级.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../04-SpringBoot/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../04-SpringBoot/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../05-MybatisPlus/MyBatisPlus.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../05-MybatisPlus/MyBatisPlus.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/apache-maven-3.6.1" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.6.1\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2DKGD1HSevvYlNJCjoNnUyBIZDg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "F:/MyGit/I-love-you-3-thousand/我爱你，不止三千遍/SSM SpringBoot/06-案例合集/springmvc_01_ru_men_an_li/src/main/webapp",
+    "project.structure.last.edited": "Facet",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\SSM SpringBoot\06-案例合集\springmvc_01_ru_men_an_li\src\main\webapp" />
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\SSM SpringBoot\06-案例合集\springmvc_01_ru_men_an_li\src\main\java" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\SSM SpringBoot\06-案例合集\springmvc_01_ru_men_an_li\src\main\webapp" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="springmvc_01_ru_men_an_li [tomcat7:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="tomcat7:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="6dd4f7a8-ad8a-4e8a-8d14-0fc3219d2850" name="变更" comment="" />
+      <created>1660440242245</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1660440242245</updated>
+      <workItem from="1660440244307" duration="2780000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
