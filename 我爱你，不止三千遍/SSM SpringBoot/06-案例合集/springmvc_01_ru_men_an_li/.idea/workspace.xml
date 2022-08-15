@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6dd4f7a8-ad8a-4e8a-8d14-0fc3219d2850" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/itheima/config/ServletContainersInitConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/itheima/config/SpringMvcConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/itheima/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../springmvc_02_bean_jia_zai_kong_zhi/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../springmvc_03_request_mapping/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../springmvc_04_request_param/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../springmvc_05_response/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../springmvc_06_rest/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../springmvc_07_rest_an_li/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../01-Spring/spring_day02/Spring_day02.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../01-Spring/spring_day02/Spring_day02.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../01-Spring/spring_day03/Spring_day03.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../01-Spring/spring_day03/Spring_day03.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day01/SpringMVC_day01.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day01/SpringMVC_day01.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day02/SpringMVC_day02.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../02-SpringMVC/SpringMVC_day02/SpringMVC_day02.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../03-Maven高级/Maven高级.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../03-Maven高级/Maven高级.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../04-SpringBoot/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../04-SpringBoot/SpringBoot.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../05-MybatisPlus/MyBatisPlus.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../05-MybatisPlus/MyBatisPlus.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc_07_rest_an_li/target/tomcat/logs/access_log.2022-08-14" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc_07_rest_an_li/target/tomcat/logs/access_log.2022-08-14" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

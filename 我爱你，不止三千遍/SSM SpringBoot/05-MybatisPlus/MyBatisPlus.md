@@ -1,7 +1,5 @@
 ## MyBatisPlus
 
-**今日目标**
-
 > 基于MyBatisPlus完成标准Dao的增删改查功能
 >
 > 掌握MyBatisPlus中的分页及条件查询构建

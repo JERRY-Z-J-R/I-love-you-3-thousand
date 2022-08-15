@@ -1,0 +1,12 @@
+com\itheima\config\MyBatisConfig.class
+com\itheima\controller\Result.class
+com\itheima\config\ServletConfig.class
+com\itheima\service\BookService.class
+com\itheima\dao\BookDao.class
+com\itheima\domain\Book.class
+com\itheima\controller\Code.class
+com\itheima\config\SpringConfig.class
+com\itheima\service\impl\BookServiceImpl.class
+com\itheima\controller\BookController.class
+com\itheima\config\JdbcConfig.class
+com\itheima\config\SpringMvcConfig.class

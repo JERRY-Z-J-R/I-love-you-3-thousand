@@ -1,7 +1,5 @@
 ## Spring_day02
 
-**今日目标**
-
 > * 掌握IOC/DI配置管理第三方bean
 > * 掌握IOC/DI的注解开发
 > * 掌握IOC/DI注解管理第三方bean
