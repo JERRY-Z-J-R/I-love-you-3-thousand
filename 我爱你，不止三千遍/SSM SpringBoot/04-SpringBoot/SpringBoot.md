@@ -1,10 +1,8 @@
 ## SpringBoot
 
-**今日目标：**
-
-> * 掌握基于SpringBoot框架的程序开发步骤
-> * 熟练使用SpringBoot配置信息修改服务器配置
-> * 基于SpringBoot的完成SSM整合项目开发
+> * 掌握基于 SpringBoot 框架的程序开发步骤
+> * 熟练使用 SpringBoot 配置信息修改服务器配置
+> * 基于 SpringBoot 的完成 SSM 整合项目开发
 
 ## 1、SpringBoot简介
 
@@ -18,7 +16,7 @@
 
 2. **编写 `web3.0` 的配置类**
 
-   作为 `web` 程序，`web3.0` 的配置类不能缺少，而这个配置类还是比较麻烦的，代码如下
+   作为 `web` 程序，`web3.0` 的配置类不能缺少，而这个配置类还是比较麻烦的，代码如下：
 
 <img src="assets/image-20210911133112602.png" alt="image-20210911133112602" style="zoom:50%;" />
 
@@ -40,10 +38,10 @@
 
 `SpringBoot` 开发起来特别简单，分为如下几步：
 
-* 创建新模块，选择Spring初始化，并配置模块相关基础信息
+* 创建新模块，选择 Spring 初始化，并配置模块相关基础信息
 * 选择当前模块需要使用的技术集
 * 开发控制器类
-* 运行自动生成的Application类
+* 运行自动生成的 Application 类
 
 知道了 `SpringBoot` 的开发步骤后，接下来我们进行具体的操作
 
@@ -147,7 +145,7 @@ public class Application {
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <!--指定了一个父工程，父工程中的东西在该工程中可以继承过来使用-->
+    <!-- 指定了一个父工程，父工程中的东西在该工程中可以继承过来使用 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -212,11 +210,11 @@ public class Application {
 
   `Spring/SpringMVC` 程序的配置类需要自己书写。而 `SpringBoot`  程序则不需要书写。
 
-> ==注意：基于Idea的 `Spring Initializr` 快速构建 `SpringBoot` 工程时需要联网。== 
+> ==注意：基于 Idea 的 `Spring Initializr` 快速构建 `SpringBoot` 工程时需要联网。== 
 
 #### 1.1.3  官网构建工程
 
-在入门案例中之所以能快速构建 `SpringBoot` 工程，是因为 `Idea` 使用了官网提供了快速构建 `SpringBoot` 工程的组件实现的。那如何在官网进行工程构建呢？通过如下步骤构建
+在入门案例中之所以能快速构建 `SpringBoot` 工程，是因为 `Idea` 使用了官网提供了快速构建 `SpringBoot` 工程的组件实现的。那如何在官网进行工程构建呢？通过如下步骤构建：
 
 ##### 1.1.3.1  进入SpringBoot官网
 
@@ -244,11 +242,11 @@ https://spring.io/projects/spring-boot
 
 ##### 1.1.3.3  生成工程
 
-以上步骤完成后就可以生成 `SpringBoot` 工程了。在页面的最下方点击 `GENERATE CTRL + 回车` 按钮生成工程并下载到本地，如下图所示
+以上步骤完成后就可以生成 `SpringBoot` 工程了。在页面的最下方点击 `GENERATE CTRL + 回车` 按钮生成工程并下载到本地，如下图所示：
 
 ![image-20210911175222857](assets/image-20210911175222857.png)
 
-打开下载好的压缩包可以看到工程结构和使用 `Idea` 生成的一模一样，如下图
+打开下载好的压缩包可以看到工程结构和使用 `Idea` 生成的一模一样，如下图：
 
 <img src="assets/image-20210911175502834.png" alt="image-20210911175502834" style="zoom:80%;" />
 
@@ -264,7 +262,7 @@ https://spring.io/projects/spring-boot
 
 以后我们和前端开发人员协同开发，而前端开发人员需要测试前端程序就需要后端开启服务器，这就受制于后端开发人员。为了摆脱这个受制，前端开发人员尝试着在自己电脑上安装 `Tomcat` 和 `Idea` ，在自己电脑上启动后端程序，这显然不现实。
 
-我们后端可以将 `SpringBoot` 工程打成 `jar` 包，该 `jar` 包运行不依赖于 `Tomcat` 和 `Idea` 这些工具也可以正常运行，只是这个 `jar` 包在运行过程中连接和我们自己程序相同的 `Mysql` 数据库即可。这样就可以解决这个问题，如下图
+我们后端可以将 `SpringBoot` 工程打成 `jar` 包，该 `jar` 包运行不依赖于 `Tomcat` 和 `Idea` 这些工具也可以正常运行，只是这个 `jar` 包在运行过程中需要连接和我们自己程序相同的 `Mysql` 数据库即可。这样就可以解决这个问题，如下图：
 
 <img src="assets/image-20210911181714437.png" alt="image-20210911181714437" style="zoom:50%;" />
 
@@ -272,7 +270,7 @@ https://spring.io/projects/spring-boot
 
 ##### 1.1.4.2  打包
 
-由于我们在构建 `SpringBoot` 工程时已经在 `pom.xml` 中配置了如下插件
+由于我们在构建 `SpringBoot` 工程时已经在 `pom.xml` 中配置了如下插件：
 
 ```xml
 <plugin>
@@ -290,7 +288,7 @@ https://spring.io/projects/spring-boot
 进入 `jar` 包所在位置，在 `命令提示符` 中输入如下命令
 
 ```shell
-jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
+java -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 ```
 
 执行上述命令就可以看到 `SpringBoot` 运行的日志信息
@@ -299,7 +297,7 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 
 ### 1.2  SpringBoot概述
 
-`SpringBoot` 是由Pivotal团队提供的全新框架，其设计目的是用来==简化==Spring应用的==初始搭建==以及==开发过程==。
+`SpringBoot` 是由 Pivotal 团队提供的全新框架，其设计目的是用来==简化==Spring 应用的==初始搭建==以及==开发过程==。
 
 大家已经感受了 `SpringBoot` 程序，回过头看看 `SpringBoot` 主要作用是什么，就是简化 `Spring` 的搭建过程和开发过程。
 
@@ -310,15 +308,15 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 
 `SpringBoot` 程序优点恰巧就是针对 `Spring` 的缺点
 
-* 自动配置。这个是用来解决 `Spring` 程序配置繁琐的问题
-* 起步依赖。这个是用来解决 `Spring` 程序依赖设置繁琐的问题
-* 辅助功能（内置服务器,...）。我们在启动 `SpringBoot` 程序时既没有使用本地的 `tomcat` 也没有使用 `tomcat` 插件，而是使用 `SpringBoot` 内置的服务器。
+* 自动配置：这个是用来解决 `Spring` 程序配置繁琐的问题
+* 起步依赖：这个是用来解决 `Spring` 程序依赖设置繁琐的问题
+* 辅助功能（内置服务器……）。我们在启动 `SpringBoot` 程序时既没有使用本地的 `tomcat` 也没有使用 `tomcat` 插件，而是使用 `SpringBoot` 内置的服务器。
 
 接下来我们来说一下 `SpringBoot` 的起步依赖
 
 #### 1.2.1  起步依赖
 
-我们使用 `Spring Initializr`  方式创建的 `Maven` 工程的的 `pom.xml` 配置文件中自动生成了很多包含 `starter` 的依赖，如下图
+我们使用 `Spring Initializr`  方式创建的 `Maven` 工程的的 `pom.xml` 配置文件中自动生成了很多包含 `starter` 的依赖，如下图：
 
 <img src="assets/image-20210918220338109.png" alt="image-20210918220338109" style="zoom:70%;" />
 
@@ -334,13 +332,13 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 
 <img src="assets/image-20210918221042947.png" alt="image-20210918221042947" style="zoom:80%;" />
 
-上图中的 `properties` 标签中定义了各个技术软件依赖的版本，避免了我们在使用不同软件技术时考虑版本的兼容问题。在 `properties` 中我们找 `servlet`  和 `mysql` 的版本如下图
+上图中的 `properties` 标签中定义了各个技术软件依赖的版本，避免了我们在使用不同软件技术时考虑版本的兼容问题。在 `properties` 中我们找 `servlet`  和 `mysql` 的版本如下图：
 
 <img src="assets/image-20210918221511249.png" alt="image-20210918221511249" style="zoom:80%;" />
 
 `dependencyManagement` 标签是进行依赖版本锁定，但是并没有导入对应的依赖；如果我们工程需要那个依赖只需要引入依赖的 `groupid` 和 `artifactId` 不需要定义 `version`。
 
-而 `build` 标签中也对插件的版本进行了锁定，如下图
+而 `build` 标签中也对插件的版本进行了锁定，如下图：
 
 <img src="assets/image-20210918221942453.png" alt="image-20210918221942453" style="zoom:80%;" />
 
@@ -348,11 +346,11 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 
 ##### 1.2.1.2  探索依赖
 
-在我们创建的工程中的 `pom.xml` 中配置了如下依赖
+在我们创建的工程中的 `pom.xml` 中配置了如下依赖：
 
 <img src="assets/image-20210918222321402.png" alt="image-20210918222321402" style="zoom:80%;" />
 
-进入到该依赖，查看 `pom.xml` 的依赖会发现它引入了如下的依赖
+进入到该依赖，查看 `pom.xml` 的依赖会发现它引入了如下的依赖：
 
 <img src="assets/image-20210918222607469.png" alt="image-20210918222607469" style="zoom:80%;" />
 
@@ -372,11 +370,11 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 
 * 所有 `SpringBoot` 项目要继承的项目，定义了若干个坐标版本号（依赖管理，而非依赖），以达到减少依赖冲突的目的
 
-* `spring-boot-starter-parent`（2.5.0）与 `spring-boot-starter-parent`（2.4.6）共计57处坐标版本不同
+* `spring-boot-starter-parent`（2.5.0）与 `spring-boot-starter-parent`（2.4.6）共计 57 处坐标版本不同
 
 **实际开发**
 
-* 使用任意坐标时，仅书写GAV中的G和A，V由SpringBoot提供
+* 使用任意坐标时，仅书写 GAV 中的 G 和 A，V 由 SpringBoot 提供
 
   > G：groupid
   >
@@ -384,7 +382,7 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
   >
   > V：version
 
-* 如发生坐标错误，再指定version（要小心版本冲突）
+* 如发生坐标错误，再指定 version（要小心版本冲突）
 
 #### 1.2.2  程序启动
 
@@ -393,7 +391,6 @@ jar -jar springboot_01_quickstart-0.0.1-SNAPSHOT.jar
 ```java
 @SpringBootApplication
 public class Springboot01QuickstartApplication {
-    
     public static void main(String[] args) {
         SpringApplication.run(Springboot01QuickstartApplication.class, args);
     }
@@ -402,7 +399,7 @@ public class Springboot01QuickstartApplication {
 
 ==注意：==
 
-* `SpringBoot` 在创建项目时，采用jar的打包方式
+* `SpringBoot` 在创建项目时，采用 jar 的打包方式
 
 * `SpringBoot` 的引导类是项目的入口，运行 `main` 方法就可以启动项目
 
@@ -450,19 +447,19 @@ public class Springboot01QuickstartApplication {
 
 ### 2.1  配置文件格式
 
-我们现在启动服务器默认的端口号是 `8080`，访问路径可以书写为
+我们现在启动服务器默认的端口号是 `8080`，访问路径可以书写为：
 
 ```
 http://localhost:8080/books/1
 ```
 
-在线上环境我们还是希望将端口号改为 `80`，这样在访问的时候就可以不写端口号了，如下
+在线上环境我们还是希望将端口号改为 `80`，这样在访问的时候就可以不写端口号了，如下：
 
 ```
 http://localhost/books/1
 ```
 
-而 `SpringBoot` 程序如何修改呢？`SpringBoot` 提供了多种属性配置方式
+而 `SpringBoot` 程序如何修改呢？`SpringBoot` 提供了多种属性配置方式：
 
 * `application.properties`
 
@@ -511,7 +508,7 @@ public class BookController {
 
 * **application.properties配置文件**
 
-现在需要进行配置，配合文件必须放在 `resources` 目录下，而该目录下有一个名为 `application.properties` 的配置文件，我们就可以在该配置文件中修改端口号，在该配置文件中书写 `port` ，`Idea` 就会提示，如下
+现在需要进行配置，配合文件必须放在 `resources` 目录下，而该目录下有一个名为 `application.properties` 的配置文件，我们就可以在该配置文件中修改端口号，在该配置文件中书写 `port` ，`Idea` 就会提示，如下：
 
 <img src="assets/image-20210917161422535.png" alt="image-20210917161422535" style="zoom:80%;" />
 
@@ -685,7 +682,7 @@ enterprise:
 
 * 属性层级关系使用多行描述，每行结尾使用冒号结束
 
-* 使用缩进表示层级关系，同层级左侧对齐，只允许使用空格（不允许使用Tab键）
+* 使用缩进表示层级关系，同层级左侧对齐，只允许使用空格（不允许使用 Tab 键）
 
   空格的个数并不重要，只要保证同层级的左侧对齐即可。
 
@@ -695,7 +692,7 @@ enterprise:
 
 ==核心规则：数据前面要加空格与冒号隔开==
 
-数组数据在数据书写位置的下方使用减号作为数据开始符号，每行书写一个数据，减号与数据间空格分隔，例如
+数组数据在数据书写位置的下方使用减号作为数据开始符号，每行书写一个数据，减号与数据间空格分隔，例如：
 
 ```yaml
 enterprise:
@@ -929,11 +926,11 @@ public class BookController {
 
 ### 2.4  多环境配置
 
-以后在工作中，对于开发环境、测试环境、生产环境的配置肯定都不相同，比如我们开发阶段会在自己的电脑上安装 `mysql` ，连接自己电脑上的 `mysql` 即可，但是项目开发完毕后要上线就需要该配置，将环境的配置改为线上环境的。
+以后在工作中，对于开发环境、测试环境、生产环境的配置肯定都不相同，比如我们开发阶段会在自己的电脑上安装 `mysql` ，连接自己电脑上的 `mysql` 即可，但是项目开发完毕后要上线就需要改配置，将环境的配置改为线上环境的。
 
 <img src="assets/image-20210917185253557.png" alt="image-20210917185253557" style="zoom:60%;" />
 
-来回的修改配置会很麻烦，而 `SpringBoot` 给开发者提供了多环境的快捷配置，需要切换环境时只需要改一个配置即可。不同类型的配置文件多环境开发的配置都不相同，接下来对不同类型的配置文件进行说明
+来回的修改配置会很麻烦，而 `SpringBoot` 给开发者提供了多环境的快捷配置，需要切换环境时只需要改一个配置即可。不同类型的配置文件多环境开发的配置都不相同，接下来对不同类型的配置文件进行说明：
 
 #### 2.4.1  yaml文件
 
@@ -960,7 +957,7 @@ server:
 ---
 ```
 
-上面配置中 `spring.profiles` 是用来给不同的配置起名字的。而如何告知 `SpringBoot` 使用哪段配置呢？可以使用如下配置来启用都一段配置
+上面配置中 `spring.profiles` 是用来给不同的配置起名字的。而如何告知 `SpringBoot` 使用哪段配置呢？可以使用如下配置来启用一段配置：
 
 ```yaml
 #设置启用的环境
@@ -1000,7 +997,7 @@ server:
 
 ==注意：==
 
-在上面配置中给不同配置起名字的 `spring.profiles` 配置项已经过时。最新用来起名字的配置项是 
+在上面配置中给不同配置起名字的 `spring.profiles` 配置项已经过时。最新用来起名字的配置项是：
 
 ```yaml
 #开发
@@ -1032,7 +1029,7 @@ spring:
   server.port=82
   ```
 
-`SpringBoot` 只会默认加载名为 `application.properties` 的配置文件，所以需要在 `application.properties` 配置文件中设置启用哪个配置文件，配置如下:
+`SpringBoot` 只会默认加载名为 `application.properties` 的配置文件，所以需要在 `application.properties` 配置文件中设置启用哪个配置文件，配置如下：
 
 ```properties
 spring.profiles.active=pro
@@ -1040,9 +1037,9 @@ spring.profiles.active=pro
 
 #### 2.4.3  命令行启动参数设置
 
-使用 `SpringBoot` 开发的程序以后都是打成 `jar` 包，通过 `java -jar xxx.jar` 的方式启动服务的。那么就存在一个问题，如何切换环境呢？因为配置文件打到的jar包中了。
+使用 `SpringBoot` 开发的程序以后都是打成 `jar` 包，通过 `java -jar xxx.jar` 的方式启动服务的。那么就存在一个问题，如何切换环境呢？因为配置文件打到的 jar 包中了。
 
-我们知道 `jar` 包其实就是一个压缩包，可以解压缩，然后修改配置，最后再打成jar包就可以了。这种方式显然有点麻烦，而 `SpringBoot` 提供了在运行 `jar` 时设置开启指定的环境的方式，如下
+我们知道 `jar` 包其实就是一个压缩包，可以解压缩，然后修改配置，最后再打成 jar 包就可以了。这种方式显然有点麻烦，而 `SpringBoot` 提供了在运行 `jar` 时设置开启指定的环境的方式，如下：
 
 ```shell
 java –jar xxx.jar –-spring.profiles.active=test
@@ -1054,13 +1051,13 @@ java –jar xxx.jar –-spring.profiles.active=test
 java –jar xxx.jar –-server.port=88
 ```
 
-当然也可以同时设置多个配置，比如即指定启用哪个环境配置，又临时指定端口，如下
+当然也可以同时设置多个配置，比如即指定启用哪个环境配置，又临时指定端口，如下：
 
 ```shell
 java –jar springboot.jar –-server.port=88 –-spring.profiles.active=test
 ```
 
-大家进行测试后就会发现命令行设置的端口号优先级高（也就是使用的是命令行设置的端口号），配置的优先级其实 `SpringBoot` 官网已经进行了说明，参见 :
+大家进行测试后就会发现命令行设置的端口号优先级高（也就是使用的是命令行设置的端口号），配置的优先级其实 `SpringBoot` 官网已经进行了说明，参见：
 
 ```
 https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config
@@ -1072,24 +1069,70 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-featu
 
 如果使用了多种方式配合同一个配置项，优先级高的生效。
 
+#### 2.4.4 Maven与Boot多环境兼容
+
+如果 Maven 与 Boot 都配置了多环境开发，那么起主导作用的应该是 Maven，因为 Boot 本质上也是基于 Maven 来实现的多环境开发。
+
+![image-20220815221031630](mark-img/image-20220815221031630.png)
+
+下面，我们以一个案例来演示：Maven 控制版本，然后让 Boot 加载 Maven 中设置的版本。
+
+1. 在 pom.xml 中设置了多环境开发（Maven）
+
+![image-20220815221333960](mark-img/image-20220815221333960.png)
+
+2. application.yml 依旧按照之前的设置
+
+![image-20220815221505421](mark-img/image-20220815221505421.png)
+
+3. 我们执行 package 进行打包
+4. 再执行 java -jar xxx.jar 执行项目
+5. 可以发现，最终的端口是 dev 的 80 端口
+
+![image-20220815221637446](mark-img/image-20220815221637446.png)
+
+下面，我们就是要解决如何告诉 application.yml 让其读取 pom.xml 中的设置
+
+1. 在 pom.xml 中配置 profile.active
+
+<img src="mark-img/image-20220815221944206.png" alt="image-20220815221944206" style="zoom:50%;" />
+
+2. 在 application.yml 中加载 profile.active
+
+<img src="mark-img/image-20220815222055700.png" alt="image-20220815222055700" style="zoom:50%;" />
+
+再次 package 打包，java -jar 执行：
+
+![image-20220815222216416](mark-img/image-20220815222216416.png)
+
+发现，这次更离谱，居然开启的是 8080 端口，这是为什么呢？
+
+原因是，application.yml 中并没有解析 profile.active，所以就采用了默认的 8080 端口，原因是：pom 文件默认是不可以干预到 application 配置文件的，解决办法是加上一个插件：
+
+![image-20220815222741619](mark-img/image-20220815222741619.png)
+
+再次 package，java -jar 执行，即可满足要求
+
+![image-20220815222825218](mark-img/image-20220815222825218.png)
+
 ### 2.5  配置文件分类
 
 <img src="assets/image-20210917194941597.png" alt="image-20210917194941597" style="zoom:70%;" />
 
-有这样的场景，我们开发完毕后需要测试人员进行测试，由于测试环境和开发环境的很多配置都不相同，所以测试人员在运行我们的工程时需要临时修改很多配置，如下
+有这样的场景，我们开发完毕后需要测试人员进行测试，由于测试环境和开发环境的很多配置都不相同，所以测试人员在运行我们的工程时需要临时修改很多配置，如下：
 
 ```shell
 java –jar springboot.jar –-spring.profiles.active=test --server.port=85 --server.servlet.context-path=/heima --server.tomcat.connection-timeout=-1 …… …… …… …… ……
 ```
 
-针对这种情况，`SpringBoot` 定义了配置文件不同的放置的位置；而放在不同位置的优先级时不同的。
+针对这种情况，`SpringBoot` 定义了配置文件不同的放置的位置；而放在不同位置的优先级是不同的。
 
-`SpringBoot` 中4级配置文件放置位置：
+`SpringBoot` 中 4 级配置文件放置位置：
 
 * 1级：classpath：application.yml  
 * 2级：classpath：config/application.yml
-* 3级：file ：application.yml
-* 4级：file ：config/application.yml 
+* 3级：file：application.yml
+* 4级：file：config/application.yml 
 
 > ==说明：==级别越高优先级越高
 
@@ -1099,18 +1142,18 @@ java –jar springboot.jar –-spring.profiles.active=test --server.port=85 --se
 
 ##### 2.5.1.1  环境准备
 
-创建一个名为 `springboot_06_config_file` 的 `SpringBoot` 工程，目录结构如下
+创建一个名为 `springboot_06_config_file` 的 `SpringBoot` 工程，目录结构如下：
 
 <img src="assets/image-20210917200241282.png" alt="image-20210917200241282" style="zoom:80%;" />
 
-在 `resources` 下创建一个名为 `config` 的目录，在该目录中创建 `application.yml` 配置文件，而在该配置文件中将端口号设置为 `81`，内容如下
+在 `resources` 下创建一个名为 `config` 的目录，在该目录中创建 `application.yml` 配置文件，而在该配置文件中将端口号设置为 `81`，内容如下：
 
 ```yaml
 server:
   port: 81
 ```
 
-而在 `resources` 下创建的 `application.yml` 配置文件中并将端口号设置为 `80`，内容如下
+而在 `resources` 下创建的 `application.yml` 配置文件中并将端口号设置为 `80`，内容如下：
 
 ```yaml
 server:
@@ -1125,9 +1168,11 @@ server:
 
 通过这个结果可以得出==类路径下的 `config` 下的配置文件优先于类路径下的配置文件。==
 
+==用途：==在开发的时候用低级别的配置，在交给测试的时候配置高一级的配置
+
 ##### 2.5.1.3  验证2级和4级的优先级
 
-要验证4级，按照以下步骤完成
+要验证 4 级，按照以下步骤完成
 
 * 将工程打成 `jar` 包
 
@@ -1139,7 +1184,7 @@ server:
 
   <img src="assets/image-20210917201523669.png" alt="image-20210917201523669" style="zoom:70%;" />
 
-* 在 `jar` 包所在位置创建 `config` 文件夹，在该文件夹下创建 `application.yml` 配置文件，而在该配合文件中将端口号设置为 `82` 
+* 在 `jar` 包所在位置创建 `config` 文件夹，在该文件夹下创建 `application.yml` 配置文件，而在该配合文件中将端口号设置为 `82` （可以发现，这样的方式更方便，除了 jar 文件外，直接提供一个 application.yml 文件给测试人员放在 jar 同一级路径中的 config 文件夹中即可）
 
 * 在命令行使用以下命令运行程序
 
@@ -1153,9 +1198,11 @@ server:
 
   通过这个结果可以得出==file： `config` 下的配置文件优先于类路径下的配置文件。==
 
+> 注意：第 3 级则是直接在 jar 所在路径下放置 application.yml
+
 > ==注意：==
 >
-> SpringBoot 2.5.0版本存在一个bug，我们在使用这个版本时，需要在 `jar` 所在位置的 `config` 目录下创建一个任意名称的文件夹
+> SpringBoot 2.5.0 版本存在一个 bug，我们在使用这个版本时，需要在 `jar` 所在位置的 `config` 目录下创建一个任意名称的文件夹
 
 ## 3、SpringBoot整合junit
 
@@ -1251,15 +1298,14 @@ class Springboot07TestApplicationTests {
     @Configuration
     @ComponentScan("com.itheima")
     @PropertySource("classpath:jdbc.properties")
-    @Import({JdbcConfig.class,MyBatisConfig.class})
+    @Import({JdbcConfig.class, MyBatisConfig.class})
     public class SpringConfig {
     }
-    
     ```
-
+  
 *  `JdbcConfig` 配置类
 
-  * 定义数据源（加载properties配置项：driver、url、username、password）
+  * 定义数据源（加载 properties 配置项：driver、url、username、password）
 
     ```java
     public class JdbcConfig {
@@ -1305,7 +1351,6 @@ class Springboot07TestApplicationTests {
         ssfb.setDataSource(dataSource);
         return ssfb;
     }
-    
     ```
 
 ### 4.2  SpringBoot整合mybatis
@@ -1322,7 +1367,7 @@ class Springboot07TestApplicationTests {
 
 #### 4.2.2  定义实体类
 
-在 `com.itheima.domain` 包下定义实体类 `Book`，内容如下
+在 `com.itheima.domain` 包下定义实体类 `Book`，内容如下：
 
 ```java
 public class Book {
@@ -1331,15 +1376,15 @@ public class Book {
     private String type;
     private String description;
     
-    //setter and  getter
+    // setter and  getter
     
-    //toString
+    // toString
 }
 ```
 
 #### 4.2.3  定义dao接口
 
-在 `com.itheima.dao` 包下定义 `BookDao` 接口，内容如下
+在 `com.itheima.dao` 包下定义 `BookDao` 接口，内容如下：
 
 ```java
 public interface BookDao {
@@ -1350,7 +1395,7 @@ public interface BookDao {
 
 #### 4.2.4  定义测试类
 
-在 `test/java` 下定义包 `com.itheima` ，在该包下测试类，内容如下
+在 `test/java` 下定义包 `com.itheima` ，在该包下测试类，内容如下：
 
 ```java
 @SpringBootTest
@@ -1371,7 +1416,7 @@ class Springboot08MybatisApplicationTests {
 
 我们代码中并没有指定连接哪儿个数据库，用户名是什么，密码是什么。所以这部分需要在 `SpringBoot` 的配置文件中进行配合。
 
-在 `application.yml` 配置文件中配置如下内容
+在 `application.yml` 配置文件中配置如下内容：
 
 ```yml
 spring:
@@ -1384,13 +1429,13 @@ spring:
 
 #### 4.2.6  测试
 
-运行测试方法，我们会看到如下错误信息
+运行测试方法，我们会看到如下错误信息：
 
 <img src="assets/image-20210917221427930.png" alt="image-20210917221427930" style="zoom:70%;" />
 
 错误信息显示在 `Spring` 容器中没有 `BookDao` 类型的 `bean`。为什么会出现这种情况呢？
 
-原因是 `Mybatis` 会扫描接口并创建接口的代码对象交给 `Spring` 管理，但是现在并没有告诉 `Mybatis` 哪个是 `dao` 接口。而我们要解决这个问题需要在`BookDao` 接口上使用 `@Mapper` ，`BookDao` 接口改进为
+原因是 `Mybatis` 会扫描接口并创建接口的代码对象交给 `Spring` 管理，但是现在并没有告诉 `Mybatis` 哪个是 `dao` 接口。而我们要解决这个问题需要在`BookDao` 接口上使用 `@Mapper` ，`BookDao` 接口改进为：
 
 ```java
 @Mapper
@@ -1402,7 +1447,7 @@ public interface BookDao {
 
 > ==注意：==
 >
-> `SpringBoot` 版本低于2.4.3(不含)，Mysql驱动版本大于8.0时，需要在url连接串中配置时区 `jdbc:mysql://localhost:3306/ssm_db?serverTimezone=UTC`，或在MySQL数据库端配置时区解决此问题
+> `SpringBoot` 版本低于2.4.3（不含），Mysql驱动版本大于8.0时，需要在url连接串中配置时区 `jdbc:mysql://localhost:3306/ssm_db?serverTimezone=UTC`，或在 MySQL 数据库端配置时区解决此问题
 
 #### 4.2.7  使用Druid数据源
 
@@ -1432,13 +1477,13 @@ public interface BookDao {
       type: com.alibaba.druid.pool.DruidDataSource
   ```
 
-## 5、案例
+## 5、SSM案例
 
 `SpringBoot` 到这就已经学习完毕，接下来我们将学习 `SSM` 时做的三大框架整合的案例用 `SpringBoot` 来实现一下。我们完成这个案例基本是将之前做的拷贝过来，修改成 `SpringBoot` 的即可，主要从以下几部分完成
 
 1. pom.xml
 
-   配置起步依赖，必要的资源坐标(druid)
+   配置起步依赖，必要的资源坐标（druid）
 
 2. application.yml
 
@@ -1456,7 +1501,7 @@ public interface BookDao {
 
 6. 页面
 
-   放置在resources目录下的static目录中
+   放置在 resources 目录下的 static 目录中
 
 ### 5.1  创建工程
 
@@ -1534,7 +1579,7 @@ spring:
 
 在 `SpringBoot` 程序中是没有 `webapp` 目录的，那么在 `SpringBoot` 程序中静态资源需要放在什么位置呢？
 
-静态资源需要放在 `resources` 下的 `static` 下，如下图所示
+静态资源需要放在 `resources` 下的 `static` 下，如下图所示：
 
 <img src="assets/image-20210917230702072.png" alt="image-20210917230702072" style="zoom:80%;" />
 
