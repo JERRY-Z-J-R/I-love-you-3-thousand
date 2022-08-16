@@ -21,18 +21,6 @@
 
 - [Ubuntu 20.04.2.0 STL 官方下载链接](https://cn.ubuntu.com/download)
 
-**百度网盘下载方式**
-
-- VMware Workstation 16 Player
-
-链接：https://pan.baidu.com/s/1zQqm-liXlio1iLaYhPt8dA 
-提取码：2454 
-
-- Ubuntu 20.04.2.0 STL
-
-链接：https://pan.baidu.com/s/1h8y99rOpMgfT527tpFXEbw 
-提取码：2454 
-
 ### （2）安装 VMware Player
 
 原则：一律下一步直到安装成功。
