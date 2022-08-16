@@ -1,4 +1,4 @@
-# Redis
+# Redis 精简笔记
 
 > 本文档仅为 Redis 基础教程，更多内容请参考：[Redis中文网](https://www.redis.net.cn/)
 
