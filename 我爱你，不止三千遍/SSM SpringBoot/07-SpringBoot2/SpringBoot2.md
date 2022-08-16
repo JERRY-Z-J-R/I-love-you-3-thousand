@@ -5633,8 +5633,6 @@ class Springboot16RedisApplicationTests {
    2. 进行基础配置
    3. 使用springboot整合redis的专用客户端接口RedisTemplate操作
 
-
-
 **StringRedisTemplate**
 
 ​		由于redis内部不提供java对象的存储格式，因此当操作的数据以对象的形式存在时，会进行转码，转换成字符串格式后进行操作。为了方便开发者使用基于字符串为数据的操作，springboot整合redis时提供了专用的API接口StringRedisTemplate，你可以理解为这是RedisTemplate的一种指定数据泛型的操作API。
@@ -5653,11 +5651,9 @@ public class StringRedisTemplateTest {
 }
 ```
 
-
-
 **redis客户端选择**
 
- 		springboot整合redis技术提供了多种客户端兼容模式，默认提供的是lettucs客户端技术，也可以根据需要切换成指定客户端技术，例如jedis客户端技术，切换成jedis客户端技术操作步骤如下：
+ 	springboot整合redis技术提供了多种客户端兼容模式，默认提供的是lettucs客户端技术，也可以根据需要切换成指定客户端技术，例如jedis客户端技术，切换成jedis客户端技术操作步骤如下：
 
 **步骤①**：导入jedis坐标
 
@@ -5705,8 +5701,6 @@ spring:
 
 1. springboot整合redis提供了StringRedisTemplate对象，以字符串的数据格式操作redis
 2. 如果需要切换redis客户端实现技术，可以通过配置的形式进行
-
-
 
 #### SpringBoot整合MongoDB
 
