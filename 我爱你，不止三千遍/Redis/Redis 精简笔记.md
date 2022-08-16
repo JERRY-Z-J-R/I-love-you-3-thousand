@@ -442,7 +442,7 @@ public class redis {
 
 ```java
 // 1. 获取连接
- Jedis jedis = new Jedis();
+Jedis jedis = new Jedis();
 
 // 2. 操作
 // 存储

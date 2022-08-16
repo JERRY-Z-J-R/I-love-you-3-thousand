@@ -9,7 +9,7 @@
 
 ### 1.1  Filter概述
 
-Filter 表示过滤器，是 JavaWeb 三大组件(Servlet、Filter、Listener)之一。Servlet 我们之前都已经学习过了，Filter和Listener 我们今天都会进行学习。
+Filter 表示过滤器，是 JavaWeb 三大组件(Servlet、Filter、Listener)之一。Servlet 我们之前都已经学习过了，Filter 和 Listener 我们今天都会进行学习。
 
 过滤器可以把对资源的请求==拦截==下来，从而实现一些特殊的功能。
 
@@ -45,11 +45,11 @@ Filter 表示过滤器，是 JavaWeb 三大组件(Servlet、Filter、Listener)�
 
   <img src="assets/image-20210823191006878.png" alt="image-20210823191006878" style="zoom:60%;" />
 
-* 配置Filter拦截资源的路径：在类上定义 `@WebFilter` 注解。而注解的 `value` 属性值 `/*` 表示拦截所有的资源
+* 配置 Filter 拦截资源的路径：在类上定义 `@WebFilter` 注解。而注解的 `value` 属性值 `/*` 表示拦截所有的资源
 
   <img src="assets/image-20210823191037163.png" alt="image-20210823191037163" style="zoom:67%;" />
 
-* 在doFilter方法中输出一句话，并放行
+* 在 doFilter 方法中输出一句话，并放行
 
   <img src="assets/image-20210823191200201.png" alt="image-20210823191200201" style="zoom:60%;" />
 
@@ -152,7 +152,7 @@ public class FilterDemo implements Filter {
 
 ```java
 //放行
- chain.doFilter(request,response);
+chain.doFilter(request, response);
 ```
 
 再次重启服务器并访问 `hello.jsp` 页面，发现这次就可以在浏览器上看到页面效果。
@@ -406,7 +406,7 @@ public class LoginFilter implements Filter {
         //2. 判断user是否为null
         if(user != null){
             // 登录过了
-            //放行
+            // 放行
             chain.doFilter(request, response);
         }else {
             // 没有登陆，存储提示信息，跳转到登录页面
@@ -440,7 +440,7 @@ public class LoginFilter implements Filter {
 
 而在请求这个css资源时被过滤器拦截，就相当于没有加载到样式文件导致的。解决这个问题，只需要对所以的登陆相关的资源进行放行即可。还有一种情况就是当我没有用户信息时需要进行注册，而注册时也希望被过滤器放行。
 
-综上，我们需要在判断session中是否包含用户信息之前，应该加上对登陆及注册相关资源放行的逻辑处理
+综上，我们需要在判断 session 中是否包含用户信息之前，应该加上对登陆及注册相关资源放行的逻辑处理
 
 ```java
 //判断访问资源路径是否和登录注册相关

@@ -253,7 +253,6 @@ public class UserController {
         return "{'info':'springmvc'}";
     }
 }
-
 ```
 
 再次重启 tomcat 服务器，然后重新通过浏览器测试访问,会发现还是会报错，这次的错是 404
@@ -276,7 +275,6 @@ public class UserController {
         return "{'info':'springmvc'}";
     }
 }
-
 ```
 
 再次重启 tomcat 服务器，然后重新通过浏览器测试访问，就能看到返回的结果数据：
