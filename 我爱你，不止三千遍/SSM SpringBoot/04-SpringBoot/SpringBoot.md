@@ -93,7 +93,7 @@
 >    * `mvnw`
 >    * `mvnw.cmd`
 
-##### 1.1.1.2  创建 `Controller`
+##### 1.1.1.2  创建Controller
 
 在  `com.itheima.controller` 包下创建 `BookController` ，代码如下：
 
@@ -1587,11 +1587,13 @@ spring:
 
 ## 6、SpringBoot文件上传与下载
 
-## 7、SpringBoot整合Redis
+## 7、SpringBoot整合Redis缓存
 
 ## 8、SpringBoot拦截器
 
-## 9、MD5加密
+## 9、SpringBoot实现MD5加密
 
 ## 10、SpringBoot整合WebSocket
+
+## 11、SpringBoot实现富文本编辑器
 

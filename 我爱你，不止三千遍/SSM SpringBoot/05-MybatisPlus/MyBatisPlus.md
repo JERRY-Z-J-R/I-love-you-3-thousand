@@ -2630,6 +2630,10 @@ public class CodeGenerator {
 
 至此代码生成器就已经完成工作，我们能快速根据数据库表来创建对应的类，简化我们的代码开发。
 
+> 同时可以看见，还为我们生成了 XxxMapper.xml 文件，方便我们在 xml 中写复杂的 SQL 语句。
+>
+> 注意：CodeGenerator 中写的 Url、Username、Password 等，只是为了根据数据库来创建文件用，在连接数据库时，我们依旧还是要配置 application.yml
+
 ### 5.3 MP中Service的CRUD
 
 回顾我们之前业务层代码的编写，编写接口和对应的实现类：
