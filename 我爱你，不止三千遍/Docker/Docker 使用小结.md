@@ -20,7 +20,7 @@ FROM node:16.13.0
 
 ### 二、构建镜像
 
-> 若刚才使用 pull 命令去拉去镜像的话，此步可以跳过。
+> 若刚才使用 pull 命令去拉取镜像的话，此步可以跳过。
 
 ```shell
 # 在 Dockerfile 所在路径下
@@ -127,7 +127,7 @@ node         vue2      6ba5f379c62e   55 seconds ago   961MB
 node         vue       5f26022d0c60   2 hours ago      905MB
 ```
 
-> 注意由于是将主机上的 `front-end-of-online-classroom` 挂载到容器里（只有主机上唯一的一份源文件，容器只是单纯的做了一个映射），所以将容器打包为镜像后，这个镜像中是不包含项目代码及 vue 启动环境的！（之所以不包含 vue 启动环境是因为配置 vue 启动环境的时候是在 `front-end-of-online-classroom` 路径下配置的，是配置在了主机的真实文件上，并不在容器中）。
+> 注意：由于是将主机上的 `front-end-of-online-classroom` 挂载到容器里（只有主机上唯一的一份源文件，容器只是单纯的做了一个映射），所以将容器打包为镜像后，这个镜像中是不包含项目代码及 vue 启动环境的！（之所以不包含 vue 启动环境是因为配置 vue 启动环境的时候是在 `front-end-of-online-classroom` 路径下配置的，是配置在了主机的真实文件上，并不在容器中）。
 
 ### 八、Docker 数据卷
 

@@ -5,7 +5,7 @@
 > * 能够使用映射配置文件实现 CRUD 操作
 > * 能够使用注解实现 CRUD 操作
 
-## 1，配置文件实现CRUD
+## 1、配置文件实现CRUD
 
 ![image-20210729111159534](assets/image-20210729111159534.png)
 
@@ -1380,7 +1380,7 @@ User select(@Param("username") String username, @Param("password") String passwo
 
   比如 int 类型，`参数占位符名称` 叫什么都可以。尽量做到见名知意。
 
-## 2 注解实现CRUD
+# 2、注解实现CRUD
 
 使用注解开发会比配置文件开发更加方便。如下就是使用注解进行开发
 
@@ -1428,7 +1428,7 @@ Mybatis 针对 CURD 操作都提供了对应的注解，已经做到见名知意
 
 上述代码将 Java 代码和 SQL 语句融到了一块，使得代码的可读性大幅度降低。
 
-## 3 CRUD项目代码
+# 3、CRUD项目代码
 
 > 源码：src 目录下的 mybatis/demo03
 

@@ -260,7 +260,7 @@ pom.xml 中添加依赖
 
 ###### 步骤1：准备properties配置文件
 
-resources 下创建一个 jdbc.properties 文件，并添加对应的属性键值对
+resources 下创建一个 `jdbc.properties` 文件，并添加对应的属性键值对
 
 ```properties
 jdbc.driver=com.mysql.jdbc.Driver
@@ -394,7 +394,6 @@ public class App {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         BookDao bookDao = (BookDao) ctx.getBean("bookDao");
         bookDao.save();
-
     }
 }
 ```
@@ -447,7 +446,7 @@ public class App {
   }
   ```
 
-  大家可以自行运行，在打印出来的结果中会有一个 USERNAME=XXX[自己电脑的用户名称]
+  大家可以自行运行，在打印出来的结果中会有一个 `USERNAME=XXX[自己电脑的用户名称]`
 
   5. 解决方案
 
@@ -502,7 +501,7 @@ public class App {
               http://www.springframework.org/schema/context
               http://www.springframework.org/schema/context/spring-context.xsd">
       <!--方式一 -->
-      <context:property-placeholder location="jdbc.properties,jdbc2.properties" system-properties-mode="NEVER"/>
+      <context:property-placeholder location="jdbc.properties, jdbc2.properties" system-properties-mode="NEVER"/>
       <!--方式二-->
       <context:property-placeholder location="*.properties" system-properties-mode="NEVER"/>
       <!--方式三 -->
@@ -543,7 +542,7 @@ public class App {
 
 前面已经完成 bean 与依赖注入的相关知识学习，接下来我们主要学习的是 IOC 容器中的==核心容器==。
 
-这里所说的核心容器，大家可以把它简单的理解为`ApplicationContext`，前面虽然已经用到过，但是并没有系统的学习，接下来咱们从以下几个问题入手来学习下容器的相关知识：
+这里所说的核心容器，大家可以把它简单的理解为`ApplicationContext`，前面虽然已经用到过（IOC 容器），但是并没有系统的学习，接下来咱们从以下几个问题入手来学习下容器的相关知识：
 
 * 如何创建容器？
 * 创建好容器后，如何从容器中获取 bean 对象？
@@ -619,7 +618,7 @@ public class App {
 ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 ```
 
-这种方式翻译为：==类路径下的XML配置文件==
+这种方式翻译为：==类路径下的XML配置文件==（推荐）
 
 除了上面这种方式，Spring 还提供了另外一种创建方式为：
 
@@ -627,7 +626,7 @@ ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.
 ApplicationContext ctx = new FileSystemXmlApplicationContext("applicationContext.xml");
 ```
 
-这种方式翻译为：==文件系统下的XML配置文件==
+这种方式翻译为：==文件系统下的XML配置文件==（不推荐）
 
 使用这种方式，运行，会出现如下错误：
 
@@ -641,7 +640,7 @@ ApplicationContext ctx = new FileSystemXmlApplicationContext("D:\\workspace\\spr
 
 **说明：**大家练习的时候，写自己的具体路径。
 
-这种方式虽能实现，但是当项目的位置发生变化后，代码也需要跟着改，耦合度较高,不推荐使用。
+这种方式虽能实现，但是当项目的位置发生变化后，代码也需要跟着改，耦合度较高，不推荐使用。
 
 #### 2.2.2 Bean的三种获取方式
 
@@ -655,7 +654,7 @@ BookDao bookDao = (BookDao) ctx.getBean("bookDao");
 
 方式二：
 
-```
+```java
 BookDao bookDao = ctx.getBean("bookDao"，BookDao.class);
 ```
 
@@ -663,7 +662,7 @@ BookDao bookDao = ctx.getBean("bookDao"，BookDao.class);
 
 方式三：
 
-```
+```java
 BookDao bookDao = ctx.getBean(BookDao.class);
 ```
 
@@ -919,9 +918,9 @@ component-scan
 
 base-package 指定 Spring 框架扫描的包路径，它会扫描指定包及其子包中的所有类上的注解。
 
-* 包路径越多[如:com.itheima.dao.impl]，扫描的范围越小速度越快
-* 包路径越少[如:com.itheima]，扫描的范围越大速度越慢
-* 一般扫描到项目的组织名称即 Maven 的 groupId 下[如:com.itheima]即可
+* 包路径越多[如：com.itheima.dao.impl]，扫描的范围越小速度越快
+* 包路径越少[如：com.itheima]，扫描的范围越大速度越慢
+* 一般扫描到项目的组织名称即 Maven 的 groupId 下[如：com.itheima]即可
 
 #### 步骤4：运行程序
 
@@ -936,22 +935,16 @@ base-package 指定 Spring 框架扫描的包路径，它会扫描指定包及�
 ```java
 @Component
 public class BookServiceImpl implements BookService {
-    private BookDao bookDao;
-
-    public void setBookDao(BookDao bookDao) {
-        this.bookDao = bookDao;
-    }
 
     public void save() {
         System.out.println("book service save ...");
-        bookDao.save();
     }
 }
 ```
 
 #### 步骤6：运行程序
 
-在 App 类中，从 IO C容器中获取 BookServiceImpl 对应的 bean 对象，打印
+在 App 类中，从 IOC 容器中获取 BookServiceImpl 对应的 bean 对象，打印
 
 ```java
 public class App {
@@ -1054,6 +1047,7 @@ public class SpringConfig {
 public class AppForAnnotation {
 
     public static void main(String[] args) {
+        // 加载配置类初始化容器
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
         BookDao bookDao = (BookDao) ctx.getBean("bookDao");
         System.out.println(bookDao);
@@ -1077,7 +1071,7 @@ public class AppForAnnotation {
 
 * @ComponentScan 注解用于设定扫描路径，此注解只能添加一次，多个数据请用数组格式
 
-  ```
+  ```java
   @ComponentScan({com.itheima.service", "com.itheima.dao"})
   ```
 
@@ -1155,6 +1149,7 @@ public class AppForAnnotation {
   public interface BookDao {
       public void save();
   }
+  
   @Repository
   public class BookDaoImpl implements BookDao {
       public void save() {
@@ -1356,9 +1351,11 @@ Spring 为了使用注解简化开发，并没有提供`构造函数注入`、`s
   @Service
   public class BookServiceImpl implements BookService {
       private BookDao bookDao;
+      
   	public void setBookDao(BookDao bookDao) {
           this.bookDao = bookDao;
       }
+      
       public void save() {
           System.out.println("book service save ...");
           bookDao.save();
@@ -1403,6 +1400,7 @@ public class BookServiceImpl implements BookService {
 //	  public void setBookDao(BookDao bookDao) {
 //        this.bookDao = bookDao;
 //    }
+    
     public void save() {
         System.out.println("book service save ...");
         bookDao.save();
@@ -1412,7 +1410,7 @@ public class BookServiceImpl implements BookService {
 
 **注意：**
 
-* @Autowired 可以写在属性上，也可也写在 setter 方法上，最简单的处理方式是`写在属性上并将 setter 方法删除掉`
+* @Autowired 可以写在属性上，也可也写在 setter 方法上，最简单的处理方式是**写在属性上并将 setter 方法删除掉**
 * 为什么 setter 方法可以删除呢？
   * 自动装配基于反射设计创建对象并通过暴力反射为私有属性进行设值
   * 普通反射只能获取 public 修饰的内容
@@ -1434,7 +1432,7 @@ public class BookDaoImpl2 implements BookDao {
 
 ![1630034272959](assets/1630034272959.png)
 
-此时，按照类型注入就无法区分到底注入哪个对象，解决方案:`按照名称注入`
+此时，按照类型注入就无法区分到底注入哪个对象，解决方案：**按照名称注入**
 
 * 先给两个 Dao 类分别起个名称
 
@@ -1514,7 +1512,7 @@ public class BookDaoImpl implements BookDao {
 }
 ```
 
-注意数据格式要匹配，如将"abc"注入给 int 值，这样程序就会报错。
+注意数据格式要匹配，如将 "abc" 注入给 int 值，这样程序就会报错。
 
 介绍完后，会有一种感觉就是这个注解好像没什么用，跟直接赋值是一个效果，还没有直接赋值简单，所以这个注解存在的意义是什么?
 
@@ -1557,7 +1555,7 @@ public class BookDaoImpl implements BookDao {
 
 步骤4：运行程序
 
-运行App类，查看运行结果，说明配置文件中的内容已经被加载到
+运行App类，查看运行结果，说明配置文件中的内容已经被加载到。
 
 ![1630084683663](assets/1630084683663.png)
 
@@ -1566,7 +1564,7 @@ public class BookDaoImpl implements BookDao {
 * 如果读取的 properties 配置文件有多个，可以使用`@PropertySource`的属性来指定多个
 
   ```java
-  @PropertySource({"jdbc.properties","xxx.properties"})
+  @PropertySource({"jdbc.properties", "xxx.properties"})
   ```
 
 * `@PropertySource`注解属性中不支持使用通配符`*`，运行会报错
@@ -1580,6 +1578,12 @@ public class BookDaoImpl implements BookDao {
   ```java
   @PropertySource({"classpath:jdbc.properties"})
   ```
+
+> 通过上述演示，可以发现，我们以后可以把一些配置信息写到配置文件中，再用注解来读出，这样就避免了之前写死在程序中的方式带来的难以维护的问题，但是这里还是有很多同学有疑问，为什么写到配置文件中就好维护了呢？
+>
+> 1. 配置文件专门用来管理配置信息，比较方便
+> 2. 写业务代码，不用考虑具体的配置信息，专注于业务
+> 3. 重点：当某个配置需要修改时，直接修改配置文件即可，不需要去修改业务代码，所以业务代码也就不需要重新编译、测试、打包……（当程序体积比较大时，编译测试非常耗时。当程序已经在生成环境部署了，重新编译、测试、打包……简直就是灾难）
 
 #### 知识点1：@Autowired
 
@@ -1630,7 +1634,7 @@ public class BookDaoImpl implements BookDao {
 
 ### 4.1 环境准备
 
-学习@Bean 注解之前先来准备环境：
+学习 @Bean 注解之前先来准备环境：
 
 - 创建一个 Maven 项目
 
@@ -1703,7 +1707,7 @@ public class BookDaoImpl implements BookDao {
 ```java
 @Configuration
 public class SpringConfig {
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource ds = new DruidDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/spring_db");
@@ -1851,13 +1855,13 @@ public class SpringConfig {
 
 * 扫描注解可以移除
 
-* @Import 参数需要的是一个数组，可以引入多个配置类。
+* @Import 参数需要的是一个**数组**，可以引入多个配置类。
 
 * @Import 注解在配置类中只能写一次，下面的方式是==不允许的==
 
   ```java
   @Configuration
-  //@ComponentScan("com.itheima.config")
+  // @ComponentScan("com.itheima.config")
   @Import(JdbcConfig.class)
   @Import(Xxx.class)
   public class SpringConfig {
@@ -1924,7 +1928,7 @@ public class JdbcConfig {
     private String userName;
     private String password;
 	@Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource ds = new DruidDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/spring_db");
@@ -2046,7 +2050,7 @@ public DataSource dataSource(BookDao bookDao){
 
 #### 6.1.1 环境准备
 
-在准备环境的过程中，我们也来回顾下 Mybatis 开发的相关内容
+在准备环境的过程中，我们也来**回顾**下之前 Mybatis 开发的相关内容
 
 ##### 步骤1：准备数据库表
 
@@ -2099,19 +2103,20 @@ public class Account implements Serializable {
     private Integer id;
     private String name;
     private Double money;
-	//setter...getter...toString...方法略    
+	//s etter...getter...toString...方法略    
 }
 ```
 
 ##### 步骤4：创建Dao接口
 
+这里我们用注解配置 SQL 来演示，XML 配置 SQL就不演示了
+
 ```java
 public interface AccountDao {
-
-    @Insert("insert into tbl_account(name,money)values(#{name},#{money})")
+    @Insert("insert into tbl_account(name,money)values(#{name}, #{money})")
     void save(Account account);
 
-    @Delete("delete from tbl_account where id = #{id} ")
+    @Delete("delete from tbl_account where id = #{id}")
     void delete(Integer id);
 
     @Update("update tbl_account set name = #{name} , money = #{money} where id = #{id} ")
@@ -2145,6 +2150,7 @@ public interface AccountService {
 @Service
 public class AccountServiceImpl implements AccountService {
 
+    // 注解方式注入
     @Autowired
     private AccountDao accountDao;
 
@@ -2191,13 +2197,13 @@ useSSL：关闭 MySQL 的 SSL 连接
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!--读取外部properties配置文件-->
+    <!-- 读取外部properties配置文件 -->
     <properties resource="jdbc.properties"></properties>
-    <!--别名扫描的包路径-->
+    <!-- 别名扫描的包路径 -->
     <typeAliases>
         <package name="com.itheima.domain"/>
     </typeAliases>
-    <!--数据源-->
+    <!-- 数据源 -->
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"></transactionManager>
@@ -2209,7 +2215,7 @@ useSSL：关闭 MySQL 的 SSL 连接
             </dataSource>
         </environment>
     </environments>
-    <!--映射文件扫描包路径-->
+    <!-- 映射文件扫描包路径 -->
     <mappers>
         <package name="com.itheima.dao"></package>
     </mappers>
@@ -2221,15 +2227,15 @@ useSSL：关闭 MySQL 的 SSL 连接
 ```java
 public class App {
     public static void main(String[] args) throws IOException {
-        // 1. 创建SqlSessionFactoryBuilder对象
+        // 1. 创建 SqlSessionFactoryBuilder 对象
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-        // 2. 加载SqlMapConfig.xml配置文件
+        // 2. 加载 SqlMapConfig.xml 配置文件
         InputStream inputStream = Resources.getResourceAsStream("SqlMapConfig.xml.bak");
-        // 3. 创建SqlSessionFactory对象
+        // 3. 创建 SqlSessionFactory 对象
         SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
-        // 4. 获取SqlSession
+        // 4. 获取 SqlSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        // 5. 执行SqlSession对象执行查询，获取结果User
+        // 5. 执行 SqlSession 对象执行查询，获取结果 User
         AccountDao accountDao = sqlSession.getMapper(AccountDao.class);
 
         Account ac = accountDao.findById(1);
@@ -2261,7 +2267,7 @@ Mybatis 的基础环境我们已经准备好了，接下来就得分析下在上
 
   **说明：**
 
-  * 第一行读取外部 properties 配置文件，Spring 有提供具体的解决方案`@PropertySource`,需要交给 Spring
+  * 第一行读取外部 properties 配置文件，Spring 有提供具体的解决方案`@PropertySource`，需要交给 Spring
   * 第二行起别名包扫描，为 SqlSessionFactory 服务的，需要交给 Spring
   * 第三行主要用于做连接池，Spring 之前我们已经整合了 Druid 连接池，这块也需要交给 Spring
   * 前面三行一起都是为了创建 SqlSession 对象用的，那么用 Spring 管理 SqlSession 对象吗？回忆下 SqlSession 是由SqlSessionFactory创建出来的，所以只需要将 SqlSessionFactory 交给 Spring 管理即可。
@@ -2271,9 +2277,9 @@ Mybatis 的基础环境我们已经准备好了，接下来就得分析下在上
 
 前面我们已经分析了 Spring 与 Mybatis 的整合，大体需要做两件事
 
-第一件事是：Spring要管理 MyBatis 中的 SqlSessionFactory
+第一件事是：Spring 要管理 MyBatis 中的 SqlSessionFactory
 
-第二件事是：Spring要管理 Mapper 接口的扫描
+第二件事是：Spring 要管理 Mapper 接口的扫描
 
 具体该如何实现，具体的步骤为：
 
@@ -2281,15 +2287,15 @@ Mybatis 的基础环境我们已经准备好了，接下来就得分析下在上
 
 ```xml
 <dependency>
-    <!--Spring操作数据库需要该jar包-->
+    <!-- Spring 操作数据库需要该 jar 包 -->
     <groupId>org.springframework</groupId>
     <artifactId>spring-jdbc</artifactId>
     <version>5.2.10.RELEASE</version>
 </dependency>
 <dependency>
     <!--
-		Spring与Mybatis整合的jar包
-		这个jar包mybatis在前面，是Mybatis提供的
+		Spring 与 Mybatis 整合的 jar 包
+		这个 jar 包 mybatis 在前面，是 Mybatis 提供的
 	-->
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-spring</artifactId>
@@ -2300,13 +2306,10 @@ Mybatis 的基础环境我们已经准备好了，接下来就得分析下在上
 #### 步骤2：创建Spring的主配置类
 
 ```java
-//配置类注解
 @Configuration
-//包扫描，主要扫描的是项目中的AccountServiceImpl类
 @ComponentScan("com.itheima")
 public class SpringConfig {
 }
-
 ```
 
 #### 步骤3：创建数据源的配置类
@@ -2325,7 +2328,7 @@ public class JdbcConfig {
     private String password;
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource ds = new DruidDataSource();
         ds.setDriverClassName(driver);
         ds.setUrl(url);
@@ -2336,6 +2339,15 @@ public class JdbcConfig {
 }
 ```
 
+> jdbc.properties：
+>
+> ```properties
+> jdbc.driver=com.mysql.jdbc.Driver
+> jdbc.url=jdbc:mysql://localhost:3306/spring_db?useSSL=false
+> jdbc.username=root
+> jdbc.password=root
+> ```
+
 #### 步骤4：主配置类中读properties并引入数据源配置类
 
 ```java
@@ -2345,26 +2357,28 @@ public class JdbcConfig {
 @Import(JdbcConfig.class)
 public class SpringConfig {
 }
-
 ```
 
 #### 步骤5：创建Mybatis配置类并配置SqlSessionFactory
 
 ```java
 public class MybatisConfig {
-    //定义bean，SqlSessionFactoryBean，用于产生SqlSessionFactory对象
+    // 定义 bean，MyBatis-Spring 提供 SqlSessionFactoryBean 用于产生 SqlSessionFactory 对象
+    // 注解定义的 Bean 注入引用类型需要传递一个参数
+    // 这里我们需要注入 JdbcConfig 中的 DataSource bean
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource){
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
         SqlSessionFactoryBean ssfb = new SqlSessionFactoryBean();
-        //设置模型类的别名扫描
+        // 别名扫描的包路径
         ssfb.setTypeAliasesPackage("com.itheima.domain");
-        //设置数据源
+        // 设置数据源
         ssfb.setDataSource(dataSource);
         return ssfb;
     }
-    //定义bean，返回MapperScannerConfigurer对象
+    
+    // 定义 bean，返回 MapperScannerConfigurer 对象
     @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer(){
+    public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer msc = new MapperScannerConfigurer();
         msc.setBasePackage("com.itheima.dao");
         return msc;
@@ -2394,7 +2408,7 @@ public class MybatisConfig {
 @Configuration
 @ComponentScan("com.itheima")
 @PropertySource("classpath:jdbc.properties")
-@Import({JdbcConfig.class,MybatisConfig.class})
+@Import({JdbcConfig.class, MybatisConfig.class})
 public class SpringConfig {
 }
 ```
@@ -2407,14 +2421,11 @@ public class SpringConfig {
 public class App2 {
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
-
         AccountService accountService = ctx.getBean(AccountService.class);
-
         Account ac = accountService.findById(1);
         System.out.println(ac);
     }
 }
-
 ```
 
 #### 步骤8：运行程序
@@ -2464,22 +2475,21 @@ pom.xml
 在 test\java 下创建一个 AccountServiceTest，这个名字任意
 
 ```java
-//设置类运行器
+// 设置类运行器
 @RunWith(SpringJUnit4ClassRunner.class)
-//设置Spring环境对应的配置类
-@ContextConfiguration(classes = {SpringConfiguration.class}) //加载配置类
-//@ContextConfiguration(locations={"classpath:applicationContext.xml"})//加载配置文件
+// 设置Spring环境对应的配置类
+@ContextConfiguration(classes = {SpringConfiguration.class}) // 加载配置类
+// @ContextConfiguration(locations={"classpath:applicationContext.xml"}) // 加载配置文件
 public class AccountServiceTest {
-    //支持自动装配注入bean
+    // 自动装配注入bean
     @Autowired
     private AccountService accountService;
     @Test
-    public void testFindById(){
+    public void testFindById() {
         System.out.println(accountService.findById(1));
-
     }
     @Test
-    public void testFindAll(){
+    public void testFindAll() {
         System.out.println(accountService.findAll());
     }
 }
@@ -2498,7 +2508,7 @@ public class AccountServiceTest {
 | ---- | --------------------------------- |
 | 类型 | 测试类注解                        |
 | 位置 | 测试类定义上方                    |
-| 作用 | 设置JUnit运行器                   |
+| 作用 | 设置 JUnit 运行器                 |
 | 属性 | value（默认）：运行所使用的运行期 |
 
 #### 知识点2：@ContextConfiguration
@@ -2507,6 +2517,6 @@ public class AccountServiceTest {
 | ---- | ------------------------------------------------------------ |
 | 类型 | 测试类注解                                                   |
 | 位置 | 测试类定义上方                                               |
-| 作用 | 设置JUnit加载的Spring核心配置                                |
+| 作用 | 设置 JUnit 加载的 Spring 核心配置                            |
 | 属性 | classes：核心配置类，可以使用数组的格式设定加载多个配置类<br/>locations：配置文件，可以使用数组的格式设定加载多个配置文件名称 |
 

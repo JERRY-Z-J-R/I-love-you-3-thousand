@@ -24,7 +24,7 @@
 
 ### 1.2 AOP作用
 
-- 作用：在不惊动原始设计的基础上为其进行功能增强，前面咱们有技术就可以实现这样的功能即代理模式。
+- 作用：在**不惊动原始设计的基础上**为其进行功能增强
 
 前面咱们有技术就可以实现这样的功能即`代理模式`。
 
@@ -36,26 +36,26 @@
 @Repository
 public class BookDaoImpl implements BookDao {
     public void save() {
-        //记录程序当前执行执行（开始时间）
+        // 记录程序当前执行执行（开始时间）
         Long startTime = System.currentTimeMillis();
-        //业务执行万次
-        for (int i = 0;i<10000;i++) {
+        // 业务执行万次
+        for (int i = 0; i<10000; i++) {
             System.out.println("book dao save ...");
         }
-        //记录程序当前执行时间（结束时间）
+        // 记录程序当前执行时间（结束时间）
         Long endTime = System.currentTimeMillis();
-        //计算时间差
+        // 计算时间差
         Long totalTime = endTime-startTime;
-        //输出信息
+        // 输出信息
         System.out.println("执行万次消耗时间：" + totalTime + "ms");
     }
-    public void update(){
+    public void update() {
         System.out.println("book dao update ...");
     }
-    public void delete(){
+    public void delete() {
         System.out.println("book dao delete ...");
     }
-    public void select(){
+    public void select() {
         System.out.println("book dao select ...");
     }
 }
@@ -72,21 +72,21 @@ public class BookDaoImpl implements BookDao {
 * 对于计算万次执行消耗的时间只有 save 方法有，为什么 delete 和 update 方法也会有呢？
 * delete 和 update 方法有，那什么 select 方法为什么又没有呢？
 
-这个案例中其实就使用了 Spring 的 AOP，在不惊动（改动）原有设计（代码）的前提下，想给谁添加功能就给谁添加。这个也就是 Spring 的理念：
+这个案例中其实背后就使用了 Spring 的 AOP，在不惊动（改动）原有设计（代码）的前提下，想给谁添加功能就给谁添加。这个也就是 Spring 的理念：
 
-* 无入侵式/无侵入式
+* **无入侵式/无侵入式**
 
 说了这么多，Spring 到底是如何实现的呢？
 
 ![1630144353462](assets/1630144353462.png)
 
-(1)前面一直在强调，Spring 的 AOP 是对一个类的方法在不进行任何修改的前提下实现增强。对于上面的案例中 BookServiceImpl 中有`save`，`update`，`delete`和`select`方法，这些方法我们给起了一个名字叫==连接点==
+(1) 前面一直在强调，Spring 的 AOP 是对一个类的方法在不进行任何修改的前提下实现增强。对于上面的案例中 BookServiceImpl 中有`save`，`update`，`delete`和`select`方法，这些方法我们给起了一个名字叫==连接点==
 
 (2) 在 BookServiceImpl 的四个方法中，`update`和`delete`只有打印没有计算万次执行消耗时间，但是在运行的时候已经有该功能，那也就是说`update`和`delete`方法都已经被增强，所以对于需要增强的方法我们给起了一个名字叫==切入点==
 
 (3) 执行 BookServiceImpl 的 update 和 delete 方法的时候都被添加了一个计算万次执行消耗时间的功能，将这个功能抽取到一个方法中，换句话说就是存放共性功能的方法，我们给起了个名字叫==通知==
 
-(4) 通知是要增强的内容，会有多个，切入点是需要被增强的方法，也会有多个，那哪个切入点需要添加哪个通知，就需要提前将它们之间的关系描述清楚，那么对于通知和切入点之间的关系描述，我们给起了个名字叫==切面==
+(4) 通知是要增强的内容，会有多个，切入点是需要被增强的方法，也会有多个，但是哪个切入点需要添加哪个通知，就需要提前将它们之间的关系描述清楚，那么对于通知和切入点之间的关系描述，我们给起了个名字叫==切面==
 
 (5) 通知是一个方法，方法不能独立存在需要被写在一个类中，这个类我们也给起了个名字叫==通知类==
 
@@ -123,7 +123,7 @@ public class BookDaoImpl implements BookDao {
 
 案例设定：测算接口执行效率，但是这个案例稍微复杂了点，我们对其进行简化。
 
-简化设定：在方法执行前输出当前系统时间。
+简化设定：在方法执行前输出当前系统时间。 
 
 对于 SpringAOP 的开发有两种方式，XML 和 ==注解==，我们使用哪个呢？
 
@@ -214,8 +214,6 @@ public class BookDaoImpl implements BookDao {
 * 对于 update 方法来说，就没有该功能
 * 我们要使用 SpringAOP 的方式在不改变 update 方法的前提下让其具有打印系统时间的功能。
 
-
-
 ### 2.4 AOP实现步骤
 
 #### 步骤1：添加依赖
@@ -232,7 +230,7 @@ pom.xml
 
 ![1630146885493](assets/1630146885493.png)
 
-* 因为`spring-context`中已经导入了`spring-aop`,所以不需要再单独导入`spring-aop`
+* 因为`spring-context`中已经导入了`spring-aop`，所以不需要再单独导入`spring-aop`，我们只需要额外导入 aspectjweaver 就行
 * 导入 AspectJ 的 jar 包，AspectJ 是 AOP 思想的一个具体实现，Spring 有自己的 AOP 实现，但是相比于 AspectJ 来说比较麻烦，所以我们直接采用 Spring 整合 ApsectJ 的方式进行 AOP 开发。
 
 #### 步骤2：定义接口与实现类
@@ -246,8 +244,10 @@ pom.xml
 通知就是将共性功能抽取出来后形成的方法，共性功能指的就是当前系统时间的打印。
 
 ```java
+package com.itheima.aop;
+
 public class MyAdvice {
-    public void method(){
+    public void method( ){
         System.out.println(System.currentTimeMillis());
     }
 }
@@ -260,10 +260,12 @@ public class MyAdvice {
 BookDaoImpl 中有两个方法，分别是 save 和 update，我们要增强的是 update 方法，该如何定义呢？
 
 ```java
+package com.itheima.aop;
+
 public class MyAdvice {
     @Pointcut("execution(void com.itheima.dao.BookDao.update())")
     private void pt(){}
-    public void method(){
+    public void method() {
         System.out.println(System.currentTimeMillis());
     }
 }
@@ -284,7 +286,7 @@ public class MyAdvice {
     private void pt(){}
     
     @Before("pt()")
-    public void method(){
+    public void method() {
         System.out.println(System.currentTimeMillis());
     }
 }
@@ -299,8 +301,8 @@ public class MyAdvice {
 #### 步骤6：将通知类配给容器并标识其为切面类
 
 ```java
-@Component
-@Aspect
+@Component	// 表示 Spring 控制的 bean
+@Aspect		// 表示是一个切面类
 public class MyAdvice {
     @Pointcut("execution(void com.itheima.dao.BookDao.update())")
     private void pt(){}
@@ -404,7 +406,7 @@ AOP 的入门案例已经完成，对于刚才案例的执行过程，我们就�
 
   * 匹配失败，创建原始对象,如`UserDao`
     * 匹配失败说明不需要增强，直接调用原始对象的方法即可。
-  * 匹配成功，创建原始对象（==目标对象==）的==代理==对象,如:`BookDao`
+  * 匹配成功，创建原始对象（==目标对象==）的==代理对象==，如:`BookDao`
     * 匹配成功说明需要对其进行增强
     * 对哪个类做增强，这个类对应的对象就叫做目标对象
     * 因为要对目标对象进行功能增强，而采用的技术是动态代理，所以会为其创建一个代理对象
@@ -420,7 +422,7 @@ AOP 的入门案例已经完成，对于刚才案例的执行过程，我们就�
 为了验证 IOC 容器中创建的对象和我们刚才所说的结论是否一致，首先先把结论理出来：
 
 * 如果目标对象中的方法会被增强，那么容器中将存入的是目标对象的代理对象
-* 如果目标对象中的方法不被增强，那么容器中将存入的是目标对象本身。
+* 如果目标对象中的方法不被增强，那么容器中将存入的是目标对象本身
 
 ##### 验证思路
 
@@ -445,9 +447,9 @@ public class App {
 
 ##### 步骤2：修改MyAdvice类，不增强
 
-因为定义的切入点中，被修改成`update1`，所以 BookDao 中的 update 方法在执行的时候，就不会被增强，
+因为定义的切入点中，被修改成`update1`，所以 BookDao 中的 update 方法在执行的时候，就不会被增强
 
-所以容器中的对象应该是目标对象本身。
+所以容器中的对象应该是目标对象本身
 
 ```java
 @Component
@@ -457,7 +459,7 @@ public class MyAdvice {
     private void pt(){}
     
     @Before("pt()")
-    public void method(){
+    public void method() {
         System.out.println(System.currentTimeMillis());
     }
 }
@@ -502,7 +504,7 @@ public class MyAdvice {
 * 目标对象（Target）：原始功能去掉共性功能对应的类产生的对象，这种对象是无法直接完成最终工作的
 * 代理（Proxy）：目标对象无法直接完成工作，需要对其进行功能回填，通过原始对象的代理对象实现
 
-上面这两个概念比较抽象，简单来说
+上面这两个概念比较抽象，简单来说：
 
 目标对象就是要增强的类[如：BookServiceImpl类]对应的对象，也叫原始对象，不能说它不能运行，只能说它在运行的过程中对于要增强的内容是缺失的。
 
@@ -518,7 +520,7 @@ SpringAOP 是在不改变原有设计（代码）的前提下对其进行增强�
   * 通知类、通知
   * 切面
   * 代理
-* SpringAOP 的本质或者可以说底层实现是通过代理模式
+* **SpringAOP 的本质或者可以说底层实现是通过代理模式**
 
 ## 4、AOP配置管理
 
@@ -549,7 +551,7 @@ execution(void com.itheima.dao.BookDao.update())
 
 描述方式二：执行 com.itheima.dao.impl 包下的 BookDaoImpl 类中的无参数 update 方法
 
-```
+```java
 execution(void com.itheima.dao.impl.BookDaoImpl.update())
 ```
 
@@ -557,16 +559,16 @@ execution(void com.itheima.dao.impl.BookDaoImpl.update())
 
 对于切入点表达式的语法为：
 
-* 切入点表达式标准格式：动作关键字(访问修饰符  返回值  包名.类/接口名.方法名(参数) 异常名）
+* 切入点表达式标准格式：`动作关键字(访问修饰符 返回值 包名.类/接口名.方法名(参数) 异常名)`
 
 对于这个格式，我们不需要硬记，通过一个例子，理解它：
 
-```
+```java
 execution(public User com.itheima.service.UserService.findById(int))
 ```
 
 * execution：动作关键字，描述切入点的行为动作，例如 execution 表示执行到指定切入点
-* public：访问修饰符,还可以是 public，private 等，可以省略
+* public：访问修饰符，还可以是 public，private 等，public 可以省略
 * User：返回值，写返回值类型
 * com.itheima.service：包名，多级包使用点连接
 * UserService：类/接口名称
@@ -574,7 +576,7 @@ execution(public User com.itheima.service.UserService.findById(int))
 * int：参数，直接写参数的类型，多个类型用逗号隔开
 * 异常名：方法定义中抛出指定异常，可以省略
 
-切入点表达式就是要找到需要增强的方法，所以它就是对一个具体方法的描述，但是方法的定义会有很多，所以如果每一个方法对应一个切入点表达式，想想这块就会觉得将来编写起来会比较麻烦，有没有更简单的方式呢?
+切入点表达式就是要找到需要增强的方法，所以它就是对一个具体方法的描述，但是方法的定义会有很多，所以如果每一个方法对应一个切入点表达式，想想这块就会觉得将来编写起来会比较麻烦，有没有更简单的方式呢？
 
 就需要用到下面所学习的通配符。
 
@@ -584,23 +586,23 @@ execution(public User com.itheima.service.UserService.findById(int))
 
 * `*`：单个独立的任意符号，可以独立出现，也可以作为前缀或者后缀的匹配符出现
 
-  ```
-  execution（public * com.itheima.*.UserService.find*(*))
+  ```java
+  execution(public * com.itheima.*.UserService.find*(*))
   ```
 
   匹配 com.itheima 包下的任意包中的 UserService 类或接口中所有 find 开头的带有一个参数的方法
 
 * `..`：多个连续的任意符号，可以独立出现，常用于简化包名与参数的书写
 
-  ```
-  execution（public User com..UserService.findById(..))
+  ```java
+  execution(public User com..UserService.findById(..))
   ```
 
   匹配 com 包下的任意包中的 UserService 类或接口中所有名称为 findById 的方法
 
 * `+`：专用于匹配子类类型
 
-  ```
+  ```java
   execution(* *..*Service+.*(..))
   ```
 
@@ -639,18 +641,18 @@ execution(* com.itheima.*.*Service.save*(..))
 将项目中所有业务层方法的以save开头的方法匹配
 ```
 
-后面两种更符合我们平常切入点表达式的编写规则
+后面两种更符合我们平常切入点表达式的编写规则。
 
 #### 4.1.3 书写技巧
 
 对于切入点表达式的编写其实是很灵活的，那么在编写的时候，有没有什么好的技巧让我们用用：
 
 - 所有代码按照标准规范开发，否则以下技巧全部失效
-- 描述切入点通**==常描述接口==**，而不描述实现类,如果描述到实现类，就出现紧耦合了
+- 描述切入点通**==常描述接口==**，而不描述实现类，如果描述到实现类，就出现紧耦合了
 - 访问控制修饰符针对接口开发均采用 public 描述（**==可省略访问控制修饰符描述==**）
 - 返回值类型对于增删改类使用精准类型加速匹配，对于查询类使用\*通配快速描述
-- **==包名==**书写**==尽量不使用..匹配==**，效率过低，常用\*做单个包描述匹配，或精准匹配
-- **==接口名/类名==**书写名称与模块相关的**==采用\*匹配==**，例如 UserService 书写成 \*Service，绑定业务层接口名
+- **==包名==**书写**==尽量不使用 .. 匹配==**，效率过低，常用\*做单个包描述匹配，或精准匹配
+- **==接口名/类名==**书写名称与模块相关的**==采用 \* 匹配==**，例如 UserService 书写成 \*Service，绑定业务层接口名
 - **==方法名==**书写以**==动词==**进行**==精准匹配==**，名词采用*匹配，例如 getById 书写成 getBy*，selectAll 书写成 selectAll
 - 参数规则较为复杂，根据业务方法灵活调整
 - 通常**==不使用异常==**作为**==匹配==**规则
@@ -685,7 +687,7 @@ execution(* com.itheima.*.*Service.save*(..))
 
 ![1630166147697](assets/1630166147697.png)
 
-(1) 前置通知，追加功能到方法执行前,类似于在代码 1 或者代码 2 添加内容
+(1) 前置通知，追加功能到方法执行前，类似于在代码 1 或者代码 2 添加内容
 
 (2) 后置通知，追加功能到方法执行后，不管方法执行的过程中有没有抛出异常都会执行，类似于在代码 5 添加内容
 
@@ -851,7 +853,7 @@ public class MyAdvice {
     private void pt(){}
     
     @Around("pt()")
-    public void around(){
+    public void around() {
         System.out.println("around before advice ...");
         System.out.println("around after advice ...");
     }
@@ -874,14 +876,14 @@ public class MyAdvice {
     @Around("pt()")
     public void around(ProceedingJoinPoint pjp) throws Throwable{
         System.out.println("around before advice ...");
-        //表示对原始操作的调用
+        // 表示对原始操作的调用
         pjp.proceed();
         System.out.println("around after advice ...");
     }
 }
 ```
 
-**说明：**proceed() 为什么要抛出异常？
+**说明：**proceed() 为什么需要抛出异常？
 
 原因很简单，看下源码就知道了
 
@@ -910,7 +912,7 @@ public class MyAdvice {
     @Around("pt2()")
     public void aroundSelect(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("around before advice ...");
-        //表示对原始操作的调用
+        // 表示对原始操作的调用
         pjp.proceed();
         System.out.println("around after advice ...");
     }
@@ -937,7 +939,7 @@ Exception in thread "main" org.springframework.aop.AopInvocationException: ==Nul
 	at com.sun.proxy.$Proxy19.select(Unknown Source)
 	at com.itheima.App.main(App.java:12)
 
-错误大概的意思是：空的返回不匹配原始方法的int返回`
+错误大概的意思是：空的返回不匹配原始方法的 int 返回
 
 * void 就是返回 Null
 * 原始方法就是 BookDao 下的 select 方法
@@ -957,7 +959,7 @@ public class MyAdvice {
     @Around("pt2()")
     public Object aroundSelect(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("around before advice ...");
-        //表示对原始操作的调用
+        // 表示对原始操作的调用
         Object ret = pjp.proceed();
         System.out.println("around after advice ...");
         return ret;
@@ -1093,7 +1095,7 @@ public class MyAdvice {
 
 所以要在方法执行的前后添加业务，经过分析我们将采用`环绕通知`。
 
-**说明：**原始方法如果只执行一次，时间太快，两个时间差可能为0，所以我们要执行万次来计算时间差。
+**说明：**原始方法如果只执行一次，时间太快，两个时间差可能为 0，所以我们要执行万次来计算时间差。
 
 #### 4.3.2 环境准备
 
@@ -1189,6 +1191,7 @@ public class MyAdvice {
           return accountDao.findAll();
       }
   }
+  
   public interface AccountDao {
   
       @Insert("insert into tbl_account(name,money)values(#{name},#{money})")
@@ -1216,7 +1219,7 @@ public class MyAdvice {
   }
   ```
 
-- resources下提供一个 jdbc.properties
+- resources 下提供一个 jdbc.properties
 
   ```properties
   jdbc.driver=com.mysql.jdbc.Driver
@@ -1228,14 +1231,15 @@ public class MyAdvice {
 - 创建相关配置类
 
   ```java
-  //Spring配置类:SpringConfig
+  // Spring配置类：SpringConfig
   @Configuration
   @ComponentScan("com.itheima")
   @PropertySource("classpath:jdbc.properties")
-  @Import({JdbcConfig.class,MybatisConfig.class})
+  @Import({JdbcConfig.class, MybatisConfig.class})
   public class SpringConfig {
   }
-  //JdbcConfig配置类
+  
+  // JdbcConfig配置类
   public class JdbcConfig {
       @Value("${jdbc.driver}")
       private String driver;
@@ -1256,7 +1260,8 @@ public class MyAdvice {
           return ds;
       }
   }
-  //MybatisConfig配置类
+  
+  // MybatisConfig配置类
   public class MybatisConfig {
   
       @Bean
@@ -1315,6 +1320,8 @@ public class MyAdvice {
 
 ##### 步骤2：创建AOP的通知类
 
+- 创建 aop/ProjectAdvice.java
+
 * 该类要被 Spring 管理，需要添加 @Component
 
 * 要标识该类是一个 AOP 的切面类，需要添加 @Aspect
@@ -1324,12 +1331,11 @@ public class MyAdvice {
 @Component
 @Aspect
 public class ProjectAdvice {
-    //配置业务层的所有方法
+    // 配置业务层的所有方法
     @Pointcut("execution(* com.itheima.service.*Service.*(..))")
     private void servicePt(){}
     
-    public void runSpeed(){
-        
+    public void runSpeed() {
     } 
 }
 ```
@@ -1342,10 +1348,10 @@ public class ProjectAdvice {
 @Component
 @Aspect
 public class ProjectAdvice {
-    //配置业务层的所有方法
+    // 配置业务层的所有方法
     @Pointcut("execution(* com.itheima.service.*Service.*(..))")
     private void servicePt(){}
-    //@Around("ProjectAdvice.servicePt()") 可以简写为下面的方式
+    
     @Around("servicePt()")
     public Object runSpeed(ProceedingJoinPoint pjp){
         Object ret = pjp.proceed();
@@ -1362,19 +1368,18 @@ public class ProjectAdvice {
 @Component
 @Aspect
 public class ProjectAdvice {
-    //配置业务层的所有方法
+    // 配置业务层的所有方法
     @Pointcut("execution(* com.itheima.service.*Service.*(..))")
     private void servicePt(){}
-    //@Around("ProjectAdvice.servicePt()") 可以简写为下面的方式
+    
     @Around("servicePt()")
-    public void runSpeed(ProceedingJoinPoint pjp){
-        
+    public void runSpeed(ProceedingJoinPoint pjp) {
         long start = System.currentTimeMillis();
         for (int i = 0; i < 10000; i++) {
            pjp.proceed();
         }
         long end = System.currentTimeMillis();
-        System.out.println("业务层接口万次执行时间: "+(end-start)+"ms");
+        System.out.println("业务层接口万次执行时间: " + (end-start) + "ms");
     } 
 }
 ```
@@ -1397,17 +1402,17 @@ public class ProjectAdvice {
 @Component
 @Aspect
 public class ProjectAdvice {
-    //配置业务层的所有方法
+    // 配置业务层的所有方法
     @Pointcut("execution(* com.itheima.service.*Service.*(..))")
     private void servicePt(){}
-    //@Around("ProjectAdvice.servicePt()") 可以简写为下面的方式
+    
     @Around("servicePt()")
     public void runSpeed(ProceedingJoinPoint pjp){
-        //获取执行签名信息
+        // 获取执行签名信息
         Signature signature = pjp.getSignature();
-        //通过签名获取执行操作名称(接口名)
+        // 通过签名获取执行操作名称（接口名）
         String className = signature.getDeclaringTypeName();
-        //通过签名获取执行操作名称(方法名)
+        // 通过签名获取执行操作名称（方法名）
         String methodName = signature.getName();
         
         long start = System.currentTimeMillis();
@@ -1415,7 +1420,7 @@ public class ProjectAdvice {
            pjp.proceed();
         }
         long end = System.currentTimeMillis();
-        System.out.println("万次执行："+ className+"."+methodName+"---->" +(end-start) + "ms");
+        System.out.println("万次执行："+ className+"."+methodName+"---->" + (end-start) + "ms");
     } 
 }
 ```
@@ -1477,11 +1482,11 @@ public class ProjectAdvice {
   public interface BookDao {
       public String findName(int id);
   }
+  
   @Repository
   public class BookDaoImpl implements BookDao {
-  
       public String findName(int id) {
-          System.out.println("id:"+id);
+          System.out.println("id:" + id);
           return "itcast";
       }
   }
@@ -1517,15 +1522,15 @@ public class ProjectAdvice {
       }
   
       @Around("pt()")
-      public Object around() throws Throwable{
+      public Object around() throws Throwable {
           Object ret = pjp.proceed();
           return ret;
       }
+      
       @AfterReturning("pt()")
       public void afterReturning() {
           System.out.println("afterReturning advice ...");
       }
-  
   
       @AfterThrowing("pt()")
       public void afterThrowing() {
@@ -1590,11 +1595,11 @@ public class MyAdvice {
 public interface BookDao {
     public String findName(int id,String password);
 }
+
 @Repository
 public class BookDaoImpl implements BookDao {
-
     public String findName(int id,String password) {
-        System.out.println("id:"+id);
+        System.out.println("id:" + id);
         return "itcast";
     }
 }
@@ -1607,7 +1612,7 @@ public class App {
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
         BookDao bookDao = ctx.getBean(BookDao.class);
-        String name = bookDao.findName(100,"itheima");
+        String name = bookDao.findName(100, "itheima");
         System.out.println(name);
     }
 }
@@ -1639,7 +1644,7 @@ public class MyAdvice {
         Object ret = pjp.proceed();
         return ret;
     }
-	//其他的略
+	// 其他的略
 }
 ```
 
@@ -1701,7 +1706,7 @@ public class MyAdvice {
         Object ret = pjp.proceed(args);
         return ret;
     }
-	//其他的略
+	// 其他的略
 }
 ```
 
@@ -1770,7 +1775,7 @@ public class MyAdvice {
         }
         return ret;
     }
-	//其他的略
+	// 其他的略
 }
 ```
 
@@ -1785,11 +1790,11 @@ public class MyAdvice {
     @Pointcut("execution(* com.itheima.dao.BookDao.findName(..))")
     private void pt(){}
 
-    @AfterThrowing(value = "pt()",throwing = "t")
+    @AfterThrowing(value = "pt()", throwing = "t")
     public void afterThrowing(Throwable t) {
-        System.out.println("afterThrowing advice ..."+t);
+        System.out.println("afterThrowing advice ..." + t);
     }
-	//其他的略
+	// 其他的略
 }
 ```
 
@@ -1800,8 +1805,8 @@ public class MyAdvice {
 public class BookDaoImpl implements BookDao {
 
     public String findName(int id,String password) {
-        System.out.println("id:"+id);
-        if(true){
+        System.out.println("id:" + id);
+        if(true) {
             throw new NullPointerException();
         }
         return "itcast";
@@ -1890,16 +1895,19 @@ public class BookDaoImpl implements BookDao {
   public interface ResourcesDao {
       boolean readResources(String url, String password);
   }
+  
   @Repository
   public class ResourcesDaoImpl implements ResourcesDao {
       public boolean readResources(String url, String password) {
-          //模拟校验
+          // 模拟校验
           return password.equals("root");
       }
   }
+  
   public interface ResourcesService {
       public boolean openURL(String url ,String password);
   }
+  
   @Service
   public class ResourcesServiceImpl implements ResourcesService {
       @Autowired
@@ -1997,15 +2005,15 @@ public class DataAdvice {
     @Around("DataAdvice.servicePt()")
     // @Around("servicePt()")这两种写法都对
     public Object trimStr(ProceedingJoinPoint pjp) throws Throwable {
-        //获取原始方法的参数
+        // 获取原始方法的参数
         Object[] args = pjp.getArgs();
         for (int i = 0; i < args.length; i++) {
-            //判断参数是不是字符串
+            // 判断参数是不是字符串
             if(args[i].getClass().equals(String.class)){
                 args[i] = args[i].toString().trim();
             }
         }
-        //将修改后的参数传入到原始方法的执行中
+        // 将修改后的参数传入到原始方法的执行中
         Object ret = pjp.proceed(args);
         return ret;
     }
@@ -2234,7 +2242,7 @@ public class Account implements Serializable {
     private Integer id;
     private String name;
     private Double money;
-	//setter...getter...toString...方法略    
+	// setter...getter...toString...方法略    
 }
 ```
 
@@ -2261,7 +2269,7 @@ public interface AccountService {
      * @param in 转入方
      * @param money 金额
      */
-    public void transfer(String out,String in ,Double money) ;
+    public void transfer(String out, String in, Double money) ;
 }
 
 @Service
@@ -2270,9 +2278,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;
 
-    public void transfer(String out,String in ,Double money) {
-        accountDao.outMoney(out,money);
-        accountDao.inMoney(in,money);
+    public void transfer(String out, String in , Double money) {
+        accountDao.outMoney(out, money);
+        accountDao.inMoney(in, money);
     }
 
 }
@@ -2340,10 +2348,9 @@ public class MybatisConfig {
 @Configuration
 @ComponentScan("com.itheima")
 @PropertySource("classpath:jdbc.properties")
-@Import({JdbcConfig.class,MybatisConfig.class})
+@Import({JdbcConfig.class, MybatisConfig.class})
 public class SpringConfig {
 }
-
 ```
 
 ##### 步骤10：编写测试类
@@ -2358,7 +2365,7 @@ public class AccountServiceTest {
 
     @Test
     public void testTransfer() throws IOException {
-        accountService.transfer("Tom","Jerry",100D);
+        accountService.transfer("Tom", "Jerry", 100D);
     }
 
 }
@@ -2370,7 +2377,7 @@ public class AccountServiceTest {
 
 #### 6.1.4 事务管理
 
-上述环境，运行单元测试类，会执行转账操作，`Tom`的账户会减少100，`Jerry`的账户会加100。
+上述环境，运行单元测试类，会执行转账操作，`Tom`的账户会减少 100，`Jerry`的账户会加 100。
 
 这是正常情况下的运行结果，但是如果在转账的过程中出现了异常，如：
 
@@ -2381,16 +2388,16 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;
 
-    public void transfer(String out,String in ,Double money) {
-        accountDao.outMoney(out,money);
+    public void transfer(String out, String in, Double money) {
+        accountDao.outMoney(out, money);
         int i = 1/0;
-        accountDao.inMoney(in,money);
+        accountDao.inMoney(in, money);
     }
 
 }
 ```
 
-这个时候就模拟了转账过程中出现异常的情况，正确的操作应该是转账出问题了，`Tom`应该还是 900，`Jerry`应该还是1100，但是真正运行后会发现，并没有像我们想象的那样，`Tom`账户为800而`Jerry`还是 1100，100 块钱凭空消息了，银行乐疯了。如果把转账换个顺序，银行就该哭了。
+这个时候就模拟了转账过程中出现异常的情况，正确的操作应该是转账出问题了，`Tom`应该还是 900，`Jerry`应该还是1100，但是真正运行后会发现，并没有像我们想象的那样，`Tom`账户为 800，而`Jerry`还是 1100，100 块钱凭空消息了，银行乐疯了。如果把转账换个顺序，银行就该哭了。
 
 不管哪种情况，都是不允许出现的，对刚才的结果我们做一个分析：
 
@@ -2412,8 +2419,9 @@ public interface AccountService {
      * @param in 转入方
      * @param money 金额
      */
-    //配置当前接口方法具有事务
-    public void transfer(String out,String in ,Double money) ;
+    // 配置当前接口方法具有事务
+    @Transactional
+    public void transfer(String out, String in, Double money) ;
 }
 
 @Service
@@ -2421,11 +2429,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountDao accountDao;
-	@Transactional
-    public void transfer(String out,String in ,Double money) {
-        accountDao.outMoney(out,money);
+    
+    // 开启事务（这个最好直接写到 AccountService 接口上）
+	// @Transactional
+    public void transfer(String out, String in, Double money) {
+        accountDao.outMoney(out, money);
         int i = 1/0;
-        accountDao.inMoney(in,money);
+        accountDao.inMoney(in, money);
     }
 
 }
@@ -2439,7 +2449,7 @@ public class AccountServiceImpl implements AccountService {
 * 写在接口方法上，该接口的所有实现类的该方法都会有事务
 * 写在实现类上，该类中的所有方法都会有事务
 * 写在实现类方法上，该方法上有事务
-* ==建议写在实现类或实现类的方法上==
+* ==通常建议添加在业务层接口中而不会添加到业务层实现类中，降低耦合==
 
 ##### 步骤2：在JdbcConfig类中配置事务管理器
 
@@ -2455,7 +2465,7 @@ public class JdbcConfig {
     private String password;
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource ds = new DruidDataSource();
         ds.setDriverClassName(driver);
         ds.setUrl(url);
@@ -2464,9 +2474,9 @@ public class JdbcConfig {
         return ds;
     }
 
-    //配置事务管理器，mybatis使用的是jdbc事务
+    // 配置事务管理器，mybatis 使用的是 jdbc 事务
     @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource){
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
         transactionManager.setDataSource(dataSource);
         return transactionManager;
@@ -2484,8 +2494,8 @@ public class JdbcConfig {
 @Configuration
 @ComponentScan("com.itheima")
 @PropertySource("classpath:jdbc.properties")
-@Import({JdbcConfig.class, MybatisConfig.class
-//开启注解式事务驱动
+@Import({JdbcConfig.class, MybatisConfig.class})
+// 开启注解式事务驱动
 @EnableTransactionManagement
 public class SpringConfig {
 }
@@ -2514,6 +2524,8 @@ public class SpringConfig {
 
 ### 6.2 Spring事务角色
 
+Spring 又不是一个数据库工具，为什么可以实现事务呢？
+
 这节中我们重点要理解两个概念，分别是`事务管理员`和`事务协调员`。
 
 1. 未开启 Spring 事务之前：
@@ -2532,9 +2544,9 @@ public class SpringConfig {
 ![1630249111055](assets/1630249111055.png)
 
 * transfer 上添加了 @Transactional 注解，在该方法上就会有一个事务 T
-* AccountDao 的 outMoney方法的事务 T1 加入到 transfer 的事务 T 中
-* AccountDao 的 inMoney方法的事务 T2 加入到 transfer 的事务 T 中
-* 这样就保证他们在同一个事务中，当业务层中出现异常，整个事务就会回滚，保证数据的准确性。
+* AccountDao 的 outMoney 方法的事务 T1 加入到 transfer 的事务 T 中
+* AccountDao 的 inMoney 方法的事务 T2 加入到 transfer 的事务 T 中
+* 这样就保证他们在同一个事务中，当业务层中出现异常，整个事务就会回滚，保证数据的准确性
 
 通过上面例子的分析，我们就可以得到如下概念：
 
@@ -2543,7 +2555,7 @@ public class SpringConfig {
 
 ==注意：==
 
-目前的事务管理是基于`DataSourceTransactionManager`和`SqlSessionFactoryBean`使用的是同一个数据源。
+目前的事务管理是基于`DataSourceTransactionManager`和`SqlSessionFactoryBean`使用的是同一个数据源 JDBC 。
 
 ### 6.3 Spring事务属性
 
@@ -2581,7 +2593,7 @@ public class SpringConfig {
            * @param in 转入方
            * @param money 金额
            */
-          //配置当前接口方法具有事务
+          // 配置当前接口方法具有事务
           public void transfer(String out,String in ,Double money) throws IOException;
       }
       
@@ -2590,22 +2602,22 @@ public class SpringConfig {
       
           @Autowired
           private AccountDao accountDao;
+          
       	@Transactional
           public void transfer(String out,String in ,Double money) throws IOException{
               accountDao.outMoney(out,money);
-              //int i = 1/0; //这个异常事务会回滚
-              if(true){
-                  throw new IOException(); //这个异常事务就不会回滚
+              // int i = 1/0; // 这个异常事务会回滚
+              if(true) {
+                  throw new IOException(); // 这个异常事务就不会回滚
               }
-              accountDao.inMoney(in,money);
+              accountDao.inMoney(in, money);
           }
       
       }
       ```
   
 * 出现这个问题的原因是，Spring 的事务只会对`Error异常`和`RuntimeException异常`及其子类进行事务回顾，其他的异常类型是不会回滚的，对应 IOException 不符合上述条件所以不回滚
-      
-    * 此时就可以使用 rollbackFor 属性来设置出现 IOException 异常不回滚
+  * 此时就可以使用 rollbackFor 属性来设置出现 IOException 异常不回滚
     
       ```java
       @Service
@@ -2613,14 +2625,14 @@ public class SpringConfig {
       
           @Autowired
           private AccountDao accountDao;
-      	 @Transactional(rollbackFor = {IOException.class})
-          public void transfer(String out,String in ,Double money) throws IOException{
-              accountDao.outMoney(out,money);
-              //int i = 1/0; //这个异常事务会回滚
-              if(true){
-                  throw new IOException(); //这个异常事务就不会回滚
+          
+      	@Transactional(rollbackFor = {IOException.class})
+          public void transfer(String out,String in ,Double money) throws IOException {
+              accountDao.outMoney(out, money);
+              if(true) {
+                  throw new IOException();
               }
-              accountDao.inMoney(in,money);
+              accountDao.inMoney(in, money);
           }
       
       }
@@ -2669,7 +2681,9 @@ public class SpringConfig {
 ```sql
 create table tbl_log(
    id int primary key auto_increment,
+   # 转账信息
    info varchar(255),
+   # 操作时间
    createDate datetime
 )
 ```
@@ -2678,7 +2692,7 @@ create table tbl_log(
 
 ```java
 public interface LogDao {
-    @Insert("insert into tbl_log (info,createDate) values(#{info},now())")
+    @Insert("insert into tbl_log (info, createDate) values(#{info}, now())")
     void log(String info);
 }
 ```
@@ -2689,14 +2703,15 @@ public interface LogDao {
 public interface LogService {
     void log(String out, String in, Double money);
 }
+
 @Service
 public class LogServiceImpl implements LogService {
 
     @Autowired
     private LogDao logDao;
 	@Transactional
-    public void log(String out,String in,Double money ) {
-        logDao.log("转账操作由"+out+"到"+in+",金额："+money);
+    public void log(String out, String in, Double money ) {
+        logDao.log("转账操作由" + out + "到" + in + ",金额：" + money);
     }
 }
 ```
@@ -2711,7 +2726,7 @@ public interface AccountService {
      * @param in 转入方
      * @param money 金额
      */
-    //配置当前接口方法具有事务
+    // 配置当前接口方法具有事务
     public void transfer(String out,String in ,Double money)throws IOException ;
 }
 @Service
@@ -2722,12 +2737,12 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private LogService logService;
 	@Transactional
-    public void transfer(String out,String in ,Double money) {
-        try{
-            accountDao.outMoney(out,money);
-            accountDao.inMoney(in,money);
-        }finally {
-            logService.log(out,in,money);
+    public void transfer(String out, String in, Double money) {
+        try {
+            accountDao.outMoney(out, money);
+            accountDao.inMoney(in, money);
+        } finally {
+            logService.log(out, in, money);
         }
     }
 
@@ -2740,8 +2755,8 @@ public class AccountServiceImpl implements AccountService {
 
 * 当转账业务之间出现异常（int i =1/0），转账失败，tbl_account 成功回滚，但是 tbl_log 表未添加数据
 * 这个结果和我们想要的不一样，什么原因？该如何解决？
-* 失败原因:日志的记录与转账操作隶属同一个事务，同成功同失败
-* 最终效果:无论转账操作是否成功，日志必须保留
+* 失败原因：日志的记录与转账操作隶属同一个事务，同成功同失败
+* 我们的要求：无论转账操作是否成功，日志必须保留
 
 #### 6.3.3 事务传播行为
 
@@ -2755,9 +2770,11 @@ public class AccountServiceImpl implements AccountService {
 * 所以当转账失败后，所有的事务都回滚，导致日志没有记录下来
 * 这和我们的需求不符，这个时候我们就想能不能让 log 方法单独是一个事务呢？
 
-要想解决这个问题，就需要用到事务传播行为，所谓的事务传播行为指的是：
+要想解决这个问题，就需要用到**事务传播行为**，所谓的事务传播行为指的是：
 
 事务传播行为：事务协调员对事务管理员所携带事务的处理态度。
+
+通俗理解就是：当事务管理员开启事务时，事务协调员可以自由决定要不要加入，要不要自己独立弄一个新的事务。
 
 具体如何解决，就需要用到之前我们没有说的`propagation属性`
 
@@ -2769,15 +2786,57 @@ public class LogServiceImpl implements LogService {
 
     @Autowired
     private LogDao logDao;
-	//propagation设置事务属性：传播行为设置为当前操作需要新事务
+	// propagation设置事务属性：传播行为设置为当前操作需要新事务
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void log(String out,String in,Double money ) {
-        logDao.log("转账操作由"+out+"到"+in+",金额："+money);
+    public void log(String out, String in, Double money ) {
+        logDao.log("转账操作由" + out + "到" + in + ",金额：" + money);
     }
 }
 ```
 
 运行后，就能实现我们想要的结果，不管转账是否成功，都会记录日志。
+
+>说明：
+>
+>```java
+>try {
+>	accountDao.outMoney(out, money);
+>	accountDao.inMoney(in, money);
+>} finally {
+>	logService.log(out, in, money);
+>}
+>```
+>
+>其实，这样的写法是不科学的，因为就是转账失败了记录的依旧是：“转账操作由XXX到XXX，金额：XXX"，并不能区分其是一个失败的操作，这里只是为了演示方便，所以这样写。
+>
+>我们可以这样：
+>
+>```java
+>@Service
+>public class LogServiceImpl implements LogService {
+>
+>    @Autowired
+>    private LogDao logDao;
+>	@Transactional
+>    public void log(String out, String in, Double money, Boolean flag) {
+>        if (flag == true) {
+>            logDao.log("转账操作由" + out + "到" + in + "，金额：" + money + "（成功）");
+>        } else {
+>            logDao.log("转账操作由" + out + "到" + in + "，金额：" + money + "（失败）");
+>        }
+>    }
+>}
+>```
+>
+>```java
+>try {
+>	accountDao.outMoney(out, money);
+>	accountDao.inMoney(in, money);
+>    logService.log(out, in, money, true);
+>} catch(Exception e) {
+>	logService.log(out, in, money, false);
+>}
+>```
 
 ##### 2.事务传播行为的可选值
 
