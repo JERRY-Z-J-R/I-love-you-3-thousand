@@ -218,7 +218,7 @@ num_03 = 1.0
 # 除：/
 # 除（取整）：//
 # 取余：%
-# 幂：**
+# 幂：**（用 x**y 或 pow(x, y) 表示）
 
 # 小提示：
 # 1、只要有浮点数参与的运算一定得到浮点数结果
@@ -1081,8 +1081,168 @@ for username, user_info in users.items():
 
 # 七、用户输入和while循环
 
-```zhoujr
+```python
+# input() 控制台输入函数
+name = input("Please enter your name: ")
+print(f"\nHello, {name}!")
+# 执行结果
+# Please enter your name: jerry
+#
+# Hello, jerry!
 
+prompt = "IF you tell us who you are, we can personalize the messages you see."
+prompt += "\nWhat is your first name? "
+name = input(prompt)
+print(f"\nHello, {name}!")
+# 运行结果：
+# IF you tell us who you are, we can personalize the messages you see.
+# What is your first name? Eric
+#
+# Hello, Eric!
+
+# 使用 int() float() 来获取数值输入
+# input() 所接收到的输入一律是字符串格式的，当我们需要数字格式时，就必须借助 int() 及 float()
+# int() 转为整数
+>>> age = input("How old are you? ")
+How old are you? 18
+>>> age
+'18'
+
+>>> age = int(input("How old are you? "))
+How old are you? 18
+>>> age
+18
+
+>>> age = input("How old are you? ")
+How old are you? 18
+>>> age = int(age)
+>>> age
+18
+# float() 同理，只不过 float() 的功能是转为浮点数
+# 注意：还可以使用 bool() 来获取布尔值输入
+```
+
+```python
+# 使用 while 循环
+current_number = 1
+while current_number <= 5:
+    print(current_number)
+    current_number += 1
+# 运行结果：
+# 1
+# 2
+# 3
+# 4
+# 5
+
+# 动态退出
+prompt = "\nTell me something, and I will repeat it back to you: "
+prompt += "\nEntter 'quit' to end the program."
+message = ""
+while message != 'quit':
+    message = input(prompt)
+    if message != 'quit':
+        print(message)
+# 运行结果：
+# Tell me something, and I will repeat it back to you:
+# Entter 'quit' to end the program.Hello everyone!
+# Hello everyone!
+#
+# Tell me something, and I will repeat it back to you:
+# Entter 'quit' to end the program.Hello again.
+# Hello again.
+#
+# Tell me something, and I will repeat it back to you:
+# Entter 'quit' to end the program.quit
+
+# 使用标志
+prompt = "\nTell me something, and I will repeat it back to you: "
+prompt += "\nEntter 'quit' to end the program."
+active = True
+while active:
+    message = input(prompt)
+    if message == 'quit':
+        active = False
+    else:
+        print(message)
+
+# 使用 break 退出循环
+prompt = "\nTell me something, and I will repeat it back to you: "
+prompt += "\nEntter 'quit' to end the program."
+while True:
+    message = input(prompt)
+    if message == 'quit':
+        break
+    else:
+        print(message)
+        
+# 使用 continue 提前进入下一轮循环
+current_number = 0
+while current_number < 10:
+    current_number += 1
+    # 判读偶数
+    if current_number % 2 == 0:
+        continue
+    print(current_number)
+# 运行结果：
+# 1
+# 3
+# 5
+# 7
+# 9
+
+# 注意：break 和 continue 同样在 for 循环中适用！
+```
+
+```python
+# 使用 while 循环列表和字典
+
+unconfirmed_users = ['alice', 'brian', 'candace']
+confitmed_users = []
+while unconfirmed_users:
+    current_user = unconfirmed_users.pop()
+    confitmed_users.append(current_user)
+for confitmed_user in confitmed_users:
+    print(confitmed_user.title())
+# 运行结果：
+# Candace
+# Brian
+# Alice
+
+pets = ['dog', 'cat', 'dog', 'goldfish', 'cat', 'rabbit', 'cat']
+print(pets)
+while 'cat' in pets:
+    pets.remove('cat')
+print(pets)
+# 运行结果：
+# ['dog', 'cat', 'dog', 'goldfish', 'cat', 'rabbit', 'cat']
+# ['dog', 'dog', 'goldfish', 'rabbit']
+
+responses = {}
+polling_active = True
+while polling_active:
+    name = input("\nWhat is your name? ")
+    response = input("Which mountain would you like to climb someday? ")
+    responses[name] = response
+    repeat = input("Would you like to let another person respond? (yes/no)")
+    if repeat == 'no':
+        polling_active = False
+print("\n--- Poll Results ---")
+for name, response in responses.items():
+    print(f"{name} : {response}.")
+
+# 运行结果：
+# What is your name? Jerry
+# Which mountain would you like to climb someday? Denali
+# Would you like to let another person respond? (yes/no)yes
+# 
+# What is your name? Lynn
+# Which mountain would you like to climb someday? Devil's Thumb
+# Would you like to let another person respond? (yes/no)no
+# 
+# --- Poll Results ---
+# Jerry : Denali.
+# Lynn : Devil's Thumb.
 ```
 
 # 八、函数
