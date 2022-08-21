@@ -8,7 +8,7 @@
 >
 > 原创内容，转载请注明出处！
 
-> 本文档只是 Python3 的入门基础，更多内容请看：[3.8.13 Documentation (python.org)](https://docs.python.org/zh-cn/3.8/)
+> 本文档只是 Python3 的入门基础，更多详细内容请看：[3.8.13 Documentation (python.org)](https://docs.python.org/zh-cn/3.8/)
 
 # 一、起步
 
@@ -1248,13 +1248,266 @@ for name, response in responses.items():
 # 八、函数
 
 ```python
+# 定义函数
+def greet_user():
+    """显示简单的问候语"""
+    print("Hello!")
+greet_user()
+# Hello!
 
+# def 关键字定义函数
+# 函数名后紧跟()，()中为函数的参数，即便没有参数，()也不可以省略
+# """""" 是文档字符串注释，描述了函数的功能，Python 使用它们来生成有关程序中函数的文档
+
+# 向函数传递参数
+def greet_user(username):
+    """显示简单的问候语"""
+    print(f"Hello, {username.title()}!")
+greet_user('jerry')
+# Hello, Jerry!
+# 注意：执行函数时传递的 'jerry' 叫实参，定义函数接收的 username 叫形参
+
+# 位置实参（实参形参的关联顺序基于实参的顺序）
+def describe_pet(animal_type, pet_name):
+    """显示宠物信息"""
+    print(f"\nI have a {animal_type}.")
+    print(f"My {animal_type}'s name is {pet_name.title()}.")
+describe_pet('hamster', 'harry')
+describe_pet('dog', 'willie')
+# 运行结果：
+# I have a hamster.
+# My hamster's name is Harry.
+#
+# I have a dog.
+# My dog's name is Willie.
+
+# 关键字实参（实参形参的关联顺序基于关键字指定）
+def describe_pet(animal_type, pet_name):
+    """显示宠物信息"""
+    print(f"\nI have a {animal_type}.")
+    print(f"My {animal_type}'s name is {pet_name.title()}.")
+describe_pet(animal_type='hamster', pet_name='harry')
+describe_pet(pet_name='harry', animal_type='hamster')
+# 运行结果：
+# I have a hamster.
+# My hamster's name is Harry.
+# 
+# I have a hamster.
+# My hamster's name is Harry.
+
+# 形参默认值（当没有实参时使用默认值，否则使用实参值）
+def describe_pet(pet_name, animal_type="dog"):
+    """显示宠物信息"""
+    print(f"\nI have a {animal_type}.")
+    print(f"My {animal_type}'s name is {pet_name.title()}.")
+describe_pet(pet_name='harry')
+describe_pet(pet_name='harry', animal_type='hamster')
+# 运行结果：
+# I have a dog.
+# My dog's name is Harry.
+# 
+# I have a hamster.
+# My hamster's name is Harry.
+
+# 返回值
+def get_formatted_name(first_name, last_name):
+    """返回整洁的姓名"""
+    full_name = f"{first_name} {last_name}"
+    return full_name.title()
+musician = get_formatted_name('jimi', 'hendrix')
+print(musician)
+# Jimi Hendrix
+
+# 让实参变成可选的
+def get_formatted_name(first_name, last_name, middle_name=''):
+    """返回整洁的姓名"""
+    if middle_name:
+        full_name = f"{first_name} {middle_name} {last_name}"
+    else:
+        full_name = f"{first_name} {last_name}"
+    return full_name.title()
+musician = get_formatted_name('jimi', 'hendrix')
+print(musician)
+musician = get_formatted_name('john', 'hooker', 'lee')
+print(musician)
+
+# 让实参变成可选的
+def get_formatted_name(first_name, last_name, middle_name=''):
+    """返回整洁的姓名"""
+    if middle_name:
+        full_name = f"{first_name} {middle_name} {last_name}"
+    else:
+        full_name = f"{first_name} {last_name}"
+    return full_name.title()
+musician = get_formatted_name('jimi', 'hendrix')
+print(musician)
+musician = get_formatted_name('john', 'hooker', 'lee')
+print(musician)
+# 运行结果：
+# Jimi Hendrix
+# John Lee Hooker
+
+# 利用 None 作为占位值（在条件测试中，None 相当于 False）
+def build_person(first_name, last_name, age=None):
+    """返回一个字典，其中包含有关一个人的信息"""
+    person = {'first': first_name, 'last': last_name}
+    if age:
+        person['age'] = age
+    return person
+musician_01 = build_person('jimi', 'hendrix', age=24)
+musician_02 = build_person('jerry', 'hendrix')
+print(musician_01)
+print(musician_02)
+# 运行结果：
+# {'first': 'jimi', 'last': 'hendrix', 'age': 24}
+# {'first': 'jerry', 'last': 'hendrix'}
+
+# 传递列表
+def greet_users(names):
+    """向列表中的每位用户发出简单的问候"""
+    for name in names:
+        msg = f"Hello, {name.title()}!"
+        print(msg)
+usernames = ['hannah', 'ty', 'margot']
+greet_users(usernames)
+# 运行结果：
+# Hello, Hannah!
+# Hello, Ty!
+# Hello, Margot!
+
+# 函数中可以调用函数
+def input_msg():
+    return input("input msg: ")
+def print_msg():
+    print(input_msg())
+print_msg()
+# 运行结果：
+# input msg: hello
+# hello
+
+# 禁止函数修改列表
+# 此时接收到的是列表的副本
+function_name(list_name[:])
+# 注意：基本类型接收到的默认就是副本，只有引用类型接收到的是对内存数据的引用
+
+# 接收任意数量的实参到元组
+# 通常习惯用 *args 来收集任意数量的位置实参
+def make_pizza(size, *toppings):
+    """概述要制作的比萨"""
+    print(f"\nMaking a {size}-inch pizza with the following toppings: ")
+    print(topping)
+make_pizza(16, 'pepperoni')
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+# 运行结果：
+# Making a 16-inch pizza with the following toppings: 
+# ('pepperoni',)
+# 
+# Making a 12-inch pizza with the following toppings: 
+# ('mushrooms', 'green peppers', 'extra cheese')
+
+# 接收任意数量的实参到字典
+# 通常习惯用 **kwargs 来收集任意数量的位置实参
+def build_profile(first, last, **user_info):
+    """创建一个字典，其中包含我们知道的有关用户的一切"""
+    user_info['first_name'] = first
+    user_info['last_name'] = last
+    return user_info
+user_profile = build_profile('albert', 'einstein', location='princeton', field='physics')
+print(user_profile)
+# {'location': 'princeton', 'field': 'physics', 'first_name': 'albert', 'last_name': 'einstein'}
+```
+
+```python
+# 将函数存储到模块中
+# 可以将函数存储在称为模块的独立文件中，再将模块导入到主程序中
+# import 语句允许在当前运行的程序文件中使用模块中的代码
+# 模块化的好处：封装细节、利于重用、良好的代码组织结构
+
+# 导入整个模块
+# 1、创建模块 hello.py
+def hello_mk():
+    print("hello!")
+def haha_mk():
+    print("haha!")
+
+# 2、在 main.py 中导入并使用模块
+import hello
+hello.hello_mk()
+hello.haha_mk()
+# hello!
+# haha!
+
+# 导入特定函数
+from hello import hello_mk, haha_mk
+hello_mk()
+haha_mk()
+# hello!
+# haha!
+
+from hello import hello_mk
+hello_mk()
+haha_mk()
+# hello!
+# NameError: name 'haha_mk' is not defined
+
+# 使用 as 给函数指定别名
+from hello import haha_mk as ha
+ha()
+# haha!
+
+# 使用 as 给模块指定别名
+import hello as ho
+ho.hello_mk()
+ho.haha_mk()
+# hello!
+# haha!
 ```
 
 # 九、类
 
 ```python
+class Dog:
+    """小狗类：名字、年龄、蹲下动作、打滚动作"""
 
+    def __init__(self, name, age):
+        """初始化属性 name 和 age"""
+        self.name = name
+        self.age = age
+
+    def sit(self):
+        """模拟小狗收到命令时蹲下"""
+        print(f"{self.name} is now sitting.")
+
+    def roll_over(self):
+        """模拟小狗收到命令时打滚"""
+        print(f"{self.name} rolled over!")
+
+# class 创建类的关键字
+# 类名使用大驼峰命名（XxxYxxZzz）
+# 类名后不加()，直接加:
+# 方法 __init__，类创建新的实例时会自动调用该方法
+# 在 __init__ 方法定义中，self 参数必不可少，并且必须位于第一位
+# self 参数指向类的实例本身的引用，让实例能够访问类中的属性和方法
+
+# 根据类创建实例并访问属性和调用方法
+my_dog = Dog('Willie', 6)
+your_dog = Dog('Lucy', 3)
+print(f"My dog's name is {my_dog.name}.")
+print(f"My dog is {my_dog.age} years old.")
+my_dog.sit()
+
+print(f"\nYour dog's name is {your_dog.name}.")
+print(f"Your dog is {your_dog.age} years old.")
+your_dog.sit()
+
+# 运行结果：
+# My dog's name is Willie.
+# My dog is 6 years old.
+# Willie is now sitting.
+# 
+# Your dog's name is Lucy.
+# Your dog is 3 years old.
+# Lucy is now sitting.
 ```
 
 # 十、文件和异常
