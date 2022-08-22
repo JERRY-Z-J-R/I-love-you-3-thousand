@@ -268,7 +268,7 @@ console.log(typeof a);	// string
 "我喜欢JS，我也喜欢NODE".substring(3, 5);		// "JS"
 "我喜欢JS，我也喜欢NODE".substring(10, 14);		// "NODE"
 "我喜欢JS，我也喜欢NODE".substring(10, 99);		// "NODE"
-"我喜欢JS，我也喜欢NODE".substring(-1, 4);		// "我喜欢J"
+"我喜欢JS，我也喜欢NODE".substring(1, 4);		// "我喜欢J"
 ```
 
 > 超出范围的部分，取到端点字符。
