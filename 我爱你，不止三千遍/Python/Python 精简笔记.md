@@ -25,7 +25,9 @@
 7. 依次默认下一步（安装路径建议放置在非 C 盘路径下）
 8. 安装成功
 
-**（2）交互式 Python**
+**（2）使用 Python**
+
+**【交互式 Python】**
 
 1. 打开命令行窗口（cmd 或 Windows PowerShell）
 2. 输入 `python` 命令
@@ -33,10 +35,10 @@
 4. 交互式执行代码段
 5. 输入 `exit()` 退出终端会话
 
-**（3）编写 Python 脚本**
+**【Python 脚本】**
 
-1. 使用文本编辑器编辑 Python 脚本代码
-2. 保存脚本代码为 `xxx.py` 文件
+1. 使用文本编辑器创建并编辑 Python 脚本
+2. 保存脚本为 `xxx.py` 文件
 3. 打开命令行窗口（cmd 或 Windows PowerShell）
 4. 使用 `cd` 命令切换到 `xxx.py` 文件所在路径下
 5. 执行 `python xxx.py` 命令
@@ -100,8 +102,9 @@ name_01 = "jerry"
 name_02 = 'jerry'
 
 # 小提示：
-# 1、推荐使用 "" 定义字符串，因为在字符串中也许会出现 "I'm a geek" 这种引号嵌套情况
-# 2、无论使用哪一种引号方式，关键在于要做到 “整体统一”
+# 1、推荐使用 "" 定义长字符串，因为在字符串中也许会出现 "I'm a geek" 这种引号嵌套情况
+# 2、对于短字符串（一个单词），业界比较习惯使用 ''
+# 3、无论使用哪一种引号方式，关键在于要做到 “整体统一”
 ```
 
 ```python
@@ -208,6 +211,7 @@ num_03 = 1.0
 
 # 小提示：
 # 长数值可以用下划线对数字分组，使其更清晰易读，例如：universe_age = 14_000_000_000
+# 可以用 int(3.5) 将浮点数转为整数，只不过此种方法一律去掉小数位，并不做四舍五入！
 ```
 
 ```python
@@ -313,7 +317,7 @@ ZJR_BIRTHDAY = "2000-05-04"
 
 # 小提示：
 # 一般情况下请尽量使用单行注释，原因如下：
-# 1、"""""" 或 '''''' 准确的来说叫做：文档字符串注释，一般放在一个函数内部的开头描述一个函数是做什么的，Python 使用他们来生成有关程序中的函数文档。
+# 1、"""""" 或 '''''' 准确的来说叫做：文档字符串注释，一般放在一个函数内部的开头、类内部的开头、文件内部的开头描述该函数、类、文件是做什么的，Python 使用他们来生成有关程序中的文档。
 # 2、多行注释同时还兼任了 “格式化字符串” 功能
 # 例如：
 test_str = """
@@ -608,6 +612,7 @@ for value in range(3, 7):
 # 5
 # 6
 
+
 # 如果 range([a,] b [, c]) 不指定 a 的值，那么 a 默认为 0
 # range(b) 与 range(0, b) 同等
 for num in range(5):
@@ -619,6 +624,7 @@ for num in range(5):
 # 2
 # 3
 # 4
+
 
 # 设置步长
 for n in range(1, 9, 3):
@@ -647,6 +653,7 @@ print(number_02)
 # 运行结果：
 # [0, 2, 4]
 
+
 # 创建特殊数字列表
 squares = []
 for value in range(1, 11):
@@ -654,6 +661,7 @@ for value in range(1, 11):
 print(squares)
 # 运行结果：
 # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
 
 # 以 “列表解析” 的方式创建数字列表
 squares_02 = [value**2 for value in range(1, 11)]
@@ -698,6 +706,7 @@ print(player[:5:2])
 print(player[::2])
 # ['charles', 'michael', 'eli']
 
+
 # 遍历切片
 # 作用：用于遍历列表的部分元素
 players = ['charles', 'martina', 'michael', 'florence', 'eli']
@@ -709,6 +718,7 @@ for player in players[:3]:
 # Charles
 # Martina
 # Michael
+
 
 # 复制列表
 # 作用：根据既有列表创建新列表
@@ -725,7 +735,7 @@ print(friend_foods)
 # ['pizza', 'falafel', 'carrot cake', 'apple']
 # ['pizza', 'falafel', 'carrot cake', 'apple']
 # 可以发现，直接 “=” 赋值的方式是行不通的
-# 因为，直接 “=” 赋值 friend_foods 只是 my_foods 引用名称的副本，而不是 my_foods 指向内存真实数据的副本
+# 因为，直接 “=” 赋值 friend_foods 只是 my_foods 引用名称的副本，而不是 my_foods 所指向内存中真实数据的副本
 # 通俗理解：friend_foods 是 my_foods 取的一个 “别名”，两者内存中引用的数据是同一份
 my_foods = ['pizza', 'falafel', 'carrot cake']
 friend_foods = my_foods[:]
@@ -740,6 +750,8 @@ print(friend_foods)
 # ['pizza', 'falafel', 'carrot cake', 'apple']
 # ['pizza', 'falafel', 'carrot cake']
 # 可以发现，利用切片的方式进行赋值可以实现真正意义上的 “复制”
+# 注意：当列表中还嵌套了列表时，单纯的切片复制是行不通的，此时只是复制了“最外层”，所嵌套列表内的数据依旧只是复制了引用名称
+# 对于嵌套引用类型的复制来说，需要利用递归算法进行深克隆
 ```
 
 ```python
@@ -758,9 +770,11 @@ print(dimensions_style[1])
 # 50
 # 200
 # 50
+
 dimensions_care = (200,)
 print(dimensions_care[0])
 # 由于元组是由逗号标识的，圆括号只是一个风格规范，所以对于只有一个元素的元组，必须在这个元素后面加上逗号
+
 
 # 遍历元组
 for dimension in dimensions:
@@ -778,7 +792,7 @@ dimensions = (1, 2, 3)
 print(dimensions)
 # 运行结果：
 # (1, 2, 3)
-# 虽然不可以修改元组的元素，但可以给指向元组的变量重新赋值
+# 虽然不可以修改元组的元素，但可以给指向元组的变量重新赋值，此时 dimensions 指向的已经是一个新的内存地址了
 ```
 
 # 五、if 语句
@@ -1003,6 +1017,7 @@ for alien in aliens:
 # {'color': 'yellow', 'points': 10}
 # {'color': 'red', 'points': 15}
 
+
 aliens = []
 for alien_number in range(30):
     new_alien = {'color': 'green', 'points': 5, 'speed': 'slow'}
@@ -1019,6 +1034,7 @@ print(f"Total number of aliens: {len(aliens)}")
 # {'color': 'green', 'points': 5, 'speed': 'slow'}
 # ...
 # Total number of aliens: 30
+
 
 # 在字典中存储列表
 favorite_languages = {
@@ -1046,6 +1062,7 @@ for name, languages in favorite_languages.items():
 # Phil's favorite languages are:
 # 	Python
 # 	Haskell
+
 
 # 在字典中存储字典
 users = {
@@ -1090,6 +1107,7 @@ print(f"\nHello, {name}!")
 #
 # Hello, jerry!
 
+
 prompt = "IF you tell us who you are, we can personalize the messages you see."
 prompt += "\nWhat is your first name? "
 name = input(prompt)
@@ -1099,6 +1117,7 @@ print(f"\nHello, {name}!")
 # What is your first name? Eric
 #
 # Hello, Eric!
+
 
 # 使用 int() float() 来获取数值输入
 # input() 所接收到的输入一律是字符串格式的，当我们需要数字格式时，就必须借助 int() 及 float()
@@ -1135,6 +1154,7 @@ while current_number <= 5:
 # 4
 # 5
 
+
 # 动态退出
 prompt = "\nTell me something, and I will repeat it back to you: "
 prompt += "\nEntter 'quit' to end the program."
@@ -1155,6 +1175,7 @@ while message != 'quit':
 # Tell me something, and I will repeat it back to you:
 # Entter 'quit' to end the program.quit
 
+
 # 使用标志
 prompt = "\nTell me something, and I will repeat it back to you: "
 prompt += "\nEntter 'quit' to end the program."
@@ -1166,6 +1187,7 @@ while active:
     else:
         print(message)
 
+        
 # 使用 break 退出循环
 prompt = "\nTell me something, and I will repeat it back to you: "
 prompt += "\nEntter 'quit' to end the program."
@@ -1175,7 +1197,8 @@ while True:
         break
     else:
         print(message)
-        
+    
+    
 # 使用 continue 提前进入下一轮循环
 current_number = 0
 while current_number < 10:
@@ -1267,6 +1290,7 @@ greet_user('jerry')
 # Hello, Jerry!
 # 注意：执行函数时传递的 'jerry' 叫实参，定义函数接收的 username 叫形参
 
+
 # 位置实参（实参形参的关联顺序基于实参的顺序）
 def describe_pet(animal_type, pet_name):
     """显示宠物信息"""
@@ -1280,6 +1304,7 @@ describe_pet('dog', 'willie')
 #
 # I have a dog.
 # My dog's name is Willie.
+
 
 # 关键字实参（实参形参的关联顺序基于关键字指定）
 def describe_pet(animal_type, pet_name):
@@ -1295,7 +1320,9 @@ describe_pet(pet_name='harry', animal_type='hamster')
 # I have a hamster.
 # My hamster's name is Harry.
 
+
 # 形参默认值（当没有实参时使用默认值，否则使用实参值）
+# 注意：有默认值的形参只能统一放到形参列表的末尾
 def describe_pet(pet_name, animal_type="dog"):
     """显示宠物信息"""
     print(f"\nI have a {animal_type}.")
@@ -1309,6 +1336,7 @@ describe_pet(pet_name='harry', animal_type='hamster')
 # I have a hamster.
 # My hamster's name is Harry.
 
+
 # 返回值
 def get_formatted_name(first_name, last_name):
     """返回整洁的姓名"""
@@ -1318,18 +1346,6 @@ musician = get_formatted_name('jimi', 'hendrix')
 print(musician)
 # Jimi Hendrix
 
-# 让实参变成可选的
-def get_formatted_name(first_name, last_name, middle_name=''):
-    """返回整洁的姓名"""
-    if middle_name:
-        full_name = f"{first_name} {middle_name} {last_name}"
-    else:
-        full_name = f"{first_name} {last_name}"
-    return full_name.title()
-musician = get_formatted_name('jimi', 'hendrix')
-print(musician)
-musician = get_formatted_name('john', 'hooker', 'lee')
-print(musician)
 
 # 让实参变成可选的
 def get_formatted_name(first_name, last_name, middle_name=''):
@@ -1347,6 +1363,7 @@ print(musician)
 # Jimi Hendrix
 # John Lee Hooker
 
+
 # 利用 None 作为占位值（在条件测试中，None 相当于 False）
 def build_person(first_name, last_name, age=None):
     """返回一个字典，其中包含有关一个人的信息"""
@@ -1362,6 +1379,7 @@ print(musician_02)
 # {'first': 'jimi', 'last': 'hendrix', 'age': 24}
 # {'first': 'jerry', 'last': 'hendrix'}
 
+
 # 传递列表
 def greet_users(names):
     """向列表中的每位用户发出简单的问候"""
@@ -1375,6 +1393,7 @@ greet_users(usernames)
 # Hello, Ty!
 # Hello, Margot!
 
+
 # 函数中可以调用函数
 def input_msg():
     return input("input msg: ")
@@ -1385,10 +1404,12 @@ print_msg()
 # input msg: hello
 # hello
 
+
 # 禁止函数修改列表
 # 此时接收到的是列表的副本
 function_name(list_name[:])
 # 注意：基本类型接收到的默认就是副本，只有引用类型接收到的是对内存数据的引用
+
 
 # 接收任意数量的实参到元组
 # 通常习惯用 *args 来收集任意数量的位置实参
@@ -1404,6 +1425,7 @@ make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
 # 
 # Making a 12-inch pizza with the following toppings: 
 # ('mushrooms', 'green peppers', 'extra cheese')
+
 
 # 接收任意数量的实参到字典
 # 通常习惯用 **kwargs 来收集任意数量的位置实参
@@ -1423,6 +1445,7 @@ print(user_profile)
 # import 语句允许在当前运行的程序文件中使用模块中的代码
 # 模块化的好处：封装细节、利于重用、良好的代码组织结构
 
+
 # 导入整个模块
 # 1、创建模块 hello.py
 def hello_mk():
@@ -1430,12 +1453,14 @@ def hello_mk():
 def haha_mk():
     print("haha!")
 
+    
 # 2、在 main.py 中导入并使用模块
 import hello
 hello.hello_mk()
 hello.haha_mk()
 # hello!
 # haha!
+
 
 # 导入特定函数
 from hello import hello_mk, haha_mk
@@ -1444,16 +1469,19 @@ haha_mk()
 # hello!
 # haha!
 
+
 from hello import hello_mk
 hello_mk()
 haha_mk()
 # hello!
 # NameError: name 'haha_mk' is not defined
 
+
 # 使用 as 给函数指定别名
 from hello import haha_mk as ha
 ha()
 # haha!
+
 
 # 使用 as 给模块指定别名
 import hello as ho
@@ -1489,13 +1517,13 @@ class Dog:
 # 在方法定义中，self 参数必不可少，并且必须位于第一位
 # self 参数指向类的实例本身的引用，让实例能够访问类中的属性和方法
 
+
 # 根据类创建实例并访问属性和调用方法
 my_dog = Dog('Willie', 6)
 your_dog = Dog('Lucy', 3)
 print(f"My dog's name is {my_dog.name}.")
 print(f"My dog is {my_dog.age} years old.")
 my_dog.sit()
-
 print(f"\nYour dog's name is {your_dog.name}.")
 print(f"Your dog is {your_dog.age} years old.")
 your_dog.sit()
@@ -1661,7 +1689,7 @@ my_tesla.fill_gas_tank()
 # 使用代码模拟实物时，可能会导致给类添加的细节越来越多（属性、方法）
 # 最好的解决办法是：将类的一部分提取出来，作为一个独立的类，将大型类拆分成多个协同工作的小类
 
-# 例如：不断给 ElectricCar 类添加细节时，我们可能发现其中包含了很多专门争对电池的属性和方法
+# 例如：不断给 ElectricCar 类添加细节时，我们可能发现其中包含了很多专门针对电池的属性和方法
 # 这种情况下，可以将这些属性和方法提取出来，放到一个名为 Battery 的类中，并将一个 Battery 实例作为 ElectricCar 类的属性
 class Car:
     """模拟汽车"""
@@ -1858,6 +1886,7 @@ print(my_tesla.get_descropive_name())
 # 导入整个类：from electric_car
 # 导入模块中的所有类：from electric_car import *
 # 使用别名：as
+# 这里再次强调：每一个以扩展名 .py 结尾的 Python 源代码文件都是一个 模块
 ```
 
 ```python
@@ -1872,6 +1901,7 @@ from random import randint
 print(randint(1, 6))    # 5
 print(randint(1, 6))    # 1
 print(randint(1, 6))    # 2
+
 
 # choice() 函数：它将一个列表或元组作为参数，并随机返回其中的一个元素：
 from random import choice
@@ -1975,6 +2005,7 @@ with open(filename, 'w') as file_object:
     file_object.write("I love programming.")
 # 运行结果：生成 programming.txt 文件，内容为：I love programming.
 
+
 # 写入多行
 # write() 方法不会在写入的文本末尾添加换行符，因此如果写入多行时需要指定换行符
 filename = 'programming.txt'
@@ -1982,6 +2013,7 @@ with open(filename, 'w') as file_object:
     file_object.write("I love programming.\n")
     file_object.write("I love creating new games.\n")
 # 除了 \n 之外，还可以使用空格、制表符和空行来设置这些输出的格式
+
 
 # 附加到文件
 # 附加模式：在原文件的基础上添加内容（追加到末尾）
@@ -1993,7 +2025,7 @@ with open(filename, 'a') as file_object:
 ```
 
 ```python
-# json模块
+# json 模块
 # Python 提供了 json 模块可以将 Python 数据结构以 json 格式存储到文件中，并在需要时加载该文件中的数据
 # 并且 JSON 并非 Python 专用的数据格式，而是目前广泛通用的数据格式（最先来自于 JavaScript）
 # json.dump() 用于存储数据，接收两个实参：要存储的数据、目标文件对象
@@ -2076,6 +2108,7 @@ print("...")
 # 2.5
 # ...
 
+
 # 例2：处理 FileNotFoundError 异常
 filename = 'alice.txt'
 with open(filename, encoding='utf-8') as f:
@@ -2094,6 +2127,7 @@ else:
     num_words = len(words)
     print(f"The file {filename} has about {num_words} words.")
 # Sorry, the file alice.txt does not exist.
+
 
 # 静默失败
 try:
@@ -2347,5 +2381,8 @@ if __name__ == '__main__':
 # unittest.TestCase 类提供了 setUp() 方法
 # Python 将首先运行 setUp() 方法，再运行各个以 test_ 打头的方法
 # 用途举例：当对类进行测试的时候，可以在 setUp() 中创建对象，之后的 test_ 测试方法中就不用重复创建
+
+# 注意：通常情况下测试文件应该是单独的，不推荐与业务代码放在一块，往后应该单独创建测试代码文件并 import 导入业务函数或类再进行测试
+# 同时，import 语句一般都应该统一放置在代码的最上方
 ```
 
