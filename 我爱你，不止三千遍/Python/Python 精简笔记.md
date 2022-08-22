@@ -637,7 +637,7 @@ for n in range(1, 9, 3):
 ```python
 # 使用 range() 创建数字列表
 # 创建普通数字列表
-# range() 得到的是一个数值序列，需要通过 list() 转为列表
+# range() 得到的是一个数值序列，需要通过 list() 转为列表，tuple() 转为元组
 numbers_01 = list(range(1, 6))
 print(number_01)
 # 运行结果：
@@ -1486,7 +1486,7 @@ class Dog:
 # 类名使用大驼峰命名（XxxYxxZzz）
 # 类名后不加()，直接加:
 # 方法 __init__，类创建新的实例时会自动调用该方法
-# 在 __init__ 方法定义中，self 参数必不可少，并且必须位于第一位
+# 在方法定义中，self 参数必不可少，并且必须位于第一位
 # self 参数指向类的实例本身的引用，让实例能够访问类中的属性和方法
 
 # 根据类创建实例并访问属性和调用方法
@@ -1510,14 +1510,842 @@ your_dog.sit()
 # Lucy is now sitting.
 ```
 
+```python
+class Car:
+    """模拟汽车"""
+
+    def __init__(self, make, model, year):
+        """初始化描述汽车的属性"""
+        self.make = make
+        self.model = model
+        self.year = year
+        # 给属性指定默认值
+        self.odometer_reading = 0
+
+    def get_descropive_name(self):
+        """返回整洁的描述性信息"""
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        """输出一条指出汽车里程的消息"""
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+    def update_odometer(self, mileage):
+        """将里程表读数设置为指定的值，且禁止将里程数回调"""
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+
+    def increment_odometer(self, miles):
+        """将里程表读数增加指定的量"""
+        self.odometer_reading += miles
+
+my_new_car = Car('audi', 'a4', 2019)
+print(my_new_car.get_descropive_name())
+# 2019 Audi A4
+
+my_new_car.read_odometer()
+# This car has 0 miles on it.
+
+# 直接修改属性的值
+my_new_car.odometer_reading = 23
+my_new_car.read_odometer()
+# This car has 23 miles on it.
+
+# 通过方法修改属性的值
+my_new_car.update_odometer(54)
+my_new_car.read_odometer()
+# This car has 54 miles on it.
+my_new_car.update_odometer(10)
+my_new_car.read_odometer()
+# You can't roll back an odometer!
+# This car has 54 miles on it.
+
+my_used_car = Car('subaru', 'outback', 2015)
+print(my_used_car.get_descropive_name())
+# 2015 Subaru Outback
+
+my_used_car.update_odometer(23_500)
+my_used_car.read_odometer()
+# This car has 23500 miles on it.
+
+my_used_car.increment_odometer(100)
+my_used_car.read_odometer()
+# This car has 23600 miles on it.
+
+# 可见，我们既可以直接通过访问属性来修改任何值，也可以通过提供专用的方法来间接的处理值
+# 为了确保安全，我们应该始终利用方法来处理值
+```
+
+```python
+# 继承
+# 一个类继承另一个类时，将自动获得另一个类的所有属性和方法
+# 原有的类称为父类，而新的类称为子类
+# 子类继承了父类的所有属性和方法，同时还可以定义自己的属性和方法
+
+# 子类的方法 __init__()
+# 在既有类的基础上编写新类时，通常要调用父类的方法 __init__()
+# 这将初始化在父类 __init__() 方法中定义的所有属性，从而让子类包含这些属性
+class Car:
+    """模拟汽车"""
+
+    def __init__(self, make, model, year):
+        """初始化描述汽车的属性"""
+        self.make = make
+        self.model = model
+        self.year = year
+        # 给属性指定默认值
+        self.odometer_reading = 0
+
+    def get_descropive_name(self):
+        """返回整洁的描述性信息"""
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        """输出一条指出汽车里程的消息"""
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+    def update_odometer(self, mileage):
+        """将里程表读数设置为指定的值，且禁止将里程数回调"""
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+
+    def increment_odometer(self, miles):
+        """将里程表读数增加指定的量"""
+        self.odometer_reading += miles
+
+    def fill_gas_tank(self):
+        """模拟加油"""
+        print("The tank is full!")
+
+
+class ElectricCar(Car):
+    """模拟电动车（继承自汽车类）"""
+
+    def __init__(self, make, model, year):
+        """
+        初始化父类的属性
+        再初始化电动车特有的属性
+        """
+        super().__init__(make, model, year)
+        self.battery_size = 75
+
+    def describe_battery(self):
+        """打印一条描述电瓶容量的消息"""
+        print(f"This car has a {self.battery_size}-kWh battery.")
+
+    # 重新（覆盖）父类的方法
+    def fill_gas_tank(self):
+        """电动车没有油箱，不需要加油，而是充电"""
+        print("The battery is fully charged!")
+
+
+my_tesla = ElectricCar('tesla', 'model y', 2019)
+print(my_tesla.get_descropive_name())
+# 2019 Tesla Model Y
+
+my_tesla.describe_battery()
+# This car has a 75-kWh battery.
+
+my_tesla.fill_gas_tank()
+# The battery is fully charged!
+```
+
+```python
+# 将实例用作属性
+# 使用代码模拟实物时，可能会导致给类添加的细节越来越多（属性、方法）
+# 最好的解决办法是：将类的一部分提取出来，作为一个独立的类，将大型类拆分成多个协同工作的小类
+
+# 例如：不断给 ElectricCar 类添加细节时，我们可能发现其中包含了很多专门争对电池的属性和方法
+# 这种情况下，可以将这些属性和方法提取出来，放到一个名为 Battery 的类中，并将一个 Battery 实例作为 ElectricCar 类的属性
+class Car:
+    """模拟汽车"""
+
+    def __init__(self, make, model, year):
+        """初始化描述汽车的属性"""
+        self.make = make
+        self.model = model
+        self.year = year
+        # 给属性指定默认值
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        """返回整洁的描述性信息"""
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        """输出一条指出汽车里程的消息"""
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+    def update_odometer(self, mileage):
+        """将里程表读数设置为指定的值，且禁止将里程数回调"""
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+
+    def increment_odometer(self, miles):
+        """将里程表读数增加指定的量"""
+        self.odometer_reading += miles
+
+    def fill_gas_tank(self):
+        """模拟加油"""
+        print("The tank is full!")
+
+
+class Battery:
+    """模拟电动车电池"""
+
+    def __init__(self, battery_size=75):
+        """初始化电池属性"""
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        """打印一条描述电瓶容量的消息"""
+        print(f"This car has a {self.battery_size}-kWh battery.")
+
+    def get_range(self):
+        """打印一条消息，指出电池的续航里程"""
+        if self.battery_size == 75:
+            range = 260
+        elif self.battery_size == 100:
+            range = 315
+        print(f"This car can go about {range} miles on a full charge.")
+
+
+class ElectricCar(Car):
+    """模拟电动车（继承自汽车类）"""
+
+    def __init__(self, make, model, year):
+        """
+        初始化父类的属性
+        再初始化电动车特有的属性
+        """
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
+    # 重新（覆盖）父类的方法
+    def fill_gas_tank(self):
+        """电动车没有油箱，不需要加油，而是充电"""
+        print("The battery is fully charged!")
+
+
+my_tesla = ElectricCar('tesla', 'model y', 2019)
+print(my_tesla.get_descropive_name())
+# 2019 Tesla Model Y
+
+my_tesla.battery.describe_battery()
+# This car has a 75-kWh battery.
+
+my_tesla.battery.get_range()
+# This car can go about 260 miles on a full charge.
+```
+
+```python
+# 导入类
+# Python 允许将类存储在模块中，然后在主程序中导入所需的模块
+
+# Car.py
+"""一个可用于表示汽车的类"""
+
+
+class Car:
+    """模拟汽车"""
+
+    def __init__(self, make, model, year):
+        """初始化描述汽车的属性"""
+        self.make = make
+        self.model = model
+        self.year = year
+        # 给属性指定默认值
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        """返回整洁的描述性信息"""
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        """输出一条指出汽车里程的消息"""
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+    def update_odometer(self, mileage):
+        """将里程表读数设置为指定的值，且禁止将里程数回调"""
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+
+    def increment_odometer(self, miles):
+        """将里程表读数增加指定的量"""
+        self.odometer_reading += miles
+
+    def fill_gas_tank(self):
+        """模拟加油"""
+        print("The tank is full!")
+
+
+# -------------------------------------------------------------------
+
+
+# electric_car.py
+"""一组可用于表示电动汽车的类"""
+
+
+from car import Car
+
+class Battery:
+    """模拟电动车电池"""
+
+    def __init__(self, battery_size=75):
+        """初始化电池属性"""
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        """打印一条描述电瓶容量的消息"""
+        print(f"This car has a {self.battery_size}-kWh battery.")
+
+    def get_range(self):
+        """打印一条消息，指出电池的续航里程"""
+        if self.battery_size == 75:
+            range = 260
+        elif self.battery_size == 100:
+            range = 315
+        print(f"This car can go about {range} miles on a full charge.")
+
+
+class ElectricCar(Car):
+    """模拟电动车（继承自汽车类）"""
+
+    def __init__(self, make, model, year):
+        """
+        初始化父类的属性
+        再初始化电动车特有的属性
+        """
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
+    # 重新（覆盖）父类的方法
+    def fill_gas_tank(self):
+        """电动车没有油箱，不需要加油，而是充电"""
+        print("The battery is fully charged!")
+
+
+# -------------------------------------------------------------------
+
+
+# my_car.py
+from car import Car
+from electric_car import ElectricCar as EC
+
+my_beetle = Car('volkswagen', 'beetle', 2019)
+print(my_beetle.get_descropive_name())
+
+my_tesla = EC('tesla', 'roadster', 2019)
+print(my_tesla.get_descropive_name())
+
+# my_car.py 运行结果：
+# 2019 Volkswagen Beetle
+# 2019 Tesla Roadster
+
+# 从一个模块中导入多个类：from electric_car import Battery, ElectricCar
+# 导入整个类：from electric_car
+# 导入模块中的所有类：from electric_car import *
+# 使用别名：as
+```
+
+```python
+# Python 标准库
+# Python 标准库是一组模块，安装 Python 都默认包含它。
+# Python 标准库中拥有丰富且功能强大的各种函数和类
+# 我们可以利用导入的方式运用它们
+
+# 此处举两个例子，更多内容请查阅 Python 标准库文档
+# randint() 函数：它将两个整数作为参数，并随机返回一个位于这两个整数之间（含）的整数
+from random import randint
+print(randint(1, 6))    # 5
+print(randint(1, 6))    # 1
+print(randint(1, 6))    # 2
+
+# choice() 函数：它将一个列表或元组作为参数，并随机返回其中的一个元素：
+from random import choice
+players = ['charles', 'martina', 'michael', 'florence', 'eli']
+print(choice(players))  # michael
+print(choice(players))  # eli
+print(choice(players))  # charles
+```
+
 # 十、文件和异常
 
 ```python
+# 从文件中读取数据
+# 读取整个文件
 
+# pi_digits.txt
+3.1415926535
+  8979323846
+  2643383279
+
+# file_reader.py
+with open('pi_digits.txt') as file_object:
+    contents = file_object.read()
+print(contents)
+# 运行结果：
+# 3.1415926535
+#   8979323846
+#   2643383279
+# 
+
+# open() 函数：无论以任何方式使用文件，哪怕仅仅是查看其内容，都应该利用 open() 先打开文件
+# open() 函数接收一个字符串参数：文件的路径及文件名
+# open() 函数返回一个表示文件的对象，可以用 as 关键字将该文件对象赋给另一个对象方便使用
+# 关键字 with 在不再需要访问文件后将其关闭（所谓的关闭时机由 Python 根据用户行为自由控制）
+# read() 方法用于读取该文件的全部内容，并返回一个长字符串
+# read() 方法在读取到文件末尾时返回一个空字符串，而将这个空字符串显示出来就是一个空行，所以读取文件得到的字符串最后有一个空行
+
+with open('pi_digits.txt') as file_object:
+    contents = file_object.read()
+# 利用 rstrip() 解决空行问题
+print(contents.rstrip())
+# 运行结果：
+# 3.1415926535
+#   8979323846
+#   2643383279
+
+# 逐行读取
+filename = 'pi_digits.txt'
+with open(filename) as file_object:
+    for line in file_object:
+        print(line)
+# 运行结果：
+# 3.1415926535
+# 
+#   8979323846
+# 
+#   2643383279
+#
+
+filename = 'pi_digits.txt'
+with open(filename) as file_object:
+    for line in file_object:
+        print(line.rstrip())
+# 运行结果：
+# 3.1415926535
+#   8979323846
+#   2643383279
+
+
+# 创建一个包含文件各行内容的列表
+# readlines() 方法从文件中读取每一行，并将其存储在一个列表中
+filename = 'pi_digits.txt'
+with open(filename) as file_object:
+    lines = file_object.readlines()
+print(lines)
+for line in lines:
+    print(line.rstrip())
+# 运行结果：
+# ['3.1415926535\n', '  8979323846\n', '  2643383279']
+# 3.1415926535
+#   8979323846
+#   2643383279
+```
+
+```python
+# 写入文件
+# open() 提供了两个参数，其中第一个是文件路径及名称字符串，第二个是文件打开时的模式
+# ('r')：读取模式
+# ('w')：写入模式
+# ('a')：附加模式
+# ('r+')：读写模式
+# 如果省略了第二个参数，那么 Python 将以默认的只读模式打开文件
+# 如果要写入的文件不存在，那么 open() 函数将自动创建它
+# 以写入模式 w 打开文件时要特别小心，因为如果该文件已经存在，那么 Python 会先清空该文件
+# 使用 write() 方法将一个字符串写入文件
+# 注意：Python 只能将字符串写入文本文件，要将数值数据存储到文本文件中，必须先使用函数 str() 将其转换为字符串格式
+
+# 写入空文件
+filename = 'programming.txt'
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.")
+# 运行结果：生成 programming.txt 文件，内容为：I love programming.
+
+# 写入多行
+# write() 方法不会在写入的文本末尾添加换行符，因此如果写入多行时需要指定换行符
+filename = 'programming.txt'
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.\n")
+    file_object.write("I love creating new games.\n")
+# 除了 \n 之外，还可以使用空格、制表符和空行来设置这些输出的格式
+
+# 附加到文件
+# 附加模式：在原文件的基础上添加内容（追加到末尾）
+# 注意：如果文件不存在，附加模式会自动创建一个文件，如果文件已经存在，那么不会清空文件，而是会在原基础上追加
+filename = 'programming.txt'
+with open(filename, 'a') as file_object:
+    file_object.write("I also love finding meaning in large datasets.\n")
+    file_object.write("I love creating apps that can run in a browser.\n")
+```
+
+```python
+# json模块
+# Python 提供了 json 模块可以将 Python 数据结构以 json 格式存储到文件中，并在需要时加载该文件中的数据
+# 并且 JSON 并非 Python 专用的数据格式，而是目前广泛通用的数据格式（最先来自于 JavaScript）
+# json.dump() 用于存储数据，接收两个实参：要存储的数据、目标文件对象
+# json.load() 用于读取数据，接收一个实参：目标文件对象
+import json
+
+numbers = [2, 3, 5, 7, 11, 13]
+loves = {'food': 'hamburger', 'car': 'AMG G63'}
+users = [
+    {
+        'username': 'Jerry',
+        'age': 18
+    },
+    {
+        'username': 'Tom',
+        'age': 24
+    }
+]
+
+filename_01 = 'numbers.json'
+filename_02 = 'loves.json'
+filename_03 = 'users.json'
+
+with open(filename_01, 'w') as f_01:
+    json.dump(numbers, f_01)
+with open(filename_02, 'w') as f_02:
+    json.dump(loves, f_02)
+with open(filename_03, 'w') as f_03:
+    json.dump(users, f_03)
+
+with open(filename_01) as rf_01:
+    print(json.load(rf_01))
+with open(filename_02) as rf_02:
+    print(json.load(rf_02))
+with open(filename_03) as rf_03:
+    print(json.load(rf_03))
+# 运行结果：
+# [2, 3, 5, 7, 11, 13]
+# {'food': 'hamburger', 'car': 'AMG G63'}
+# [{'username': 'Jerry', 'age': 18}, {'username': 'Tom', 'age': 24}]
+```
+
+```python
+# 异常
+# 当程序执行期间发生错误时，Python 会生成一个对应的特殊对象叫”异常“
+# 我们可以编写专门用于处理异常对象的代码，来应对异常的出现，让程序继续执行，而不是直接终止程序并显示 traceback
+# 异常是使用 try-except 代码块处理的，使用该代码块之后，程序执行即便出现了异常，程序也将继续运行，并显示我们编写的友好提示，而不是直接崩溃
+
+# 例1：处理 ZeroDivisionError 异常
+try:
+    print(5/0)
+except ZeroDivisionError:
+    print("You can't divide by zero!")
+print("...")
+# 运行结果：
+# You can't divide by zero!
+# ...
+
+# else 代码块
+# 依赖 try 代码块成功执行的代码都应该放到 else 代码块中
+try:
+    answer = 5/0
+except ZeroDivisionError:
+    print("You can't divide by zero!")
+else:
+    print(answer)
+print("...")
+# 运行结果：
+# You can't divide by zero!
+# ...
+
+try:
+    answer = 5/2
+except ZeroDivisionError:
+    print("You can't divide by zero!")
+else:
+    print(answer)
+print("...")
+# 运行结果：
+# 2.5
+# ...
+
+# 例2：处理 FileNotFoundError 异常
+filename = 'alice.txt'
+with open(filename, encoding='utf-8') as f:
+    contents = f.read()
+# FileNotFoundError: [Errno 2] No such file or directory: 'alice.txt'
+
+filename = 'alice.txt'
+try:
+    with open(filename, encoding='utf-8') as f:
+        contents = f.read()
+except FileNotFoundError:
+    print(f"Sorry, the file {filename} does not exist.")
+else:
+    # 计算该文件大致包含多少个单词
+    words = contents.split()
+    num_words = len(words)
+    print(f"The file {filename} has about {num_words} words.")
+# Sorry, the file alice.txt does not exist.
+
+# 静默失败
+try:
+    print(5/0)
+except ZeroDivisionError:
+    pass
+print("...")
+# 运行结果：
+# ...
 ```
 
 # 十一、测试代码
 
 ```python
+# Python 标准库中的模块 unittest 提供了代码测试工具
+# 单元测试用于核实函数的某个方面没有问题
+# 测试用例是一组单元测试，它们一道核实函数在各种情形下的行为都符合要求
+# 良好的测试用例考虑到了函数可能收到的各种输入，包含针对所有这些情形的测试
+# 全覆盖的测试用例包含一整套单元测试，涵盖了各种可能的函数使用方式
+# 对于大型项目，要进行全覆盖测试可能很难，通常，最初只要针对代码的重要行为编写测试即可
+```
+
+```python
+def get_formatted_name(first, last):
+    """生成整洁的姓名"""
+    full_name = f"{first} {last}"
+    return full_name.title()
+
+# 测试函数
+# Python 标准库中的模块 unittest 提供了代码测试工具
+# 单元测试用于核实函数的某个方面没有问题
+# 测试用例是一组单元测试，它们一道核实函数在各种情形下的行为都符合要求
+# 良好的测试用例考虑到了函数可能收到的各种输入，包含针对所有这些情形的测试
+# 全覆盖的测试用例包含一整套单元测试，涵盖了各种可能的函数使用方式
+# 对于大型项目，要进行全覆盖测试可能很难，通常，最初只要针对代码的重要行为编写测试即可
+
+import unittest
+
+# 1、可通过的测试
+class NameTestCase(unittest.TestCase):
+    """测试 name_function.py"""
+    def test_first_last_name(self):
+        """能够正确地处理像 Janis Joplin 这样的姓名吗？"""
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+
+if __name__ == '__main__':
+    unittest.main()
+
+# 运行结果：
+# .
+# ----------------------------------------------------------------------
+# Ran 1 test in 0.000s
+#
+# OK
+
+# 解释：
+# NameTestCase 类用于包含一系列针对 get_formatted_name() 的单元测试
+# NameTestCase 可以随意命名，但最好让它看起来与要测试的函数相关并包含 Test 字样
+# NameTestCase 类必须继承 unittest.TestCase 类，这样 NameTestCase 才具有测试能力
+# 由于我们目前只需测试 get_formatted_name() 的一个方面，所以我们只需在 NameTestCase 中包含一个针对性的测试方法 test_first_last_name()
+# 运行 .py 文件时，所有以 test_ 打头的方法都将自动运行
+# assertXxx 方法是 unittest 类最有用的功能之一：断言
+# 断言方法核实得到的结果是否与期望的结果一致
+# 常用的 6 种断言方法：
+# assertEqual(a, b)         核实 a == b
+# assertNotEqual(a, b)      核实 a != b
+# assertTrue(x)             核实 x 为 True
+# assertFalse(x)            核实 x 为 False
+# assertIn(item, list)      核实 item 在 list 中
+# assertNotIn(item, list)   核实 item 不在 list 中
+# 当 python 程序运行时（独立运行、导入运行）会自动设置一个 __name__ 变量
+# 当 python 程序作为主程序运行时（独立运行）则 __name__ 将被设置为 '__main__'
+# 由于测试函数只在该程序作为主程序运行时才执行（该程序导入其它程序中应忽略测试），所以这里用 if 判断执行环境是否是主程序
+# 当执行环境是主程序时才 unittest.main 执行测试，否则忽略测试代码的执行
+```
+
+```python
+import unittest
+
+
+def get_formatted_name(first, middle, last):
+    """生成整洁的姓名"""
+    full_name = f"{first} {middle} {last}"
+    return full_name.title()
+
+
+# 2、未通过的测试
+class NameTestCase(unittest.TestCase):
+    """测试 name_function.py"""
+
+    def test_first_last_name(self):
+        """能够正确地处理像 Janis Joplin 这样的姓名吗？"""
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+# 运行结果：
+# E
+# ======================================================================
+# ERROR: test_first_last_name (__main__.NameTestCase)
+# 能够正确地处理像 Janis Joplin 这样的姓名吗？
+# ----------------------------------------------------------------------
+# Traceback (most recent call last):
+#   File "F:/work/pycharm-workspace/study/main.py", line 16, in test_first_last_name
+#     formatted_name = get_formatted_name('janis', 'joplin')
+# TypeError: get_formatted_name() missing 1 required positional argument: 'last'
+#
+# ----------------------------------------------------------------------
+# Ran 1 test in 0.000s
+#
+# FAILED (errors=1)
+```
+
+```python
+import unittest
+
+
+# 3、测试未通过时，应该修复代码
+def get_formatted_name(first, last, middle=''):
+    """生成整洁的姓名"""
+    if middle:
+        full_name = f"{first} {middle} {last}"
+    else:
+        full_name = f"{first} {last}"
+    return full_name.title()
+
+
+class NameTestCase(unittest.TestCase):
+    """测试 name_function.py"""
+
+    def test_first_last_name(self):
+        """能够正确地处理像 Janis Joplin 这样的姓名吗？"""
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+
+
+if __name__ == '__main__':
+    unittest.main()
+    
+# 运行结果：
+# .
+# ----------------------------------------------------------------------
+# Ran 1 test in 0.000s
+# 
+# OK
+```
+
+```python
+import unittest
+
+
+def get_formatted_name(first, last, middle=''):
+    """生成整洁的姓名"""
+    if middle:
+        full_name = f"{first} {middle} {last}"
+    else:
+        full_name = f"{first} {last}"
+    return full_name.title()
+
+
+# 4、添加新测试
+class NameTestCase(unittest.TestCase):
+    """测试 name_function.py"""
+
+    def test_first_last_name(self):
+        """能够正确地处理像 Janis Joplin 这样的姓名吗？"""
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+
+    def test_first_last_middle_name(self):
+        """能够正确的处理像 Wolfgang Amadeus Mozart 这样的姓名吗？"""
+        formatter_name = get_formatted_name('wolfgang', 'mozart', 'amadeus')
+        self.assertEqual(formatter_name, 'Wolfgang Amadeus Mozart')
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+# 运行结果：
+# ..
+# ----------------------------------------------------------------------
+# Ran 2 tests in 0.000s
+# 
+# OK
+```
+
+```python
+# setUp() 的使用
+class AnonymousSurvey:
+    """收集匿名调查问卷的答案"""
+
+    def __init__(self, question):
+        """存储一个问题，并为存储匿名答案做准备"""
+        self.question = question
+        self.responses = []
+
+    def show_question(self):
+        """显示调查问卷"""
+        print(self.question)
+
+    def store_response(self, new_response):
+        """存储单份调查答卷"""
+        self.responses.append(new_response)
+
+    def show_results(self):
+        """显示收集到的所有答卷"""
+        print("Survey results:")
+        for response in self.responses:
+            print(f"- {response}")
+
+
+import unittest
+
+
+class TestAnonymousSurvey(unittest.TestCase):
+    """针对 AnonymousSurvey 类的测试"""
+
+    def setUp(self):
+        """创建一个调查对象和一组答案，供使用的测试方法使用"""
+        question = "What language did you first learn to speak?"
+        self.my_survey = AnonymousSurvey(question)
+        self.responses = ['English', 'Spanish', 'Mandarin']
+
+    def test_store_single_response(self):
+        """测试单个答案会被妥善地存储"""
+        self.my_survey.store_response(self.responses[0])
+        self.assertIn(self.responses[0], self.my_survey.responses)
+
+    def test_store_three_response(self):
+        """测试三个答案会被妥善地存储"""
+        for response in self.responses:
+            self.my_survey.store_response(response)
+        for response in self.responses:
+            self.assertIn(response, self.my_survey.responses)
+
+
+if __name__ == '__main__':
+    unittest.main()
+    
+# 运行结果：
+# ..
+# ----------------------------------------------------------------------
+# Ran 2 tests in 0.000s
+#
+# OK
+
+# unittest.TestCase 类提供了 setUp() 方法
+# Python 将首先运行 setUp() 方法，再运行各个以 test_ 打头的方法
+# 用途举例：当对类进行测试的时候，可以在 setUp() 中创建对象，之后的 test_ 测试方法中就不用重复创建
 ```
 
