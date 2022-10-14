@@ -2,16 +2,20 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>卢赵俊-购物车</title>
+    <title>一中食堂 - 在线点餐</title>
     <link href="./css/index.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
+    <!-- 标题栏 -->
+    <div style="width: 100%; text-align: center; margin: 24px auto">
+        <img src="./logo.png" alt="一中食堂——在线点餐" width="24%">
+    </div>
     <!-- 导航栏 -->
     <div style="text-align: center; margin: 24px 0 50px 0">
-        <el-button type="info" plain v-on:click="pageL()">登录</el-button>
-        <el-button type="info" plain v-on:click="pageG()">商品页</el-button>
-        <el-button type="info" plain v-on:click="pageC()">购物车</el-button>
+        <el-button type="warning" v-on:click="pageL()">登录</el-button>
+        <el-button type="warning" v-on:click="pageG()">菜单页</el-button>
+        <el-button type="warning" v-on:click="pageC()">点餐车</el-button>
     </div>
 
     <!-- 内容页 -->
@@ -34,7 +38,7 @@
             </div>
         </div>
 
-        <!-- 商品页 -->
+        <!-- 菜单页 -->
         <div v-if="pageGoods === 1" style="width: 100%;">
             <el-table
                     :data="goodses"
@@ -47,21 +51,21 @@
                 </el-table-column>
                 <el-table-column
                         prop="goodsprice"
-                        label="单价">
+                        label="单价（元）">
                 </el-table-column>
                 <el-table-column
                         fixed="right"
                         label="操作">
                     <template slot-scope="scope">
                         <el-button type="success" round plain size="small" v-on:click="addCart(scope.row.goodsid)">
-                            加入购物车
+                            加入点餐车
                         </el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </div>
 
-        <!-- 购物车 -->
+        <!-- 点餐车 -->
         <div v-if="pageCart === 1" style="width: 100%;">
             <el-table
                     :data="cartGoodses"
@@ -74,11 +78,11 @@
                 </el-table-column>
                 <el-table-column
                         prop="goodsprice"
-                        label="单价">
+                        label="单价（元）">
                 </el-table-column>
                 <el-table-column
                         fixed="right"
-                        label="操作">
+                        label="数量">
                     <template slot-scope="scope">
                         <el-input-number v-model="scope.row.cgcount"
                                          @change="updateCart(scope.row.goodsid, scope.row.cgcount)" :min="0"
@@ -86,7 +90,10 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div style="font-size: 24px; text-align: center; margin-top: 24px">总计：￥{{total}}</div>
+            <div style="width: 100%; height: 30px; text-align: center; margin-top: 24px">
+                <div style="font-size: 28px; color: #ff2367">总计：￥{{total}} </div>
+                <el-button type="danger" style="margin: 10px">立即支付</el-button>
+            </div>
         </div>
     </div>
 </div>
@@ -175,16 +182,20 @@
                 this.user.password = "";
             },
             addCart(goodsid) {
-                axios({
-                    method: "get",
-                    url: "http://localhost:8080/lzj-shopping-cart/shoppingCart/add?userid=" + this.user.userid + "&goodsid=" + goodsid
-                }).then(resp => {
-                    this.$notify({
-                        title: '成功',
-                        message: '加入购物车成功！',
-                        type: 'success'
-                    });
-                })
+                if (this.user.userid === "") {
+                    window.alert("请先登录！")
+                } else {
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/lzj-shopping-cart/shoppingCart/add?userid=" + this.user.userid + "&goodsid=" + goodsid
+                    }).then(resp => {
+                        this.$notify({
+                            title: '成功',
+                            message: '加入点餐车成功！',
+                            type: 'success'
+                        });
+                    })
+                }
             },
             selectCart() {
                 axios({

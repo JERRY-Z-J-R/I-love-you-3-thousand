@@ -1,0 +1,15 @@
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:58 +0800] "GET /lzj-shopping-cart HTTP/1.1" 302 - http-bio-8080-exec-2 0
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:58 +0800] "GET /lzj-shopping-cart/ HTTP/1.1" 200 9337 http-bio-8080-exec-3 89
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/logo.png HTTP/1.1" 200 18780 http-bio-8080-exec-1 318
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/element-ui/lib/theme-chalk/index.css HTTP/1.1" 200 232460 http-bio-8080-exec-7 37
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/js/axios-0.18.0.js HTTP/1.1" 200 12948 http-bio-8080-exec-5 405
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/js/vue.js HTTP/1.1" 200 341462 http-bio-8080-exec-4 422
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/css/index.css HTTP/1.1" 200 271 http-bio-8080-exec-8 35
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/js/axios-0.18.0.js HTTP/1.1" 200 12948 http-bio-8080-exec-8 4
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:24:59 +0800] "GET /lzj-shopping-cart/js/vue.js HTTP/1.1" 200 341462 http-bio-8080-exec-4 2
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:25:00 +0800] "GET /lzj-shopping-cart/element-ui/lib/index.js HTTP/1.1" 200 567058 http-bio-8080-exec-6 1344
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:25:00 +0800] "GET /lzj-shopping-cart/element-ui/lib/index.js HTTP/1.1" 200 567058 http-bio-8080-exec-3 16
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:25:01 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-4 0
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:25:03 +0800] "GET /lzj-shopping-cart/ HTTP/1.1" 304 - http-bio-8080-exec-4 6
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:25:04 +0800] "GET /lzj-shopping-cart/goods/selectAll HTTP/1.1" 200 240 http-bio-8080-exec-3 3091
+0:0:0:0:0:0:0:1 - - [24/Sep/2022:16:25:04 +0800] "GET /lzj-shopping-cart/goods/selectAll HTTP/1.1" 200 240 http-bio-8080-exec-4 246
