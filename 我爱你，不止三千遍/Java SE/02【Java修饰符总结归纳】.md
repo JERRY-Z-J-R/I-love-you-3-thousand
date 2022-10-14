@@ -16,17 +16,17 @@ Java 支持 4 种不同的访问权限：
 
 - `public`：对所有类可见
   - 可使用于：类、接口、变量、方法
-
 - `protected`： 对同一包内的类和所有子类可见
   - 可使用于：变量、方法
 
   - 注意：不能修饰外部类（内部类可以，所谓内部类就是定义在类里的类）
-  
 - `default` 缺省 (默认空）：不使用任何修饰符，在同一包内可见
   - 可使用于：类、接口、变量、方法
 - `private`：在同一类内可见
   - 可使用于：变量、方法
   - 注意：不能修饰外部类（内部类可以，所谓内部类就是定义在类里的类）
+
+> 包直接理解为文件夹即可。
 
 ## 1.1 访问权限表格
 
@@ -42,7 +42,7 @@ Java 支持 4 种不同的访问权限：
 **请注意以下方法继承的规则：**
 
 - 父类中声明为 public 的方法在子类中也必须为 public
-- 父类中声明为 protected 的方法在子类中要么声明为 protected，要么声明为 public，不能声明为 private
+- 父类中声明为 protected 的方法在子类中要么声明为 protected，要么声明为 public，不能声明为 private 及 缺省
 - 父类中声明为 private 的方法，在子类中不可见！（但本质上是能够被子类继承的）
 
 ## 1.3 代码示例
@@ -108,7 +108,7 @@ public class B extends A {
         System.out.println(pub);		// True:public
         System.out.println(pro);		// True:protected
         System.out.println(pri);		// Error:pri 为 private 修饰为私有成员变量，只有父类里可以直接访问！
-        System.out.println(getPri());   // True:访问 private 私有成员变量只能间接通过 Getter 方法！
+        System.out.println(getPri());    // True:访问 private 私有成员变量只能间接通过 Getter 方法！
         
         // 分别测试子孙类（同一包）中四种访问控制修饰符对应的方法的可见性（继承性、权限性）
         funDef();
