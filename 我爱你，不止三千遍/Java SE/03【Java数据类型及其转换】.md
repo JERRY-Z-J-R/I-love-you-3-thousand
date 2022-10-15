@@ -236,13 +236,11 @@ public class PrimitiveTypeTest {
         // char  
         System.out.println("基本类型：char 二进制位数：" + Character.SIZE);  
         System.out.println("包装类：java.lang.Character");  
-        // 以数值形式而不是字符形式将Character.MIN_VALUE输出到控制台  
-        System.out.println("最小值：Character.MIN_VALUE="  
-                + (int) Character.MIN_VALUE);  
-        // 以数值形式而不是字符形式将Character.MAX_VALUE输出到控制台  
-        System.out.println("最大值：Character.MAX_VALUE="  
-                + (int) Character.MAX_VALUE);  
-    }  
+        // 以数值形式而不是字符形式将 Character.MIN_VALUE 输出到控制台  
+        System.out.println("最小值：Character.MIN_VALUE=" + (int) Character.MIN_VALUE);  
+        // 以数值形式而不是字符形式将 Character.MAX_VALUE 输出到控制台  
+        System.out.println("最大值：Character.MAX_VALUE=" + (int) Character.MAX_VALUE);  
+    }
 }
 ```
 
@@ -481,7 +479,7 @@ public class ZiDongLeiZhuan{
 ```txt
 char自动类型转换为int后的值等于97
 char类型和int计算后的值等于66
-// 解析：c1的值为字符a,查ASCII码表可知对应的int类型值为97，A对应值为65，所以i2=65+1=66
+// 解析：c1的值为字符a，查ASCII码表可知对应的int类型值为97，A对应值为65，所以i2=65+1=66
 ```
 
 
@@ -546,8 +544,8 @@ byte nn = mm;				// True! 当然，这样是可行的！
 
 //------重点说明2-------
 short s = 1;
-s = s + 1;					// Error! 解释：出现了具体的变量，编译时编译器并不知道s的具体值是多少，所以无法判断s+1是否介于允许范围之内，故会报错！
-s = (short)(s + 1);			// True!
+s = s + 1;					// Error! 解释：byte\short\char参与数值计算时先转为int，而此处又出现了具体的变量，编译时编译器并不知道s的具体值是多少，所以无法判断s+1是否介于允许范围之内，故会报错！
+s = (short)(s + 1);			 // True!
 s += 1;						// True! 解释：s+=1;的本质是：s = (short)(s + 1);
 ```
 
