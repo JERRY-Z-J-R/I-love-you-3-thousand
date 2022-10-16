@@ -982,3 +982,6 @@ class InterfaceTest3 {
 	}
 }
 ```
+
+# 九、接口的意义
+
