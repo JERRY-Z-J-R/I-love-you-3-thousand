@@ -2160,9 +2160,9 @@ SELECT * FROM user WHERE MATCH(userName) AGAINST ( '+"美女" & +"动人"' IN BO
 
 【MySQL 存储过程和触发器】
 
-存储过程是在数据库中定义一些 SQL 语句的集合，可以直接调用这些存储过程来执行已经定义好的 SQL 语句。避免了开发人员重复编写相同 SQL 语句的问题。
+存储过程是在数据库中定义一些 SQL 语句的集合，可以直接调用这些 “集合” 来执行已经定义好的 SQL 语句。避免了开发人员重复编写相同 SQL 语句的问题。
 
-触发器和存储过程相似，都是嵌入到 MySQL 中的一段程序。触发器是由事件来触发某个操作。当数据库执行这些事件时，就会激活触发器来执行相应的操作。
+触发器和存储过程相似，都是嵌入到 MySQL 中的一段程序。触发器是由事件来触发某个操作，当数据库执行到这些事件时，就会激活触发器来执行相应的操作。
 
 【MySQL 存储过程】
 
@@ -2170,7 +2170,7 @@ SELECT * FROM user WHERE MATCH(userName) AGAINST ( '+"美女" & +"动人"' IN BO
 
 例如，为了确认学生能否毕业，需要同时查询学生档案表、成绩表和综合表，此时就需要使用多条 SQL 语句来针对这几个数据表完成处理要求。
 
-存储过程是一组为了完成特定功能的 SQL 语句集合。使用存储过程的目的是将常用或复杂的工作预先用 SQL 语句写好并用一个指定名称存储起来，这个过程经编译和优化后存储在数据库服务器中，因此称为存储过程。当以后需要数据库提供与已定义好的存储过程的功能相同的服务时，只需调用“CALL存储过程名字”即可自动完成。
+存储过程是一组为了完成特定功能的 SQL 语句集合。使用存储过程的目的是将常用或复杂的工作预先用 SQL 语句写好并用一个指定名称存储起来，这个过程经编译和优化后存储在数据库服务器中，因此称为存储过程。当以后需要数据库提供与已定义好的存储过程的功能相同的服务时，只需调用 “CALL存储过程名字” 即可自动完成。
 
 常用操作数据库的 SQL 语句在执行的时候需要先编译，然后执行。存储过程则采用另一种方式来执行 SQL 语句。
 
@@ -2188,7 +2188,7 @@ MySQL 5.0 版本以前并不支持存储过程，这使 MySQL 在应用上大打
 
 - 封装性
 
-通常完成一个逻辑功能需要多条 SQL 语句，而且各个语句之间很可能传递参数，所以，编写逻辑功能相对来说稍微复杂些，而存储过程可以把这些 SQL 语句包含到一个独立的单元中，使外界看不到复杂的 SQL 语句，只需要简单调用即可达到目的。并且数据库专业人员可以随时对存储过程进行修改，而不会影响到调用它的应用程序源代码。
+通常完成一个逻辑功能需要多条 SQL 语句，而且各个语句之间很可能需要传递参数，其逻辑功能相对来说稍微复杂些，而存储过程可以把这些 SQL 语句包含到一个独立的单元中，使外界看不到复杂的 SQL 语句，只需要简单调用即可达到目的。并且数据库专业人员可以随时对存储过程进行修改，而不会影响到调用它的应用程序源代码。
 
 - 可增强 SQL 语句的功能和灵活性
 
@@ -2233,6 +2233,116 @@ MySQL 5.0 版本以前并不支持存储过程，这使 MySQL 在应用上大打
 MySQL 是一个多用户数据库，具有功能强大的访问控制系统，可以为不同用户指定不同权限。在前面的章节中我们使用的是 root 用户，该用户是超级管理员，拥有所有权限，包括创建用户、删除用户和修改用户密码等管理权限。
 
 为了实际项目的需要，可以创建拥有不同权限的普通用户。
+
+> ### 一、创建用户
+>
+> #### 命令：
+>
+> ```mysql
+> CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+> ```
+>
+> #### 说明：
+>
+> - username：你将创建的用户名
+> - host：指定该用户在哪个主机上可以登陆，如果是本地用户可用 `localhost`，如果想让该用户可以从任意远程主机登陆，可以使用通配符`%`
+> - password：该用户的登陆密码，密码可以为空，如果为空则该用户可以不需要密码登陆
+>
+> #### 例子：
+>
+> ```mysql
+> CREATE USER 'dog'@'localhost' IDENTIFIED BY '123456';
+> CREATE USER 'pig'@'192.168.1.101_' IDENDIFIED BY '123456';
+> CREATE USER 'pig'@'%' IDENTIFIED BY '123456';
+> CREATE USER 'pig'@'%' IDENTIFIED BY '';
+> CREATE USER 'pig'@'%';
+> ```
+>
+> ### 二、授权
+>
+> #### 命令：
+>
+> ```mysql
+> GRANT privileges ON databasename.tablename TO 'username'@'host'
+> ```
+>
+> #### 说明：
+>
+> - privileges：用户的操作权限，如`SELECT`，`INSERT`，`UPDATE`等，如果要授予所有的权限则使用`ALL`
+> - databasename：数据库名
+> - tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用`*`表示，如`*.*`
+>
+> #### 例子：
+>
+> ```mysql
+> GRANT SELECT, INSERT ON test.user TO 'pig'@'%';
+> GRANT ALL ON *.* TO 'pig'@'%';
+> GRANT ALL ON maindataplus.* TO 'pig'@'%';
+> ```
+>
+> #### 注意：
+>
+> 用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令：
+>
+> ```mysql
+> GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION;
+> ```
+>
+> ### 三、设置与更改用户密码
+>
+> #### 命令：
+>
+> ```mysql
+> SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
+> ```
+>
+> 如果是当前登陆用户用：
+>
+> ```mysql
+> SET PASSWORD = PASSWORD("newpassword");
+> ```
+>
+> > MySQL 提供的`PASSWORD()`函数会对密码进行加密。
+> >
+> > 注意：`PASSWORD()`加密函数已经在 8.0.11 中移除了，可以使用`MD5()`函数代替。
+>
+> #### 例子：
+>
+> ```mysql
+> SET PASSWORD FOR 'pig'@'%' = PASSWORD("123456");
+> ```
+>
+> ### 四、撤销用户权限
+>
+> #### 命令：
+>
+> ```mysql
+> REVOKE privilege ON databasename.tablename FROM 'username'@'host';
+> ```
+>
+> #### 说明：
+>
+> privilege，databasename，tablename：同授权部分。
+>
+> #### 例子：
+>
+> ```mysql
+> REVOKE SELECT ON *.* FROM 'pig'@'%';
+> ```
+>
+> #### 注意：
+>
+> 假如你在给用户`'pig'@'%'`授权的时候是这样的（或类似的）：`GRANT SELECT ON test.user TO 'pig'@'%'`，则在使用`REVOKE SELECT ON *.* FROM 'pig'@'%';`命令并不能撤销该用户对 test 数据库中 user 表的`SELECT` 操作。相反，如果授权使用的是`GRANT SELECT ON *.* TO 'pig'@'%';`则`REVOKE SELECT ON test.user FROM 'pig'@'%';`命令也不能撤销该用户对 test 数据库中 user 表的`Select`权限。
+>
+> 具体信息可以用命令`SHOW GRANTS FOR 'pig'@'%';` 查看。
+>
+> ### 五、删除用户
+>
+> #### 命令：
+>
+> ```mysql
+> DROP USER 'username'@'host';
+> ```
 
 【MySQL 数据库备份与恢复】
 
