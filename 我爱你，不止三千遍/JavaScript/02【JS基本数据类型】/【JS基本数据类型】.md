@@ -152,6 +152,8 @@ NaN == NaN;   // false
 
 字符串要用引号包裹，双引号或者单引号均可。
 
+注意：大部分 JS 项目习惯约定使用单引号。
+
 ```javascript
 typeof "周吉瑞";	// string
 typeof '周吉瑞';	// string
