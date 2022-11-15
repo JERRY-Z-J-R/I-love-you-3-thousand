@@ -477,7 +477,7 @@ console.log(info);
 
 ## 2.4 模板字符串的应用
 
-```javascript
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>

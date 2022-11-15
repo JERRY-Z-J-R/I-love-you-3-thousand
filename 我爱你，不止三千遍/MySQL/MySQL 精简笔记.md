@@ -60,7 +60,7 @@
 * Oracle：收费的大型数据库，Oracle 公司的产品（政企公共部门、金融银行等行业常使用）
 * MySQL：开源免费的中小型数据库（Sun 公司收购了 MySQL，而 Sun 公司后又被 Oracle 收购）
 * SQL Server：MicroSoft 公司收费的中型数据库（C#、.net 等语言常使用）
-* PostgreSQL：开源免费中小型的数据库
+* PostgreSQL：开源免费中小型的数据库（MySQL 原团队开发）
 * DB2：IBM 公司的大型收费数据库产品
 * SQLite：嵌入式的轻型数据库（如：作为 Android 内置数据库）
 
@@ -111,7 +111,7 @@ https://downloads.mysql.com/archives/community/
 ### 2.2.1 添加环境变量
 
 > 环境变量里面有很多选项，这里我们只用到`Path`这个参数。为什么在初始化的开始要添加环境变量呢？
-> 在终端中输入一个可执行程序的名字，Windows会先在环境变量中的`Path`所指示的路径中寻找一遍，如果找到了就直接执行，没找到就在当前工作目录中继续寻找，如果还没找到，就报错。我们添加环境变量的目的就是能够在任意路径下的终端中直接调用 MySQL 中的相关程序而不用总是切换工作目录，大大方便了操作。
+> 在终端中输入一个可执行程序的名字，Windows 会先在环境变量中的`Path`所指示的路径中寻找一遍，如果找到了就直接执行，没找到就在当前工作目录中继续寻找，如果还没找到，就报错。我们添加环境变量的目的就是能够在任意路径下的终端中直接调用 MySQL 中的相关程序而不用总是切换工作目录，大大方便了操作。
 
 右键`开始菜单`→`设置`→`系统`→`系统信息`，点击`高级系统设置`点击`环境变量`
 
@@ -146,7 +146,7 @@ default-storage-engine=INNODB
 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 ```
 
-把上面的文本文件另存为，在保存类型里选`所有文件 (*.*)`，文件名为`my.ini`，存放的路径为MySQL的`根目录`（例如我的是`D:\mysql-5.7.24-winx64`根据自己的 MySQL 目录位置修改）。
+把上面的文本文件另存为，在保存类型里选`所有文件 (*.*)`，文件名为`my.ini`，存放的路径为 MySQL 的`根目录`（例如我的是`D:\mysql-5.7.24-winx64`根据自己的 MySQL 目录位置修改）。
 
 ![image-20220524132604285](mark-img/image-20220524132604285.png)
 
@@ -154,7 +154,7 @@ sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_
 
 ### 2.2.3  初始化MySQL
 
-在刚才的终端中敲入`mysqld --initialize-insecure`回车，稍微等待一会，如果没有出现报错信息则证明`data`目录初始化没有问题，此时再查看MySQL目录下已经有`data`目录生成。
+在刚才的终端中敲入`mysqld --initialize-insecure`回车，稍微等待一会，如果没有出现报错信息则证明`data`目录初始化没有问题，此时再查看 MySQL 目录下已经有`data`目录生成。
 
 ```
 mysqld --initialize-insecure
@@ -2215,7 +2215,7 @@ SELECT * FROM exp WHERE MATCH(content) AGAINST ( 'a' );
 
 > 此外，全文索引的作用并不是唯一的，在很多场景下，我们并不会使用 MySQL 数据库内置的全文索引，而是使用第三方类似的索引以实现相同的功能。
 
-三种全文搜索模式：
+全文搜索模式：
 
 **（1）自然语言模式（默认情况下为该模式）**
 

@@ -724,7 +724,7 @@ for (var j = 0; j < arr.length; j++) {
 
 /*
 解释：
-function () {console.log(i);}，的闭包中的 i 是对应每次循环的 (function (i) {...})(i);
+function () {console.log(i);}，的闭包中的 i 是对应每次循环的 (function(i) {...})(i);
 而，function (i) 中的 i 是一个形参，每次的值都是固定的。
 */
 ```

@@ -20,7 +20,7 @@
 | 注意：git reflog 常用于恢复本地的错误操作；<br />场景：我们 `commit` 了一个操作，发现提交的是错误的，于是我们进行了回退，`git reset --hard HEAD^`，就是把工作区的文件也回退还原了，这时候突然发现之前的提前是正确的，想再回退到回退之前的，便去找到之前的版本号进行回退，使用 `git log` 发现之前提交的版本号记录根本不存在了，这时只能使用 `git reflog` |                                                              |
 | `git reset --hard 版本号`                                    | 版本穿梭（硬撤销）                                           |
 | `git reset --soft 版本号`                                    | 版本穿梭（软撤销）                                           |
-| 注意：<br />- 硬撤销：本地代码会直接变更为指定的提交版本，**慎用**！删除工作空间改动代码，撤销 commit，撤销 git add .，注意完成这个操作后，就恢复到了上一次 commit 后的状态<br />- 软撤销：本地代码不会变化，只是 git 转改会恢复为 commit 之前的状态，不删除工作空间改动代码，撤销 commit，不撤销 git add .<br />`git reset --soft HEAD^`：一大用途，撤销 commit，但不撤销 add . |                                                              |
+| 注意：<br />- 硬撤销：本地代码会直接变更为指定的提交版本，**慎用**！删除工作空间改动代码，撤销 commit，撤销 git add .，注意完成这个操作后，就恢复到了上一次 commit 后的状态<br />- 软撤销：本地代码不会变化，只是 git 转改会恢复为 commit 之前的状态，不删除工作空间改动代码，撤销 commit，不撤销 add .<br />`git reset --soft HEAD^`：一大用途，撤销 commit，但不撤销 add . |                                                              |
 | `git branch 分支名`                                          | 创建分支                                                     |
 | `git branch -v`                                              | 查看分支                                                     |
 | `git checkout 分支名`                                        | 切换分支                                                     |

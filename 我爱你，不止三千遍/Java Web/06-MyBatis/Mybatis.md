@@ -556,7 +556,7 @@ mybatis 提供了两种参数占位符：
 1. 使用 `@Param("参数名称")` 标记每一个参数，在映射配置文件中就需要使用 `#{参数名称}` 进行占位
 
 ```java
-List<Brand> selectByCondition(@Param("status") int status, @Param("companyName") String companyName,@Param("brandName") String brandName);
+List<Brand> selectByCondition(@Param("status") int status, @Param("companyName") String companyName, @Param("brandName") String brandName);
 ```
 
 2. 将多个参数封装成一个 实体对象 ，将该实体对象作为接口的方法参数。该方式要求在映射配置文件的 SQL 中使用 `#{内容}` 时，里面的内容必须和实体类属性名保持一致
