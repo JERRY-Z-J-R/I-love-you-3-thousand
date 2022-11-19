@@ -156,7 +156,7 @@ export const age = 18;
 </html>
 ```
 
-注意：在用 export 导出时，也可以用类似于解构赋值的{}形式！
+注意：在用 export 导出时，也可以用类似于解构赋值的`{}`形式！
 
 【module.js】
 
@@ -166,7 +166,7 @@ const age = 18;
 export {age};
 ```
 
-**（2）多个导入**
+**（2）多个导出导入**
 
 【module.js】
 
@@ -874,6 +874,8 @@ module.exports = {
 最后，我们查看打包后的 dist/index.js 文件，会发现里面的 let 等 ES6 语法都已经转为 var 等之前版本的语法了！说明 babel 确实生效了！
 
 但是！细心观察会发现，babel 只是会将一些 ES6 的基本语法进行转换，但是诸如：Object、Set、Map、Promise 等 ES6 提供的 API，babel 是无法直接转换的，所以我们需要再借助其它的模块，而这些第三方模块可以帮我们实现 ES6 中的 API。
+
+> core-js 是 JavaScript 标准库的 polyfill（垫片/补丁），将新功能的 ES API 转换为大部分现代浏览器都可以支持运行的一个 API 补丁包集合。它支持最新的 ECMAScript 标准，它支持 ECMAScript 标准库提案，它支持一些 WHATWG / W3C 标准（跨平台或者 ECMAScript 相关），它最大限度的模块化：你能仅仅加载你想要使用的功能，它能够不污染全局命名空间，它和 Babel 紧密集成：这能够优化 core-js 的导入，它是最普遍、最流行的为 JavaScript 标准库打补丁的方式。
 
 安装 core-js：
 
