@@ -110,3 +110,10 @@ console.log('Hello Node.js');
 > - 使用 `tab` 键，能够快速补全路径
 > - 使用 `esc` 键，能够快速清空当前已输入的命令（Linux、MacOS 中为：`ctrl + u`）
 > - 输入 `cls` 命令，可以清空终端（Linux、MacOS 中为：`clear`）
+
+Node.js 详细内容请查阅文档：
+
+[Docs | Node.js (nodejs.org)](https://nodejs.org/zh-cn/docs/)
+
+[Node.js 中文文档 | Node.js 中文网 (nodeapp.cn)](https://www.nodeapp.cn/)
+
