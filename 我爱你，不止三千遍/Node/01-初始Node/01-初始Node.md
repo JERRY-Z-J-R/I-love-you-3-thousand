@@ -80,7 +80,7 @@ JavaScript 基础语法 + Node.js 内置 API 模块（fs、path、http 等）+ �
 
 Node.js 官网：https://nodejs.org/zh-cn/
 
-点击绿色按钮进行下载，下载后打开安装包，默认下一步安装。
+点击绿色按钮进行下载，下载后打开安装包，默认下一步安装（对于这类基础环境推荐安装路径默认 C 盘）。
 
 <img src="mark-img/image-20221130205640710.png" alt="image-20221130205640710" style="zoom: 33%;" />
 

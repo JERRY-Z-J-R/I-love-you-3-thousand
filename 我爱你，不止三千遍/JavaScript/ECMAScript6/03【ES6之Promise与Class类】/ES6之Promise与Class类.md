@@ -93,7 +93,7 @@ Promise 是异步操作的一种解决方案。
 >
 > ![1](mark-img/1-16535347592834.gif)
 >
-> 这段程序中的 setTimeout 就是一个消耗时间较长（3 秒）的过程，它的第一个参数是个回调函数，第二个参数是毫秒数，这个函数执行之后会产生一个子线程，子线程会等待 3 秒，然后执行回调函数 "print"，在命令行输出 "RUNOOB!"。
+> 这段程序中的 setTimeout 就是一个消耗时间较长（3 秒）的过程，它的第一个参数是个回调函数，第二个参数是毫秒数，这个函数执行之后会产生一个子线程，子线程会等待 3 秒，再返回执行回调函数 "print"，在命令行输出 "RUNOOB!"。
 >
 > 当然，JavaScript 语法十分友好，我们不必单独定义一个函数 print ，我们常常将上面的程序写成：
 >
@@ -196,34 +196,34 @@ Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback he
 </head>
 
 <body>
-<script>
-    /*
-    // 此种方式，省市县都会在一秒后同时打印，没有实现要求
-    setTimeout(() => {
-        console.log("云南省");
-    }, 1000);
-    setTimeout(() => {
-        console.log("玉溪市");
-    }, 1000);
-    setTimeout(() => {
-        console.log("峨山县");
-    }, 1000);
-    */
-
-    // 通过回调函数的方式，实现异步
-    setTimeout(() => {
-        console.log("云南省");
-        let str01 = "云南省";
+    <script>
+        /*
+        // 此种方式，省市县都会在一秒后同时打印，没有实现要求
         setTimeout(() => {
-            console.log(str01 + "玉溪市");
-            let str02 = "云南省玉溪市";
+            console.log("云南省");
+        }, 1000);
+        setTimeout(() => {
+            console.log("玉溪市");
+        }, 1000);
+        setTimeout(() => {
+            console.log("峨山县");
+        }, 1000);
+        */
+
+        // 通过回调函数的方式，实现异步
+        setTimeout(() => {
+            console.log("云南省");
+            let str01 = "云南省";
             setTimeout(() => {
-                console.log(str02 + "峨山县");
-            }, 1000, str02);
-        }, 1000, str01);
-    }, 1000);
-    console.log("通过回调函数的方式，实现异步");
-</script>
+                console.log(str01 + "玉溪市");
+                let str02 = "云南省玉溪市";
+                setTimeout(() => {
+                    console.log(str02 + "峨山县");
+                }, 1000, str02);
+            }, 1000, str01);
+        }, 1000);
+        console.log("通过回调函数的方式，实现异步");
+    </script>
 </body>
 
 </html>
@@ -236,8 +236,9 @@ Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback he
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Promise</title>
     <style>
         * {
@@ -253,40 +254,50 @@ Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback he
         }
     </style>
 </head>
+
 <body>
-<div id="box"></div>
-<script>    
-    // 运动函数
-    const move = (el, {x = 0, y = 0} = {}, end = () => {}) => {
-        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-        el.addEventListener(
-            // transitionend 事件在 CSS 完成过渡后触发。
-            'transitionend',
+    <div id="box"></div>
+    <script>
+        // 运动函数
+        const move = (el, { x = 0, y = 0 } = {}, end = () => { }) => {
+            el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            el.addEventListener(
+                // transitionend 事件在 CSS 完成过渡后触发。
+                'transitionend',
+                () => {
+                    end();
+                },
+                false
+            );
+        };
+
+        const boxEl = document.getElementById('box');
+
+        // 注意：这样行不通，这样当点击的瞬间盒子已经回到原点了
+        // document.addEventListener('click', () => {
+        //     move(boxEl, { x: 150 });
+        //     move(boxEl, { x: 150, y: 150 });
+        //     move(boxEl, { y: 150 });
+        //     move(boxEl, { x: 0, y: 0 });
+        // })
+
+        // 形成回调地狱
+        document.addEventListener(
+            'click',
             () => {
-                end();
+                move(boxEl, { x: 150 }, () => {
+                    move(boxEl, { x: 150, y: 150 }, () => {
+                        move(boxEl, { y: 150 }, () => {
+                            move(boxEl, { x: 0, y: 0 });
+                        });
+                    });
+                });
             },
             false
         );
-    };
-
-    const boxEl = document.getElementById('box');
-
-    // 形成回调地狱
-    document.addEventListener(
-        'click',
-        () => {
-            move(boxEl, {x: 150}, () => {
-                move(boxEl, {x: 150, y: 150}, () => {
-                    move(boxEl, {y: 150}, () => {
-                        move(boxEl, {x: 0, y: 0});
-                    });
-                });
-            });
-        },
-        false
-    );
-</script>
+    </script>
 </body>
+
 </html>
 ```
 
@@ -300,7 +311,7 @@ Promise 实质上是一个构造函数，所以我们一般通过实例化的方
 
 ### 1.2.2 Promise 的状态
 
-Promise 有三个状态：pending（等待）、fulfilled 或 resolved（成功）、rejected（失败）。
+Promise 有三个状态：pending（等待）、resolved（成功）、rejected（失败）。
 
 并且 Promise 必须接收一个回调函数，这个回调函数有两个参数，这两个参数也是两个函数，`(resolve, reject) => {}`。
 
@@ -338,7 +349,7 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 
 1. then 方法的两个回调函数什么时候执行
 
-   - pending——>resolved时，执行 then 的第一个回调函数
+   - pending——>resolved 时，执行 then 的第一个回调函数
    - pending——>rejected 时，执行 then 的第二个回调函数
 
 2. then 方法执行后的返回值
@@ -347,7 +358,7 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 
 3. then 方法返回的 Promise 对象的状态改变
 
-   - then 方法其实默认返回的是 undefined，即：`return undefined`，但是 ES6 的机制规定：当 then 返回 undefined 时，那么会将这个 undefined 包装成一个 Promise，并且这个 Promise 默认调用了 `resilve()` 方法（成功态），并且把 undefined 作为了 resilve() 的参数，相当于：
+   - then 方法其实默认返回的是 undefined，即：`return undefined`，但是 ES6 的机制规定：当 then 返回 undefined 时，那么会将这个 undefined 包装成一个 Promise，并且这个 Promise 默认调用了 `resilve()` 方法（成功态），并且把 undefined 作为了 `resilve()` 的参数，相当于：
 
      ```javascript
      const p = new Promise((resolve, reject) => {
@@ -412,7 +423,7 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 
 案例一：分别间隔一秒打印省市县。
 
-```javascript
+```html
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -424,30 +435,30 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 </head>
 
 <body>
-<script>
-    // 通过 Promise 的方式，解决回调地狱
-    new Promise((resolve) => {
-        setTimeout(() => {
-            console.log("云南省");
-            resolve("云南省");
-        }, 1000);
-    }).then(res => {
-        return new Promise((resolve) => {
+    <script>
+        // 通过 Promise 的方式，解决回调地狱
+        new Promise(resolve => {
             setTimeout(() => {
-                console.log(res + "玉溪市");
-                resolve(res + "玉溪市");
+                console.log("云南省");
+                resolve("云南省");
+            }, 1000);
+        }).then(res => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    console.log(res + "玉溪市");
+                    resolve(res + "玉溪市");
+                }, 1000);
+            });
+        }).then(res => {
+            setTimeout(() => {
+                console.log(res + "峨山县");
             }, 1000);
         });
-    }).then(res => {
-        setTimeout(() => {
-            console.log(res + "峨山县");
-        }, 1000);
-    });
 
-    console.log("通过 Promise 的方式，实现异步");
-</script>
+        console.log("通过 Promise 的方式，实现异步");
+    </script>
 </body>
-
+ 
 </html>
 ```
 
@@ -456,12 +467,13 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动。
 
 ```html
-// 利用 Promise 解决回调地狱问题
-// 例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动
+<!-- 利用 Promise 解决回调地狱问题 -->
+<!-- 例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Promise</title>
     <style>
         * {
@@ -477,44 +489,46 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
         }
     </style>
 </head>
+
 <body>
-<div id="box"></div>
-<script>
-    // 运动函数
-    const move = (el, {x = 0, y = 0} = {}, end = () => {}) => {
-        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-        el.addEventListener(
-            // transitionend 事件在 CSS 完成过渡后触发。
-            'transitionend',
-            () => {
-                end();
-            },
-            false
-        );
-    };
+    <div id="box"></div>
+    <script>
+        // 运动函数
+        const move = (el, { x = 0, y = 0 } = {}, end = () => { }) => {
+            el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            el.addEventListener(
+                // transitionend 事件在 CSS 完成过渡后触发。
+                'transitionend',
+                () => {
+                    end();
+                },
+                false
+            );
+        };
 
-    const boxEl = document.getElementById('box');
+        const boxEl = document.getElementById('box');
 
-    const movePromise = (el, point) => {
-        return new Promise(resolve => {
-            move(el, point, () => {
-                resolve();
+        const movePromise = (el, point) => {
+            return new Promise(resolve => {
+                move(el, point, () => {
+                    resolve();
+                });
             });
-        });
-    };
+        };
 
-    document.addEventListener(
-        'click', () => {
-            movePromise(boxEl, {x: 150}).then(() => {
-                return movePromise(boxEl, {x: 150, y: 150});
-            }).then(() => {
-                return movePromise(boxEl, {y: 150});
-            }).then(() => {
-                movePromise(boxEl, {x: 0, y: 0});
-            })
-        }, false);
-</script>
+        document.addEventListener(
+            'click', () => {
+                movePromise(boxEl, { x: 150 }).then(() => {
+                    return movePromise(boxEl, { x: 150, y: 150 });
+                }).then(() => {
+                    return movePromise(boxEl, { y: 150 });
+                }).then(() => {
+                    movePromise(boxEl, { x: 0, y: 0 });
+                })
+            }, false);
+    </script>
 </body>
+
 </html>
 ```
 
@@ -816,7 +830,7 @@ Promise.allSettled() 的状态与传入的 Promise 状态无关。
 
 ### 1.9.1 resolve或reject执行后的代码
 
-resolve或reject后的代码依旧是会执行的，但是极度不推荐这么做。
+resolve 或 reject 后的代码依旧是会执行的，但是极度不推荐这么做。
 
 为了确保安全，推荐在调用 resolve 或 reject 函数的时候加上 return，不再执行它们后面的代码。
 
