@@ -67,7 +67,7 @@ npm install 包的完整名称
 npm i 包的完整名称
 ```
 
-<img src="mark-img/image-20221205113923721.png" alt="image-20221205113923721" style="zoom:50%;" />
+<img src="mark-img/image-20221205113923721.png" alt="image-20221205113923721" style="zoom: 33%;" />
 
 **【利用 moment 对时间进行格式化】**
 
@@ -81,7 +81,7 @@ npm i 包的完整名称
 
 moment 主页的相关说明（其它包也大同小异）：
 
-![npm](mark-img/npm.png)
+<img src="mark-img/npm.png" alt="npm" style="zoom:25%;" />
 
 点击文档，即可查看使用说明：
 
@@ -102,7 +102,7 @@ const dt = moment().format('YYYY-MM-DD HH:mm:ss');
 console.log(dt);
 ```
 
-<img src="mark-img/image-20221205121825146.png" alt="image-20221205121825146" style="zoom:50%;" />
+<img src="mark-img/image-20221205121825146.png" alt="image-20221205121825146" style="zoom: 33%;" />
 
 **【初次装包后多了哪些文件】**
 
@@ -115,7 +115,7 @@ console.log(dt);
 
 注意：程序员不要手动修改 node_modules 或 package-lock.json 文件中的任何代码，npm 包管理工具会自动维护它们。
 
-<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208195853018.png" alt="image-20221208195853018" style="zoom:50%;" />
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208195853018.png" alt="image-20221208195853018" style="zoom: 25%;" />
 
 **【安装指定版本的包】**
 
@@ -144,7 +144,7 @@ npm 规定，在项目根目录中，必须提供一个叫作 package.json 的�
 
 ## 3.1 多人协作的问题
 
-<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208201810025.png" alt="image-20221208201810025" style="zoom: 33%;" />
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208201810025.png" alt="image-20221208201810025" style="zoom: 33%;" />
 
 从我们之前创建的时间格式化项目文件夹就可以发现，真正的业务代码（test.js）只有 1 KB 的大小，而 node_modules 文件夹却有 4 MB 大小！这还只是一个非常小型的项目，对于中大型项目来说，一般业务代码只占整个项目大小的 1%！另外的 99% 大部分都是 node_modules 中的依赖包的大小！此时就会带来一个严重的问题：假如项目 1G 大小，而实际业务代码只有 10 MB，此时如果我们要将项目上传到云端或者发送给其他人，那么就需要发送 1G 的数据，这是非常耗费资源且耗时的！在实际团队合作的开发中，往往有一个统一的云端代码仓库实时同步各个程序员本地的代码，如果都不做任何处理直接上传和发送项目原始数据的话，根本不现实！ 
 
@@ -174,7 +174,7 @@ npm init -y
 - 上述命令只能在英文的目录下成功执行！所以，项目文件夹的名称一定要使用英文命名，不要使用中文，也不能出现空格！
 - 往后，当我们用 npm install XXX 或 npm i XXX 命令安装依赖包时，npm 包管理工具会自动把包的名称和版本号，记录到 package.json 中！
 
-<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208211326780.png" alt="image-20221208211326780" style="zoom:50%;" />
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208211326780.png" alt="image-20221208211326780" style="zoom: 25%;" />
 
 可以发现，自动生成的 package.json 文件中自动记录了我们的项目名称（可以修改，默认使用文件夹名称），项目版本号，项目许可类型（默认 ISC）等信息。
 
@@ -205,11 +205,13 @@ package.json 文件中，有一个 dependencies 节点，专门用来记录你�
 
 同时，项目还多了 node_modules 文件夹（里面存放了 moment 的相关代码和资源）和 package-lock.json 文件。
 
-<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208222458470.png" alt="image-20221208222458470" style="zoom:50%;" />
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208222458470.png" alt="image-20221208222458470" style="zoom: 25%;" />
 
 - 执行 `npm i jquery art-template` 命令后的 package.json 文件
 
- 注：npm i 可以一次安装多个包，包与包之间用空格隔开。<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208222947028.png" alt="image-20221208222947028" style="zoom:50%;" />
+ 注：npm i 可以一次安装多个包，包与包之间用空格隔开。
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208222947028.png" alt="image-20221208222947028" style="zoom: 25%;" />
 
 ## 3.5 一次性安装所有的依赖包
 
@@ -227,7 +229,7 @@ Error: Cannot find module 'moment'
 npm install
 ```
 
-<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208224421695.png" alt="image-20221208224421695" style="zoom:50%;" />
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208224421695.png" alt="image-20221208224421695" style="zoom: 33%;" />
 
 ## 3.6 卸载包
 
@@ -242,5 +244,87 @@ npm uninstall 命令执行成功后，会把对应的包从 node_modules 文件�
 
 > 注意：npm uninstall 没有简写形式，npm uninstall 可以一次卸载多个包，包与包之间用空格隔开。
 
-<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208225831587.png" alt="image-20221208225831587" style="zoom:50%;" />
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208225831587.png" alt="image-20221208225831587" style="zoom: 25%;" />
+
+## 3.7 devDependencies节点
+
+如果某些包只在项目开发阶段会用到，在项目上线之后不会用到，则建议把这些包记录到 devDependencies 节点中。
+
+与之对应的，如果某些包在开发和项目上线之后都需要用到，则建议把这些包记录到 dependencies 节点中。
+
+您可以使用如下的命令，将包记录到 devDependencies 节点中：
+
+```shell
+# 安装指定的包，并记录到 devDependencies 节点中
+npm i 包名 -D
+# 注意：上述命令是简写形式，等价于下面的完整写法
+npm install 包名 --save-dev
+```
+
+例如：
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208231148400.png" alt="image-20221208231148400" style="zoom: 25%;" />
+
+> 注意：-D 或 --save-dev 后缀写到 npm install 或 包名 后面都可以。
+>
+> 即：npm i webpack -D 与 npm i -D webpack 是等同的。
+
+说明：安装包需不需要指定 `-D`，一般来说在包的文档中都会说明。例如，我们去 npm 网站上搜索 webpack 进入其文档，就会发现有安装说明：
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208231454045.png" alt="image-20221208231454045" style="zoom: 25%;" />
+
+# 四、镜像源
+
+## 4.1 为什么包下载速度慢
+
+在使用 npm 下包的时候，默认从国外的 npm 官方服务器 https://registry.npmjs.org/ 进行下载，而目前国内的网络与外网是有“阻隔”的，因此下包速度会很慢。
+
+## 4.2 淘宝npm镜像服务器
+
+![image-20221208232646684](F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208232646684.png)
+
+## 4.3 切换npm的下包镜像源
+
+下包的镜像源，指的就是下包的服务器地址。
+
+```shell
+# 查看当前的下包服务器地址
+npm config get registry
+# 将下包的服务器地址切换为淘宝镜像源
+npm config set registry=https://registry.npm.taobao.org/
+# 检查镜像源是否切换成功
+npm config get registry
+```
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208233625785.png" alt="image-20221208233625785" style="zoom: 33%;" />
+
+> 注意：npm 淘宝镜像源地址已经更换了，新的地址是：https://registry.npmmirror.com/
+
+## 4.4 nrm
+
+为了更方便的切换下包的镜像源，我们可以安装 nrm 这个小工具，利用 nrm 提供的终端命令，可以快速查看和切换下包的镜像源。
+
+```shell
+# 通过 npm 包管理器，将 nrm 安装为全局可用的工具
+npm i nrm -g
+```
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208234458634.png" alt="image-20221208234458634" style="zoom:33%;" />
+
+```shell
+# 查看所有可用的镜像源
+nrm ls
+# 将下包的镜像源切换为 taobao 镜像
+nrm use taobao
+```
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208235554902.png" alt="image-20221208235554902" style="zoom: 33%;" />
+
+> <img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208234645610.png" alt="image-20221208234645610" style="zoom:33%;" />
+>
+> 新版的 Windows 系统中，nrm 默认使用不了，解决方法是：
+>
+> 1. 管理员方式打开终端执行：`set-ExecutionPolicy RemoteSigned`
+> 2. 继续执行：`get-ExecutionPolicy`，如果输出为 `RemoteSigned ` 即为成功。
+>
+> <img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\mark-img\image-20221208235125869.png" alt="image-20221208235125869" style="zoom:33%;" />
 
