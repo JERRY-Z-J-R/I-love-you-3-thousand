@@ -106,7 +106,7 @@ console.log(dt);
 
 **【初次装包后多了哪些文件】**
 
-初次装包完成后，在项目文件夹下多一个叫作 node_modules 的文件夹和 package-lock.json 的配置文件。
+初次装包完成后，在项目文件夹下多一个叫作 node_modules 的文件夹和 package-lock.json 的配置文件（新版的 Node.js 还会自动添加 package.json 文件）。
 
 其中：
 
@@ -114,6 +114,8 @@ console.log(dt);
 - package-lock.json 配置文件用来记录 node_modules 目录下的每一个包的下载信息，例如包的名字、版本号、下载地址等
 
 注意：程序员不要手动修改 node_modules 或 package-lock.json 文件中的任何代码，npm 包管理工具会自动维护它们。
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208195853018.png" alt="image-20221208195853018" style="zoom:50%;" />
 
 **【安装指定版本的包】**
 
@@ -127,7 +129,118 @@ console.log(dt);
 
 - 第一位数字：大版本号
 - 第二位数字：功能版本号
-- 第三位数字：Bug修复版本号
+- 第三位数字：Bug 修复版本号
 
 版本号提升的规则：只要前面的版本号增长了，则后面的版本号归零。
+
+# 三、包管理配置文件
+
+npm 规定，在项目根目录中，必须提供一个叫作 package.json 的包管理配置文件，用来记录与项目有关的一些配置信息。例如：
+
+- 项目的名称、版本号、描述等
+- 项目中都用到了哪些包
+- 哪些包只在开发期间会用到
+- 哪些包在开发和部署时都需要用到
+
+## 3.1 多人协作的问题
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208201810025.png" alt="image-20221208201810025" style="zoom: 33%;" />
+
+从我们之前创建的时间格式化项目文件夹就可以发现，真正的业务代码（test.js）只有 1 KB 的大小，而 node_modules 文件夹却有 4 MB 大小！这还只是一个非常小型的项目，对于中大型项目来说，一般业务代码只占整个项目大小的 1%！另外的 99% 大部分都是 node_modules 中的依赖包的大小！此时就会带来一个严重的问题：假如项目 1G 大小，而实际业务代码只有 10 MB，此时如果我们要将项目上传到云端或者发送给其他人，那么就需要发送 1G 的数据，这是非常耗费资源且耗时的！在实际团队合作的开发中，往往有一个统一的云端代码仓库实时同步各个程序员本地的代码，如果都不做任何处理直接上传和发送项目原始数据的话，根本不现实！ 
+
+- 问题：第三方包体积过大，不方便共享项目源代码
+- 解决思路：共享时剔除掉 node_modules 文件夹
+
+## 3.2 如何记录项目中安装了哪些包
+
+在项目根目录中，创建一个叫作 package.json 的配置文件，即可用来记录项目中安装了哪些包，从而方便剔除 node_modules 目录之后，在团队成员之间共享项目的源代码。
+
+> 注意：今后如果使用 GitHub、Gitee 等来共享项目，那么一定要把 node_modules 文件夹添加到 Git 忽略文件 .gitignore 中。
+
+## 3.3 快速创建package.json
+
+npm 包管理工具提供了一个快捷命令，可以在执行命令时所处的目录中，快速创建 package.json 这个包管理配置文件：
+
+```shell
+npm init -y
+```
+
+> 注意：执行这个命令时项目应是空的，在还没有写代码之前！
+
+> 新版本的 Node.js 在我们写了代码，用 npm 安装依赖包时，除了会创建 node_modules 文件夹及 package-lock.json 文件之外，还会同时创建 package.json 文件（前提是项目之前没有执行过 npm init -y ）。
+
+注意：
+
+- 上述命令只能在英文的目录下成功执行！所以，项目文件夹的名称一定要使用英文命名，不要使用中文，也不能出现空格！
+- 往后，当我们用 npm install XXX 或 npm i XXX 命令安装依赖包时，npm 包管理工具会自动把包的名称和版本号，记录到 package.json 中！
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208211326780.png" alt="image-20221208211326780" style="zoom:50%;" />
+
+可以发现，自动生成的 package.json 文件中自动记录了我们的项目名称（可以修改，默认使用文件夹名称），项目版本号，项目许可类型（默认 ISC）等信息。
+
+## 3.4 dependencies节点
+
+package.json 文件中，有一个 dependencies 节点，专门用来记录你使用 npm install 命令安装了哪些包。
+
+实际演示：
+
+- 未安装任何包前的 package.json 文件
+
+```json
+{
+  "name": "nodestudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+- 执行 `npm i moment` 命令后的 package.json 文件
+
+同时，项目还多了 node_modules 文件夹（里面存放了 moment 的相关代码和资源）和 package-lock.json 文件。
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208222458470.png" alt="image-20221208222458470" style="zoom:50%;" />
+
+- 执行 `npm i jquery art-template` 命令后的 package.json 文件
+
+ 注：npm i 可以一次安装多个包，包与包之间用空格隔开。<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208222947028.png" alt="image-20221208222947028" style="zoom:50%;" />
+
+## 3.5 一次性安装所有的依赖包
+
+当我们拿到一个剔除了 node_modules 的项目后，需要先把所有的包下载到项目中，才能将项目运行起来。否则会报类似于下面的错误：
+
+```shell
+Error: Cannot find module 'moment'
+```
+
+可以运行 `npm install` 命令（或 `npm i`）一次性安装所有的依赖包（复原 node_modules 文件夹）：
+
+```shell
+# 执行 npm install 命令时，npm 包管理工具会先读取 package.json 中的 dependencies 节点
+# 读取到记录的所有依赖包名称和版本号之后，npm 包管理工具会把这些依赖包一次性下载到项目中
+npm install
+```
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208224421695.png" alt="image-20221208224421695" style="zoom:50%;" />
+
+## 3.6 卸载包
+
+可以运行 `npm uninstall` 命令，来卸载指定的包：
+
+```shell
+# 使用 npm uninstall 具体的包名来卸载包
+npm uninstall moment
+```
+
+npm uninstall 命令执行成功后，会把对应的包从 node_modules 文件夹中删除，同时自动从 package.json 的 dependencies 中移除掉相应的部分。
+
+> 注意：npm uninstall 没有简写形式，npm uninstall 可以一次卸载多个包，包与包之间用空格隔开。
+
+<img src="F:\MyGit\I-love-you-3-thousand\我爱你，不止三千遍\Node\05-npm与包\${images}\image-20221208225831587.png" alt="image-20221208225831587" style="zoom:50%;" />
 
