@@ -10,7 +10,11 @@
 >
 > `git clone https://github.com/JERRY-Z-J-R/I-love-you-3-thousand.git`
 >
+> 本地仓库更新：`git pull`
+>
 > 仓库的所有文档均是在 [Typora](https://typora.io/) 中完成编辑的，这也是我最推荐的 Markdown 工具。
+>
+> Typora 主题推荐：[blinkfox/typora-vue-theme (github.com)](https://github.com/blinkfox/typora-vue-theme)
 
 ### License
 
