@@ -328,3 +328,57 @@ nrm use taobao
 >
 > <img src="mark-img\image-20221208235125869.png" alt="image-20221208235125869" style="zoom:33%;" />
 
+# 五、包的分类
+
+## 5.1 项目包
+
+那些被安装到项目的 node_modules 目录中的包，都是项目包。
+
+项目包又分为两类，分别是：
+
+- 开发依赖包（被记录到 devDependencies 节点中的包，只在开发期间会用到）
+- 核心依赖包（被记录到 dependencies 节点中的包，在开发期间和项目上线之后都会用到）
+
+```shell
+npm i 包名 -D	# 开发依赖包（会被记录到 devDependencies 节点下）
+npm i 包名	# 核心依赖包（会被记录到 dependencies 节点下）
+```
+
+## 5.2 全局包
+
+在执行 npm install 命令时，如果提供了 -g 参数，则会把包安装为全局包。
+
+全局包会被安装到 C:\Users\用户目录\AppData\Roaming\npm\node_modules 目录下。
+
+<img src="mark-img\image-20221209133414233.png" alt="image-20221209133414233" style="zoom: 33%;" />
+
+如图，在该目录下就能发现之前全局安装的 nrm 工具包。
+
+```shell
+npm i 包名 -g				# 全局安装指定的包
+npm uninstall 包名 -g 	# 卸载全局安装的包
+```
+
+注意：
+
+- 只有工具性质的包，才有全局安装的必要性。因为它们提供了好用的终端命令。
+- 判断某个包是否需要全局安装后才能使用，可以参考官方提供的使用说明。
+
+# 六、规范的包结构
+
+在清楚了包的概念，以及如何下载和使用包之后，接下来，我们深入了解一下包的内部结构。
+
+一个规范的包，它的组成结构，必须符合以下 3 点要求：
+
+- 包必须以单独的目录而存在（例如：moment）
+- 包的顶级目录下必须包含 package.json 这个包管理配置文件（moment 文件夹内包含 package.json）
+- package.json 中必须包含 name、version、main 这三个属性，分别代表包的名字、版本号、包的入口
+
+<img src="mark-img\image-20221209135350460.png" alt="image-20221209135350460" style="zoom:25%;" />
+
+<img src="mark-img\image-20221209135840220.png" alt="image-20221209135840220" style="zoom:25%;" />
+
+> main 属性：当我们加载对应包时，例如：const moment = require('moment')  那么程序就去找 moment 中的package.json 中的 main 属性，从而知道是要以 ./moment.js 为入口来加载该包。
+
+# 七、开发与发布包
+
