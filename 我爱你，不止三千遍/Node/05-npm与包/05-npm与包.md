@@ -382,3 +382,277 @@ npm uninstall 包名 -g 	# 卸载全局安装的包
 
 # 七、开发与发布包
 
+## 7.1 开发属于自己的包
+
+**（1）需要实现的功能**
+
+> 当我们在网页上让用户提交一个表单并展示在页面上时，假如用户输入了一串 HTML 代码，那这段 HTML 代码将会被渲染到页面上，造成不堪设想的后果，所以我们要争对 HTML 字符串进行转义。
+
+- 转义 HTML 中的特殊字符
+- 还原 HTML 中的特殊字符
+
+**（2）初始化包的基本结构**
+
+1. 新建 html-escape-tool 文件夹，作为包的根目录
+2. 在 html-escape-tool 文件夹中，新建如下三个文件：
+   - package.json（包管理配置文件）
+   - index.js（包的入口文件，可以自由取名）
+   - README.md（包的说明文档）
+
+**（3）初始化 package.json**
+
+```json
+{
+    "name": "html-escape-tool",
+    "version": "1.0.0",
+    "main": "index.js",
+    "description": "提供 HTML Escape 转义及还原功能",
+    "keywords": [
+        "html",
+        "escape"
+    ],
+    "license": "ISC"
+}
+```
+
+**（4）在 index.js 中定义转义和还原 HTML 的方法**
+
+```javascript
+// 定义转义 HTML 字符串的函数
+function htmlEscape(htmlstr) {
+    return htmlstr.replace(/<|>|"|&/g, match => {
+        switch (match) {
+            case '<':
+                return '&lt;'
+            case '>':
+                return '&gt;'
+            case '"':
+                return '&quot;'
+            case '&':
+                return '&amp;'
+        }
+    })
+}
+
+// 定义还原 HTML 字符串的函数
+function htmlUnEscape(str) {
+    return str.replace(/&lt;|&gt;|&quot;|&amp;/g, match => {
+        switch (match) {
+            case '&lt;':
+                return '<'
+            case '&gt;':
+                return '>'
+            case '&quot;':
+                return '"'
+            case '&amp;':
+                return '&'
+        }
+    })
+}
+```
+
+**（5）将不同的功能进行模块化拆分**
+
+在真实的开发中，往往功能比较复杂，会有许多的 js 文件，一般不会把功能直接实现在 index.js（入口文件中），而是进行模块化插入，然后在 index.js 中导入。
+
+改进：我们创建一个 src（源代码）目录，然后在里面创建 html-escape.js 文件，在该文件中实现代码并导出，最后在 index.js 中导入。
+
+```javascript
+// html-escape.js
+
+// 定义转义 HTML 字符串的函数
+function htmlEscape(htmlstr) {
+    return htmlstr.replace(/<|>|"|&/g, match => {
+        switch (match) {
+            case '<':
+                return '&lt;'
+            case '>':
+                return '&gt;'
+            case '"':
+                return '&quot;'
+            case '&':
+                return '&amp;'
+        }
+    })
+}
+
+// 定义还原 HTML 字符串的函数
+function htmlUnEscape(str) {
+    return str.replace(/&lt;|&gt;|&quot;|&amp;/g, match => {
+        switch (match) {
+            case '&lt;':
+                return '<'
+            case '&gt;':
+                return '>'
+            case '&quot;':
+                return '"'
+            case '&amp;':
+                return '&'
+        }
+    })
+}
+
+module.exports = {
+    htmlEscape,
+    htmlUnEscape
+}
+```
+
+```javascript
+// index.js（入口文件）
+
+const escape = require('./src/html-escape');
+
+// 向外暴露需要的成员
+module.exports = {
+    ...escape
+}
+```
+
+**（6）编写包的使用说明文档**
+
+````markdown
+## 安装
+
+```
+npm install html-html-escape-tool
+```
+
+## 导入
+
+```js
+const htmlEs = require('html-escape-tool')
+```
+
+## 转义 HTML 字符
+
+- `<`：`&lt;`
+- `>`：`&gt;`
+- `"`：`&quot;`
+- `&`：`&amp;`
+
+方法：`htmlEscape(htmlStr)`
+
+```js
+const htmlStr = '<h1 class="main">我是HTML！<span>哈&nbsp;哈</span></h1>';
+let str = htmlEs.htmlEscape(htmlStr);
+// &lt;h1 class=&quot;main&quot;&gt;我是HTML！&lt;span&gt;哈&amp;nbsp;哈&lt;/span&gt;&lt;/h1&gt;
+```
+
+## 还原 HTML 字符
+
+- `&lt;`：`<`
+- `&gt;`：`>`
+- `&quot;`：`"`
+- `&amp;`：`&`
+
+方法：`htmlUnEscape(str)`
+
+```js
+const str = '&lt;h1 class=&quot;main&quot;&gt;我是HTML！&lt;span&gt;哈&amp;nbsp;哈&lt;/span&gt;&lt;/h1&gt;';
+let htmlStr = htmlEs.htmlUnEscape(str);
+// <h1 class="main">我是HTML！<span>哈&nbsp;哈</span></h1>
+```
+
+## 开源协议
+
+ISC
+````
+
+**（7）本地测试**
+
+<img src="mark-img\image-20221211201743140.png" alt="image-20221211201743140" style="zoom: 25%;" />
+
+## 7.2 发布包
+
+**（1）注册 npm 账号**
+
+[npm | Sign Up (npmjs.com)](https://www.npmjs.com/signup)
+
+**（2）利用终端登录 npm 账号**
+
+登录命令：`npm login`
+
+> 注意：在运行 npm login 命令之前，必须先把下包的服务器地址切换为 npm 官方服务器！
+
+<img src="mark-img\image-20221211205541668.png" alt="image-20221211205541668" style="zoom: 33%;" />
+
+**（3）把包发布到 npm 上**
+
+将终端切换到包的根目录之后，运行 `npm publish` 命令，即可将包发布到 npm 上。
+
+> 注意：包名不能雷同！
+
+<img src="mark-img\image-20221211210011933.png" alt="image-20221211210011933" style="zoom:33%;" />
+
+到 npm 官网上查看：
+
+<img src="mark-img\2022-12-11_210210.png" alt="2022-12-11_210210" style="zoom:25%;" />
+
+<img src="mark-img\image-20221211210430646.png" alt="image-20221211210430646" style="zoom:25%;" />
+
+## 7.3 更新包
+
+比如，1.0.0 版本的文档有错误，我们对 README.md 进行了修复：
+
+<img src="mark-img\image-20221211212715569.png" alt="image-20221211212715569" style="zoom:25%;" />
+
+- `npm version patch` 升级补丁，此时 package 中的 version 会自动升级，变成  `"version": "1.0.1"`
+- git 操作（若有）
+- `npm publish` 发布更新
+
+> 升级分 **补丁/次版本/主版本** 三种方式：
+>
+> - patch（补丁）`npm version patch`，1.0.0 —> 1.0.1
+> - minor（次要版本）`npm version minor`，1.0.0 —> 1.1.0
+> - major（主要版本）`npm version major`，1.0.0 —> 2.0.0
+
+## 7.4 删除包
+
+运行 `npm unpublish 包名 --force` 命令，即可从 npm 删除已经发布的包。
+
+注意：
+
+- npm unpublish 命令只能删除 72 小时以内发布的包（为了防止依赖消失事故）
+- npm unpublish 删除的包，在 24 小时内不允许重复发布
+
+# 八、模块的加载机制
+
+## 8.1 优先从缓存中加载
+
+模块在第一次加载后会被缓存，接下来的加载都会优先从缓存中加载，从而提高模块的加载效率。这也意味着多次调用 `require()` 不会导致模块的代码被执行多次。
+
+## 8.2 自定义模块的加载机制
+
+使用 `require()` 加载自定义模块时，必须指定以 `./` 或 `../` 开头的路径标识符。在加载自定义模块时，如果没有指定 `./` 或 `../` 这样的路径标识符，则 Node.js 会把它当作内置模块或第三方模块进行加载。
+
+同时，在使用 `require()` 导入自定义模块时，如果省略了文件的扩展名，则 Node.js 会按顺序分别尝试加载以下的文件：
+
+1. 按照确切的文件名进行加载
+2. 补全 .js 扩展名进行加载
+3. 补全 .json 扩展名进行加载
+4. 补全 .node 扩展名进行加载
+5. 加载失败，终端报错
+
+## 8.3 第三方模块的加载机制
+
+如果传递给 `require()` 的模块标识符不是一个内置模块，也没有以 `./` 或 `../` 开头，则 Node.js 会从当前模块的父目录开始，尝试从 /node_modules 文件夹中加载第三方模块。
+
+如果没有找到对应的第三方模块，则移动到再上一层父目录中，进行加载，直到文件系统的根目录。
+
+例如，假设在 C:\Users\jerry\project\foo.js 文件里调用了 `require('tools')`，则 Node.js 会按以下顺序查找：
+
+1. C:\Users\jerry\project\node_modules\tools
+2. C:\Users\jerry\node_modules\tools
+3. C:\Users\node_modules\tools
+4. C:\node_modules\tools
+5. 加载失败，终端报错
+
+## 8.4 目录作为模块
+
+当把目录作为模块标识符，传递给 `require()` 进行加载的时候，有三种加载方式：
+
+1. 在被加载的目录下查找一个叫做 package.json 的文件，并寻找 main 属性，作为 require() 加载的入口
+2. 如果目录里没有 package.json 文件，或者 main 入口不存在或无法解析，则 Node.js 将会试图加载目录下的 index.js 文件
+3. 如果以上两步都失败了，则 Node.js 会在终端打印错误消息，报告模块的缺失：Error: Cannot find module 'xxx'
+

@@ -123,7 +123,7 @@ Redis 的应用场景：
 
 1. 将 Redis 安装根目录配置到 Path 环境变量中
 
-2. 打开终端输入：`redis-server --service-install redis.windows.conf --loglevel verbose`
+2. 打开终端输入：`redis-server --service-install redis.windows.conf`
 
 之后 Redis 就会以服务的方式运行到 Windows 中（可以通过任务管理器查看），并且开机自启动。
 
@@ -134,7 +134,7 @@ Redis 的应用场景：
 【修改密码】
 方法一：通过配置文件进行设置（永久生效）
 
-- 打开 redis.windows.conf
+- 打开 redis.windows.conf（非系统服务方式启动程序时使用的配置文件），redis.windows-service.conf（系统服务方式启动程序时使用的配置文件）
 - 设置 requirepass：密码（该行默认为注释状态）
 - 重启 Redis 生效
 
