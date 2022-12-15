@@ -81,7 +81,7 @@ app.listen(80, () => {
 // 参数2：请求对应的处理函数
 // 		req：请求对象（包含了与请求相关的属性与方法）
 //		res：响应对象（包含了与响应相关的属性与方法）
-app.get('请求URL', funciton(req, res) {
+app.get('请求URL', function (req, res) {
    // 处理     
 });
 ```
@@ -355,12 +355,12 @@ app.METHOD(PATH, HANDLER)
 
 ```javascript
 // 匹配 GET 请求，且请求 URL 为 /
-app.get('/', funciton(req, res) {
+app.get('/', function (req, res) {
    res.send('Got a GET request');     
 });
 
 // 匹配 POST 请求，且请求为 URL 为 /
-app.post('/', funciton(req, res) {
+app.post('/', function (req, res) {
    res.send('Got a POST request');      
 });
 ```
@@ -580,7 +580,7 @@ Express 的中间件，本质上就是一个 **function** **处理函数**，Exp
 
 ```javascript
 // 常量 mw 所指向的，就是一个中间件函数
-const mw = function(req, res, next) {
+const mw = function (req, res, next) {
     console.log('这是一个最简单的中间件函数');
     // 注意：在当前中间件的业务处理完毕后，必须调用 next() 函数
     // 表示把流转关系转交给下一个中间件或路由器
@@ -596,7 +596,7 @@ const mw = function(req, res, next) {
 
 ```javascript
 // 常量 mw 所指向的，就是一个中间件函数
-const mw = function(req, res, next) {
+const mw = function (req, res, next) {
     console.log('这是一个最简单的中间件函数');
     next();
 };
@@ -645,7 +645,7 @@ Apifox 测试：
 
 ```javascript
 // 全局生效的中间件
-app.use(funciton(req, res, next) {
+app.use(function (req, res, next) {
 	console.log('这是一个最简单的中间件函数');
 	next();
 });
@@ -728,13 +728,13 @@ Apifox 测试：
 
 ```javascript
 // 第一个全局中间件
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     console.log('调用了第1个全局中间件');
     next();
 });
 
 // 第2个全局中间件
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     console.log('调用了第2个全局中间件');
     next();
 });
@@ -751,21 +751,55 @@ app.get('/user', (req, res) => {
 
 ```javascript
 // 定义中间件函数 mw1
-const mw1 = function(req, res, next) {
+const mw1 = function (req, res, next) {
     console.log('这是中间件函数');
     next();
 };
 
-// mw1 这个中间件只在“当前路由中生效”，这种用法属于“局部生效的中间件”
-app.get('/', mw1, function(req, res) {
+// mw1 这个中间件只在该路由中生效，这种用法属于“局部生效的中间件”
+app.get('/', mw1, function (req, res) {
     res.send('Home page.');
 });
 
 // mw1 这个中间件不会影响下面这个路由
-app.get('/user', function(req, res) {
+app.get('/user', function (req, res) {
     res.send('User page.');
 });
 ```
+
+代码示例：
+
+```javascript
+const express = require('express');
+
+const app = express();
+
+// 定义中间件函数 mw1
+const mw1 = function (req, res, next) {
+    console.log('这是中间件函数');
+    next();
+};
+
+// mw1 这个中间件只在该路由中生效，这种用法属于“局部生效的中间件”
+app.get('/', mw1, function (req, res) {
+    res.send('Home page.');
+});
+
+// mw1 这个中间件不会影响下面这个路由
+app.get('/user', function (req, res) {
+    res.send('User page.');
+});
+
+app.listen(80, () => {
+    console.log('http://127.0.0.1');
+});
+```
+
+Apifox 测试：
+
+<img src="mark-img/image-20221215094108340.png" alt="image-20221215094108340" style="zoom:50%;" />
+
+<img src="mark-img/image-20221215094137553.png" alt="image-20221215094137553" style="zoom:50%;" />
 
 ### 3.2.7 定义多个局部中间件
 
@@ -784,7 +818,7 @@ app.get('/', [mw1, mw2], (req, res) => {
 
 ### 3.2.8 了解中间件的5个使用注意事项
 
-1. 一定要在路由之前注册中间件
+1. **一定要在路由之前注册中间件！**
 2. 客户端发送过来的请求，可以连续调用多个中间件进行处理
 3. 执行完中间件的业务代码之后，不要忘记调用 next() 函数
 4. 为了防止代码逻辑混乱，调用 next() 函数后不要再写额外的代码
@@ -802,16 +836,17 @@ app.get('/', [mw1, mw2], (req, res) => {
 
 ### 3.3.1 应用级别的中间件
 
-通过 `app.use()` 或 `app.get()` 或 `app.post()`，绑定到 app 实例上的中间件，叫做应用级别的中间件，代码示例如下：
+通过 `app.use()` 或 `app.get()` 或 `app.post()`，绑定到 app 实例上的中间件，都叫做应用级别的中间件，代码示例如下：
 
 ```javascript
 // 应用级别的中间件（全局中间件）
 app.use((req, res, next) => {
+    // ...
     next();
 });
 
 // 应用级别的中间件（局部中间件）
-app.get('/', mw1, (req, res) => {
+app.get('/', mw, (req, res) => {
     res.send('Home page.');
 });
 ```
@@ -826,7 +861,7 @@ var router = express.Router();
 
 // 路由级别的中间件
 router.use(function (req, res, next) {
-    console.log('Time', Date.now());
+    // ...
     next();
 });
 
@@ -837,21 +872,23 @@ app.use('/', router);
 
 错误级别中间件的作用：专门用来捕获整个项目中发生的异常错误，从而防止项目异常崩溃的问题。
 
-格式：错误级别中间件的 function 处理函数中，必须有 4 个形参，形参顺序从前到后，分别是 (err, req, res, next)。
+格式：错误级别中间件的 function 处理函数中，必须有 4 个形参，形参顺序从前到后，分别是 `err` 、`req`、 `res`、`next`。
 
 ```javascript
-app.get('/', function (req, res) {
-    throw new Error('服务器内部发生了错误！');		 // 路由
-    res.send('Home Page.');						// 抛出一个自定义的错误 
+app.get('/', function (req, res) {				// 路由
+    throw new Error('服务器内部发生了错误！');		 // 人为抛出一个自定义的错误  
+    res.send('Home Page.');						
 });
 
 app.use(function (err, req, res, next) {		// 错误级别的中间件
     console.log('发生了错误：' + err.message);	// 在服务器打印错误消息
     res.send('Error!' + err.message);			// 向客户端响应错误相关的内容
-})
+});
 ```
 
-注意：错误级别的中间件，必须注册在所有路由之后！
+> 注意：错误级别的中间件，必须注册在所有路由之后！同时，即便没有 next()，错误级别的中间件也会自动捕捉到错误后立马生效！
+
+<img src="mark-img/image-20221215101926536.png" alt="image-20221215101926536" style="zoom:50%;" />
 
 ### 3.3.4 Express内置的中间件
 
@@ -865,10 +902,62 @@ app.use(function (err, req, res, next) {		// 错误级别的中间件
 // 配置解析 application/json 格式数据的内置中间件
 app.use(express.json());
 // 配置解析 application/x-www-form-urlencoded 格式数据的内置中间件
-app.use(express.urlencoded({
-    extended: false;
-}));
+app.use(express.urlencoded({ extended: false }));
 ```
+
+json 示例代码：
+
+```javascript
+const express = require('express');
+
+const app = express();
+
+// 注意：除了错误级别的中间件，其他的中间件，必须在路由之前进行配置
+// 通过 express.json() 这个中间件，解析表单中的 JSON 格式的数据
+app.use(express.json());
+
+app.post('/user', (req, res) => {
+    // 在服务器，可以使用 req.body 这个属性，来接受客服端发送过来的请求体数据
+    // 默认情况下，如果不配置解析表单数据的中间件，则 req.body 默认为 undefined
+    console.log(req.body);
+    res.send('ok');
+});
+
+app.listen(80, () => {
+    console.log('http://127.0.0.1');
+});
+```
+
+Apifox 测试：
+
+<img src="mark-img/image-20221215103931835.png" alt="image-20221215103931835" style="zoom:50%;" />
+
+urlencoded 示例代码：
+
+```javascript
+const express = require('express');
+
+const app = express();
+
+// 注意：除了错误级别的中间件，其他的中间件，必须在路由之前进行配置
+// 通过 express.urlencoded() 这个中间件，解析表单中的 x-www-form-urlencoded 格式的数据
+app.use(express.urlencoded({ extended: false }));
+
+app.post('/book', (req, res) => {
+    // 在服务器，可以使用 req.body 这个属性，来接受客服端发送过来的请求体数据
+    // 默认情况下，如果不配置解析表单数据的中间件，则 req.body 默认为 undefined
+    console.log(req.body);
+    res.send('ok');
+});
+
+app.listen(80, () => {
+    console.log('http://127.0.0.1');
+});
+```
+
+Apifox 测试：
+
+<img src="mark-img/image-20221215104727270.png" alt="image-20221215104727270" style="zoom:50%;" />
 
 ### 3.3.5 第三方的中间件
 
@@ -876,11 +965,42 @@ app.use(express.urlencoded({
 
 例如：在 express@4.16.0 之前的版本中，经常使用 body-parser 这个第三方中间件，来解析请求体数据。使用步骤如下：
 
-- 运行 npm install body-parser 安装中间件
-- 使用 require 导入中间件
-- 调用 app.use() 注册并使用中间件
+- 运行 `npm install body-parser` 安装中间件
+- 使用 `require` 导入中间件
+- 调用 `app.use()` 注册并使用中间件
 
 注意：Express 内置的 express.urlencoded 中间件，就是基于 body-parser 这个第三方中间件进一步封装出来的。
+
+示例代码：
+
+```javascript
+const express = require('express');
+
+const app = express();
+
+// 导入解析表单数据的中间件 body-parser
+const parser = require('body-parser');
+// 使用 app.use() 注册中间件
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: false }));
+
+app.post('/book', (req, res) => {
+    // 在服务器，可以使用 req.body 这个属性，来接受客服端发送过来的请求体数据
+    // 默认情况下，如果不配置解析表单数据的中间件，则 req.body 默认为 undefined
+    console.log(req.body);
+    res.send('ok');
+});
+
+app.listen(80, () => {
+    console.log('http://127.0.0.1');
+});
+```
+
+Apifox 测试：
+
+<img src="mark-img/image-20221215105806336.png" alt="image-20221215105806336" style="zoom:50%;" />
+
+<img src="mark-img/image-20221215105821572.png" alt="image-20221215105821572" style="zoom:50%;" />
 
 ## 3.4 自定义中间件
 
@@ -902,7 +1022,7 @@ app.use(express.urlencoded({
 使用 `app.use()` 来定义全局生效的中间件，代码如下：
 
 ```javascript
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     // 中间件的业务逻辑
 });
 ```
@@ -918,7 +1038,7 @@ app.use(function(req, res, next) {
 let str = '';
 // 监听 req 对象的 data 事件（客户端发送过来的新的请求体数据）
 req.on('data', (chunk) => {
-   // 拼接请求体数据，隐式转换为字符串
+    // 拼接请求体数据，隐式转换为字符串
     str += chunk;
 });
 ```
@@ -934,7 +1054,7 @@ req.on('data', (chunk) => {
 req.on('end', () => {
     // 打印完整的请求体数据
     console.log(str);
-    // TODO：把字符串格式的请求体数据，解析成对象格式
+    // 把字符串格式的请求体数据，解析成对象格式
 });
 ```
 
@@ -982,5 +1102,311 @@ const myBodyParser = require('custom-body-parser');
 app.use(myBodyParser);
 ```
 
+---
+
+代码示例：
+
+```javascript
+// custom-body-parser.js
+
+// 导入 Node.js 内置的 querystring 模块
+const qs = require('querystring');
+
+const bodyParser = (req, res, next) => {
+    // 定义中间件具体的业务逻辑
+    // 定义一个 str 字符串，专门用来存储客户端发送过来的请求体数据
+    let str = '';
+    // 监听 req 的 data 事件
+    req.on('data', (chunk) => {
+        str += chunk;
+    });
+    // 监听 req 的 end 事件
+    req.on('end', () => {
+        // 在 str 中存放的是完整的请求体数据
+        // console.log(str)
+        // 把字符串格式的请求体数据，解析成对象格式
+        const body = qs.parse(str);
+        req.body = body;
+        next();
+    });
+};
+
+// 导出模块
+module.exports = bodyParser;
+```
+
+```javascript
+// webtest.js
+
+// 导入 express 模块
+const express = require('express');
+// 创建 express 的服务器实例
+const app = express();
+
+// 导入自己封装的中间件模块
+const customBodyParser = require('./custom-body-parser');
+// 将自定义的中间件函数，注册为全局可用的中间件
+app.use(customBodyParser);
+
+app.post('/book', (req, res) => {
+    res.send(req.body);
+});
+
+// 调用 app.listen 方法，指定端口号并启动 Web 服务器
+app.listen(80, function () {
+    console.log('Express server running at http://127.0.0.1');
+});
+```
+
+Apifox 测试：
+
+<img src="mark-img/image-20221215112953903.png" alt="image-20221215112953903" style="zoom:50%;" />
+
 # 四、Express编写接口
+
+## 4.1 创建基本的服务器
+
+```javascript
+// 导入 express 模块
+const express = require('express');
+// 创建 express 的服务器实例
+const app = express();
+
+// write your code here...
+
+// 调用 app.listen 方法，指定端口号并启动 web 服务器
+app.listen(80, function () {
+    console.log('Express server running at http://127.0.0.1');
+});
+```
+
+## 4.2 创建API路由模块
+
+```javascript
+// apiRouter.js 【路由模块】
+const express = require('express');
+const apiRouter = express.Router();
+
+// bind your router here...
+
+module.exports = apiRouter;
+
+// -----------------------------------
+
+// app.js 【导入并注册路由模块】
+const apiRouter = require('./apiRouter.js');
+app.use('/api', apiRouter);
+```
+
+## 4.3 编写GET接口
+
+```javascript
+apiRouter.get('/get', (req, res) => {
+    // 获取到客户端通过查询字符串，发送到服务器的数据
+    const query = req.query;
+    // 调用 res.send() 方法，把数据响应给客户端
+    res.send({
+        status: 0,				// 状态：0 表示成功，1 表示失败
+        msg: 'GET请求成功！',	 // 状态描述
+        data: query				// 需要响应给客户端的具体数据
+    });
+});
+```
+
+## 4.4 编写POST接口
+
+```javascript
+apiRouter.post('/post', (req, res) => {
+    // 获取客户端通过请求体，发送到服务器的 URL-encoded 数据
+    const body = req.body;
+    // 调用 res.send() 方法，把数据响应给客户端
+    res.send({
+        status: 0,				// 状态：0 表示成功，1 表示失败
+        msg: 'POST请求成功！',	 // 状态描述消息
+        data: body				// 需要响应给客户端的具体数据
+    });
+});
+```
+
+注意：如果要获取 URL-encoded 格式的请求体数据，必须配置中间件 `app.use(express.urlencoded({ extended: false }))`。
+
+## 4.5 CORS跨域资源共享
+
+### 4.5.1 接口的跨域问题
+
+刚才编写的 GET 和 POST接口，存在一个很严重的问题：不支持跨域请求。
+
+解决接口跨域问题的方案主要有两种：
+
+- CORS（主流的解决方案，推荐使用）
+- JSONP（有缺陷的解决方案：只支持 GET 请求）
+
+### 4.5.2 使用cors中间件解决跨域问题
+
+cors 是 Express 的一个第三方中间件。通过安装和配置 cors 中间件，可以很方便地解决跨域问题。
+
+使用步骤分为如下 3 步：
+
+- 运行 `npm install cors` 安装中间件
+- 使用 `const cors = require('cors')` 导入中间件
+- 在路由之前调用 `app.use(cors())` 配置中间件
+
+### 4.5.3 什么是CORS
+
+CORS （Cross-Origin Resource Sharing，跨域资源共享）由一系列 HTTP 响应头组成，这些 HTTP 响应头决定浏览器是否阻止前端 JS 代码跨域获取资源。
+
+浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果接口服务器配置了 CORS 相关的 HTTP 响应头，就可以解除浏览器端的跨域访问限制。
+
+<img src="mark-img/image-20221215114555175.png" alt="image-20221215114555175" style="zoom:50%;" />
+
+### 4.5.4 CORS的注意事项
+
+- CORS 主要在服务器端进行配置。客户端浏览器无须做任何额外的配置，即可请求开启了 CORS 的接口。
+- CORS 在浏览器中有兼容性。只有支持 XMLHttpRequest Level2 的浏览器，才能正常访问开启了 CORS 的服务端接口（例如：IE10+、Chrome4+、FireFox3.5+）。
+
+### 4.5.5 CORS响应头部Access-Control-Allow-Origin
+
+响应头部中可以携带一个 **Access-Control-Allow-Origin** 字段，其语法如下:
+
+```javascript
+Access-Control-Allow-Origin: <origin> | *
+```
+
+其中，origin 参数的值指定了允许访问该资源的外域 URL。
+
+例如，下面的字段值将只允许来自 http://itcast.cn 的请求：
+
+```javascript
+res.setHeader('Access-Control-Allow-Origin', 'http://itcast.cn')
+```
+
+如果指定了 Access-Control-Allow-Origin 字段的值为通配符 `*`，表示允许来自任何域的请求，示例代码如下：
+
+```javascript
+res.setHeader('Access-Control-Allow-Origin', '*')
+```
+
+### 4.5.6 CORS响应头部Access-Control-Allow-Headers
+
+默认情况下，CORS 仅支持客户端向服务器发送如下的 9 个请求头：
+
+Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width 、Content-Type （值仅限于 text/plain、multipart/form-data、application/x-www-form-urlencoded 三者之一）
+
+如果客户端向服务器发送了额外的请求头信息，则需要在服务器端，通过 Access-Control-Allow-Headers 对额外的请求头进行声明，否则这次请求会失败！
+
+```javascript
+// 允许客户端额外向服务器发送 Content-Type 请求头和 X-Custom-Header 请求头
+// 注意：多个请求头之间使用英文的逗号进行分割
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Custom-header')
+```
+
+### 4.5.7 CORS响应头部Access-Control-Allow-Methods
+
+默认情况下，CORS 仅支持客户端发起 GET、POST、HEAD 请求。
+
+如果客户端希望通过 PUT、DELETE 等方式请求服务器的资源，则需要在服务器端，通过 Access-Control-Alow-Methods 来指明实际请求所允许使用的 HTTP 方法。
+
+示例代码如下：
+
+```javascript
+// 只允许 POST、GET、DELETE、HEAD 请求方法
+res.setHeader('Access-Control-Alow-Methods', 'POST, GET, DELETE, HEAD')
+// 允许所有的 HTTP 请求方法
+res.setHeader('Access-Control-Alow-Methods', '*')
+```
+
+### 4.5.8 CORS请求的分类
+
+客户端在请求 CORS 接口时，根据请求方式和请求头的不同，可以将 CORS 的请求分为两大类，分别是：
+
+- 简单请求
+- 预检请求
+
+### 4.5.9 简单请求
+
+同时满足以下两大条件的请求，就属于简单请求：
+
+- 请求方式：GET、POST、HEAD 三者之一
+- HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width 、Content-Type（只有三个值 application/x-www-form-urlencoded、multipart/form-data、text/plain）
+
+### 4.5.10 预检请求
+
+只要符合以下任何一个条件的请求，都需要进行预检请求：
+
+- 请求方式为 GET、POST、HEAD 之外的请求 Method 类型
+- 请求头中包含自定义头部字段
+- 向服务器发送了 application/json 格式的数据
+
+在浏览器与服务器正式通信之前，浏览器会先发送 OPTION 请求进行预检，以获知服务器是否允许该实际请求，所以这一次的 OPTION 请求称为“预检请求”。服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据。
+
+### 4.5.11 简单请求和预检请求的区别
+
+**简单请求的特点：**客户端与服务器之间只会发生一次请求。
+
+**预检请求的特点：**客户端与服务器之间会发生两次请求，OPTION 预检请求成功之后，才会发起真正的请求。
+
+## 4.6 JSONP接口
+
+### 4.6.1 回顾JSONP的概念与特点
+
+概念：浏览器端通过 `<script>` 标签的 `src` 属性，请求服务器上的数据，同时，服务器返回一个函数的调用。这种请求数据的方式叫做 JSONP。
+
+特点：
+
+- JSONP 不属于真正的 Ajax 请求，因为它没有使用 XMLHttpRequest 这个对象
+- JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE 等请求
+
+### 4.6.2 创建JSONP接口的注意事项
+
+如果项目中已经配置了 CORS 跨域资源共享，为了**防止冲突**，必须在配置 CORS 中间件之前声明 JSONP 的接口。否则 JSONP 接口会被处理成开启了 CORS 的接口。示例代码如下：
+
+```javascript
+// 优先创建 JSONP 接口【这个接口不会被处理成 CORS 接口】
+app.get('/api/jsonp', (req, res) => { });
+
+// 再配置 CORS 中间件【后续的所有接口，都会被处理成 CORS 接口】
+app.use(cors());
+
+// 这是一个开启了 CORS 的接口
+app.get('/api/get', (req, res) => { });
+```
+
+### 4.6.3 实现JSONP接口的步骤
+
+1. 获取客户端发送过来的回调函数的名字
+2. 得到要通过 JSONP 形式发送给客户端的数据
+3. 根据前两步得到的数据，拼接出一个函数调用的字符串
+4. 把上一步拼接得到的字符串，响应给客户端的 `<script>` 标签进行解析执行
+
+### 4.6.4 实现JSONP接口的具体代码
+
+```javascript
+app.get('/api/jsonp', (req, res) => {
+    // 获取客户端发送过来的回调函数的名字
+    const funcName = req.query.callback;
+    // 得到要通过 JSONP 形式发送给客户端的数据
+    const data = { name: 'zjr', age: 22};
+    // 根据前两步得到的数据，拼接出一个函数调用的字符串
+    const scriptStr = `${funcName}(${JSON.stringify(data)})`;
+    // 把上一步拼接得到的字符串，响应给客户端的 <script> 标签进行解析执行
+    res.send(scriptStr);
+});
+```
+
+### 4.6.5 在网页中使用jQuery发起JSONP请求
+
+调用 `$.ajax()` 函数，提供 JSONP 的配置选项，从而发起 JSONP 请求，示例代码如下：
+
+```javascript
+$('#btnJSONP').on('click', function () {
+   $.ajax({
+       method:'GET',
+       url: 'http://127.0.0.1/api/jsonp',
+       dataType: 'jsonp', 	// 表示要发起 JSONP 的请求
+       success: function (res) {
+           console.log(res);
+       }
+   });
+});
+```
 
