@@ -1301,7 +1301,61 @@ Apifox 测试：
 
 ### 4.5.1 接口的跨域问题
 
-刚才编写的 GET 和 POST接口，存在一个很严重的问题：不支持跨域请求。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <button id="btnGET">GET</button>
+  <button id="btnPOST">POST</button>
+
+  <script>
+    $(function () {
+      // 测试 GET 接口
+      $('#btnGET').on('click', function () {
+        $.ajax({
+          type: 'GET',
+          url: 'http://127.0.0.1/api/get',
+          data: { bookname: '三国演义', author: '罗贯中' },
+          success: function (res) {
+            console.log(res);
+          },
+        });
+      });
+
+      // 测试 POST 接口
+      $('#btnPOST').on('click', function () {
+        $.ajax({
+          type: 'POST',
+          url: 'http://127.0.0.1/api/post',
+          data: { bookname: '三国演义', author: '罗贯中' },
+          success: function (res) {
+            console.log(res);
+          },
+        });
+      });
+
+    });
+  </script>
+</body>
+
+</html>
+```
+
+浏览器测试：
+
+<img src="mark-img/image-20221215130826990.png" alt="image-20221215130826990" style="zoom:50%;" />
+
+刚才编写的 GET 和 POST 接口，存在一个很严重的问题：不支持跨域请求。
+
+因为，HTML 所打开的链接为：http://127.0.0.1:5500/index.html，而请求的 API 为 http://127.0.0.1/api/get 及 http://127.0.0.1/api/post，我们知道，只要 **协议、域名、端口号** 有一个不同（此处端口号不同），那么就属于跨域，浏览器就会默认阻止这种请求！
 
 解决接口跨域问题的方案主要有两种：
 
@@ -1317,6 +1371,37 @@ cors 是 Express 的一个第三方中间件。通过安装和配置 cors 中间
 - 运行 `npm install cors` 安装中间件
 - 使用 `const cors = require('cors')` 导入中间件
 - 在路由之前调用 `app.use(cors())` 配置中间件
+
+示例代码：
+
+```javascript
+// 导入 express
+const express = require('express');
+// 创建服务器实例
+const app = express();
+
+// 配置解析表单数据的中间件
+// 注册解析表单数据的中间件，必须放在注册路由模块前，否则就不生效了
+app.use(express.urlencoded({ extended: false }));
+
+// 一定要在路由之前，配置 cors 这个中间件，从而解决跨域的问题
+const cors = require('cors');
+app.use(cors());
+
+// 导入 apiRouter 模块
+const apiRouter = require('./router/apiRouter');
+// 把路由模块，注册到 app 上
+app.use('/api', apiRouter);
+
+// 启动服务器
+app.listen(80, () => {
+    console.log('express server running at http://127.0.0.1');
+});
+```
+
+浏览器测试：
+
+<img src="mark-img/image-20221215135307441.png" alt="image-20221215135307441" style="zoom:50%;" />
 
 ### 4.5.3 什么是CORS
 
@@ -1341,16 +1426,16 @@ Access-Control-Allow-Origin: <origin> | *
 
 其中，origin 参数的值指定了允许访问该资源的外域 URL。
 
-例如，下面的字段值将只允许来自 http://itcast.cn 的请求：
+例如，下面的字段值将只允许来自 http://127.0.0.1:5500 的请求：
 
 ```javascript
-res.setHeader('Access-Control-Allow-Origin', 'http://itcast.cn')
+res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
 ```
 
 如果指定了 Access-Control-Allow-Origin 字段的值为通配符 `*`，表示允许来自任何域的请求，示例代码如下：
 
 ```javascript
-res.setHeader('Access-Control-Allow-Origin', '*')
+res.setHeader('Access-Control-Allow-Origin', '*');
 ```
 
 ### 4.5.6 CORS响应头部Access-Control-Allow-Headers
@@ -1364,7 +1449,7 @@ Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewp
 ```javascript
 // 允许客户端额外向服务器发送 Content-Type 请求头和 X-Custom-Header 请求头
 // 注意：多个请求头之间使用英文的逗号进行分割
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Custom-header')
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Custom-header');
 ```
 
 ### 4.5.7 CORS响应头部Access-Control-Allow-Methods
@@ -1377,9 +1462,9 @@ res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Custom-header')
 
 ```javascript
 // 只允许 POST、GET、DELETE、HEAD 请求方法
-res.setHeader('Access-Control-Alow-Methods', 'POST, GET, DELETE, HEAD')
+res.setHeader('Access-Control-Alow-Methods', 'POST, GET, DELETE, HEAD');
 // 允许所有的 HTTP 请求方法
-res.setHeader('Access-Control-Alow-Methods', '*')
+res.setHeader('Access-Control-Alow-Methods', '*');
 ```
 
 ### 4.5.8 CORS请求的分类
@@ -1412,7 +1497,9 @@ res.setHeader('Access-Control-Alow-Methods', '*')
 
 **预检请求的特点：**客户端与服务器之间会发生两次请求，OPTION 预检请求成功之后，才会发起真正的请求。
 
-## 4.6 JSONP接口
+<img src="mark-img/image-20221215140358435.png" alt="image-20221215140358435" style="zoom:50%;" />
+
+## 4.6 JSONP接口（了解）
 
 ### 4.6.1 回顾JSONP的概念与特点
 
