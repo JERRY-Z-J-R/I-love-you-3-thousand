@@ -45,7 +45,7 @@ Express 的中文官网：http://www.expressjs.com.cn/
 
 使用 Express，我们可以方便、快速的创建 Web 网站的服务器或 API 接口的服务器。
 
-## 1.2 Express 的基本使用
+## 1.2 Express的基本使用
 
 ### 1.2.1 安装
 
@@ -56,7 +56,7 @@ npm i express@4.17.1
 # 这里统一使用 4.17.1 版本来做演示
 ```
 
-### 1.2.2 创建基本的 Web 服务器
+### 1.2.2 创建基本的Web服务器
 
 ```javascript
 // 导入 express
@@ -72,7 +72,7 @@ app.listen(80, () => {
 });
 ```
 
-### 1.2.3 监听 GET 请求
+### 1.2.3 监听GET请求
 
 通过 `app.get()` 方法，可以监听客户端的 GET 请求，具体的语法格式如下：
 
@@ -86,7 +86,7 @@ app.get('请求URL', function (req, res) {
 });
 ```
 
-### 1.2.4 监听 POST 请求
+### 1.2.4 监听POST请求
 
 通过 `app.post()` 方法，可以监听客户端的 POST 请求，具体的语法格式如下：
 
@@ -157,7 +157,7 @@ Apifox 测试：
 
 > 注意：对于一个请求，只能 `res.send()` 一次！
 
-### 1.2.6 获取 URL 中携带的查询参数
+### 1.2.6 获取URL中携带的查询参数
 
 通过 `req.query` 对象，可以访问到客户端通过查询字符串的形式，发送到服务器的参数。
 
@@ -171,7 +171,7 @@ app.get('/', (req, res) => {
 });
 ```
 
-### 1.2.7 获取 URL 中的动态参数
+### 1.2.7 获取URL中的动态参数
 
 通过 `req.params` 对象，可以访问到 URL 中，通过 `:` 匹配到的动态参数。
 
@@ -327,7 +327,7 @@ nodemon app.js
 
 即：每一次修改代码并保存时，nodemon 会自动重启一次项目。
 
-# 二、Express 路由
+# 二、Express路由
 
 ## 2.1 路由的概念
 
@@ -534,7 +534,7 @@ app.use('/api', userRouter);
 
 `http://127.0.0.1/api/user/list`
 
-# 三、Express 中间件
+# 三、Express中间件
 
 ## 3.1 中间件的概念
 
@@ -1183,7 +1183,7 @@ app.listen(80, function () {
 ## 4.2 创建API路由模块
 
 ```javascript
-// apiRouter.js 【路由模块】
+// apiRouter.js【路由模块】
 const express = require('express');
 const apiRouter = express.Router();
 
@@ -1191,10 +1191,11 @@ const apiRouter = express.Router();
 
 module.exports = apiRouter;
 
-// -----------------------------------
+// ------------------------------------------
 
-// app.js 【导入并注册路由模块】
+// app.js【导入并注册路由模块】
 const apiRouter = require('./apiRouter.js');
+// 把路由模块，注册到 app 上
 app.use('/api', apiRouter);
 ```
 
@@ -1228,7 +1229,73 @@ apiRouter.post('/post', (req, res) => {
 });
 ```
 
-注意：如果要获取 URL-encoded 格式的请求体数据，必须配置中间件 `app.use(express.urlencoded({ extended: false }))`。
+注意：如果要获取 URL-encoded 格式的请求体数据，必须配置中间件 `app.use(express.urlencoded({ extended: false }))`。JSON 格式数据，同理。
+
+---
+
+代码示例：
+
+```javascript
+// apiRouter.js
+
+const express = require('express');
+const router = express.Router();
+
+// 在这里挂载对应的路由
+router.get('/get', (req, res) => {
+  // 通过 req.query 获取客户端通过查询字符串，发送到服务器的数据
+  const query = req.query;
+  // 调用 res.send() 方法，向客户端响应处理的结果
+  res.send({
+    status: 0,				   // 0 表示处理成功，1 表示处理失败
+    msg: 'GET 请求成功！',		// 状态的描述
+    data: query                // 需要响应给客户端的数据
+  });
+});
+
+// 定义 POST 接口
+router.post('/post', (req, res) => {
+  // 通过 req.body 获取请求体中包含的 url-encoded 格式的数据
+  const body = req.body;
+  // 调用 res.send() 方法，向客户端响应结果
+  res.send({
+    status: 0,
+    msg: 'POST 请求成功！',
+    data: body
+  });
+});
+
+module.exports = router;
+```
+
+```javascript
+// webtest.js
+
+// 导入 express
+const express = require('express');
+// 创建服务器实例
+const app = express();
+
+// 配置解析表单数据的中间件
+// 注册解析表单数据的中间件，必须放在注册路由模块前，否则就不生效了
+app.use(express.urlencoded({ extended: false }));
+
+// 导入 apiRouter 模块
+const apiRouter = require('./router/apiRouter');
+// 把路由模块，注册到 app 上
+app.use('/api', apiRouter);
+
+// 启动服务器
+app.listen(80, () => {
+    console.log('express server running at http://127.0.0.1');
+});
+```
+
+Apifox 测试：
+
+<img src="mark-img/image-20221215125657999.png" alt="image-20221215125657999" style="zoom:50%;" />
+
+<img src="mark-img/image-20221215125729240.png" alt="image-20221215125729240" style="zoom:50%;" />
 
 ## 4.5 CORS跨域资源共享
 
