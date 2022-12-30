@@ -462,9 +462,9 @@ if (!compareResult) {
 // 登录成功，生成 Token 字符串
 ```
 
-### 2.6.5 生成 JWT 的 Token 字符串
+### 2.6.5 生成JWT的Token字符串
 
-> 核心注意点：在生成 Token 字符串的时候，一定要剔除 **密码** 和 **头像** 的值，Token 不能包含敏感信息
+> 核心注意点：在生成 Token 字符串的时候，一定要剔除 **密码** 和 **头像** 的值，Token 不能包含敏感信息和过长的无用信息。
 
 1. 通过 ES6 的高级语法，快速剔除 `密码` 和 `头像` 的值：
 
@@ -622,7 +622,7 @@ module.exports = router;
 
 ```js
 // 导入数据库操作模块
-const db = require('../db/index');
+const db = require('../db/connect');
 ```
 
 2. 定义 SQL 语句：
@@ -637,14 +637,16 @@ const sql = `select id, username, nickname, email, user_pic from ev_users where 
 
 ```js
 // 注意：req 对象上的 user 属性，是 Token 解析成功，express-jwt 中间件帮我们挂载上去的
+// 附：最新的 express-jwt 中间件，Token 解析结果是挂载到 auth 属性上的
+// Token 生成时包含了哪些数据，Token 解析后 user 属性中也就有那些数据
 db.query(sql, req.user.id, (err, results) => {
-  // 1. 执行 SQL 语句失败
+  // 执行 SQL 语句失败
   if (err) return res.cc(err);
 
-  // 2. 执行 SQL 语句成功，但是查询到的数据条数不等于 1
+  // 执行 SQL 语句成功，但是查询到的数据条数不等于 1
   if (results.length !== 1) return res.cc('获取用户信息失败！');
 
-  // 3. 将用户信息响应给客户端
+  // 将用户信息响应给客户端
   res.send({
     status: 0,
     message: '获取用户基本信息成功！',
@@ -652,6 +654,8 @@ db.query(sql, req.user.id, (err, results) => {
   });
 });
 ```
+
+![image-20221230142245395](mark-img/image-20221230142245395.png)
 
 ## 3.2 更新用户的基本信息
 
@@ -684,7 +688,7 @@ exports.updateUserInfo = (req, res) => {
 1. 在 `/schema/user.js` 验证规则模块中，定义 `id`，`nickname`，`email` 的验证规则如下：
 
 ```js
-// 定义 id, nickname, emial 的验证规则
+// 定义 id, nickname, email 的验证规则
 const id = joi.number().integer().min(1).required();
 const nickname = joi.string().required();
 const email = joi.string().email().required();
@@ -747,6 +751,8 @@ db.query(sql, [req.body, req.body.id], (err, results) => {
 });
 ```
 
+![image-20221230201140180](mark-img/image-20221230201140180.png)
+
 ## 3.3 重置密码
 
 ### 3.3.1 实现步骤
@@ -787,9 +793,9 @@ exports.update_password_schema = {
     oldPwd: password,
     // 使用 joi.not(joi.ref('oldPwd')).concat(password) 规则，验证 req.body.newPwd 的值
     // 解读：
-    // 1. joi.ref('oldPwd') 表示 newPwd 的值必须和 oldPwd 的值保持一致
-    // 2. joi.not(joi.ref('oldPwd')) 表示 newPwd 的值不能等于 oldPwd 的值
-    // 3. .concat() 用于合并 joi.not(joi.ref('oldPwd')) 和 password 这两条验证规则
+    // joi.ref('oldPwd') 表示 newPwd 的值必须和 oldPwd 的值保持一致
+    // joi.not(joi.ref('oldPwd')) 表示 newPwd 的值不能等于 oldPwd 的值
+    // .concat() 用于合并 joi.not(joi.ref('oldPwd')) 和 password 这两条验证规则
     newPwd: joi.not(joi.ref('oldPwd')).concat(password),
   },
 };
@@ -799,7 +805,7 @@ exports.update_password_schema = {
 
 ```js
 // 导入需要的验证规则对象
-const { update_userinfo_schema, update_password_schema } = require('../schema/user');
+const { update_password_schema } = require('../schema/user');
 ```
 
 3. 并在 `重置密码的路由` 中，使用 `update_password_schema` 规则验证表单的数据，示例代码如下：
@@ -845,13 +851,13 @@ if (!compareResult) return res.cc('原密码错误！');
 
 ```js
 // 定义更新用户密码的 SQL 语句
-const sql = `update ev_users set password=? where id=?`;
+const sql2 = `update ev_users set password=? where id=?`;
 
 // 对新密码进行 bcrypt 加密处理
 const newPwd = bcrypt.hashSync(req.body.newPwd, 10);
 
 // 执行 SQL 语句，根据 id 更新用户的密码
-db.query(sql, [newPwd, req.user.id], (err, results) => {
+db.query(sql2, [newPwd, req.user.id], (err, results) => {
   // SQL 语句执行失败
   if (err) return res.cc(err);
 
@@ -945,6 +951,8 @@ db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
 });
 ```
 
+![image-20221230213331915](mark-img/image-20221230213331915.png)
+
 # 四、文章分类管理
 
 ## 4.1 新建ev_article_cate表
@@ -1025,7 +1033,7 @@ module.exports = router;
 
 ```js
 // 导入数据库操作模块
-const db = require('../db/index');
+const db = require('../db/connect');
 ```
 
 2. 定义 SQL 语句：
@@ -1618,7 +1626,7 @@ const sql = `insert into ev_articles set ?`;
 
 ```js
 // 导入数据库操作模块
-const db = require('../db/index');
+const db = require('../db/connect');
 
 // 执行 SQL 语句
 db.query(sql, articleInfo, (err, results) => {
