@@ -1048,10 +1048,10 @@ const sql = 'select * from ev_article_cate where is_delete=0 order by id asc';
 
 ```js
 db.query(sql, (err, results) => {
-  // 1. 执行 SQL 语句失败
+  // 执行 SQL 语句失败
   if (err) return res.cc(err);
 
-  // 2. 执行 SQL 语句成功
+  // 执行 SQL 语句成功
   res.send({
     status: 0,
     message: '获取文章分类列表成功！',
@@ -1059,6 +1059,8 @@ db.query(sql, (err, results) => {
   });
 });
 ```
+
+![image-20221230224206922](mark-img/image-20221230224206922.png)
 
 ## 4.3 新增文章分类
 
@@ -1170,6 +1172,8 @@ db.query(sql, req.body, (err, results) => {
 });
 ```
 
+![image-20221231103849274](mark-img/image-20221231103849274.png)
+
 ## 4.4 根据id删除文章分类
 
 ### 4.4.1 实现步骤
@@ -1249,6 +1253,8 @@ db.query(sql, req.params.id, (err, results) => {
 });
 ```
 
+![image-20221231105448229](mark-img/image-20221231105448229.png)
+
 ## 4.5 根据id获取文章分类数据
 
 ### 4.5.1 实现步骤
@@ -1324,6 +1330,8 @@ db.query(sql, req.params.id, (err, results) => {
 });
 ```
 
+![image-20221231110737976](mark-img/image-20221231110737976.png)
+
 ## 4.6 根据id更新文章分类数据
 
 ### 4.6.1 实现步骤
@@ -1359,7 +1367,7 @@ exports.updateCateById = (req, res) => {
 // 校验规则对象 - 更新分类
 exports.update_cate_schema = {
   body: {
-    Id: id,
+    id,
     name,
     alias,
   },
@@ -1382,14 +1390,14 @@ router.post('/updatecate', expressJoi(update_cate_schema), artcate_handler.updat
 
 ```js
 // 定义查询 分类名称 与 分类别名 是否被占用的 SQL 语句
-const sql = `select * from ev_article_cate where Id<>? and (name=? or alias=?)`;
+const sql = `select * from ev_article_cate where id<>? and (name=? or alias=?)`;
 ```
 
 2. 调用 `db.query()` 执行查重的操作：
 
 ```js
 // 执行查重操作
-db.query(sql, [req.body.Id, req.body.name, req.body.alias], (err, results) => {
+db.query(sql, [req.body.id, req.body.name, req.body.alias], (err, results) => {
   // 执行 SQL 语句失败
   if (err) return res.cc(err);
 
@@ -1407,13 +1415,13 @@ db.query(sql, [req.body.Id, req.body.name, req.body.alias], (err, results) => {
 1. 定义更新文章分类的 SQL 语句：
 
 ```js
-const sql = `update ev_article_cate set ? where Id=?`;
+const sql = `update ev_article_cate set ? where id=?`;
 ```
 
 2. 调用 `db.query()` 执行 SQL 语句：
 
 ```js
-db.query(sql, [req.body, req.body.Id], (err, results) => {
+db.query(sql, [req.body, req.body.id], (err, results) => {
   // 执行 SQL 语句失败
   if (err) return res.cc(err);
 
@@ -1424,6 +1432,8 @@ db.query(sql, [req.body, req.body.Id], (err, results) => {
   res.cc('更新文章分类成功！', 0);
 });
 ```
+
+![image-20221231111904110](mark-img/image-20221231111904110.png)
 
 # 五、文章管理
 
@@ -1497,9 +1507,13 @@ module.exports = router;
 
 ### 5.2.4 使用multer解析表单数据
 
-> 注意：使用 `express.urlencoded()` 中间件无法解析 `multipart/form-data` 格式的请求体数据。
+> 注意：使用 `express.urlencoded()` 中间件无法解析 `multipart/form-data` 格式的请求体数据。由于此接口涉及到文件上传的功能，因此提交的请求体，必须是 `FormData` 格式！
 
 > 当前项目，推荐使用 multer 来解析 `multipart/form-data` 格式的表单数据。https://www.npmjs.com/package/multer
+
+> Multer 是一个 node.js 中间件，用于处理 `multipart/form-data` 类型的表单数据，它主要用于上传文件。它是写在 [busboy](https://github.com/mscdex/busboy) 之上非常高效。
+>
+> **注意**: Multer 不会处理任何非 `multipart/form-data` 类型的表单数据。
 
 1. 运行如下的终端命令，在项目中安装 `multer`：
 
@@ -1539,7 +1553,7 @@ exports.addArticle = (req, res) => {
   console.log(req.file); // 文件类型的数据
 
   res.send('ok');
-});
+};
 ```
 
 ### 5.2.5 验证表单数据
@@ -1589,7 +1603,7 @@ router.post('/add', upload.single('cover_img'), expressJoi(add_article_schema), 
 ```js
 // 发布新文章的处理函数
 exports.addArticle = (req, res) => {
-    // 手动判断是否上传了文章封面
+  // 手动判断是否上传了文章封面
   if (!req.file || req.file.fieldname !== 'cover_img') return res.cc('文章封面是必选参数！');
 
   // 表单数据合法，继续后面的处理流程...
@@ -1647,3 +1661,5 @@ db.query(sql, articleInfo, (err, results) => {
 // 托管静态资源文件
 app.use('/uploads', express.static('./uploads'));
 ```
+
+![image-20221231131054480](mark-img/image-20221231131054480.png)

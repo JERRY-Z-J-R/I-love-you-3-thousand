@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 导入 layui 的样式 -->
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
+    <!-- 导入自己的样式 -->
+    <link rel="stylesheet" href="/assets/css/user/user_info.css" />
+  </head>
+  <body>
+    <!-- 卡片区域 -->
+    <div class="layui-card">
+      <div class="layui-card-header">修改用户信息</div>
+      <div class="layui-card-body">
+        <!-- form 表单区域 -->
+        <form class="layui-form" lay-filter="formUserInfo">
+          <!-- 这是隐藏域 -->
+          <input type="hidden" name="id" value="" />
+          <div class="layui-form-item">
+            <label class="layui-form-label">登录名称</label>
+            <div class="layui-input-block">
+              <input type="text" name="username" required lay-verify="required" placeholder="请输入登录名称" autocomplete="off" class="layui-input" readonly />
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">用户昵称</label>
+            <div class="layui-input-block">
+              <input type="text" name="nickname" required lay-verify="required|nickname" placeholder="请输入用户昵称" autocomplete="off" class="layui-input" />
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">用户邮箱</label>
+            <div class="layui-input-block">
+              <input type="text" name="email" required lay-verify="required|email" placeholder="请输入用户邮箱" autocomplete="off" class="layui-input" />
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="formDemo">提交修改</button>
+              <button type="reset" class="layui-btn layui-btn-primary" id="btnReset">重置</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 导入 layui 的 js -->
+    <script src="/assets/lib/layui/layui.all.js"></script>
+    <!-- 导入 jquery -->
+    <script src="/assets/lib/jquery.js"></script>
+    <!-- 导入 baseAPI -->
+    <script src="/assets/js/baseAPI.js"></script>
+    <!-- 导入自己的 js -->
+    <script src="/assets/js/user/user_info.js"></script>
+  </body>
+</html>
