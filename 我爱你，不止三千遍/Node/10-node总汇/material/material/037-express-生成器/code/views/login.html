@@ -1,0 +1,67 @@
+<!--
+ * @作者: kerwin
+ * @公众号: 大前端私房菜
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div>
+            用户名:
+            <input id="username"/>
+        </div>
+        <div>
+            密码:
+            <input  type="password" id="password"/>
+        </div>
+
+        <div>
+            <button id="login">登录-get</button>
+            <button id="loginpost">登录-post</button>
+        </div>
+    </div>
+
+    <script>
+
+        var ologin = document.querySelector("#login")
+        var ologinpost = document.querySelector("#loginpost")
+        var username = document.querySelector("#username")
+        var password = document.querySelector("#password")
+
+        ologin.onclick = ()=>{
+            // console.log(username.value,password.value)
+            //get请求
+            fetch(`/login?username=${username.value}&password=${password.value}`).then(res=>res.text()).then(res=>{
+                console.log(res)
+            })
+        }
+
+        ologinpost.onclick = ()=>{
+            // console.log(username.value,password.value)
+            //get请求
+            fetch(`/login`,{
+                method:"POST",
+                body:JSON.stringify({
+                    username:username.value,
+                    password:password.value
+                }),
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            }).then(res=>res.json()).then(res=>{
+                console.log(res)
+                if(res.ok===1){
+                    location.href="/home.html"
+                }else{
+                    console.log("用户名密码不匹配")
+                }
+            })
+        }
+    </script>
+</body>
+</html>

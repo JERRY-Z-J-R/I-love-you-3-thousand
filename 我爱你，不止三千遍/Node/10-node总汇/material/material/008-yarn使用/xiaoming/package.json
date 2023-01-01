@@ -1,0 +1,10 @@
+{
+  "name": "aaa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "kerwin",
+  "license": "MIT",
+  "dependencies": {
+    "md5": "^2.3.0"
+  }
+}

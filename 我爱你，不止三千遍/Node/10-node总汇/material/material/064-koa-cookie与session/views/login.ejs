@@ -1,0 +1,57 @@
+<!--
+ * @作者: kerwin
+ * @公众号: 大前端私房菜
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div>
+            用户名:
+            <input id="username"/>
+        </div>
+        <div>
+            密码:
+            <input  type="password" id="password"/>
+        </div>
+
+        <div>
+            <!-- <button id="login">登录-get</button> -->
+            <button id="loginpost">登录-post</button>
+        </div>
+    </div>
+
+    <script>
+
+        var ologinpost = document.querySelector("#loginpost")
+        var username = document.querySelector("#username")
+        var password = document.querySelector("#password")
+
+        
+        ologinpost.onclick = ()=>{
+            // console.log(username.value,password.value)
+            //post请求 -json / form
+            // 
+            fetch(`/user/login`,{
+                method:"POST",
+                body:`username=${username.value}&password=${password.value}`,
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded"
+                }
+            }).then(res=>res.json()).then(res=>{
+                // console.log(res)
+                if(res.ok===1){
+                    location.href="/home"
+                }else{
+                    alert("错误")
+                }
+            })
+        }
+    </script>
+</body>
+</html>

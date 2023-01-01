@@ -1,0 +1,28 @@
+<!--
+ * @作者: kerwin
+ * @公众号: 大前端私房菜
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    home-页面
+    <%-include("./header.ejs",{isShowTitle:true})  %> 
+    <ul>
+       <%for(var i=0;i<list.length;i++){ %>
+           <li><%- list[i]%></li>
+       <% } %>
+    </ul>
+
+    <div>最新消息-<%= myhtml%></div>
+    <div>最新消息-<%- myhtml%></div>
+
+    <!-- 我是注释 <div>111111</div> -->
+
+    <%# dwadwadwadwadwadwadwadwadwadwadwadwadwa%>
+</body>
+</html>

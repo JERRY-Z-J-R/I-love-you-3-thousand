@@ -1,0 +1,47 @@
+<!--
+ * @作者: kerwin
+ * @公众号: 大前端私房菜
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>聊天室</h1>
+
+    <!-- 建立socket连接 带着token，后端验证 -->
+    <script>
+        const WebSocketType = {
+            Error: 0, //错误
+            GroupList: 1,
+            GroupChat: 2,
+            SingleChat: 3
+        }
+        const ws = new WebSocket(`ws://localhost:8080?token=${localStorage.getItem("token")}`)
+        ws.onopen = () => {
+            console.log("open")
+        }
+        ws.onmessage = (msgObj) => {
+            // console.log(msgObj.data)
+            msgObj = JSON.parse(msgObj.data)
+            
+            switch(msgObj.type){
+                case WebSocketType.Error:
+                    localStorage.removeItem("token")
+                    location.href="/login"
+                    break;
+                
+                case WebSocketType.GroupChat:
+                    console.log(msgObj)
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
