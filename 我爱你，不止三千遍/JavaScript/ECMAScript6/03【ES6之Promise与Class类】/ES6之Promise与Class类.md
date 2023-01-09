@@ -358,7 +358,7 @@ then 方法具有两个回调函数作为参数 `()=>{}, ()=>{}`。
 
 3. then 方法返回的 Promise 对象的状态改变
 
-   - then 方法其实默认返回的是 undefined，即：`return undefined`，但是 ES6 的机制规定：当 then 返回 undefined 时，那么会将这个 undefined 包装成一个 Promise，并且这个 Promise 默认调用了 `resilve()` 方法（成功态），并且把 undefined 作为了 `resilve()` 的参数，相当于：
+   - then 方法其实默认返回的是 undefined，即：`return undefined`，但是 ES6 的机制规定：当 then 返回 undefined 时，那么会将这个 undefined 包装成一个 Promise，并且这个 Promise 默认调用了 `resolve()` 方法（成功态），并且把 undefined 作为了 `resolve()` 的参数，相当于：
 
      ```javascript
      const p = new Promise((resolve, reject) => {
@@ -553,13 +553,13 @@ new Promise((resolve, reject) => {
     console.log(err);   // 失败
 });
 
-// -------------------------------------
+// -------------------------------
 // 上面的代码本质上等同于
 new Promise((resolve, reject) => {
     reject("失败");
 }).then(res => {
     console.log(res);
-}).then(null, err => {
+}).then(undefined, err => {
     console.log(err);	// 失败
 });
 ```
@@ -803,10 +803,9 @@ p2 完成了
 */
 /*
 解释：
-1、Promise.all() 直接执行两个 Promise 实例
-2、执行 p1，输出 p1 完成了
-3、检测到 rejected，Promise.all() 直接变为 rejected，执行 then 第二个回调输出 p1 失败，至此 Promise.all() 已经执行完毕。
-4、由于 p2 延迟了两秒执行所以在后面输出（如果 p2 延时小于 p1，那么应该先输出 p2 完成了，然后在是 p1 完成了，p1 失败）
+1、执行 p1，输出 p1 完成了
+2、检测到 rejected，Promise.all() 直接变为 rejected，执行 then 第二个回调输出 p1 失败，至此 Promise.all() 已经执行完毕。
+3、由于 p2 延迟了两秒执行所以在后面输出（如果 p2 延时小于 p1，那么应该先输出 p2 完成了，然后在是 p1 完成了，p1 失败）
 */
 ```
 
