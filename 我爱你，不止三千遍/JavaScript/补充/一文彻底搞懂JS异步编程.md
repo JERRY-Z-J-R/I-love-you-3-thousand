@@ -2,7 +2,12 @@
 
 > 作者：Jerry Zhou.（周吉瑞）
 
-> 参考资料：[「重学 JavaScript」之 JS 异步编程](https://www.bilibili.com/video/BV1b14y1w7Mg/?p=2&share_source=copy_web&vd_source=f142a37c45de7b8323eedf220d9dcdd1) 
+> 参考资料：
+>
+> - [重学 JavaScript 之 JS 异步编程](https://www.bilibili.com/video/BV1b14y1w7Mg/?p=2&share_source=copy_web&vd_source=f142a37c45de7b8323eedf220d9dcdd1) 
+>
+> - [async 和 await – 李立超 | lilichao.com](https://www.lilichao.com/index.php/2022/07/19/async和await/)
+> - [async/await (javascript.info)](https://zh.javascript.info/async-await)
 
 异步编程是 JavaScript 最重要的部分之一，也是 JavaScript 能 “大放异彩” 的核心依托！所以，彻底搞懂 JS 的异步编程是非常具有必要性的！
 
@@ -1159,6 +1164,7 @@ p2 完成了
 用途举例：
 
 ```js
+// 这里的 ajax() 是一个封装好的可以返回 Promise 的异步函数
 const request = ajax('/test.json');
 const timeout = new Promise((resolve, reject) => {
     setTimeout(() => reject(new Error('timeout')), 1000);
@@ -1254,13 +1260,13 @@ promise 2
 
 Promise 在 setTimeout 之前，这是为什么呢？
 
-原因是，Promise 和 setTimeout 所对应的是不同的任务队列，Promise 是 “微任务”，setTimeout 是 “宏任务”，宏任务是加入到 “任务队列” 中，而微任务则是加入到 “微任务队列” 中，事件循环机制是在不断地执行宏任务，每个宏任务执行完毕都会先将当前的微任务队列清空，然后在执行下一个宏任务，所以 “微任务” 优先级高于 “宏任务”！
+原因是，Promise 和 setTimeout 所对应的是不同的任务队列，Promise 是 “微任务”，setTimeout 是 “宏任务”，宏任务是加入到 “宏任务队列” 中，而微任务则是加入到 “微任务队列” 中，事件循环机制是在不断地执行宏任务，每个宏任务执行完毕都会先将当前的微任务队列清空，然后在执行下一个宏任务，所以 “微任务” 优先级高于 “宏任务”！
 
 微任务（micro task）如：Promise、MutationObserver、process.nextTick
 
 宏任务（macro task 或 callback queue）如：setTimeout、setInterval、I/O 等大部分异步 API
 
-> 以上只是对宏任务和微任务进行一个简单粗略的介绍，深层次的内容涉及 JS 引擎的多个方面，请查询其他文档。
+> 以上只是对宏任务和微任务进行一个简单的介绍，深层次的内容涉及 JS 引擎的多个方面，请查询其他文档。
 
 ## 十一、Promise的注意事项
 
@@ -1314,3 +1320,451 @@ Promise.all/race/allSettled 的错误处理：
 
 ## 十二、async/await语法糖
 
+> async/await 是以更舒适的方式使用 Promise 的一种特殊语法！
+
+学习了 Promise 后，我们便可以像这样创建一个异步函数：
+
+```js
+function fn() {
+    return new Promise(resolve => {
+        resolve(24);
+    });
+}
+```
+
+当我们调用 `fn()` 时，便会得到一个 Promise 异步对象，然后我们就可以通过 `.then()` 书写异步执行完毕后的处理逻辑。
+
+```js
+function fn() {
+    return new Promise(resolve => {
+        resolve(24);
+    });
+}
+
+// 我们直接把 console.log 函数名传进去，相当于 fn().then(res => console.log(res));
+fn().then(console.log);		// 24
+```
+
+但是，我们在构造异步函数的时候，除非是直接使用提供好的 API（如：fetch、axios，调用就返回 Promise 异步对象），否则我们手动构造异步函数时，总要 `return new Promise()`，非常的麻烦！有没有一种方法，可以让我们书写的函数天生就是异步函数呢？
+
+答案是有的，使用 `async` 关键字！
+
+只需要在创建函数时，在 function 前使用 async 关键字，即可使一个普通函数升级为异步函数，像是这样：
+
+```js
+async function fn() {
+    return 24;
+};
+```
+
+fn 使用了 async 来声明，此时 fn 变成为了一个异步函数。异步函数的第一个特点便是它的返回值会自动被包装为一个 Promise，上例中 fn 的返回值虽然是 24，但是如果你尝试去接收的话，你会发现它返回的是一个 Promise。
+
+```js
+async function fn() {
+    return 24;
+};
+const p = fn();
+console.log(p);	// Promise { 24 }
+```
+
+例如，下面这个函数返回一个结果为 `24` 的 Resolved Promise，让我们测试一下：
+
+```js
+async function fn() {
+    return 24;
+};
+
+fn().then(console.log);	// 24
+```
+
+我们也可以显式地返回一个 Promise，结果是一样的：
+
+```js
+async function fn() {
+    return Promise.resolve(24);
+};
+
+fn().then(console.log);	// 24
+```
+
+简而言之，async 简化了异步函数的创建，省略了部分 Promise 的创建工作。但如果仅仅是这样那 async 的功能就显得十分的鸡肋了，因为这种简化只适用于单个返回结果的异步函数，如果返回的异步函数包含复杂的语句，依然还是需要手动创建 Promise，例如这样：
+
+```js
+async function fn() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(24);
+        }, 1000);
+    });
+};
+
+fn().then(console.log);
+```
+
+所以，事情一定没有那么简单！
+
+除此之外，我们通常得这样：
+
+```js
+new Promise(resolve => {
+    resolve(1);
+}).then(res => {
+    return res + 2;
+}).then(res => {
+    return res + 3;
+}).then(res => {
+    return res + 4;
+}).then(console.log)
+    .catch(err => console.log('出错了'));
+
+// 10
+```
+
+```js
+// 下面的写法与上面等同
+
+async function fn1() {
+    return 1;
+}
+
+async function fn2(num) {
+    return num + 2;
+}
+
+async function fn3(num) {
+    return num + 3;
+}
+
+async function fn4(num) {
+    return num + 4;
+}
+
+fn1()
+    .then(fn2)
+    .then(fn3)
+    .then(fn4)
+    .then(console.log)
+    .catch(err => console.log("出错了"));
+
+// 10
+```
+
+我们避免不了要写许多的 then，在 then 中要写复杂的回调函数！虽然确实解决了回调地域问题，但是距离我们同步的书写习惯，还是差远了！
+
+其实，我们希望的是这样：
+
+```js
+try {
+    let result = fn1();
+    result = fn2(result);
+    result = fn3(result);
+    result = fn4(result);
+    console.log(result);
+} catch (err) {
+    console.log("出错了");
+}
+```
+
+但是不行啊，上边的几个函数都是异步函数，返回值都是 Promise，我这么写等于是将 Promise 作为参数传递，虽然能够执行，但是结果肯定不对！
+
+而以上这些问题都由 `await` 关键字解决了！理想照进现实！
+
+语法如下：
+
+```js
+// await 只在 async 函数内工作
+let value = await Promise;
+```
+
+首先，明确一点：`await` 与 `then` 目的一样，就是为了读取 Promise 执行结果的！
+
+但是，`then` 读取结果需要靠回调函数，而 `await` 读取结果是直接取得返回值！
+
+关键字 `await` 让 JavaScript 引擎等待直到 Promise 完成并返回结果，如果 Promise 失败或遇到其它错误，那就直接报错！
+
+我们来看一个例子：
+
+```js
+new Promise(resolve => {
+    setTimeout(() => resolve('done!'), 1000);
+}).then(res => {
+    console.log(res);
+});
+```
+
+我们将其用 async 及 await 重构：
+
+```js
+async function f() {
+
+    let promise = new Promise(resolve => {
+        setTimeout(() => resolve('done!'), 1000)
+    });
+
+    let result = await promise; // 等待（停顿1s），直到异步任务结束，返回结果
+
+    console.log(result); // done!
+}
+
+f();
+```
+
+OMG！异步编程，同步写法！牛！
+
+解释一下：相当于在 Promise 异步函数之前使用 `await` 关键字的话，执行到这里时，JS 引擎就会等待这个 Promise 异步函数内的任务执行完，然后 `resolve()` 返回的结果（也就是原来要用 then 接受的 res 参数）会直接作为返回值返回！那么，我们原来写在 then 中的处理逻辑，现在我们只需接收了返回值之后，用同步的方式写就可以了！
+
+关于 `await` 的几个注意点：
+
+- await 必须在 async 函数内使用！因为 await 会等待异步处理结果（这个等待过程可以理解为阻塞），所以如果不在 async 函数中使用，那么就会阻塞同步代码，这就没法玩了！而将 await 放在 async 函数中的话，所 “阻塞” 的也是 async 函数内 await 后的代码，而且那些代码本来也要依赖 await 得到的返回值才能进行下一步操作，所以也算不上阻塞！async 函数本来就是异步函数，它内部 “阻塞” 影响不到外部的同步代码！
+- 当 Promise 异步任务失败了或者是遇到异常，那么会直接抛出错误，而处理这些错误的办法是直接使用 `try..catch`，当然也可以在 async 函数调用后面添加 `.catch` 来处理异常！
+
+下面我们用 async await 重构之前的案例：
+
+```js
+async function fn1() {
+    return 1;
+}
+
+async function fn2(num) {
+    return num + 2;
+}
+
+async function fn3(num) {
+    return num + 3;
+}
+
+async function fn4(num) {
+    return num + 4;
+}
+
+async function fn() {
+    try {
+        let result = await fn1();
+        result = await fn2(result);
+        result = await fn3(result);
+        result = await fn4(result);
+        console.log(result);
+    } catch (err) {
+        console.log("出错了");
+    }
+}
+
+fn();
+
+// 10
+```
+
+```js
+// 也可以这样
+async function fn() {
+    let result = await fn1();
+    result = await fn2(result);
+    result = await fn3(result);
+    result = await fn4(result);
+    console.log(result);
+}
+
+fn().catch(console.log);
+```
+
+async/await 的几个使用注意点：
+
+- 并行执行
+
+```js
+async function f() {
+    const a = await fetch('http://.../api/1');
+    const b = await fetch('http://.../api/2');
+    // ...
+}
+```
+
+上面这段代码有两个异步网络请求任务，其中第一个任务完成了，才会执行第二个任务，这样的效率是比较低的，更好的办法是让两个异步请求并行执行，所以我们可以用 `Promise.all()` 将两个任务组合起来，并为 Promise.all 统一添加 `await` 来解决，这样将提升一倍的效率：
+
+```js
+async function f() {
+    const promiseA = fetch('http://.../api/1');
+    const promiseB = fetch('http://.../api/2');
+    
+    const [a, b] = await Promise.all([promiseA, promiseB]);
+    // ...
+}
+```
+
+- 循环处理
+
+如果我们需要在循环中执行异步操作，是不能使用 `forEach` 或 `map` 这一类方法的！
+
+```js
+async function f() {
+    [1, 2, 3].forEach(async i => {
+        await someAsyncOperation();
+    });
+}
+
+f();
+```
+
+因为，尽管我们写了 await，但是 forEach 会立马返回，不会等待异步执行完毕，所以不能使用！
+
+如果我们希望等待循环中的异步操作都一一完成之后才继续执行，那我们应该使用普通的 for 循环：
+
+```js
+async function f() {
+    for (let i of [1, 2, 3]) {
+        await someAsyncOperation();
+    }
+}
+
+f();
+```
+
+更进一步，如果我们想要循环中的所有操作都并发执行，那应该使用 `for await`：
+
+```js
+async function f() {
+    const promises = [
+        someAsyncOperation(),
+        someAsyncOperation(),
+        someAsyncOperation(),
+    ];
+    
+    for await (let result of promises) {
+        // ...
+    }
+}
+
+f();
+```
+
+- 特殊用法
+
+await 只能在 async 函数中使用：
+
+```js
+async function f() {
+    await someAsyncOperation();
+}
+```
+
+但如果我们不想为了用 await，而莫名造一个 async 函数，那么其实我们可以巧妙地写成匿名立即执行函数：
+
+```js
+(async () => {
+	await someAsyncOperation();
+})();
+```
+
+例如：
+
+```js
+async function fn1() {
+    return 1;
+}
+
+async function fn2(num) {
+    return num + 2;
+}
+
+async function fn3(num) {
+    return num + 3;
+}
+
+async function fn4(num) {
+    return num + 4;
+}
+
+(async () => {
+    try {
+        let result = await fn1();
+        result = await fn2(result);
+        result = await fn3(result);
+        result = await fn4(result);
+        console.log(result);
+    } catch (err) {
+        console.log('出错了');
+    }
+})();
+
+// 10
+```
+
+- modules 里允许顶层的 await
+
+在现代浏览器中，当我们处于一个 module 中时，那么在顶层使用 `await` 也是被允许的。
+
+> 顶层：不在 if、for、while、函数等局部作用域之外的部分。
+
+举例：
+
+```js
+// test.js
+async function fn1() {
+    return 1;
+}
+
+async function fn2(num) {
+    return num + 2;
+}
+
+async function fn3(num) {
+    return num + 3;
+}
+
+async function fn4(num) {
+    return num + 4;
+}
+
+try {
+    let result = await fn1();
+    result = await fn2(result);
+    result = await fn3(result);
+    result = await fn4(result);
+    console.log(result);
+} catch (err) {
+    console.log("出错了");
+}
+```
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="module">
+        import './test.js';	
+    </script>
+</body>
+
+</html>
+```
+
+<img src="mark-img/image-20230110170600878.png" alt="image-20230110170600878"  />
+
+> 如果我们必须兼容旧版本浏览器，那么可以利用之前的方法包装到匿名的立即执行函数中。
+
+- Class 中的 async 方法
+
+要声明一个 class 中的 async 方法，只需在对应方法前面加上 `async` 即可：
+
+```js
+class Waiter {
+  async wait() {
+    return await Promise.resolve(1);
+  }
+}
+
+new Waiter()
+  .wait()
+  .then(console.log);	// 1
+```
+
+class 中的 async 方法含义是一样的：它确保了方法的返回值是一个 Promise 并且可以在方法中使用 `await`。
