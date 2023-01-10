@@ -8,6 +8,8 @@
 >
 > - [async 和 await – 李立超 | lilichao.com](https://www.lilichao.com/index.php/2022/07/19/async和await/)
 > - [async/await (javascript.info)](https://zh.javascript.info/async-await)
+> - [JavaScript loops - how to handle async/await (lavrton.com)](https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/)
+> - [五种在循环中使用 async/await 的方法 - 掘金 (juejin.cn)](https://juejin.cn/post/6941292486748799006)
 
 异步编程是 JavaScript 最重要的部分之一，也是 JavaScript 能 “大放异彩” 的核心依托！所以，彻底搞懂 JS 的异步编程是非常具有必要性的！
 
@@ -1155,9 +1157,11 @@ p2 完成了
 */
 ```
 
+> 注意：不是说多个独立的 Promise 用了 Promise.all() 才是并行执行，多个独立的 Promise 本身就是并行执行的！只是说 Promise.all() 可以更方便的对并行执行的多个 Promise 进行统一管理！
+
 - `Promise.race()`
 
-`Promise.race()` 的状态取决于第一个完成的 Promise 实例对象，如果第一个完成的成功了，那么最终就是成功的；如果第一个完成的失败了，那么最终就是失败的。
+`Promise.race()` 的状态取决于第一个完成的 Promise 实例对象，如果第一个完成的成功了，那么最终就是成功的；如果第一个完成的失败了，那么最终就是失败的。即：有任何一个实例率先改变状态，包装实例的状态就跟着改变！
 
 注意：不是第一个任务，而是第一个完成的任务！
 
@@ -1178,6 +1182,16 @@ Promise.race([request, timeout]).then(value => {
 
 // 当 ajax 请求在 1s 内返回结果时，就成功，超过 1s 就失败
 ```
+
+- `Promise.any()`
+
+ES2021 引入了 `Promise.any()`，该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。
+
+只要参数实例有一个变成 Fulfilled 状态，包装实例就会变成 Fulfilled 状态；如果所有参数实例都变成 Rejected 状态，包装实例就会变成 Rejected 状态。
+
+`Promise.any()` 跟 `Promise.race()` 方法很像，只有一点不同，就是 `Promise.any()` 不会因为某个 Promise 变成 Rejected 状态而结束，必须等到所有参数 Promise 变成 Rejected 状态才会结束。
+
+用途：假如我们有多个网络请求，但是只有有任何一个请求成功了，我们就认为成功，而全部失败时我们才认为失败，那么就可以用 `Promise.any()` 方法。
 
 - `Promise.allSettled()`
 
@@ -1387,6 +1401,8 @@ async function fn() {
 fn().then(console.log);	// 24
 ```
 
+> 注意：即便 async 函数没有 return，也会默认返回一个 undefined 并包装成 Proimse。
+
 简而言之，async 简化了异步函数的创建，省略了部分 Promise 的创建工作。但如果仅仅是这样那 async 的功能就显得十分的鸡肋了，因为这种简化只适用于单个返回结果的异步函数，如果返回的异步函数包含复杂的语句，依然还是需要手动创建 Promise，例如这样：
 
 ```js
@@ -1569,7 +1585,7 @@ fn().catch(console.log);
 
 async/await 的几个使用注意点：
 
-- 并行执行
+- **并行执行**
 
 ```js
 async function f() {
@@ -1591,53 +1607,317 @@ async function f() {
 }
 ```
 
-- 循环处理
+- **循环处理**
 
-如果我们需要在循环中执行异步操作，是不能使用 `forEach` 或 `map` 这一类方法的！
+很久以前我们写的循环是这样的：
 
 ```js
-async function f() {
-    [1, 2, 3].forEach(async i => {
-        await someAsyncOperation();
+for (var i = 0; i < array.length; i++) {
+    var item = array[i];
+    // ...
+}
+```
+
+后来 JavaScript 提供了很多新的特性，现在我们会更倾向于用下面这种写法：
+
+```js
+array.forEach((item) => {
+    // ...
+});
+```
+
+在开发过程可能会有这么一种需求，我们需要在循环中异步处理任务，我们经常使用 ES6 的 async/await，那么可以怎么做呢？
+
+我们可能首先想到 forEach：
+
+```js
+async function processArray(array) {
+    array.forEach(item => {
+        await func(item);	// 错误
+    })
+}
+```
+
+这个代码会抛出一个错误，因为我们不能在同步方法中使用 await，processArray 确实是异步函数，但是 array.forEach 里的匿名函数是同步的。
+
+要处理这个问题，我们可以把这个匿名函数定义为异步的：
+
+```js
+async function processArray(array) {
+    array.forEach(async (item) => {
+        await func(item);
+    });
+    console.log('Done!');
+}
+```
+
+但是这样的话 forEach 方法就相当于异步的了，不会等待遍历完所有的 item，例如下面这段代码：
+
+```js
+function delay() {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+}
+
+async function delayedLog(item) {
+    await delay();
+    console.log(item);
+}
+async function processArray(array) {
+    array.forEach(async (item) => {
+        await delayedLog(item);
+    })
+    console.log('Done!');
+}
+
+processArray([1, 2, 3]);
+```
+
+将会输出：
+
+```
+Done!
+1
+2
+3
+```
+
+如果你不需要等待这个循环完成，这样就已经可以了。但是大部分情况我们还是需要等待这个循环完成才进行之后的操作。
+
+要等待循环中所有的结果返回后再执行，我们还是要回到老式的循环（for、for-in、for-of、while）写法：
+
+```js
+async function processArray(array) {
+    for (let i = 0; i < array.length; i++) {
+        await delayedLog(array[i]);
+    }
+    console.log('Done!');
+}
+```
+
+或者：
+
+```js
+async function processArray(array) {
+    for (const item of array) {
+        await delayedLog(item);
+    }
+    console.log('Done!');
+}
+```
+
+将会输出：
+
+```
+1
+2
+3
+Done!
+```
+
+除此之外，forEach 与 普通循环 在对异步任务的处理机制上也是不同的：
+
+```js
+async function someFunction(items) {
+    console.log('start');
+    items.forEach(async (i) => {
+        const res = await someAPICall(i);
+        console.log('--->', res);
+    });
+    console.log('end');
+}
+
+function someAPICall(param) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('Resolved ' + param);
+        }, param);
     });
 }
 
-f();
+someFunction(['3000', '8000', '1000', '4000']);
 ```
 
-因为，尽管我们写了 await，但是 forEach 会立马返回，不会等待异步执行完毕，所以不能使用！
+将会输出：
 
-如果我们希望等待循环中的异步操作都一一完成之后才继续执行，那我们应该使用普通的 for 循环：
+```
+start
+end
+---> Resolved 1000
+---> Resolved 3000
+---> Resolved 4000
+---> Resolved 8000
+```
+
+可见，forEach 循环执行异步任务时，采用的是：并行执行！
+
+我们来看看普通循环（以 for-of 为例）：
 
 ```js
-async function f() {
-    for (let i of [1, 2, 3]) {
-        await someAsyncOperation();
+async function someFunction(items) {
+    console.log('start');
+    for (const i of items) {
+        const res = await someAPICall(i);
+        console.log('--->', res);
     }
+    console.log('end');
 }
 
-f();
+function someAPICall(param) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('Resolved ' + param);
+        }, param);
+    });
+}
+
+someFunction(['3000', '8000', '1000', '4000']);
 ```
 
-更进一步，如果我们想要循环中的所有操作都并发执行，那应该使用 `for await`：
+将会输出：
+
+```
+start
+---> Resolved 3000
+---> Resolved 8000
+---> Resolved 1000
+---> Resolved 4000
+end
+```
+
+可见，普通循环执行异步任务时，采用的是：串行执行！
+
+哎！感觉头晕！先总结一下：
+
+- forEach：循环本身是异步的不会等待，且是并行执行！
+- 普通循环：循环本身是同步的会等待，且是串行执行！
+
+到这里，你也许会发现，似乎这两种方案都不是我们最想要的，我们的循环大部分情况下应该是需要同步执行的，需要等待，直到循环执行完所有的异步任务，才进行下一步操作，同时为了提高效率，循环中的异步任务应该并行执行！（例如：我们需要请求 10 个独立的网络地址获取到全部数据之后再一起进行处理）
+
+所以，我们需要：同步的循环，并行的执行！
+
+那什么循环方式能解决我们的需求呢？
+
+还有一个常用的循环方式我们没有用到，就是数组的 `map` 方法，我们看看它行不行：
+
+> map 与 forEach 类似，不过 map 会将每个循环的结果放到一个新的数组里并返回……
 
 ```js
-async function f() {
-    const promises = [
-        someAsyncOperation(),
-        someAsyncOperation(),
-        someAsyncOperation(),
-    ];
-    
-    for await (let result of promises) {
-        // ...
-    }
+async function someFunction(items) {
+    console.log('start');
+    const arr = items.map(async (i) => {
+        const res = await someAPICall(i);
+        console.log('--->', res);
+    });
+    console.log(arr);
+    console.log('end');
 }
 
-f();
+function someAPICall(param) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('Resolved ' + param);
+        }, param);
+    });
+}
+
+someFunction(['3000', '8000', '1000', '4000']);
 ```
 
-- 特殊用法
+将会输出：
+
+```
+start
+[
+  Promise { <pending> },
+  Promise { <pending> },
+  Promise { <pending> },
+  Promise { <pending> }
+]
+end
+---> Resolved 1000
+---> Resolved 3000
+---> Resolved 4000
+---> Resolved 8000
+```
+
+(⊙o⊙)…，这是什么鬼！
+
+抛开结果中 start 与 end 之间的部分看，好像与 forEach 一样，是循环异步，并行执行的。但是 map 方法返回的数组里却全是等待中的 Promise，这是怎么回事呢？
+
+事实上，造成这种结果的原因是：map 的回调函数本身是同步的函数，而我们为了让 await 不报错，所以把这个回调函数加了 async，这个回调函数就莫名其妙成了异步函数，所以回调里面的内容都是异步执行的，而循环才不会管你是不是异步，循环会立马迭代结束，同时直接返回结果，然后继续执行下一行代码，所以返回的数组里全是等待状态的 Promise，至于那些异步任务则会在后台自己执行，所以异步任务的结果在 end 后才输出，这也就造成了 “循环异步” 的效果！其实之前的 forEach 也是完全相同的原因，只不过 forEach 没有返回值所以我们演示不了，而 map 由于有返回值所以我们可以方便的演示出来，其实所有用回调函数来执行的循环方式背后都会产生类似的现象，如：filter、reduce。相反的，传统的循环方式（for、for-in、for-of、while）由于循环体没有回调函数的包裹，所以 await 不会报错，故一切执行都是按照原先同步的模式来的，所以就造成了 “循环同步” 的效果！又由于回调方式的循环体都是异步的，所以他们是并行执行的，而普通循环是同步的，一轮做完再做一轮，所以是串行执行的！
+
+那当着就找不到 “同步的循环，并行的执行” ？
+
+聪明的人也许想到了，我们可以把 `map` 与 `Promise.all` 结合起来：
+
+map 得到的数组元素不都是 Promise 吗？那放到 Promise.all 里去啊！
+
+```js
+async function promiseAll(arr) {
+    console.log('start');
+    await Promise.all(arr.map(async (i) => {
+        await sleep(i);
+        console.log('--->', i);
+    }));
+    console.log('end');
+}
+
+function sleep(i) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, i);
+    });
+}
+
+promiseAll(['3000', '8000', '1000', '4000']);
+```
+
+将会输出：
+
+```
+start
+---> 1000
+---> 3000
+---> 4000
+---> 8000
+end
+```
+
+另一个例子：
+
+```js
+function delay() {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+}
+
+async function delayedLog(item) {
+    await delay();
+    console.log(item);
+}
+async function processArray(array) {
+    const promises = array.map(delayedLog);
+    await Promise.all(promises);
+    console.log('Done!');
+}
+
+processArray([1, 2, 3]);
+```
+
+将会输出：
+
+```
+1
+2
+3
+Done!
+```
+
+一个字：绝！
+
+总结：今后，我们处理 async/await 的循环，如果需要 “同步循环，并行执行” 就用 `map` + `Promise.all` 的方法（这也是我们最常用的方式），如果需要 “同步循环，串行执行” 就用普通循环（for、for-in、for-of、while）的方式，至于其他回调循环的方式（“异步循环，并行执行”）一般用不到，不小心用到了再研究吧 ^^。
+
+- **特殊用法**
 
 await 只能在 async 函数中使用：
 
@@ -1689,7 +1969,7 @@ async function fn4(num) {
 // 10
 ```
 
-- modules 里允许顶层的 await
+- **modules 里允许顶层的 await**
 
 在现代浏览器中，当我们处于一个 module 中时，那么在顶层使用 `await` 也是被允许的。
 
@@ -1751,7 +2031,7 @@ try {
 
 > 如果我们必须兼容旧版本浏览器，那么可以利用之前的方法包装到匿名的立即执行函数中。
 
-- Class 中的 async 方法
+- **Class 中的 async 方法**
 
 要声明一个 class 中的 async 方法，只需在对应方法前面加上 `async` 即可：
 
