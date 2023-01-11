@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>分析Hello案例</title>
     <script src="../js/vue.js"></script>
-</head>
+  </head>
 
-<body>
-<!--
-    1、Vue 实例和容器是 “第一对应” 的关系：
+  <body>
+    <!--
+    1、Vue 实例和容器是 “第一对应” 的关系:
         “一个容器只会对应一个实例，一个实例也只能作用于一个容器”！
         <1> 两个相同 class 的容器，一个 Vue 实例，那么这个 Vue 实例只会为第一个容器服务。
         <2> 两个 el 相同的 Vue 实例，一个容器，那么该容器只接受第一个 Vue 实例的服务。
@@ -44,22 +43,21 @@
     6、调试 Vue 代码，除了可以用浏览器自带的调试器之外，还有一个更强大的就是利用 Vue 官方的浏览器插件进行调试。
 -->
 
-<!-- 准备一个容器 -->
-<div id="root">
-    <h1>Hello, {{name.toUpperCase()}}，{{address}}，{{Date.now()}}</h1>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <h1>Hello, {{name.toUpperCase()}}，{{address}}，{{Date.now()}}</h1>
+    </div>
+    <script>
+      Vue.config.productionTip = false;
 
-    // 创建 Vue 实例
-    new Vue({
+      // 创建 Vue 实例
+      new Vue({
         el: '#root',
         data: {
-            name: 'Jerry',
-            address: '云南'
-        }
-    })
-</script>
-</body>
-
+          name: 'Jerry',
+          address: '云南',
+        },
+      });
+    </script>
+  </body>
 </html>
