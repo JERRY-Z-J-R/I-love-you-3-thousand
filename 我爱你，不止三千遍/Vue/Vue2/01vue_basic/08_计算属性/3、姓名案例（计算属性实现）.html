@@ -1,58 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>姓名案例（计算属性实现）</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    姓：<input type="text" v-model="firstName"> <br>
-    名：<input type="text" v-model="lastName"> <br>
-    <!-- 姓只取前三位 -->
-    全名：<span>{{fullName}}</span> <br>
-    <!-- 计算属性自带缓存机制，调用一次 fullName 中的 get 后，后续的 fullName，就用缓存了的值 -->
-    全名：<span>{{fullName}}</span> <br>
-    全名：<span>{{fullName}}</span> <br>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>姓名案例（计算属性实现）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓：<input type="text" v-model="firstName" /> <br />
+            名：<input type="text" v-model="lastName" /> <br />
+            <!-- 姓只取前三位 -->
+            全名：<span>{{fullName}}</span> <br />
+            <!-- 计算属性自带缓存机制，调用一次 fullName 中的 get 后，后续的 fullName，就用缓存了的值，直到数据改变才会重新调用 -->
+            全名：<span>{{fullName}}</span> <br />
+            全名：<span>{{fullName}}</span> <br />
+            修改计算属性（情况很少）<input type="text" v-model="fullName" />
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    const vm = new Vue({
-        el: '#root',
-        data: {
-            firstName: '张',
-            lastName: '三'
-        },
-        // 计算属性：通过已有的 data 属性，计算得到新属性
-        // 原理：底层借助了 Object.defineproperty 方法提供的 getter 和 setter
-        computed: {
-            // computed 中的属性最终去到了 vm 中，但是不会在 _data 中
-            // 当读取 fullName 时，自动调用 fullName 的 get 获取到返回值然后放到 vm 上
-            fullName: {
-                // 当读取 fullName 时，get 就会被调用，且返回值就作为 fullName 的值
-                // get 什么时候被自动调用：
-                //  1、初次读取 fullName 时
-                //  2、所依赖的数据发生变化时
-                //  （每次读取都会做缓存）
-                // computed 的缓存机制（复用、效率高、调试方便）就是其优于 methods 的核心部分
-                get() {
-                    // get 中的 this computed自动将其指向了 vue
-                    return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    firstName: '张',
+                    lastName: '三'
                 },
-                // set 什么时候被调用，当 fullName 被修改时（set 不是必须的，一般都用不到 set）
-                // 原理：引起计算时依赖的数据发生变化
-                // vm.fullName = '周-吉瑞'
-                set(value) {
-                    // set 一定会接收一个参数，也就是 fullName 的值
-                    // 这里 value 是 ’姓-名' 的形式，因为这样才能区分性和名，否则只能是用大数据分析了 ^^
-                    const arr = value.split('-');
-                    this.firstName = arr[0];
-                    this.lastName = arr[1];
+                // 计算属性：基于已有的 data 属性，计算得到新属性
+                // 原理：底层借助了 Object.defineproperty 方法提供的 getter 和 setter
+                computed: {
+                    // computed 中的属性最终去到了 vm 中，但是不会在 _data 中
+                    // 当读取 fullName 时，自动调用 fullName 的 get 获取到返回值然后放到 vm 上
+                    fullName: {
+                        // 当读取 fullName 时，get 就会被调用，且返回值就作为 fullName 的值
+                        // get 什么时候被自动调用？
+                        //  1、初次读取 fullName 时
+                        //  2、所依赖的数据发生变化时
+                        //  （每次读取都会做缓存）
+                        // computed 的缓存机制（复用、效率高、调试方便）就是其优于 methods 的核心部分
+                        get() {
+                            // get 中的 this，computed 会自动将其指向 vm
+                            return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+                        },
+                        // set 什么时候被调用？
+                        // 当 fullName 被修改时（set 不是必须的，很少情况用到 set，所以一般不写 set）
+                        // 原理：引起计算时依赖的数据发生变化
+                        // vm.fullName = '周-吉瑞'
+                        set(value) {
+                            // set 一定会接收一个参数，也就是 fullName 的值
+                            // 这里 value 是 ’姓-名' 的形式，我们用 split 将其拆开，因为这样才能区分性和名
+                            const arr = value.split(' - ');
+                            this.firstName = arr[0];
+                            this.lastName = arr[1];
+                        }
+                    }
                 }
-            }
-        }
-    })
-</script>
-</body>
+            });
+        </script>
+    </body>
 </html>

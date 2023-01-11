@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>姓名案例（methods 实现）</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    姓：<input type="text" v-model="firstName"> <br>
-    名：<input type="text" v-model="lastName"> <br>
-    <!-- 姓只取前三位 -->
-    <!-- 因为是要获取函数调用的返回值，所以肯定要加 () -->
-    全名：<span>{{fullName()}}</span>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>姓名案例（methods 实现）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓：<input type="text" v-model="firstName" /> <br />
+            名：<input type="text" v-model="lastName" /> <br />
+            <!-- 姓只取前三位 -->
+            <!-- 因为是要获取函数调用的返回值，所以肯定要加 () -->
+            全名：<span>{{fullName()}}</span>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            firstName: '张',
-            lastName: '三'
-        },
-        methods: {
-            // data 中的数据一但变化，那么 Vue 整个模板中对应数据部分会重新解析，并重新调用该函数
-            fullName() {
-                return this.firstName.slice(0, 3) + ' - ' + this.lastName;
-            }
-        }
-    })
-</script>
-</body>
+            new Vue({
+                el: '#root',
+                data: {
+                    firstName: '张',
+                    lastName: '三'
+                },
+                methods: {
+                    // data 中的数据一但变化，Vue 模板中对应的数据部分会重新局部解析，而涉及到这部分数据的函数也会同时被重新调用
+                    fullName() {
+                        return this.firstName.slice(0, 3) + ' - ' + this.lastName;
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>

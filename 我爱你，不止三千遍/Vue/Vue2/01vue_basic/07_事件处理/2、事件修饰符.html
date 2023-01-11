@@ -10,6 +10,11 @@
             }
 
             .demo1 {
+                height: 70px;
+                background-color: rgb(178, 235, 135);
+            }
+
+            .demo2 {
                 height: 50px;
                 background-color: skyblue;
             }
@@ -33,15 +38,15 @@
             2、stop：阻止事件冒泡（常用）
             3、once：事件只触发一次（常用）
             4、capture：使用事件捕获模式
-            5、self：只有 event.target 是当前操作的元素是才触发事件
+            5、self：只有 event.target 是当前操作的元素时才触发事件
             6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕
 
-            补充：修饰符是可以连用的，比如：@click.stop.prevent，即 先阻止事件冒泡，然后再阻止默认事件
+            补充：修饰符是可以连用的，比如：@click.stop.prevent，即：先阻止事件冒泡，然后再阻止默认事件
 
         捕获与冒泡：
             1、事件触发时默认先捕获（从外到内），再冒泡（从内到外）
             2、默认的事件触发时只监听冒泡阶段（从内到外）
-            3、stop（应该加在内层函数）、capture（应该加在外层函数）
+            3、stop（应该加在内层元素）、capture（应该加在外层元素）
          -->
         <div id="root">
             <h2>欢迎来到{{name}}学习</h2>
@@ -51,6 +56,9 @@
 
             <!-- stop 阻止事件冒泡（常用） -->
             <div class="demo1" @click="showInfo">
+                <!-- 如果不阻止事件冒泡，将会 alert 两次（第一次内层元素被触发，第二次外层元素被触发） -->
+                <!-- <button @click="showInfo">点我提示信息</button> -->
+                <!--（stop 应该加在内层元素）-->
                 <button @click.stop="showInfo">点我提示信息</button>
             </div>
 
@@ -58,21 +66,28 @@
             <button @click.once="showInfo">点我提示信息</button>
 
             <!-- capture 事件捕获模式 -->
+            <!--（capture 应该加在外层元素）-->
+            <!-- 如果我们点击外层元素，那么会输出 1 -->
+            <!-- 如果我们点击内层元素，那么会先输出 1，再输出 2 -->
+            <!-- 如果我们没有加 capture，那么如果我们点击外层元素，那么会输出 1；而如果我们点击内层元素，那么会先输出 2，再输出 1，因为默认的事件触发时只监听冒泡阶段（从内到外） -->
             <div class="box1" @click.capture="showMsg(1)">
                 div1
                 <div class="box2" @click="showMsg(2)">div2</div>
             </div>
 
             <!-- self：只有 event.target 是当前操作的元素是才触发事件 -->
-            <!-- 这里，当我们点击 button 那么无论如何冒泡，最终 button 和 div 的 event.target 都是这个 button 元素 -->
-            <!-- 所以我们在上级 div 中加 .self 的意思就是，当这个 div 的 click 事件被触发，并且 event.target 还得是这个 div 那么，事件才会生效！ -->
+            <!-- 这里，当我们点击 button 那么无论如何冒泡，最终 button 和两个 div 的 event.target 都是这个 button 元素 -->
+            <!-- 所以我们在中间的 div 中加 .self 的意思就是，当这个 div 的 click 事件被触发，并且 event.target 还得是这个 div 那么，事件才会生效！ -->
             <!-- 所以 .self 就可以用来实现阻止事件冒泡 -->
-            <div class="demo1" @click.self="showInfo">
-                <button @click="showInfo">点我提示信息</button>
+            <!-- 所以，这里点击 button 后会 alert 两次（中间的 demo2 没有触发），而假如没加 self 则会 alert 三次 -->
+            <div class="demo1" @click="showInfo">
+                <div class="demo2" @click.self="showInfo">
+                    <button @click="showInfo">点我提示信息</button>
+                </div>
             </div>
 
             <!-- passive：事件的默认行为立即执行，无需等待事件回调执行完毕 -->
-            <!-- 举例：某些事件（非常少，比如：wheel），如果回调函数非常复杂（耗时较长），那么该事件的默认事件行为会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题。 -->
+            <!-- 举例：某些事件（非常少，比如：wheel 滚轮事件），如果回调函数非常复杂（耗时较长），那么该事件的默认事件行为会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题 -->
         </div>
         <script>
             Vue.config.productionTip = false;
@@ -84,8 +99,9 @@
                 },
                 methods: {
                     showInfo(event) {
-                        // event.preventDefault();    // 阻止默认行为，当然可以利用事件修饰符在模板中设置
-                        // event.stopPropagation();   // 组织事件冒泡，当然可以利用事件修饰符在模板中设置
+                        // 事件修饰的另一种方式：
+                        // event.preventDefault();    // 阻止默认行为，当然推荐利用事件修饰符在模板中设置
+                        // event.stopPropagation();   // 组织事件冒泡，当然推荐利用事件修饰符在模板中设置
                         alert('同学你好！');
                     },
                     showMsg(msg) {

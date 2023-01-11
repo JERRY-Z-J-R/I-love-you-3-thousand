@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>姓名案例（括号表达式实现）</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    姓：<input type="text" v-model="firstName"> <br>
-    名：<input type="text" v-model="lastName"> <br>
-    <!-- 姓只取前三位 -->
-    <!-- 直接在括号表达式中写复杂表达式也可以实现效果，但是如果表达式特别复杂，那么这样的写法是可读性非常差的，极不建议，违背了 Vue 最佳实践 -->
-    全名：<span>{{firstName.slice(0, 3)}} - {{lastName}}</span>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>姓名案例（括号表达式实现）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓：<input type="text" v-model="firstName" /> <br />
+            名：<input type="text" v-model="lastName" /> <br />
+            <!-- 姓只取前三位 -->
+            <!-- 直接在括号表达式中写复杂表达式也可以实现效果，但是如果表达式特别复杂，那么这样的写法是可读性非常差的，极不建议，违背了 Vue 最佳实践 -->
+            全名：<span>{{firstName.slice(0, 3)}} - {{lastName}}</span>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            firstName: '张',
-            lastName: '三'
-        }
-    })
-</script>
-</body>
+            new Vue({
+                el: '#root',
+                data: {
+                    firstName: '张',
+                    lastName: '三'
+                }
+            });
+        </script>
+    </body>
 </html>
