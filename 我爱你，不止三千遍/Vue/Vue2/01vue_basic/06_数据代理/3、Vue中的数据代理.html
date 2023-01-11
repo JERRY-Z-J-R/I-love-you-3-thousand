@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Vue中的数据代理</title>
+        <script src="../js/vue.js"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Vue中的数据代理</title>
-    <script src="../js/vue.js"></script>
-</head>
+    <body>
+        <!--
+        1、Vue 中的数据代理：
+            通过 vm 对象来代理 data 对象中属性的操作（读/写）
+        2、Vue 中数据代理的好处：
+            vm 每次读取 data 时都是读取到最新的数据，同时 vm 可以对 data 中的数据进行更新
+        3、基本原理：
+            通过 Object.defineProperty() 把 data 对象中所有属性添加到 vm 上
+            为每一个添加到 vm 上的属性，都指定一个 getter/setter
+            在 getter/setter 内部去操作（读/写）data 中对应的属性
+         -->
+        <div id="root">
+            <!--
+            // 我们直接 data.name 是会报错的，因为 data 只是用来实例化 Vue 的一个参数，最终 vm 上并不在存在 data 属性，data 属性实际上是被实例化 vm 中的 _data 属性代替了！
+            // 所以，实际上应该是：Vue 实例化时，先将 data 用 _data 来代替了（同时做了数据劫持），然后用实例化得到的 vm 对象来代理了 _data 中的数据的操作
+            // 注意：在 _data 中，除了 name、address 外，还有另外的很多东西，甚至还有 get、set，但是这部分与数据代理无关（否则就套娃了），而是与数据劫持有关（之后学习）
+            // 见：图1、图2
+            <h1>学校名称：{{_data.name}}</h1>
+            <h2>学校地址：{{_data.address}}</h2>
+             -->
+            <h1>学校名称：{{name}}</h1>
+            <h2>学校地址：{{address}}</h2>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-<body>
-<!--
-1、Vue 中的数据代理：
-    通过 vm 对象来代理 data 对象中属性的操作（读/写）
-2、Vue 中数据代理的好处：
-    更加方便的操作 data 中的数据
-3、基本原理：
-    通过 Object.defineProperty() 把 data 对象中所有属性添加到 vm 上。
-    为每一个添加到 vm 上的属性，都指定一个 getter/setter。
-    在 getter/setter 内部去操作（读/写）data 中对应的属性
--->
-<div id="root">
-    <!--
-    // 我们直接 data.name 是会报错的，因为 data 只是实例化 Vue 的一个参数，并不在存在 data 属性，data 实际上是被实例化 vm 中的 _data 属性代替了！
-    // 所以，实际上应该是：Vue 先将 data 用 _data 来代替了（同时做了数据劫持），然后用 vm 对象来代理了 _data 中的数据的操作。
-    // 注意：在 _data 中，除了 name、address 外，还有另外的很多东西，甚至还有 get、set，但是这部分与数据代理无关（否则就套娃了），而是与数据劫持有关（之后学习）
-    <h1>学校名称：{{_data.name}}</h1>
-    <h2>学校地址：{{_data.address}}</h2>
-    -->
-    <h1>学校名称：{{name}}</h1>
-    <h2>学校地址：{{address}}</h2>
-</div>
-<script>
-    Vue.config.productionTip = false;
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name: '尚硅谷',
+                    address: '宏福科技园'
+                }
+            });
 
-    const vm = new Vue({
-        el: '#root',
-        data: {
-            name: '尚硅谷',
-            address: '宏福科技园'
-        }
-    });
-
-    console.log(vm);
-    console.log(vm._data.name);     // 尚硅谷
-    console.log(vm._data.address);  // 宏福科技园
-    console.log(vm.name);           // 尚硅谷（vm 数据代理了 _data）
-    console.log(vm.address);        // 宏福科技园（vm 数据代理了 _data）
-</script>
-</body>
-
+            console.log(vm);
+            console.log(vm._data.name); // 尚硅谷
+            console.log(vm._data.address); // 宏福科技园
+            console.log(vm.name); // 尚硅谷（vm 数据代理了 _data）
+            console.log(vm.address); // 宏福科技园（vm 数据代理了 _data）
+        </script>
+    </body>
 </html>

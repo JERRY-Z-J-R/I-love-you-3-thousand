@@ -1,102 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>事件修饰符</title>
-    <script src="../js/vue.js"></script>
-    <style>
-        * {
-            margin-top: 20px;
-        }
-
-        .demo1 {
-            height: 50px;
-            background-color: skyblue;
-        }
-
-        .box1 {
-            padding: 5px;
-            background-color: skyblue;
-        }
-
-        .box2 {
-            padding: 5px;
-            background-color: orange;
-        }
-    </style>
-</head>
-
-<body>
-<!--
-    Vue 中的事件修饰符：
-        1、prevent：阻止默认事件（常用）
-        2、stop：阻止事件冒泡（常用）
-        3、once：事件只触发一次（常用）
-        4、capture：使用事件捕获模式
-        5、self：只有 event.target 是当前操作的元素是才触发事件
-        6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕
-
-        补充：修饰符是可以连用的，比如：@click.stop.prevent，即 先阻止事件冒泡，然后再阻止默认事件
-
-    捕获与冒泡：
-        1、事件触发时默认先捕获（从外到内），再冒泡（从内到外）
-        2、默认的事件触发时只监听冒泡阶段（从内到外）
-        3、stop（应该加在内层函数）、capture（应该加在外层函数）
--->
-<div id="root">
-    <h2>欢迎来到{{name}}学习</h2>
-    <!-- <a href="http://www.atguigu.com" @click="showInfo">点我提示信息</a> -->
-    <!-- 设置事件修饰符：prevent 阻止默认事件（常用） -->
-    <a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
-
-    <!-- stop 阻止事件冒泡（常用） -->
-    <div class="demo1" @click="showInfo">
-        <button @click.stop="showInfo">点我提示信息</button>
-    </div>
-
-    <!-- once 事件只触发一次（常用） -->
-    <button @click.once="showInfo">点我提示信息</button>
-
-    <!-- capture 事件捕获模式 -->
-    <div class="box1" @click.capture="showMsg(1)">
-        div1
-        <div class="box2" @click="showMsg(2)">
-            div2
-        </div>
-    </div>
-
-    <!-- self：只有 event.target 是当前操作的元素是才触发事件 -->
-    <!-- 这里，当我们点击 button 那么无论如何冒泡，最终 button 和 div 的 event.target 都是这个 button 元素 -->
-    <!-- 所以我们在上级 div 中加 .self 的意思就是，当这个 div 的 click 事件被触发，并且 event.target 还得是这个 div 那么，事件才会生效！ -->
-    <!-- 所以 .self 就可以用来实现阻止事件冒泡 -->
-    <div class="demo1" @click.self="showInfo">
-        <button @click="showInfo">点我提示信息</button>
-    </div>
-
-    <!-- passive：事件的默认行为立即执行，无需等待事件回调执行完毕 -->
-    <!-- 举例：某些事件（非常少，比如：wheel），如果回调函数非常复杂（耗时较长），那么该事件的默认事件行为会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题。 -->
-</div>
-<script>
-    Vue.config.productionTip = false;
-
-    new Vue({
-        el: '#root',
-        data: {
-            name: '尚硅谷'
-        },
-        methods: {
-            showInfo(event) {
-                // event.preventDefault();    // 阻止默认行为，当然可以利用事件修饰符在模板中设置
-                // event.stopPropagation();   // 组织事件冒泡，当然可以利用事件修饰符在模板中设置
-                alert('同学你好！');
-            },
-            showMsg(msg) {
-                console.log(msg);
+    <head>
+        <meta charset="UTF-8" />
+        <title>事件修饰符</title>
+        <script src="../js/vue.js"></script>
+        <style>
+            * {
+                margin-top: 20px;
             }
-        }
-    })
-</script>
-</body>
 
+            .demo1 {
+                height: 50px;
+                background-color: skyblue;
+            }
+
+            .box1 {
+                padding: 5px;
+                background-color: skyblue;
+            }
+
+            .box2 {
+                padding: 5px;
+                background-color: orange;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--
+        Vue 中的事件修饰符：
+            1、prevent：阻止默认事件（常用）
+            2、stop：阻止事件冒泡（常用）
+            3、once：事件只触发一次（常用）
+            4、capture：使用事件捕获模式
+            5、self：只有 event.target 是当前操作的元素是才触发事件
+            6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+
+            补充：修饰符是可以连用的，比如：@click.stop.prevent，即 先阻止事件冒泡，然后再阻止默认事件
+
+        捕获与冒泡：
+            1、事件触发时默认先捕获（从外到内），再冒泡（从内到外）
+            2、默认的事件触发时只监听冒泡阶段（从内到外）
+            3、stop（应该加在内层函数）、capture（应该加在外层函数）
+         -->
+        <div id="root">
+            <h2>欢迎来到{{name}}学习</h2>
+            <!-- <a href="http://www.atguigu.com" @click="showInfo">点我提示信息</a> -->
+            <!-- 设置事件修饰符：prevent 阻止默认事件（常用） -->
+            <a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+
+            <!-- stop 阻止事件冒泡（常用） -->
+            <div class="demo1" @click="showInfo">
+                <button @click.stop="showInfo">点我提示信息</button>
+            </div>
+
+            <!-- once 事件只触发一次（常用） -->
+            <button @click.once="showInfo">点我提示信息</button>
+
+            <!-- capture 事件捕获模式 -->
+            <div class="box1" @click.capture="showMsg(1)">
+                div1
+                <div class="box2" @click="showMsg(2)">div2</div>
+            </div>
+
+            <!-- self：只有 event.target 是当前操作的元素是才触发事件 -->
+            <!-- 这里，当我们点击 button 那么无论如何冒泡，最终 button 和 div 的 event.target 都是这个 button 元素 -->
+            <!-- 所以我们在上级 div 中加 .self 的意思就是，当这个 div 的 click 事件被触发，并且 event.target 还得是这个 div 那么，事件才会生效！ -->
+            <!-- 所以 .self 就可以用来实现阻止事件冒泡 -->
+            <div class="demo1" @click.self="showInfo">
+                <button @click="showInfo">点我提示信息</button>
+            </div>
+
+            <!-- passive：事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+            <!-- 举例：某些事件（非常少，比如：wheel），如果回调函数非常复杂（耗时较长），那么该事件的默认事件行为会卡顿着等待回调事件完成才执行，而 passive 便可以解决这个问题。 -->
+        </div>
+        <script>
+            Vue.config.productionTip = false;
+
+            new Vue({
+                el: '#root',
+                data: {
+                    name: '尚硅谷'
+                },
+                methods: {
+                    showInfo(event) {
+                        // event.preventDefault();    // 阻止默认行为，当然可以利用事件修饰符在模板中设置
+                        // event.stopPropagation();   // 组织事件冒泡，当然可以利用事件修饰符在模板中设置
+                        alert('同学你好！');
+                    },
+                    showMsg(msg) {
+                        console.log(msg);
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>

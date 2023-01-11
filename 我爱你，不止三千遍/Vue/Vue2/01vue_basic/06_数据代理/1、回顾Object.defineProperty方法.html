@@ -1,97 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>回顾Object.defineProperty方法</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>回顾Object.defineProperty方法</title>
-</head>
+    <body>
+        <script>
+            let number = 18;
+            let person = {
+                name: '张三',
+                sex: '男'
+            };
 
-<body>
-<script>
-    let number = 18;
-    let person = {
-        name: '张三',
-        sex: '男'
-    };
+            /*
+            Object.defineProperty() 方法可以直接在一个对象上定义一个新属性，或者修改该对象的现有属性，并返回此对象。
+            备注：只能在 Object 构造器对象上调用此方法，而不能在任意一个 Object 类型的实例上调用。
+            defineProperty：定义属性（中文翻译）
+             */
 
-    /*
-    Object.defineProperty() 方法可以直接在一个原有的对象上定义一个新属性，或者修改该对象的现有属性，并返回此对象。
-    备注：只能在 Object 构造器对象上调用此方法，而不能在任意一个 Object 类型的实例上调用。
-    defineProperty：定义属性（中文翻译）
-     */
+            /*
+            Object.defineProperty() 可以对添加的属性进行很多高级的限制
+            Object.defineProperty() 参数（三个）：
+                参数 1：给哪个对象添加属性
+                参数 2：添加的属性名
+                参数 3：配置项（以对象的方式配置）
+             */
 
-    /*
-     Object.defineProperty() 可以对添加的属性进行很多高级的限制
-     Object.defineProperty() 参数（三个）：
-        参数 1：给哪个对象添加属性
-        参数 2：添加的属性名
-        参数 3：配置项（以对象的方式配置）
-    */
+            // 向 person 对象中增加 age: 18 属性
+            Object.defineProperty(person, 'age', {
+                //【基本配置项】
+                // value: 18,           // 直接指定值（在 Object.defineProperty() 中直接指定的属性是默认不可枚举（遍历）、不可修改、不可删除的！而直接在原对象上添加的属性则相反！）
+                // enumerable: true,    // 是否可枚举，默认值是 false
+                // writable: true,      // 是否可修改，默认值是 false
+                // configurable: true,  // 是否可删除，默认值为 false
 
-    // 向 person 对象中增加 age: 18 属性
-    Object.defineProperty(person, 'age', {
-        //【基本配置项】
-        // value: 18,           // 直接指定值（在 Object.defineProperty() 中直接指定的属性是默认不可枚举（遍历）、不可修改、不可删除的！而直接在原对象上添加的属性则相反！）
-        // enumerable: true,    // 是否可枚举，默认值是 false
-        // writable: true,      // 是否可修改，默认值是 false
-        // configurable: true,  // 是否可删除，默认值为 false
+                //【高级配置项】
+                // 我们不想直接在 Object.defineProperty() 中直接指定值，而是绑定一个外部的变量 number 给 person，那我们可以这样：
+                // 首先要明确的是，直接在 person 中写 age: number 是不可以的，因为这样做只是简单的赋值，并不能达到 “你变，我同步变” 的效果，
+                // 如果在运行中改变了 number 的值，那么 person 中的 age 是不会同步改变的，而是保持一开始 number 赋予的初始值。
+                // 所以，应该这样做：
+                // 当读取 person 的 age 属性时，get 函数（getter）就会被自动调用，且返回值就是 age 的值。
+                get() {
+                    console.log('getter被调用！');
+                    return number;
+                },
 
-        // 【高级配置项】
-        // 我们不想直接在 Object.defineProperty() 中直接指定值，而是绑定一个外部的变量 number 给 person，那我们可以这样：
-        // 首先要明确的是，直接在 person 中写 age: number 是不可以的，因为这样做只是简单的赋值，并不能达到 “你变，我同步变” 的效果，
-        // 如果在运行中改变了 number 的值，那么 person 中的 age 是不会同步改变的，而是保持一开始 number 赋予的初始值。
-        // 所以，应该这样做：
-        // 当读取 person 的 age 属性时，get 函数（getter）就会被自动调用，且返回值就是 age 的值。
-        get() {
-            console.log('getter被调用！');
-            return number;
-        },
+                // 当修改 person 的 age 属性时，set 函数（setter）就会被自动调用，且会收到修改的具体值。
+                set(value) {
+                    console.log('有人修改了age属性，且值是：', value);
+                    number = value;
+                }
+            });
 
-        // 当修改 person 的 age 属性时，set 函数（setter）就会被自动调用，且会收到修改的具体值。
-        set(value) {
-            console.log('有人修改了age属性，且值是：', value);
-            number = value;
-        }
-    })
+            // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
+            console.log(person);
+            // {name: "张三", sex: "男"}
 
-    // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
-    console.log(person);
-    // {name: "张三", sex: "男"}
+            // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
+            console.log(Object.keys(person));
+            // ["name", "sex"]
 
-    // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
-    console.log(Object.keys(person));
-    // ["name", "sex"]
+            // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
+            for (let key in person) {
+                console.log(key);
+            }
+            /*
+            name
+            sex
+             */
 
-    // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
-    for (let key in person) {
-        console.log(key);
-    }
-    /*
-    name
-    sex
-     */
+            console.log(person.age);
+            /*
+            getter被调用！
+            18
+             */
 
-    console.log(person.age);
-    /*
-    getter被调用！
-    18
-     */
+            person.age = 24;
+            // 有人修改了age属性，且值是： 24
 
-    person.age = 24;
-    // 有人修改了age属性，且值是： 24
+            console.log(person.age);
+            /*
+            getter被调用！
+            24
+             */
 
-    console.log(person.age);
-    /*
-    getter被调用！
-    24
-     */
+            console.log(number);
+            // 24
 
-    console.log(number);
-    // 24
-
-    console.log(person);
-    // {name: "张三", sex: "男"}
-</script>
-</body>
-
+            console.log(person);
+            // {name: "张三", sex: "男"}
+        </script>
+    </body>
 </html>
