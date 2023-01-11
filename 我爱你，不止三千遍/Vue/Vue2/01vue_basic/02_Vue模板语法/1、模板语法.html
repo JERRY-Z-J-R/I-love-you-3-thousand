@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>模板语法</title>
-    <script src="../js/vue.js"></script>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <title>模板语法</title>
+        <script src="../js/vue.js"></script>
+    </head>
 
-  <body>
-    <!--         
+    <body>
+        <!--                         
     Vue 模板语法有 2 大类：
         1、插值语法：
             功能：用于解析标签体内容。
@@ -15,31 +15,30 @@
         2、指令语法：
             功能：用于解析标签（包括：标签属性、标签体内容、绑定事件……）
             举例：绑定属性，v-bind:href="xxx" 或 简写为 :href="xxx"，xxx 同样要写 js 表达式且可以直接读取到 data 中的所有属性。
-            备注： Vue 中有很多的指令，且形式都是：v-????，此处我们只是拿 v-bind 举个例子。
-    -->
+            备注： Vue 中有很多的指令，且形式都是：v-????，此处我们只是拿 v-bind 举个例子。 
+ -->
 
-    <div id="root">
-      <h1>插值语法</h1>
-      <h3>你好，{{name}}</h3>
-      <hr />
-      <h1>指令语法</h1>
-      <a v-bind:href="school.url.toUpperCase()">点我去{{school.name}}学习1</a
-      ><br />
-      <a :href="school.url">点我去{{school.name}}学习2</a>
-    </div>
-    <script>
-      Vue.config.productionTip = false;
+        <div id="root">
+            <h1>插值语法</h1>
+            <h3>你好，{{name}}</h3>
+            <hr />
+            <h1>指令语法</h1>
+            <a v-bind:href="school.url.toUpperCase()">点我去{{school.name}}学习的点点滴滴多多多多多多多多多多多多多多多得到1</a><br />
+            <a :href="school.url">点我去{{school.name}}学习2</a>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-      new Vue({
-        el: '#root',
-        data: {
-          name: 'Jerry',
-          school: {
-            name: '尚硅谷',
-            url: 'http://www.atguigu.com',
-          },
-        },
-      });
-    </script>
-  </body>
+            new Vue({
+                el: '#root',
+                data: {
+                    name: 'Jerry',
+                    school: {
+                        name: '尚硅谷',
+                        url: 'http://www.atguigu.com'
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>

@@ -17,8 +17,8 @@ export default {
     return {
       name: '张三',
       sex: '男',
-      number: 0
-    }
+      number: 0,
+    };
   },
   methods: {
     add() {
@@ -34,7 +34,7 @@ export default {
     },
     // 哪个组件上的自定义事件就在哪个组件上解绑
     unbind() {
-      this.$off('atguigu');       // 解绑一个自定义事件
+      this.$off('atguigu'); // 解绑一个自定义事件
       // this.$off(['atguigu','demo']); // 解绑多个自定义事件
       // this.$off();                   // 解绑所有的自定义事件
     },
@@ -42,9 +42,9 @@ export default {
       // 销毁了当前 Student 组件的实例，销毁后 Student 实例的自定义事件也全都不奏效。
       // 注意：原生的 DOM 事件依旧可以调用（因为 Vue 是代替我们把原生事件直接注册到 DOM 上了）
       this.$destroy();
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
