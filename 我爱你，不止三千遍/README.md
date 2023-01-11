@@ -18,7 +18,7 @@
 
 ### License
 
-> Copyright (c) 2022 周吉瑞（JERRY）
+> Copyright (c) 2023 周吉瑞（JERRY）
 
 - 绝大部分内容为原创，转载请[注明出处](https://github.com/JERRY-Z-J-R/I-love-you-3-thousand)！
 
