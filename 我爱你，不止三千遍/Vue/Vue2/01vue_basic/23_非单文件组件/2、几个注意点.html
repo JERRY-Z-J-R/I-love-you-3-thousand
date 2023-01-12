@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>几个注意点</title>
-    <script type="text/javascript" src="../js/vue.js"></script>
-</head>
-<body>
-<!--
-    几个注意点：
-            1.关于组件名:
-                 一个单词组成（不推荐）：
-                             第一种写法（首字母小写）：school
-                             第二种写法（首字母大写）：School（推荐）
-                 多个单词组成：
-                             第一种写法（kebab-case命名）：my-school（最终在 Vue 开发者工具中会自动修改为 MySchool）
-                             第二种写法（CamelCase命名）：MySchool（需要 Vue 脚手架支持）
-                 备注：
-                         (1) 组件名尽可能回避 HTML 中已有的元素名称，例如：h2、H2 都不行。
-                         (2) 组件名称尽量使用多个单词，因为这样可以避免与 HTML 标签冲突（HTML 标签名称都是一个单词）
-                         (3) 可以使用 name 配置项指定组件在开发者工具中呈现的名字。
+    <head>
+        <meta charset="UTF-8" />
+        <title>几个注意点</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+        几个注意点：
+                1.关于组件名:
+                    一个单词组成（不推荐）：
+                                第一种写法（首字母小写）：school
+                                第二种写法（首字母大写）：School（推荐）
+                    多个单词组成：
+                                第一种写法（kebab-case命名）：my-school（最终在 Vue 开发者工具中会自动修改为 MySchool）
+                                第二种写法（CamelCase命名）：MySchool（需要 Vue 脚手架支持）
+                    备注：
+                            (1) 组件名尽可能回避 HTML 中已有的元素名称，例如：h2、H2 都不行。
+                            (2) 组件名称尽量使用多个单词，因为这样可以避免与 HTML 标签冲突（HTML 标签名称都是一个单词）
+                            (3) 可以使用 name 配置项指定组件在开发者工具中呈现的名字。
 
-            2.关于组件标签:
-                 第一种写法：<school></school>
-                 第二种写法：<school/>（不推荐）
-                 备注：不用使用脚手架时，<school/> 会导致后续组件不能渲染。
+                2.关于组件标签:
+                    第一种写法：<school></school>
+                    第二种写法：<school/>（不推荐）
+                    备注：不用使用脚手架时，<school/> 会导致后续组件不能渲染。
 
-            3.一个简写方式：
-                 const school = Vue.extend(options) 可简写为：const school = options（不推荐）
--->
-<!-- 准备好一个容器 -->
-<div id="root">
-    <h1>{{msg}}</h1>
-    <School></School>
-    <!-- <my-school></my-school> -->
-</div>
-</body>
+                3.一个简写方式：
+                    const school = Vue.extend(options) 可简写为：const school = options（不推荐）
+         -->
+        <!-- 准备好一个容器 -->
+        <div id="root">
+            <h1>{{msg}}</h1>
+            <School></School>
+            <!-- <my-school></my-school> -->
+        </div>
+    </body>
 
-<script type="text/javascript">
-    Vue.config.productionTip = false;
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
 
-    // 定义组件
-    const s = Vue.extend({
-        // 指定 name 后，开发者工具中该组件默认就叫 Atguigu
-        name: 'atguigu',
-        template: `
+        // 定义组件
+        const s = Vue.extend({
+            // 指定 name 后，开发者工具中该组件默认就叫 Atguigu
+            name: 'atguigu',
+            template: `
           <div>
           <h2>学校名称：{{ name }}</h2>
           <h2>学校地址：{{ address }}</h2>
           </div>
         `,
-        data() {
-            return {
-                name: '尚硅谷',
-                address: '北京'
+            data() {
+                return {
+                    name: '尚硅谷',
+                    address: '北京'
+                };
             }
-        }
-    })
+        });
 
-    new Vue({
-        el: '#root',
-        data: {
-            msg: '欢迎学习Vue!'
-        },
-        components: {
-            School: s
-            // 'my-school': s
-        }
-    })
-</script>
+        new Vue({
+            el: '#root',
+            data: {
+                msg: '欢迎学习Vue!'
+            },
+            components: {
+                School: s
+                // 'my-school': s
+            }
+        });
+    </script>
 </html>

@@ -1,81 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>一个重要的内置关系</title>
-    <!-- 引入Vue -->
-    <script type="text/javascript" src="../js/vue.js"></script>
-</head>
-<body>
-<!--
+    <head>
+        <meta charset="UTF-8" />
+        <title>一个重要的内置关系</title>
+        <!-- 引入Vue -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
         1、一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
         2、这个关系的重要作用：让组件实例对象（vc）可以访问到 Vue 原型上的属性、方法。（后面的学习会用到）
--->
-<!-- 准备好一个容器-->
-<div id="root">
-    <school></school>
-</div>
-</body>
+         -->
+        <!-- 准备好一个容器-->
+        <div id="root">
+            <school></school>
+        </div>
+    </body>
 
-<script type="text/javascript">
-    Vue.config.productionTip = false;
-    Vue.prototype.x = 99;
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        Vue.prototype.x = 99;
 
-    // 定义 school 组件
-    const school = Vue.extend({
-        name: 'school',
-        template: `
+        // 定义 school 组件
+        const school = Vue.extend({
+            name: 'school',
+            template: `
           <div>
           <h2>学校名称：{{ name }}</h2>
           <h2>学校地址：{{ address }}</h2>
           <button @click="showX">点我输出x</button>
           </div>
         `,
-        data() {
-            return {
-                name: '尚硅谷',
-                address: '北京'
+            data() {
+                return {
+                    name: '尚硅谷',
+                    address: '北京'
+                };
+            },
+            methods: {
+                showX() {
+                    console.log(this.x);
+                }
             }
-        },
-        methods: {
-            showX() {
-                console.log(this.x);
-            }
-        },
-    })
+        });
 
-    // 创建一个 vm
-    const vm = new Vue({
-        el: '#root',
-        data: {
-            msg: '你好'
-        },
-        components: {school}
-    })
+        // 创建一个 vm
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                msg: '你好'
+            },
+            components: { school }
+        });
 
+        /*
+        前置知识回顾：
+        // 定义一个构造函数
+        function Demo(){
+            this.a = 1;
+            this.b = 2;
+        }
 
-    /*
-    前置知识回顾：
-    // 定义一个构造函数
-    function Demo(){
-        this.a = 1;
-        this.b = 2;
-    }
+        // 创建一个 Demo 的实例对象
+        const d = new Demo();
 
-    // 创建一个 Demo 的实例对象
-    const d = new Demo();
+        console.log(Demo.prototype);     // 显式原型属性
 
-    console.log(Demo.prototype);     // 显式原型属性
+        console.log(d.__proto__);        // 隐式原型属性
 
-    console.log(d.__proto__);        // 隐式原型属性
+        console.log(Demo.prototype === d.__proto__);    // true
 
-    console.log(Demo.prototype === d.__proto__);    // true
+        // 程序员通过显示原型属性操作原型对象，追加一个 x 属性，值为 99
+        Demo.prototype.x = 99;
 
-    // 程序员通过显示原型属性操作原型对象，追加一个 x 属性，值为 99
-    Demo.prototype.x = 99;
-
-    console.log(d.x);                // 99
-    */
-
-</script>
+        console.log(d.x);                // 99
+         */
+    </script>
 </html>

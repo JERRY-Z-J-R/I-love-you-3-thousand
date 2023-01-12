@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>v-text指令</title>
-    <script type="text/javascript" src="../js/vue.js"></script>
-</head>
-<body>
-<!--
+    <head>
+        <meta charset="UTF-8" />
+        <title>v-text指令</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
         我们学过的指令：
                 v-bind	: 单向绑定解析表达式, 可简写为 ':'
                 v-model	: 双向数据绑定
@@ -20,23 +20,23 @@
                 2、与插值语法的区别：v-text 会替换掉节点中的内容，{{xx}} 则不会。
                 3、v-text 不支持 html 结构解析
                 推荐使用 {{}} ！！！
--->
-<div id="root">
-    <div>你好，{{name}}</div>
-    <div v-text="name"></div>
-    <div v-text="str"></div>
-</div>
-</body>
+         -->
+        <div id="root">
+            <div>你好，{{name}}</div>
+            <div v-text="name"></div>
+            <div v-text="str"></div>
+        </div>
+    </body>
 
-<script type="text/javascript">
-    Vue.config.productionTip = false;
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            name: '尚硅谷',
-            str: '<h3>你好啊！</h3>'
-        }
-    })
-</script>
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷',
+                str: '<h3>你好啊！</h3>'
+            }
+        });
+    </script>
 </html>
