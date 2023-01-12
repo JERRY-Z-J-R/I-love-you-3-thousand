@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>深度监视</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    <h3>a的值是{{numbers.a}}</h3>
-    <h3>b的值是{{numbers.b}}</h3>
-    <button @click="numbers.a++">点我让a+1</button>
-    <button @click="numbers.b++">点我让b+1</button>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>深度监视</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h3>a的值是{{numbers.a}}</h3>
+            <h3>b的值是{{numbers.b}}</h3>
+            <button @click="numbers.a++">点我让a+1</button>
+            <button @click="numbers.b++">点我让b+1</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            numbers: {
-                a: 1,
-                b: 1
-            }
-        },
-        watch: {
-            // 一、监视某个 data 一级属性
-            // 这样写只能监视到 numbers 的值（地址值）（因为 numbers 是一个对象），监视不到其内部的下级值（a、b）
-            // 可以通过 <button @click="numbers = {a: 2, b: 2}">验证</button>
-            // numbers: {
-            //     handler() {
-            //         console.log('numbers 改变了');
-            //     }
-            // },
+            new Vue({
+                el: '#root',
+                data: {
+                    numbers: {
+                        a: 1,
+                        b: 1
+                    }
+                },
+                watch: {
+                    // 一、监视某个 data 一级属性
+                    // 这样写只能监视到 numbers 的值（地址值）（因为 numbers 是一个对象），监视不到其内部的下级值（a、b）
+                    // 可以通过 <button @click="numbers = {a: 2, b: 2}">验证</button>
+                    // numbers: {
+                    //     handler() {
+                    //         console.log('numbers 改变了');
+                    //     }
+                    // },
 
-            // ----------------------------------------------
+                    // ----------------------------------------------
 
-            // 二、监视多级结构中某个下级属性的变化
-            // 要监视到 a 必须这样写 number.a
-            // 注意：JS 对象里的 key 值本来就都是字符串形式，只是对于符合 JS 标识符命名规范的可以简写为不带字符串的格式
-            'numbers.a': {
-                handler() {
-                    console.log('numbers 里的 a 改变了');
+                    // 二、监视多级结构中某个下级属性的变化
+                    // 要监视到 a 必须这样写 number.a
+                    // 注意：JS 对象里的 key 值本来就都是字符串形式，只是对于符合 JS 标识符命名规范的可以简写为不带字符串的格式
+                    'numbers.a': {
+                        handler() {
+                            console.log('numbers 里的 a 改变了');
+                        }
+                    },
+
+                    // ----------------------------------------------
+
+                    // 三、监视多级结构中所有下级属性的变化
+                    numbers: {
+                        deep: true, // 开启深度监视
+                        handler() {
+                            console.log('number 里的下级值改变了');
+                        }
+                    }
+
+                    /*
+                    注意：Vue 实例本身可以监视到多级结构中的某个下级属性的变化！
+                        只是说，Vue 中的 watch 默认不可以！
+                        也就是说，Vue 自身的监视与 watch 监视是同样底层实现，只不过 watch 面向调用者且默认有限制
+                     */
                 }
-            },
-
-            // ----------------------------------------------
-
-            // 三、监视多级结构中所有下级属性的变化
-            numbers: {
-                deep: true, // 开启深度监视
-                handler() {
-                    console.log('number 里的下级值改变了');
-                }
-            }
-
-            /*
-            注意：Vue 本身可以监视到多级结构中的某个下级属性的变化！
-                 只是说，Vue 中的 watch 默认不可以！
-                 也就是说，Vue 自身的监视与 watch 监视是同样底层实现，只不过 watch 面向开发且默认有限制
-             */
-        }
-    })
-</script>
-</body>
+            });
+        </script>
+    </body>
 </html>

@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>天气案例（监视属性配置方法2）</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    <h2>今天天气很{{info}}</h2>
-    <button @click="isHot = !isHot">切换天气</button>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>天气案例（监视属性配置方法2）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>今天天气很{{info}}</h2>
+            <button @click="isHot = !isHot">切换天气</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    // 监视属性有两种写法：
-    // 1、 watch 配置（适用范围：一般情况，对需要监视什么已经能提前知道）
-    // 2、通过 vm.$watch 监视（适用范围：少部分情况，对需要监视什么还不确定，需要根据具体的用户操作才知道）
+            // 监视属性有两种写法：
+            // 1、watch 配置（适用范围：一般情况，对需要监视什么已经能提前知道）
+            // 2、通过 vm.$watch 监视（适用范围：少部分情况，对需要监视什么还不确定，需要根据具体的用户操作才知道）
 
-    const vm = new Vue({
-        el: '#root',
-        data: {
-            isHot: true
-        },
-        computed: {
-            info() {
-                if (this.isHot === true) {
-                    return '炎热';
-                } else {
-                    return '凉爽';
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    isHot: true
+                },
+                computed: {
+                    info() {
+                        if (this.isHot === true) {
+                            return '炎热';
+                        } else {
+                            return '凉爽';
+                        }
+                    }
                 }
-            }
-        }
-    })
+            });
 
-    // 监视属性的第二种写法
-    vm.$watch('isHot', {
-        immediate: false,
-        handler(newValue, oldValue) {
-            console.log('isHot新的值：' + newValue);
-            console.log('isHot原来的值：' + oldValue)
-        }
-    })
-</script>
-</body>
+            // 监视属性的第二种写法
+            vm.$watch('isHot', {
+                immediate: false,
+                handler(newValue, oldValue) {
+                    console.log('isHot新的值：' + newValue);
+                    console.log('isHot原来的值：' + oldValue);
+                }
+            });
+        </script>
+    </body>
 </html>

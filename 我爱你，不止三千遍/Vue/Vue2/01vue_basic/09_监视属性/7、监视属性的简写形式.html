@@ -1,67 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>监视属性的简写形式</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    <h2>今天天气很{{info}}</h2>
-    <button @click="isHot = !isHot">切换天气</button>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>监视属性的简写形式</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>今天天气很{{info}}</h2>
+            <button @click="isHot = !isHot">切换天气</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    const vm = new Vue({
-        el: '#root',
-        data: {
-            isHot: true
-        },
-        computed: {
-            info() {
-                if (this.isHot === true) {
-                    return '炎热';
-                } else {
-                    return '凉爽';
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    isHot: true
+                },
+                computed: {
+                    info() {
+                        if (this.isHot === true) {
+                            return '炎热';
+                        } else {
+                            return '凉爽';
+                        }
+                    }
+                },
+                watch: {
+                    // 一般情况
+                    // isHot: {
+                    //     immediate: false,（默认为 false）
+                    //     deep: true,（默认为 false）
+                    //     handler(newValue, oldValue) {
+                    //         console.log('isHot新的值：' + newValue);
+                    //         console.log('isHot原来的值：' + oldValue);
+                    //     }
+                    // }
+                    // 简写（前提条件：没有多余的配置项）
+                    // isHot(newValue, oldValue) {
+                    //     console.log('isHot新的值：' + newValue);
+                    //     console.log('isHot原来的值：' + oldValue);
+                    // }
                 }
-            }
-        },
-        watch: {
-            // 一般情况
-            // isHot: {
+            });
+
+            // 第二种监视方式的一般情况
+            // vm.$watch('isHot', {
             //     immediate: false,
             //     deep: true,
             //     handler(newValue, oldValue) {
             //         console.log('isHot新的值：' + newValue);
             //         console.log('isHot原来的值：' + oldValue);
             //     }
-            // }
+            // })
 
-            // 简写（前提条件：没有多余的配置项）
-            // isHot(newValue, oldValue) {
-            //     console.log('isHot新的值：' + newValue);
-            //     console.log('isHot原来的值：' + oldValue);
-            // }
-        }
-    })
+            // 第二种监视方式的简写形式（前提条件：没有多余的配置项）
+            // 注意：不能使用箭头函数！（Vue 管理的函数都不能写箭头函数）
+            vm.$watch('isHot', function (newValue, oldValue) {
+                console.log('isHot新的值：' + newValue);
+                console.log('isHot原来的值：' + oldValue);
+            });
 
-    // 第二种监视方式的一般情况
-    // vm.$watch('isHot', {
-    //     immediate: false,
-    //     deep: true,
-    //     handler(newValue, oldValue) {
-    //         console.log('isHot新的值：' + newValue);
-    //         console.log('isHot原来的值：' + oldValue);
-    //     }
-    // })
-
-    // 第二种监视方式的简写形式（前提条件：没有多余的配置项）
-    // 注意：不能使用箭头函数！（Vue 管理的函数都不能写箭头函数）
-    vm.$watch('isHot', function (newValue, oldValue) {
-        console.log('isHot新的值：' + newValue);
-        console.log('isHot原来的值：' + oldValue);
-    })
-</script>
-</body>
+            // 如果不需要 oldValue，那么可以只写 newValue
+        </script>
+    </body>
 </html>

@@ -1,39 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>天气案例（计算属性实现）</title>
-    <script src="../js/vue.js"></script>
-  </head>
-  <body>
-    <div id="root">
-      <h2>今天天气很{{info}}</h2>
-      <!-- 由于 vm 中根本没有 alert() 方法，所以这里不会生效 -->
-      <!-- <button @click="alert('yes')">切换天气</button> -->
-      <!-- 要想生效需要：window.alert('yes')，不过前提是在 data 中添加了 window -->
-      <button @click="window.alert('yes')">切换天气</button>
-    </div>
-    <script>
-      Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>天气案例（知识补充）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!-- 由于 vm 中根本没有 alert() 方法，所以这里不会生效 -->
+            <!-- <button @click="alert('yes')">切换天气</button> -->
+            <!-- 要想生效需要：window.alert('yes')，不过前提是在 data 中添加了 window -->
+            <button @click="window.alert('yes')">切换天气</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-      new Vue({
-        el: "#root",
-        data: {
-          isHot: true,
-          // window: window,
-          // 对象中，当属性名与属性值相同时，可以只写属性名
-          window,
-        },
-        computed: {
-          info() {
-            if (this.isHot === true) {
-              return "炎热";
-            } else {
-              return "凉爽";
-            }
-          },
-        },
-      });
-    </script>
-  </body>
+            new Vue({
+                el: '#root',
+                data: {
+                    // window: window,
+                    // 对象中，当属性名与属性值相同时，可以只写属性名（JS 对象写法复习）
+                    window
+                }
+            });
+        </script>
+    </body>
 </html>

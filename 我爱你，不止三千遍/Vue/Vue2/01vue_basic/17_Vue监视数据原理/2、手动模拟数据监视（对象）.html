@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>手动模拟数据监视（对象）</title>
-</head>
-<body>
-<!-- Vue 底层中已经实现了数据监视，watch 也是通过调用 Vue 底层的数据监视来实现的，所以了解 Vue 底层数据监视的原理非常重要！ -->
-<!-- 下面，我们自己手动写一个数据监视来模拟一下 Vue 的实现过程，当然我们目前只实现最基础的部分，占不考虑数据代理、对象嵌套对象的问题（深拷贝）、数组形式的问题等 -->
-<script type="text/javascript">
-    let data = {
-        name: "哥伦比亚大学",
-        address: '纽约'
-    }
+    <head>
+        <meta charset="UTF-8" />
+        <title>手动模拟数据监视（对象）</title>
+    </head>
+    <body>
+        <!-- Vue 底层中已经实现了数据监视，watch 也是通过调用 Vue 底层的数据监视来实现的，所以了解 Vue 底层数据监视的原理非常重要！ -->
+        <!-- 下面，我们自己手动写一个数据监视来模拟一下 Vue 的实现过程，当然我们目前只实现最基础的部分，占不考虑数据代理、对象嵌套对象的问题（深拷贝）、数组形式的问题等 -->
+        <script type="text/javascript">
+            let data = {
+                name: '哥伦比亚大学',
+                address: '纽约'
+            };
 
-    // 以下为错误写法（无限递归 ——> 调用栈炸了 ——> 内存溢出）
-    // Object.defineProperty(data, 'name', {
-    //     get(){
-    //         return data.name
-    //     },
-    //     set(val){
-    //         data.name = val;
-    //     }
-    // })
+            // 以下为错误写法（无限递归 ——> 调用栈炸了 ——> 内存溢出）
+            // Object.defineProperty(data, 'name', {
+            //     get(){
+            //         return data.name
+            //     },
+            //     set(val){
+            //         data.name = val;
+            //     }
+            // })
 
-    // 创建一个监视实例对象
-    const obs = new Observer(data);
+            // 创建一个监视实例对象
+            const obs = new Observer(data);
 
-    // 准备一个 vm 实例
-    let vm = {};
+            // 准备一个 vm 实例
+            let vm = {};
 
-    vm._data = data = obs;
+            vm._data = data = obs;
 
-    // JS 观察者 API（一个构造函数）
-    function Observer(obj) {
-        // Object.keys() 方法会返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致。
-        // ['name', 'address']
-        const keys = Object.keys(obj);
-        // 遍历对象当中所有的 key
-        keys.forEach(key => {
-            // 向 Observer 实例对象中添加 key 属性（name、address）
-            Object.defineProperty(this, key, {
-                // 当读取 Observer 实例对象的 key 属性时，get 函数（getter）就会被自动调用，且返回值就是 key 的值。
-                get() {
-                    console.log(`${key}的值被读取了`);  // Vue 当然不会有这行输出，这里只是测试用！
-                    return obj[key];
-                },
-                // 当修改 Observer 实例对象的 key 属性时，set 函数（setter）就会被自动调用，且会收到修改的具体值。
-                set(value) {
-                    console.log(`${key}的值改变了，变为${value}`);  // Vue 当然不会有这行输出，这里只是测试用！
-                    obj[key] = value;
-                    // Vue 会在此处自动重新解析模板，这就做到了数据监视，data 中数据变，其它部分也会同步改变
-                    // 一但重新解析模板就会生成新的虚拟 DOM，然后新旧 DOM 进行比较，根据 Diff 算法更新页面
-                }
-            })
-        })
-    }
+            // JS 观察者 API（一个构造函数）
+            function Observer(obj) {
+                // Object.keys() 方法会返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致。
+                // ['name', 'address']
+                const keys = Object.keys(obj);
+                // 遍历对象当中所有的 key
+                keys.forEach((key) => {
+                    // 向 Observer 实例对象中添加 key 属性（name、address）
+                    Object.defineProperty(this, key, {
+                        // 当读取 Observer 实例对象的 key 属性时，get 函数（getter）就会被自动调用，且返回值就是 key 的值。
+                        get() {
+                            console.log(`${key}的值被读取了`); // Vue 当然不会有这行输出，这里只是测试用！
+                            return obj[key];
+                        },
+                        // 当修改 Observer 实例对象的 key 属性时，set 函数（setter）就会被自动调用，且会收到修改的具体值。
+                        set(value) {
+                            console.log(`${key}的值改变了，变为${value}`); // Vue 当然不会有这行输出，这里只是测试用！
+                            obj[key] = value;
+                            // Vue 会在此处自动重新解析模板，这就做到了数据监视，data 中数据变，其它部分也会同步改变
+                            // 一但重新解析模板就会生成新的虚拟 DOM，然后新旧 DOM 进行比较，根据 Diff 算法更新页面
+                        }
+                    });
+                });
+            }
 
-    // 测试
-    console.log(data.name);
-    console.log(vm._data.name);
-    data.name = '麻省理工学院';
-    vm._data.address = '波士顿';
-    /*
-    name的值被读取了
-    哥伦比亚大学
-    name的值被读取了
-    哥伦比亚大学
-    name的值改变了，变为麻省理工学院
-    address的值改变了，变为波士顿
-     */
+            // 测试
+            console.log(data.name);
+            console.log(vm._data.name);
+            data.name = '麻省理工学院';
+            vm._data.address = '波士顿';
+            /*
+            name的值被读取了
+            哥伦比亚大学
+            name的值被读取了
+            哥伦比亚大学
+            name的值改变了，变为麻省理工学院
+            address的值改变了，变为波士顿
+             */
 
-    // 在 Vue 中，之所以可以直接通过 vm 读写数据，那是因为 vm 对 _data 又做了数据代理
-</script>
-</body>
+            // 在 Vue 中，之所以可以直接通过 vm 读写数据，那是因为 vm 对 _data 又做了数据代理
+        </script>
+    </body>
 </html>

@@ -1,106 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>绑定class样式</title>
-    <script src="../js/vue.js"></script>
-    <style>
-        /* 基本样式 */
-        .basic {
-            width: 400px;
-            height: 100px;
-            border: 1px solid black;
-        }
-
-        /* ------------------------------------- */
-
-        /* 开心样式 */
-        .happy {
-            border: 4px solid red;;
-            background-color: rgba(255, 255, 0, 0.644);
-            background: linear-gradient(30deg, yellow, pink, orange, yellow);
-        }
-
-        /* 悲伤样式 */
-        .sad {
-            border: 4px dashed rgb(2, 197, 2);
-            background-color: gray;
-        }
-
-        /* 一般样式 */
-        .normal {
-            background-color: skyblue;
-        }
-
-        /* ------------------------------------- */
-
-        .atguigu1 {
-            background-color: yellowgreen;
-        }
-
-        .atguigu2 {
-            font-size: 30px;
-            text-shadow: 2px 2px 10px red;
-        }
-
-        .atguigu3 {
-            border-radius: 20px;
-        }
-    </style>
-</head>
-<body>
-<div id="root">
-    <!-- basic 是基本样式，无论如何都必须存在 -->
-    <!-- <div class="basic">{{name}}</div> -->
-
-    <!-- :class 绑定 class 样式，字符串写法：适用于样式的类名不确定需要动态琢磨的状况 -->
-    <!-- 在基础样式的基础上，增加一个可变的样式，该样式默认为 normal，当点击时可以切换 happy 样式-->
-    <div class="basic" :class="mood1" @click="changeMood01">{{name}}01</div>
-    <hr>
-    <!-- 小练习：在基础样式的基础上，增加一个可变的样式，当点击时可以切换 随机 样式 -->
-    <div class="basic" :class="mood2" @click="changeMood02">{{name}}02</div>
-    <hr>
-    <!-- :class 绑定 class 样式，数组写法：适用于要绑定的样式个数不确定，名字也不确定的状况 -->
-    <div class="basic" :class="classArr" @click="changeMood03">{{name}}03</div>
-    <hr>
-    <!-- :class 绑定 class 样式，对象写法：适用于要绑定的样式个数确定，名字确定，但动态决定要不要开启的状况 -->
-    <div class="basic" :class="classObj" @click="changeMood04">{{name}}04</div>
-    <hr>
-</div>
-<script>
-    Vue.config.productionTip = false;
-    new Vue({
-        el: '#root',
-        data: {
-            name: '尚硅谷',
-            mood1: 'normal',
-            mood2: 'normal',
-            classArr: ['atguigu1', 'atguigu2', 'atguigu3'],
-            classObj: {
-                atguigu1: false,
-                atguigu2: false,
-                atguigu3: true
+    <head>
+        <meta charset="UTF-8" />
+        <title>绑定class样式</title>
+        <script src="../js/vue.js"></script>
+        <style>
+            /* 基本样式 */
+            .basic {
+                width: 400px;
+                height: 100px;
+                border: 1px solid black;
             }
-        },
-        methods: {
-            changeMood01() {
-                this.mood1 = 'happy';
-            },
-            changeMood02() {
-                const arr = ['happy', 'sad', 'normal'];
-                this.mood2 = arr[Math.floor(Math.random() * 3)];
-            },
-            changeMood03() {
-                // 移除 atguigu3
-                this.classArr.pop();
-            },
-            changeMood04() {
-                // 应用1，取消3
-                this.classObj.atguigu1 = true;
-                this.classObj.atguigu3 = false;
+
+            /* ------------------------------------- */
+
+            /* 开心样式 */
+            .happy {
+                border: 4px solid red;
+                background-color: rgba(255, 255, 0, 0.644);
+                background: linear-gradient(30deg, yellow, pink, orange, yellow);
             }
-        }
-    })
-</script>
-</body>
+
+            /* 悲伤样式 */
+            .sad {
+                border: 4px dashed rgb(2, 197, 2);
+                background-color: gray;
+            }
+
+            /* 一般样式 */
+            .normal {
+                background-color: skyblue;
+            }
+
+            /* ------------------------------------- */
+
+            .atguigu1 {
+                background-color: yellowgreen;
+            }
+
+            .atguigu2 {
+                font-size: 30px;
+                text-shadow: 2px 2px 10px red;
+            }
+
+            .atguigu3 {
+                border-radius: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <!-- basic 是基本样式，无论如何都必须存在 -->
+            <!-- <div class="basic">{{name}}</div> -->
+
+            <!-- :class 绑定 class 样式，字符串写法：适用于样式的类名不确定需要动态琢磨的状况 -->
+            <!-- 在基础样式的基础上，增加一个可变的样式，该样式默认为 normal，当点击时可以切换 happy 样式-->
+            <div class="basic" :class="mood1" @click="changeMood01">{{name}}01</div>
+            <hr />
+            <!-- 小练习：在基础样式的基础上，增加一个可变的样式，当点击时可以切换 随机 样式 -->
+            <div class="basic" :class="mood2" @click="changeMood02">{{name}}02</div>
+            <hr />
+            <!-- 数组写法：适用于要绑定的样式个数不确定，名字也不确定的状况 -->
+            <div class="basic" :class="classArr" @click="changeMood03">{{name}}03</div>
+            <hr />
+            <!-- 对象写法：适用于要绑定的样式个数确定，名字确定，但动态决定要不要开启的状况 -->
+            <div class="basic" :class="classObj" @click="changeMood04">{{name}}04</div>
+            <hr />
+        </div>
+        <script>
+            Vue.config.productionTip = false;
+            new Vue({
+                el: '#root',
+                data: {
+                    name: '尚硅谷',
+                    mood1: 'normal',
+                    mood2: 'normal',
+                    classArr: ['atguigu1', 'atguigu2', 'atguigu3'],
+                    classObj: {
+                        atguigu1: false,
+                        atguigu2: false,
+                        atguigu3: true
+                    }
+                },
+                methods: {
+                    changeMood01() {
+                        this.mood1 = 'happy';
+                    },
+                    changeMood02() {
+                        const arr = ['happy', 'sad', 'normal'];
+                        this.mood2 = arr[Math.floor(Math.random() * 3)];
+                    },
+                    changeMood03() {
+                        // 移除 atguigu3
+                        this.classArr.pop();
+                    },
+                    changeMood04() {
+                        // 应用1，取消3
+                        this.classObj.atguigu1 = true;
+                        this.classObj.atguigu3 = false;
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>

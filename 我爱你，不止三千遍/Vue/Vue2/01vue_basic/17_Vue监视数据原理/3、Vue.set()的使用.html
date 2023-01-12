@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Vue.set()的使用</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    <h1>学校信息</h1>
-    <h2>学校名称：{{ name }}</h2>
-    <h2>学校地址：{{ address }}</h2>
-    <hr/>
-    <h1>学生信息</h1>
-    <button @click.once="addSex">添加一个性别属性，默认值是男</button>
-    <h2>学生姓名：{{ stu.name }}</h2>
-    <h2>学生真实年龄：{{ stu.age.rage }}</h2>
-    <h2>学生对外年龄：{{ stu.age.sage}}</h2>
-    <h2 v-if="stu.sex">学生性别：{{ stu.sex }}</h2>
-    <h2>朋友们</h2>
-    <ul v-for="(f, index) in stu.friends" :key="index">
-        <li>{{ f.name }} -- {{ f.age }}</li>
-    </ul>
-</div>
-<script type="text/javascript">
-    const vm = new Vue({
-        el: '#root',
-        data: {
-            name: '香港理工大学',
-            address: '香港',
-            stu: {
-                name: 'tom',
-                age: {
-                    rage: 12,
-                    sage: 29
+    <head>
+        <meta charset="UTF-8" />
+        <title>Vue.set()的使用</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>学校信息</h1>
+            <h2>学校名称：{{ name }}</h2>
+            <h2>学校地址：{{ address }}</h2>
+            <hr />
+            <h1>学生信息</h1>
+            <button @click.once="addSex">添加一个性别属性，默认值是男</button>
+            <h2>学生姓名：{{ stu.name }}</h2>
+            <h2>学生真实年龄：{{ stu.age.rage }}</h2>
+            <h2>学生对外年龄：{{ stu.age.sage}}</h2>
+            <h2 v-if="stu.sex">学生性别：{{ stu.sex }}</h2>
+            <h2>朋友们</h2>
+            <ul v-for="(f, index) in stu.friends" :key="index">
+                <li>{{ f.name }} -- {{ f.age }}</li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name: '香港理工大学',
+                    address: '香港',
+                    stu: {
+                        name: 'tom',
+                        age: {
+                            rage: 12,
+                            sage: 29
+                        },
+                        friends: [
+                            { name: 'Jerry', age: 23 },
+                            { name: 'Jane', age: 18 }
+                        ]
+                    }
                 },
-                friends: [
-                    {name: 'Jerry', age: 23},
-                    {name: 'Jane', age: 18}
-                ]
-            }
-        },
-        methods: {
-            addSex() {
-                // 这里 this === vm
-                // 在 Vue 中，后来直接添加（vm._data.stu.sex = '男'）的数据的确可以在内存中添加上去，但是 Vue 是不会对其做监视的（无响应式）
-                // 原因是，直接添加的数据没有 get set，就形成不了响应式，好在 Vue 为我们提供了专门的 API 来解决这个添加问题
-                // 利用 Vue.set()（或者 vm.$set()） API 能够添加的属性变为响应式属性
-                // 注意对象不能是 Vue 实例，或者 Vue 实例的根数据对象。
-                // Vue.set(this._date.stu, 'sex', '男');     // 由于 Vue 做了数据代理，所以 this._data.stu 可以直接用 this.stu 代替
-                Vue.set(this.stu, 'sex', '男');
-                // this.$set(this.stu, 'sex', '男');
+                methods: {
+                    addSex() {
+                        // 这里 this === vm
+                        // 在 Vue 中，后来直接添加（vm._data.stu.sex = '男'）的数据的确可以在内存中添加上去，但是 Vue 是不会对其做监视的（无响应式）
+                        // 原因是，直接添加的数据没有 get set，就形成不了响应式，好在 Vue 为我们提供了专门的 API 来解决这个添加问题
+                        // 利用 Vue.set()（或者 vm.$set()） API 能够添加的属性变为响应式属性
+                        // 注意对象不能是 Vue 实例，或者 Vue 实例的根数据对象。
+                        // Vue.set(this._date.stu, 'sex', '男');     // 由于 Vue 做了数据代理，所以 this._data.stu 可以直接用 this.stu 代替
+                        Vue.set(this.stu, 'sex', '男');
+                        // this.$set(this.stu, 'sex', '男');
 
-                // 重要注意：Vue.set() 或 vm.$set() 只支持在一个已有的数据项（对象、数组）内添加新的数据，但是不支持在 data 中直接添加新的属性！！！
-                // 比如：在 data.stu 中添加 sex（性别）是可以的，但是在 data 中添加 country（国家）是不可以的！
+                        // 重要注意：Vue.set() 或 vm.$set() 只支持在一个已有的数据项（对象、数组）内添加新的数据，但是不支持在 data 中直接添加新的属性！！！
+                        // 比如：在 data.stu 中添加 sex（性别）是可以的，但是在 data 中添加 country（国家）是不可以的！
 
-                // 最佳实践：我们最好在编码时就预留好可能需要的数据，而不要后面再来添加！
-            }
-        }
-    })
-</script>
-</body>
+                        // 最佳实践：我们最好在编码时就预留好可能需要的数据，而不要后面再来添加！
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>

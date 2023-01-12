@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>天气案例（监视属性）</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    <h2>今天天气很{{info}}</h2>
-    <button @click="isHot = !isHot">切换天气</button>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>天气案例（监视属性）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>今天天气很{{info}}</h2>
+            <button @click="isHot = !isHot">切换天气</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            isHot: true
-        },
-        computed: {
-            info() {
-                if (this.isHot === true) {
-                    return '炎热';
-                } else {
-                    return '凉爽';
+            new Vue({
+                el: '#root',
+                data: {
+                    isHot: true
+                },
+                computed: {
+                    info() {
+                        if (this.isHot === true) {
+                            return '炎热';
+                        } else {
+                            return '凉爽';
+                        }
+                    }
+                },
+                // watch 监视某一个属性的变化，然后实现一些逻辑
+                watch: {
+                    isHot: {
+                        // immediate：初始化时先调用 handler 一下（默认 false：关闭，true：开启）
+                        immediate: false,
+                        // 当 isHot 发生改变时，自动调用 handler()
+                        handler(newValue, oldValue) {
+                            console.log('isHot新的值：' + newValue);
+                            console.log('isHot原来的值：' + oldValue);
+                        }
+                        // 除了 immediate 和 handler 之外还有很多的配置项
+                    },
+                    // 计算属性也可以监视
+                    info: {
+                        handler(newValue, oldValue) {
+                            console.log('info新的值：' + newValue);
+                            console.log('info原来的值：' + oldValue);
+                        }
+                    }
                 }
-            }
-        },
-        // watch 监视某一个属性的变化，然后实现一些逻辑
-        watch: {
-            isHot: {
-                // immediate：初始化时让 handler 先调用一下（默认 false：关闭，true：开启）
-                immediate: false,
-                // 当 isHot 发生改变时，调用 handler()
-                handler(newValue, oldValue) {
-                    console.log('isHot新的值：' + newValue);
-                    console.log('isHot原来的值：' + oldValue);
-                }
-                // 除了 immediate 和 handler 之外还有很多的配置项
-            },
-            // 计算属性也可以监视
-            info: {
-                handler(newValue, oldValue) {
-                    console.log('info新的值：' + newValue);
-                    console.log('info原来的值：' + oldValue);
-                }
-            }
-        }
-    })
-</script>
-</body>
+                // isHot新的值：false
+                // isHot原来的值：true
+                // info新的值：凉爽
+                // info原来的值：炎热
+            });
+        </script>
+    </body>
 </html>

@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>天气案例（计算属性实现）</title>
-    <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="root">
-    <h2>今天天气很{{info}}</h2>
-    <!-- <button @click="changeWeather">切换天气</button> -->
-    <!-- 对于一些比较简单的逻辑，写到 methods 中调用太杀鸡用牛刀了，如果是简单的表达式可以直接写到 Vue 事件中 -->
-    <!-- 但是但凡逻辑稍微有点复杂，并且不是简单的表达式能够实现的，那么这样的做法就是不可行的！依旧还是要使用 methods -->
-    <button @click="isHot = !isHot">切换天气</button>
-</div>
-<script>
-    Vue.config.productionTip = false;
+    <head>
+        <meta charset="UTF-8" />
+        <title>天气案例（计算属性实现）</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>今天天气很{{info}}</h2>
+            <!-- <button @click="changeWeather">切换天气</button> -->
+            <!-- 对于一些比较简单的逻辑，写到 methods 中调用太杀鸡用牛刀了，如果是简单的表达式可以直接写到 Vue 事件中 -->
+            <button @click="isHot = !isHot">切换天气</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
 
-    new Vue({
-        el: '#root',
-        data: {
-            isHot: true
-        },
-        computed: {
-            info() {
-                if (this.isHot === true) {
-                    return '炎热';
-                } else {
-                    return '凉爽';
+            new Vue({
+                el: '#root',
+                data: {
+                    isHot: true
+                },
+                computed: {
+                    info() {
+                        if (this.isHot === true) {
+                            return '炎热';
+                        } else {
+                            return '凉爽';
+                        }
+                    }
+                },
+                methods: {
+                    // changeWeather() {
+                    //     this.isHot = !this.isHot;
+                    // }
                 }
-            }
-        },
-        methods: {
-            // changeWeather() {
-            //     this.isHot = !this.isHot;
-            // }
-        }
-    })
-</script>
-</body>
+            });
+        </script>
+    </body>
 </html>
