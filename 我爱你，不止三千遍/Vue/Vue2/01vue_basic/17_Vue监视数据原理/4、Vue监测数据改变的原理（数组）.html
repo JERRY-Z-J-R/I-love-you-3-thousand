@@ -7,7 +7,7 @@
     </head>
     <body>
         <!--
-        通过包裹数组更新元素的方法实现，本质就是做了两件事：
+        数组更新元素的原理，本质就是做了两件事：
                 (1)、调用原生对应的方法对数组进行更新
                 (2)、重新解析模板，进而更新页面
         在 Vue 修改数组中的某个元素一定要用如下方法：
@@ -31,7 +31,6 @@
             <ul v-for="(f, index) in stu.friends" :key="index">
                 <li>{{ f.name }} -- {{ f.age }}</li>
             </ul>
-            <h2>爱好</h2>
             <!--
             Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。
             这些被包裹过的方法包括：
@@ -43,9 +42,6 @@
             sort()
             reverse()
              -->
-            <ul v-for="(h, index) in stu.hobbies" :key="index">
-                <li>{{ h }}</li>
-            </ul>
         </div>
         <script type="text/javascript">
             const vm = new Vue({
@@ -59,7 +55,6 @@
                             rage: 12,
                             sage: 29
                         },
-                        hobbies: ['抽烟', '喝酒', '烫头'],
                         friends: [
                             { name: 'Jerry', age: 23 },
                             { name: 'Jane', age: 18 }
@@ -72,7 +67,9 @@
                     },
                     addF() {
                         this.stu.friends.push({ name: 'Joy', age: 20 });
-                        // this.$set(this.stu.friends, 2, {name: 'Joy', age: 20}) // 第二个是索引值
+                        // 或者使用 Vue.set() 或 vm.$set()
+                        // Vue.set(this.stu.friends, 2, { name: 'Joy', age: 20 });
+                        // this.$set(this.stu.friends, 2, { name: 'Joy', age: 20 }); // 第二个是索引值
                     }
                 }
             });
