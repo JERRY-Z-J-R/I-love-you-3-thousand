@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>多选-全选按钮</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <form @submit.prevent="demo">
+                爱好：学习<input type="checkbox" v-model="hobby" value="study" /> 打游戏<input type="checkbox" v-model="hobby" value="game" /> 吃饭<input type="checkbox" v-model="hobby" value="eat" /> 全选<input type="checkbox" v-model="checked" @change="changeAllChecked" /><br /><br />
+                <button>提交</button>
+            </form>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;
+
+            new Vue({
+                el: '#root',
+                data: {
+                    checked: false,
+                    checkedArr: ['study', 'game', 'eat'],
+                    hobby: ['study']
+                },
+                methods: {
+                    changeAllChecked() {
+                        if (this.checked) {
+                            this.hobby = this.checkedArr;
+                        } else {
+                            this.hobby = [];
+                        }
+                    },
+                    demo() {
+                        // 输出字符串对象（JSON 字符串）
+                        console.log(JSON.stringify(this.userInfo));
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

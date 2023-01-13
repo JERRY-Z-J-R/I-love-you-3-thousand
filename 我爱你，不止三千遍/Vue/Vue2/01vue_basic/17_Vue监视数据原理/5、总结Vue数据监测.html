@@ -67,45 +67,44 @@
                 <li v-for="(f,index) in student.friends" :key="index">{{f.name}}--{{f.age}}</li>
             </ul>
         </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;
+
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    student: {
+                        name: 'tom',
+                        age: 18,
+                        hobby: ['抽烟', '喝酒', '烫头'],
+                        friends: [
+                            { name: 'jerry', age: 35 },
+                            { name: 'tony', age: 36 }
+                        ]
+                    }
+                },
+                methods: {
+                    addSex() {
+                        // Vue.set(this.student,'sex','男');
+                        this.$set(this.student, 'sex', '男');
+                    },
+                    addFriend() {
+                        this.student.friends.unshift({ name: 'jack', age: 70 });
+                    },
+                    updateFirstFriendName() {
+                        // 修改对象的属性是可以直接修改的！
+                        this.student.friends[0].name = '张三';
+                    },
+                    addHobby() {
+                        this.student.hobby.push('学习');
+                    },
+                    updateHobby() {
+                        // this.student.hobby.splice(0, 1, '开车');
+                        // Vue.set(this.student.hobby, 0, '开车');
+                        this.$set(this.student.hobby, 0, '开车');
+                    }
+                }
+            });
+        </script>
     </body>
-
-    <script type="text/javascript">
-        Vue.config.productionTip = false;
-
-        const vm = new Vue({
-            el: '#root',
-            data: {
-                student: {
-                    name: 'tom',
-                    age: 18,
-                    hobby: ['抽烟', '喝酒', '烫头'],
-                    friends: [
-                        { name: 'jerry', age: 35 },
-                        { name: 'tony', age: 36 }
-                    ]
-                }
-            },
-            methods: {
-                addSex() {
-                    // Vue.set(this.student,'sex','男');
-                    this.$set(this.student, 'sex', '男');
-                },
-                addFriend() {
-                    this.student.friends.unshift({ name: 'jack', age: 70 });
-                },
-                updateFirstFriendName() {
-                    // 修改对象的属性是可以直接修改的！
-                    this.student.friends[0].name = '张三';
-                },
-                addHobby() {
-                    this.student.hobby.push('学习');
-                },
-                updateHobby() {
-                    // this.student.hobby.splice(0, 1, '开车');
-                    // Vue.set(this.student.hobby, 0, '开车');
-                    this.$set(this.student.hobby, 0, '开车');
-                }
-            }
-        });
-    </script>
 </html>
