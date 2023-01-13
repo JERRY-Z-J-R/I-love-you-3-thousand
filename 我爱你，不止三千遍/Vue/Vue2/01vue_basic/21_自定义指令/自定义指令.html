@@ -31,7 +31,7 @@
         <div id="root">
             <h2>{{name}}</h2>
             <h2>当前的n值是：<span v-text="n"></span></h2>
-            <!-- <h2>放大10倍后的n值是：<span v-big-number="n"></span> </h2> -->
+            <!-- <h2>放大10倍后的n值是：<span v-big-number="n"></span></h2> -->
             <h2>放大10倍后的n值是：<span v-big="n"></span></h2>
             <button @click="n++">点我n+1</button>
             <hr />
@@ -42,20 +42,18 @@
     <script type="text/javascript">
         Vue.config.productionTip = false;
 
-        /*
-        // 定义全局指令
-        Vue.directive('fbind', {
-            bind(element, binding){
-                element.value = binding.value;
-            },
-            inserted(element, binding){
-                element.focus();
-            },
-            update(element, binding){
-                element.value = binding.value;
-            }
-        })
-         */
+        // // 定义全局指令
+        // Vue.directive('fbind', {
+        //     bind(element, binding) {
+        //         element.value = binding.value;
+        //     },
+        //     inserted(element, binding) {
+        //         element.focus();
+        //     },
+        //     update(element, binding) {
+        //         element.value = binding.value;
+        //     }
+        // });
 
         new Vue({
             el: '#root',
@@ -64,12 +62,10 @@
                 n: 1
             },
             directives: {
-                /*
-                // 指令名如果是多个单词，要使用 kebab-case 命名方式
-                'big-number'(element, binding) {
-                    element.innerText = binding.value * 10;
-                },
-                 */
+                // // 指令名如果是多个单词，要使用 kebab-case 命名方式
+                // 'big-number'(element, binding) {
+                //     element.innerText = binding.value * 10;
+                // },
 
                 // 方式一：写成函数形式（能实现的功能细节局限）
                 // big函数何时会被调用？ 1、指令与元素成功绑定时（一上来）。 2、指令所在的模板被重新解析时（只要 data 中的任何数据有变化，都会调用，无论指令用没用到）

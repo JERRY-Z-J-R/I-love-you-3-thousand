@@ -4,8 +4,13 @@
         <meta charset="UTF-8" />
         <title>v-cloak指令</title>
         <!-- 引入Vue -->
-        <!-- 直接在 <head></head> 中引入的 js 文件默认请求不到会自动发生 JS 阻塞，那么就可以不用 v-cloak 来解决，但是我们一般不建议把 js 文件放在 head 中 -->
-        <!-- <script type="text/javascript" src="http://localhost:8080/resource/5s/vue.js"></script> -->
+        <!--
+        在 head 中引入的 js 文件请求不到时会阻塞整个 html 页面（页面空白）且后续的 js 代码也会被阻塞，但是我们一般不建议把 js 文件放在 head 中，而是放到 body 结束前
+        在 body 结束前引入的 js 文件请求不到时不会阻塞 html 页面（页面有内容）但会阻塞后续的 js 代码，由于 js 文件请求不到，后续 js 代码执行不了，所以页面中的 {{xxx}} 会原模原样的显示！
+        我们可以利用 v-cloak 来解决 js 阻塞时 {{xxx}} 显示问题
+        -->
+        <!-- 注意：要测试本案例，请先打开浏览器控制台，并点击：网络 ——> 限制 ——> 慢速3G或自定义网络延迟，且再次测试请先清除浏览器缓存！-->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
         <style>
             /* 属性选择器：选中标签中有 v-cloak 的元素 */
             [v-cloak] {
@@ -18,24 +23,26 @@
         v-cloak 指令（不带值）：
             1、本质是一个特殊属性，Vue 实例创建完毕并接管容器后，会删掉 v-cloak 属性。
             2、使用 css 配合 v-cloak 可以解决网速慢时页面展示出 {{xxx}} 的问题。
-                当网络慢或者出现问题时，vue.js 资源会占时一下请求不过来，此时为了避免页面上展示骨架，可以用 v-cloak 配合 css 解决，
+                当网络慢或者出现问题时，js 资源会占时一下请求不过来，此时为了避免页面上展示骨架，可以用 v-cloak 配合 css 解决，
                 直到 vue.js 资源响应到达后，vue 一但接管 dom，就会先删除 v-cloak 属性，然后正常渲染页面。
          -->
         <div id="root">
-            <h2 v-cloak>{{name}}</h2>
+            <h2>姓名1：{{name}}</h2>
+            <h2 v-cloak>姓名2：{{name}}</h2>
         </div>
-        <script type="text/javascript" src="http://localhost:8080/resource/5s/vue.js"></script>
+
+        <!-- 注意：要测试本案例，请先打开浏览器控制台，并点击：网络 ——> 限制 ——> 慢速3G或自定义网络延迟，且再次测试请先清除浏览器缓存！-->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script type="text/javascript">
+            console.log('js代码被执行');
+            Vue.config.productionTip = false;
+
+            new Vue({
+                el: '#root',
+                data: {
+                    name: '尚硅谷'
+                }
+            });
+        </script>
     </body>
-
-    <script type="text/javascript">
-        console.log(1);
-        Vue.config.productionTip = false;
-
-        new Vue({
-            el: '#root',
-            data: {
-                name: '尚硅谷'
-            }
-        });
-    </script>
 </html>

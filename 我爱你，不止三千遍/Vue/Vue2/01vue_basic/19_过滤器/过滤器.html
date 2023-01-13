@@ -11,14 +11,14 @@
         过滤器：
             定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理，复杂的请用其它方式）
             语法：
-                    1、注册过滤器：Vue.filter(name, callback) 或 new Vue{filters:{}}
+                    1、注册过滤器：Vue.filter(name, callback)（全局） 或 new Vue{filters:{}}（局部）
                     2、使用过滤器：{{ xxx | 过滤器名}}  或  v-bind:属性 = "xxx | 过滤器名"
                     注意：| （管道符：将前者的执行结果作为参数传递给后者）
             备注：
                     1、过滤器也可以接收额外参数、多个过滤器也可以串联
                     2、并没有改变原本的数据, 是返回新的数据
          -->
-        <div id="root">
+        <div id="root1">
             <h2>显示格式化后的时间</h2>
             <!-- 计算属性实现 -->
             <h3>现在是：{{fmtTime}}</h3>
@@ -33,7 +33,7 @@
             <!-- 先将 time 和 'YYYY_MM_DD' 传到 timeFormater 中过滤，再将过滤器的返回值传递到 mySlice 中过滤 -->
             <h3>现在是：{{time | timeFormater('YYYY_MM_DD') | mySlice}}</h3>
             <!-- 过滤器不止可以在插值表达式中使用，还可以在属性中使用（v-bound），当然也仅限于这两个地方使用 -->
-            <h3 :x="msg | mySlice">尚硅谷</h3>
+            <!-- <h3 :x="msg | mySlice">尚硅谷</h3> -->
         </div>
 
         <div id="root2">
@@ -43,13 +43,17 @@
 
     <script type="text/javascript">
         Vue.config.productionTip = false;
-        // 全局过滤器
+
+        // 全局过滤器（写在 new Vue 前）
+        // 注意：Vue.filter 即可以写成 function(){}，也可以写成箭头函数，因为 Vue.filter 是全局的，不是单独为某一个 vm（组件）服务，所以 this 无论如何都是 window
+        // 建议依旧写成 function(){}
         Vue.filter('mySlice', function (value) {
+            // console.log(this);
             return value.slice(0, 4);
         });
 
         new Vue({
-            el: '#root',
+            el: '#root1',
             data: {
                 time: 1621561377603, // 时间戳
                 msg: '你好，尚硅谷'
@@ -77,7 +81,7 @@
         });
 
         // 定义一个新的 vm（在实际开发中一般是一个新的组件，这里定义一个新的 vm 模拟一下）
-        // 默认写在 vm 中的过滤器是局部的，不同 vm（组件）之间不能共用，所以如果我们需要定义全局作用域，可以在 new Vue 之前用 Vue.filter()
+        // 默认写在 vm 中的过滤器是局部的，不同 vm（组件）之间不能共用，所以如果我们需要定义全局作用域的过滤器，可以在 new Vue 之前用 Vue.filter()，注意：一定是 new Vue 之前！
         new Vue({
             el: '#root2',
             data: {

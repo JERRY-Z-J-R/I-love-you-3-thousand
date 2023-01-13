@@ -25,7 +25,7 @@
          -->
         <div id="root">
             <!-- 表单提交时触发，阻止默认实践，并执行 demo() -->
-            <form @submit.prevent="demo">
+            <form @submit.prevent="demo()">
                 账号：<input type="text" v-model.trim="userInfo.account" /> <br /><br />
                 密码：<input type="password" v-model.trim="userInfo.password" /> <br /><br />
                 年龄：<input type="number" v-model.number="userInfo.age" /> <br /><br />

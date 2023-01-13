@@ -34,8 +34,8 @@
         5、Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
          -->
         <div id="root">
-            <input type="text" placeholder="按下回车键提示输入" @keyup.enter="showInfo" />
-            <input type="text" placeholder="按下回车键提示输入" @keyup.huiche="showInfo" />
+            <input type="text" placeholder="按下回车键提示输入" @keyup.enter="showInfo()" />
+            <input type="text" placeholder="按下回车键提示输入" @keyup.huiche="showInfo()" />
         </div>
         <script>
             Vue.config.productionTip = false;

@@ -57,6 +57,7 @@
 
             // 第二种监视方式的简写形式（前提条件：没有多余的配置项）
             // 注意：不能使用箭头函数！（Vue 管理的函数都不能写箭头函数）
+            // 这里写成箭头函数也不会有问题，因为这里没有用到 this，但请不要这么做！
             vm.$watch('isHot', function (newValue, oldValue) {
                 console.log('isHot新的值：' + newValue);
                 console.log('isHot原来的值：' + oldValue);

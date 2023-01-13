@@ -16,6 +16,7 @@
             （如果是 window 的话，this 就访问不到 vm 中的数据了！！！）
             4、methods 中配置的函数，都是被 Vue 所管理的函数，this 的指向是 vm 或 组件实例对象（后面学习）
             5、@click="demo" 和 @click="demo($event)" 效果一致，但后者可以传参 demo($event, a, b, c)，其中 $event 代表本次事件的信息
+                （推荐：即便不传递任何参数也加上()，这样语义化比较明显！demo()）
             6、methods 中配置的函数，最终还是成为了 Vue 实例的方法，但是与 data 不同的是，这些方法是不会被数据代理的！
             （我们可以在 Vue 实例中找到 data 中属性的 getter 与 setter，但是肯定找不到 methods 中方法的 getter 与 setter）
                 表面上来看，data 或 methods 最终都是跑到 Vue 实例身上，那么把方法写到 data 里也可以呀？确实可以，但是写在 data 里的
@@ -26,7 +27,9 @@
             <h2>欢迎来到{{name}}学习！</h2>
             <!-- <button v-on:click="showInfo">点我提示信息</button> -->
             <!-- 如果没有参数，或者参数只有 event，那么可以不加() -->
-            <button @click="showInfo1">点我提示信息（不传参）</button>
+            <!-- <button @click="showInfo1">点我提示信息（不传参）</button> -->
+            <!-- 推荐加上() -->
+            <button @click="showInfo1()">点我提示信息（不传参）</button>
             <!-- 假设 @click="showInfo2(66)"，那么可以传参，但是 event 就接收不到了！需要用 $event 来占位 -->
             <button @click="showInfo2($event, 66)">点我提示信息（传参）</button>
         </div>

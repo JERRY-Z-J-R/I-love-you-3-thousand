@@ -9,8 +9,8 @@
     </head>
     <body>
         <div id="root">
-            <form @submit.prevent="demo">
-                爱好：学习<input type="checkbox" v-model="hobby" value="study" /> 打游戏<input type="checkbox" v-model="hobby" value="game" /> 吃饭<input type="checkbox" v-model="hobby" value="eat" /> 全选<input type="checkbox" v-model="checked" @change="changeAllChecked" /><br /><br />
+            <form @submit.prevent="demo()">
+                爱好：学习<input type="checkbox" v-model="hobby" value="study" /> 打游戏<input type="checkbox" v-model="hobby" value="game" /> 吃饭<input type="checkbox" v-model="hobby" value="eat" /> 全选<input type="checkbox" v-model="checked" @change="changeAllChecked()" /><br /><br />
                 <button>提交</button>
             </form>
         </div>

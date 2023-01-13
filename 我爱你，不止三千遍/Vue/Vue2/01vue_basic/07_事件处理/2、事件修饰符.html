@@ -50,20 +50,20 @@
          -->
         <div id="root">
             <h2>欢迎来到{{name}}学习</h2>
-            <!-- <a href="http://www.atguigu.com" @click="showInfo">点我提示信息</a> -->
+            <!-- <a href="http://www.atguigu.com" @click="showInfo()">点我提示信息</a> -->
             <!-- 设置事件修饰符：prevent 阻止默认事件（常用） -->
-            <a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+            <a href="http://www.atguigu.com" @click.prevent="showInfo()">点我提示信息</a>
 
             <!-- stop 阻止事件冒泡（常用） -->
-            <div class="demo1" @click="showInfo">
+            <div class="demo1" @click="showInfo()">
                 <!-- 如果不阻止事件冒泡，将会 alert 两次（第一次内层元素被触发，第二次外层元素被触发） -->
-                <!-- <button @click="showInfo">点我提示信息</button> -->
+                <!-- <button @click="showInfo()">点我提示信息</button> -->
                 <!--（stop 应该加在内层元素）-->
-                <button @click.stop="showInfo">点我提示信息</button>
+                <button @click.stop="showInfo()">点我提示信息</button>
             </div>
 
             <!-- once 事件只触发一次（常用） -->
-            <button @click.once="showInfo">点我提示信息</button>
+            <button @click.once="showInfo()">点我提示信息</button>
 
             <!-- capture 事件捕获模式 -->
             <!--（capture 应该加在外层元素）-->
@@ -80,9 +80,9 @@
             <!-- 所以我们在中间的 div 中加 .self 的意思就是，当这个 div 的 click 事件被触发，并且 event.target 还得是这个 div 那么，事件才会生效！ -->
             <!-- 所以 .self 就可以用来实现阻止事件冒泡 -->
             <!-- 所以，这里点击 button 后会 alert 两次（中间的 demo2 没有触发），而假如没加 self 则会 alert 三次 -->
-            <div class="demo1" @click="showInfo">
-                <div class="demo2" @click.self="showInfo">
-                    <button @click="showInfo">点我提示信息</button>
+            <div class="demo1" @click="showInfo()">
+                <div class="demo2" @click.self="showInfo()">
+                    <button @click="showInfo()">点我提示信息</button>
                 </div>
             </div>
 

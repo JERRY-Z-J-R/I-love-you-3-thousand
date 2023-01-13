@@ -8,7 +8,7 @@
     <body>
         <div id="root">
             <h2>今天天气很{{isHot === true ? '炎热' : '凉爽'}}</h2>
-            <button @click="changeWeather">切换天气</button>
+            <button @click="changeWeather()">切换天气</button>
         </div>
         <script>
             Vue.config.productionTip = false;
