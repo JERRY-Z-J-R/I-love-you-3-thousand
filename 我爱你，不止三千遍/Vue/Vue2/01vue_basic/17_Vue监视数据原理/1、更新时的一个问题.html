@@ -30,11 +30,12 @@
                         // this.persons[1].age = 50;       // 奏效
                         // this.persons[1].sex = '男';     // 奏效
                         // 下面这列的写法，修改后是不奏效的，vue 无法监测其数据
+                        // this.persons[1] = {id: '002', name: '马老师', age: 50, sex: '男'};   // 不奏效
                         // 从代码的角度来看，确实 persons 中的第一项已经在内存中被替换了，但是 Vue 监视不到
                         // 要弄清除原因，我们必须知道 Vue 底层监视数据的原理！
-                        // this.persons[1] = {id: '002', name: '马老师', age: 50, sex: '男'};
                         // 要实现修改数组的需求，我们需要这样做：（具体原因后面讲解）
-                        this.persons.splice(1, 1, { id: '002', name: '马老师', age: 50, sex: '男' });
+                        // 从索引为 1 的位置删除 1 个元素，并插入新元素
+                        // this.persons.splice(1, 1, { id: '002', name: '马老师', age: 50, sex: '男' });
                     }
                 }
             });
