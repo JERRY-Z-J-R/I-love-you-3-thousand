@@ -1,10 +1,16 @@
+<!-- 每个 .vue 文件就是一个 Vue 组件 -->
+<!-- 其文件名必须与组件名称对应 -->
+<!-- template 不再写在配置对象中，而是写在 <template> 中 -->
+<!-- <template>、<script>、<style> 三者单独存在于组件文件中 -->
+
 <template>
-  <div>
-    <!-- assets：静态资源文件夹 -->
-    <img src="./assets/logo.png" alt="logo">
-    <TheSchool></TheSchool>
-    <TheStudent></TheStudent>
-  </div>
+    <!-- vue2.0 必须有一个根标签包裹 -->
+    <div>
+        <!-- assets：静态资源文件夹 -->
+        <img src="./assets/logo.png" alt="logo" />
+        <TheSchool></TheSchool>
+        <TheStudent></TheStudent>
+    </div>
 </template>
 
 <script>
@@ -18,10 +24,10 @@ import TheSchool from './components/TheSchool';
 import TheStudent from './components/TheStudent';
 
 export default {
-  name: 'App',
-  components: {
-    TheSchool,
-    TheStudent
-  }
-}
+    name: 'App',
+    components: {
+        TheSchool,
+        TheStudent
+    }
+};
 </script>

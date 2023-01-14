@@ -4,11 +4,11 @@
  * 附：使用 vue inspect > output.js 可以查看到 vue-cli 的默认配置，但是修改不会生效！
  * 参考文档：https://cli.vuejs.org/zh/config/
  */
-const {defineConfig} = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
     // 默认情况下 babel-loader 会忽略所有 node_modules 中的文件。你可以启用本选项，以避免构建后的代码中出现未转译的第三方依赖
     transpileDependencies: true,
-    lintOnSave: false,     // 是否开启语法检测
+    lintOnSave: false // 是否开启语法检测（这是使用 Vue 的官方 ESLint 来规范代码编写，一般情况下我们是关闭的！虽然开启后能让我们的代码质量大大提高，但是对于不太熟悉 Vue ESLint 规则的人来说，开启之后警告和报错太多了！）
     /*
     pages: {
         index: {
@@ -32,4 +32,4 @@ module.exports = defineConfig({
         subpage: 'src/subpage/main.js'
     }
     */
-})
+});
