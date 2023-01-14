@@ -14,14 +14,42 @@
             4、生命周期函数中的 this 指向是 vm 或 组件实例对象。
          -->
         <div id="root">
-            <h2 v-if="a">你好啊</h2>
-            <!-- css：opacity 属性指定了一个元素的不透明度 -->
+            <!-- 需求：让 “欢迎学习Vue” 在页面上呈现呼吸效果（循环不透明度） -->
+            <!-- css：opacity 属性用于指定了一个元素的不透明度，范围为 [0, 1] 从 0.0 （完全透明）到 1.0（完全不透明）-->
+            <!-- 绑定 style 样式 对象写法 -->
+            <!-- 注意：这里实际上是 :style="{opacity: opacity}"，对象中 key 与 value 相等可以省略 key -->
             <!-- <h2 :style="{opacity}">欢迎学习Vue</h2> -->
-            <!-- {{opacityChange()}} -->
-            <!-- 不可以通过上述这样来实现，因为：一但调用了 opacityChange() 就会开启定时器，就会修改 opacity， -->
-            <!-- opacity 一但修改，Vue 就会重新解析模板，重新解析模板就会又调用 opacityChange()，周而复始…… -->
-
-            <!-- 注意：这里实际上是：:style="{opacity: opacity}"，对象中 key 与 value 相等可以省略 key -->
+            <!-- 
+                 {{opacityChange()}}
+                 不可以通过上述这样来实现，因为：一但调用了 opacityChange() 就会开启定时器，就会修改 opacity，
+                 opacity 一但修改，Vue 就会重新解析模板，重新解析模板就会又调用 opacityChange()，开启了一个又一个定时器，无限循环……
+             -->
+            <!-- 更不能这样写：
+                    <script>
+                        new Vue({...});
+                        ...
+                        // 页面加载之后，自动调用
+                        window.onload = () => {
+                            vm.opacityChange();
+                        };
+                    </script>
+                虽然也能实现效果，但有更好的方法，一定不要这样写！
+             -->
+            <!-- 也不能这样写：
+                    <script>
+                        new Vue({...});
+                        ...
+                        // 通过外部的定时器实现
+                        setInterval(() => {
+                            vm.opacity -= 0.01;
+                            // 由于 js 对于小数的加减可能会有误差，所以判断时最好写成 <= 0 而不是 === 0
+                            if(vm.opacity <= 0) vm.opacity = 1;
+                        }, 16);
+                    </script>
+                虽然也能实现效果，但有更好的方法，一定不要这样写！
+             -->
+            <!-- 要是，Vue 能在页面被显示的前一刻通知我们一下，我们再调用定时器就好了！-->
+            <!-- 好消息，Vue 的生命周期函数可以帮助我们解决痛点！ -->
             <h2 :style="{opacity}">欢迎学习Vue</h2>
         </div>
     </body>
@@ -32,33 +60,29 @@
         new Vue({
             el: '#root',
             data: {
-                a: false,
                 opacity: 1
             },
-            methods: {
-                opacityChange() {
-                    setInterval(() => {
-                        this.opacity -= 0.01;
-                        if (this.opacity <= 0) this.opacity = 1;
-                    }, 16);
-                }
-            },
+            // methods: {
+            //     opacityChange() {
+            //         setInterval(() => {
+            //             this.opacity -= 0.01;
+            //             // 由于 js 对于小数的加减可能会有误差，所以判断时最好写成 <= 0 而不是 === 0
+            //             if (this.opacity <= 0) this.opacity = 1;
+            //         }, 16);
+            //     }
+            // },
             // Vue 完成模板的解析并把初始的真实 DOM 元素放入页面后（挂载完毕）调用 mounted 生命周期函数
+            // 注意：是初始的真实 DOM，后面再次更新的不算，也就是说整个过程只会调用一次！
+            // mounted：挂载好的，安装好的
             mounted() {
-                console.log('mounted', this);
+                // 生命周期函数中的 this 指向是 vm 或 组件实例对象
+                // console.log('mounted', this);
                 setInterval(() => {
                     this.opacity -= 0.01;
+                    // 由于 js 对于小数的加减可能会有误差，所以判断时最好写成 <= 0 而不是 === 0
                     if (this.opacity <= 0) this.opacity = 1;
                 }, 16);
             }
         });
-
-        // 通过外部的定时器实现（不推荐）
-        /*
-        setInterval(() => {
-            vm.opacity -= 0.01;
-            if(vm.opacity <= 0) vm.opacity = 1;
-        }, 16);
-         */
     </script>
 </html>
