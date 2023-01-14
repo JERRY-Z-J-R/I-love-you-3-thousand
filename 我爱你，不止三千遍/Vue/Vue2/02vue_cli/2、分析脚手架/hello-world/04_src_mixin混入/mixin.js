@@ -10,8 +10,8 @@ export const hunhe = {
     // 虽然都执行，但是混入的执行在前，组件的执行在后
     mounted() {
         console.log('你好啊！');
-    },
-}
+    }
+};
 
 export const hunhe2 = {
     // 还可以配置数据（会将组件 data 与 混入数据 进行整合）
@@ -20,6 +20,6 @@ export const hunhe2 = {
         return {
             x: 100,
             y: 200
-        }
-    },
-}
+        };
+    }
+};
