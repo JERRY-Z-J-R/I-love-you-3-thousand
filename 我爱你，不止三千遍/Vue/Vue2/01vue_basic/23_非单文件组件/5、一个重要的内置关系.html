@@ -39,7 +39,8 @@
             },
             methods: {
                 showX() {
-                    console.log(this.x);
+                    // this 上没有 x 就会顺着原型链往上一直找，最终找到了 Vue.prototype 上
+                    console.log(this.x); // 99
                 }
             }
         });
@@ -55,6 +56,7 @@
 
         /*
         前置知识回顾：
+
         // 定义一个构造函数
         function Demo(){
             this.a = 1;
@@ -73,7 +75,8 @@
         // 程序员通过显示原型属性操作原型对象，追加一个 x 属性，值为 99
         Demo.prototype.x = 99;
 
-        console.log(d.x);                // 99
+        // d 上没有 x，就会顺着原型链往上找
+        console.log(d.x);   // 99
          */
     </script>
 </html>

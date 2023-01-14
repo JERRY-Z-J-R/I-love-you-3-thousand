@@ -21,8 +21,7 @@
             (2) new Vue(options) 配置中：
                     data 函数、methods 中的函数、watch 中的函数、computed 中的函数 它们的 this 均是【Vue 实例对象】
 
-            5、VueComponent 的实例对象，以后简称 vc（也可称之为：组件实例对象）。
-            Vue 的实例对象，以后简称 vm。
+            5、VueComponent 的实例对象，以后简称 vc（也可称之为：组件实例对象）。Vue 的实例对象，以后简称 vm。
          -->
         <!-- 准备好一个容器 -->
         <div id="root">
@@ -52,7 +51,7 @@
             },
             methods: {
                 showName() {
-                    console.log('showName', this);
+                    console.log('showName', this.name);
                 }
             }
         });
@@ -86,6 +85,8 @@
             el: '#root',
             components: { school, hello }
         });
+
+        // console.log(vm);
 
         // vm 中会存在 $children: Array(2)，里面就是 school 的 vc 和 hello 的 vc
         // 这也就证明了 vm 在管理全部的组件

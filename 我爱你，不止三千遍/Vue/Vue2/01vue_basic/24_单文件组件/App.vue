@@ -1,5 +1,5 @@
 <template>
-    <!-- vue2.0 必须有一个根标签包裹 -->
+    <!-- vue2 必须有一个根标签包裹，通常我们用 div -->
     <div>
         <School></School>
         <Student></Student>
