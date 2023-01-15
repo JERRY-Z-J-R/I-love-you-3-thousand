@@ -10,7 +10,7 @@ import MyItem from './MyItem';
 export default {
     name: 'MyList',
     components: { MyItem },
-    // 声明接收 App 传递过来的数据，其中 todos 是自己用的，checkTodo 和 deleteTodo 是给子组件 MyItem 用的
+    // 声明接收 App 传递过来的数据，其中 todos 是自己用的，checkTodo 和 deleteTodo 是给继续向下传递给子组件 MyItem 用的
     props: ['todos', 'checkTodo', 'deleteTodo']
 };
 </script>

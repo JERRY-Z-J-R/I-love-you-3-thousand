@@ -3,8 +3,8 @@
         <label>
             <!-- 当 checkbox 状态发生改变时触发 change 事件 -->
             <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)" />
-            <!-- 如下代码也能实现功能，但是不太推荐，因为有点违反原则，因为修改了props -->
-            <!-- <input type="checkbox" v-model="todo.done"/>-->
+            <!-- 如下代码也能实现功能，但是不太推荐，因为有点违反原则，直接修改了 props -->
+            <!-- <input type="checkbox" v-model="todo.done"/> -->
             <span>{{ todo.title }}</span>
         </label>
         <!-- 注意：delete 是 js 关键字，不要作为方法名 -->
@@ -15,18 +15,18 @@
 <script>
 export default {
     name: 'MyItem',
-    // 声明接收todo、checkTodo、deleteTodo
+    // 声明接收 todo、checkTodo、deleteTodo
     props: ['todo', 'checkTodo', 'deleteTodo'],
     methods: {
-        // 勾选or取消勾选
+        // 勾选 or 取消勾选
         handleCheck(id) {
-            // 通知App组件将对应的todo对象的done值取反
+            // 通知 App 组件将对应的 todo 对象的 done 值取反（回调函数）
             this.checkTodo(id);
         },
         // 删除
         handleDelete(id) {
             if (confirm('确定删除吗？')) {
-                // 通知App组件将对应的todo对象删除
+                // 通知 App 组件将对应的 todo 对象删除（回调函数）
                 this.deleteTodo(id);
             }
         }

@@ -7,21 +7,61 @@
     </head>
     <body>
         <!--
-        收集表单数据：
-            若：<input type="text"/>，则 v-model 收集的是 value 值，用户输入的就是 value 值。
-            若：<input type="radio"/>（单选），则 v-model 收集的是 value 值，且必须给标签配置 value 值。
-            若：<input type="checkbox"/>（多选）
-                    1.没有配置 input 的 value 属性，那么 v-model 收集的就是 checked（勾选 or 未勾选，即：true or false）
-                    2.配置 input 的 value 属性:
-                            (1) v-model 的初始值是非数组，那么收集的就是 checked（勾选 or 未勾选，即：true or false）
-                            (2) v-model 的初始值是数组，那么收集的的就是 value 组成的数组
-                    （多选，一般都会配置 input 的 value 值，且 v-model 初始值为数组）
-            若：<select>（下拉菜单选项），则内部 <option> 必须配置 value 值，且 v-model 收集的是 value 值
+        html表单：
+            <input/>：text（文本框）、radio（单选框）、checkbox（多选框）
+                <input type="text"/>：数据在 value="" 属性中（我们一般不会加上 value，除非要指定默认值），默认值配置：value="..."
+                <input type="radio"/>：数据在 value="" 属性中（我们要指定 value，否则就没值了），默认选中配置：checked="checked"（在一组单选按钮中，要求它们必须拥有相同的 name=""）
+                <input type="checkbox"/>：数据在 value="" 属性中（我们要指定 value，否则就没值了），默认选中配置：checked="checked"（在一组多选按钮中，要求它们必须拥有相同的 name=""）
+            <select>：下拉选项，数据在 <option value=""> 中（我们要指定 value，不指定的话 value 默认取 <option>xxx</option> 中的 xxx 值），默认选中配置：<option selected="selected">
+            <textarea>：文段框，数据在 value="" 属性中（我们一般不会加上 value，除非要指定默认值），默认值配置：value="..."
+        注意：
+            1.对于单选和多选，当 html 页面被浏览器渲染后，浏览器就会给单选和多选的表单元素添加 checked 属性，其值为是否选中的状态 true 或 false，每次我们在页面上 勾选 或 取消勾选，浏览器都会重新更新 checked 属性的值！
+            2.单选和多选的默认选中请配置 checked="checked"，而不要配置 checked="true"！因为 checked 属性的 true 或 false 是 html 被浏览器渲染后，浏览器根据实际选中与否为其 checked 更新的值，我们只能用 js 来操作！
+            3.虽然 checked 属性不能直接在表单元素标签中设置（checked="checked" 除外）但我们是可以通过 js 来读取设置 checked 属性的！
+            4.对于一组单选来说，当我们用 js 修改某个选项的 checked 为 true，那么其他的选项会自动变为 false！
+
+        Vue收集表单数据：
+            在原生的 html 表单使用的基础上，由于 Vue 要绑定 视图（DOM）与 数据（data），所以我们需要为每个表单元素在 data 中创建一个属性来绑定其值！
+            使用方法：
+                1.在 data 中创建相应的属性
+                2.在表单元素上加上 v-model="data中的属性名"
+                v-model 会根据不同的表单类型，自动将 data 中的数据与表单元素的值自动绑定上！
+            具体规则是：
+                <input type="text"/>：v-model 自动绑定 value 属性，即：v-model="" 等同于 v-model:value=""
+                <input type="radio"/>：必须配置 input 的 value 属性：v-model 自动绑定 value 属性，即：v-model="" 等同于 v-model:value=""，如果没有 value 属性，那么 v-model 绑定的是 null！
+                <input type="checkbox"/>：
+                    1.配置了 input 的 value 属性：
+                        (1) v-model 绑定的 data 属性的初始值是数组，那么 v-model 绑定的就是 value 组成的数组
+                        (2) v-model 绑定的 data 属性的初始值不是数组，那么 v-model 绑定的就是 checked 的值（true 或 false），且只要有一个选中便都选中！只要有一个取消勾选便全部取消勾选！
+                    2.没配置 input 的 value 属性：
+                        (1) v-model 绑定的 data 属性的初始值是数组，数组会得到一个莫名其妙的 null 元素（千万不要这样做！）
+                        (2) v-model 绑定的 data 属性的初始值不是数组，那么 v-model 绑定的就是 checked 的值（true 或 false），且只要有一个选中便都选中！只要有一个取消勾选便全部取消勾选！
+                <select>：<option> 中 v-model 自动绑定 value 属性，即：v-model="" 等同于 v-model:value="" 
+                <textarea>：v-model 自动绑定 value 属性，即：v-model="" 等同于 v-model:value=""
+
+            注意：Vue 表单默认选中以及默认值不要使用原生 HTML 的 checked="checked"、selected="selected"、value="..."，而是直接在 data 中指定好初始数据即可！
+
             备注：v-model 的三个修饰符：
                     lazy：失去焦点再收集数据（即：失去焦点时再修改 data 中的数据，而不是随着输入实时修改）
                     number：输入字符串转为有效的数字（否则，单纯用 type="number" 得到的是字符串格式，不是数值格式）
                     trim：输入首尾空格过滤
-            注意：vue 表单默认选中不要使用原生 HTML 的 checked="checked" 和 selected="selected"，而是直接在 data 中指定好初始 value 数据即可！
+            
+            其它：由于 js 可以对 checked 属性进行操作，所以我们是可以用 v-bind 及 v-model 绑定 checked 属性的！
+                 例如：<input type="checkbox" :checked="status" /> 其中：status 是 data 中的一个属性，类型为布尔值
+                      <input type="checkbox" v-model:checked="status" /> 其中：status 是 data 中的一个属性，类型为布尔值
+                 注意：Vue 单选框用 v-bind 和 v-model 绑定 checked 属性会遇到严重的错误！
+                      因为，单选框一但被选中了，是不可以通过再次单击的方式取消选中的！
+                      需要取消选中，必须是处于“一组”单选框中（name 相同），当我们选择了另一个选项，那么本个选项就会被取消！
+                      这也是为什么对于单个选择（例如：同意条款），我们会用一个多选框来实现，而不是单选框，因为单选框选择后取消不了！
+                      即便是“一组”单选框，也不能绑定 checked 属性！因为一组单选框的 checked 值是同步变化的，你绑定值将全部变成 null！ 
+                      所以，千万不要给单选框绑定 checked 值！
+
+                 Vue 还提供了 change 事件，在 checked 发生改变时会自动触发
+                 例如：<input type="checkbox" @change="alert(status)" />
+                 与之相同的还有：
+                    text 和 textarea 当 value 改变时触发 input 事件；
+                    checkbox 和 radio 当 checked 改变时触发 change 事件；
+                    select 当 value 改变时触发 change 事件。
          -->
         <div id="root">
             <!-- 表单提交时触发，阻止默认实践，并执行 demo() -->
@@ -45,6 +85,21 @@
                 <input type="checkbox" v-model="userInfo.agree" />阅读并接受<a href="http://www.atguigu.com/">《用户协议》</a>
                 <button>提交</button>
             </form>
+            <!-- ------------------------------------- -->
+            <br />
+            <form>
+                男<input type="radio" name="sex" value="男" v-model="radioValue" @change="radioNanFn" />女<input type="radio" name="sex" value="女" v-model="radioValue" @change="radioNvFn" /><br />
+                <!-- 由于 checkbox 没有给 value 属性，所以 v-model 默认绑定的就是 checked -->
+                <!-- <input type="checkbox" v-model:checked="checkboxStatus" @change="checkboxFn" /><br /> -->
+                <input type="checkbox" v-model="checkboxStatus" @change="checkboxFn" /><br />
+                <input type="text" @input="textFn" v-model="testValue" /><br />
+                <select v-model="selectOption" @change="selectFn">
+                    <option value="清华">清华</option>
+                    <option value="北大">北大</option>
+                </select>
+                <br /><br />
+                <textarea cols="30" rows="10" v-model="textareaValue" @input="textareaFn"></textarea>
+            </form>
         </div>
         <script type="text/javascript">
             Vue.config.productionTip = false;
@@ -61,12 +116,35 @@
                         city: 'beijing',
                         other: '',
                         agree: ''
-                    }
+                    },
+                    radioValue: '',
+                    checkboxStatus: true,
+                    testValue: '',
+                    selectOption: '',
+                    textareaValue: ''
                 },
                 methods: {
                     demo() {
                         // 输出字符串对象（JSON 字符串）
                         console.log(JSON.stringify(this.userInfo));
+                    },
+                    radioNanFn() {
+                        alert('男被选中了！' + this.radioValue);
+                    },
+                    radioNvFn() {
+                        alert('女被选中了！' + this.radioValue);
+                    },
+                    checkboxFn() {
+                        alert('多选框的状态是：' + this.checkboxStatus);
+                    },
+                    textFn() {
+                        alert(this.testValue);
+                    },
+                    selectFn() {
+                        alert('你选择了：' + this.selectOption);
+                    },
+                    textareaFn() {
+                        alert(this.textareaValue);
                     }
                 }
             });

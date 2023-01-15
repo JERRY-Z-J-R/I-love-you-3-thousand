@@ -2,7 +2,7 @@
     <div class="todo-footer" v-show="total">
         <label>
             <!-- <input type="checkbox" :checked="isAll" @change="checkAll"/> -->
-            <!--:checked="isAll" 用于获取数据，@change="checkAll" 用于修改数据，所以可以统一合并为 v-model="isAll"-->
+            <!-- :checked="isAll" 用于获取数据，@change="checkAll" 用于修改数据，所以可以统一合并为 v-model="isAll"-->
             <!-- isAll 为计算属性，不存在直接修改 props -->
             <input type="checkbox" v-model="isAll" />
         </label>
