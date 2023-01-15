@@ -7,7 +7,7 @@ export default {
         console.log(x, y, z);
         // 全局过滤器
         Vue.filter('mySlice', function (value) {
-            return value.slice(0, 4)
+            return value.slice(0, 4);
         });
 
         // 定义全局指令
@@ -24,7 +24,7 @@ export default {
             update(element, binding) {
                 element.value = binding.value;
             }
-        })
+        });
 
         // 定义混入
         Vue.mixin({
@@ -32,13 +32,13 @@ export default {
                 return {
                     x: 100,
                     y: 200
-                }
-            },
-        })
+                };
+            }
+        });
 
-        // 给 Vue 原型上添加一个方法（vm 和 vc 就都能用了）
+        // 给 Vue 原型上添加一个方法（vm 和 vc 都能用）
         Vue.prototype.hello = () => {
             alert('你好啊');
-        }
+        };
     }
-}
+};

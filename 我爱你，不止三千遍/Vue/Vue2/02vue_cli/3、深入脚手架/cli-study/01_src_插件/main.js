@@ -6,8 +6,9 @@ import plugins from './plugins';
 Vue.config.productionTip = false;
 
 // 应用（使用）插件
+// 写在 new Vue 前
 Vue.use(plugins, 1, 2, 3);
 
 new Vue({
-  render: (h) => h(App),
+    render: h => h(App)
 }).$mount('#app');
