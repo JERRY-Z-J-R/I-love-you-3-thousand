@@ -11,9 +11,9 @@
             1、school 组件本质是一个名为 VueComponent 的构造函数，且不是程序员定义的，是 Vue.extend 生成的。
 
             2、我们只需要写 <school/> 或 <school></school>，Vue 解析时会帮我们创建 school 组件的实例对象，
-            即 Vue 帮我们执行的：new VueComponent(options)。
+            即 Vue 帮我们去执行：new VueComponent(options)。
 
-            3、特别注意：每次调用 Vue.extend，返回的都是一个全新的 VueComponent！！！！
+            3、特别注意：即便是同一个组件，每次调用 Vue.extend，返回的都是一个全新的 VueComponent！！！！
 
             4、关于 this 指向：
             (1) 组件配置中：
