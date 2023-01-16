@@ -1,8 +1,6 @@
 <template>
     <div class="todo-footer" v-show="total">
         <label>
-            <!-- <input type="checkbox" :checked="isAll" @change="checkAll"/> -->
-            <!-- :checked="isAll" 用于获取数据，@change="checkAll" 用于修改数据，所以可以统一合并为 v-model="isAll"-->
             <!-- isAll 为计算属性，不存在直接修改 props -->
             <input type="checkbox" v-model="isAll" />
         </label>
@@ -29,9 +27,12 @@ export default {
         },
         // 控制全选框
         isAll: {
-            // 全选框是否勾选（当有数据并且已完成=总数时勾选）
+            // isAll 被读取时 get 被调用
+            // 当有数据 && 已完成=总数 时勾选
             get() {
-                return this.doneTotal === this.total && this.total > 0;
+                // 计算属性是直接调用，不能加()，因为不是函数！
+                // return this.total() > 0 && this.doneTotal() === this.total(); // 错误！！！
+                return this.total > 0 && this.doneTotal === this.total;
             },
             // isAll 被修改时 set 被调用
             set(value) {
@@ -40,14 +41,6 @@ export default {
         }
     },
     methods: {
-        // 清空所有已完成
-        /*
-        // 与 <input type="checkbox" :checked="isAll" @change="checkAll"/> 搭配
-        checkAll(e){
-          this.checkAllTodo(e.target.checked)
-        }
-         */
-
         // 清空所有已完成
         clearAll() {
             this.clearAllTodo();
