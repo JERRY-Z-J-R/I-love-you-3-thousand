@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
     el: '#app',
     render: h => h(App),
     beforeCreate() {
-        Vue.prototype.$bus = this
-    },
-})
+        Vue.prototype.$bus = this;
+    }
+});
 
 /*
 补充：由于本案例用到了 bootstrap.css，所以我们必须进行引入
