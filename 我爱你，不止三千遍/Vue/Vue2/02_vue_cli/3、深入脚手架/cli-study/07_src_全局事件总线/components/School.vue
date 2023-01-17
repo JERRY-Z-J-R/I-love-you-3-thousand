@@ -15,6 +15,7 @@ export default {
         };
     },
     mounted() {
+        // 回调要么在 methods 中，要么使用箭头函数！
         this.$bus.$on('hello', data => {
             console.log('我是School组件，收到了数据', data);
         });
