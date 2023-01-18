@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <Count/>
-  </div>
+    <div>
+        <Count />
+    </div>
 </template>
 
 <script>
-import Count from './components/Count'
+import Count from './components/Count';
 
 export default {
-  name: 'App',
-  components: {Count}
-}
+    name: 'App',
+    components: { Count }
+};
 </script>
