@@ -4,9 +4,11 @@
         <div>
             <ul class="nav nav-tabs">
                 <li>
+                    <!-- 嵌套路由跳转路径要写完整路径 -->
                     <router-link class="list-group-item" active-class="active" to="/home/news">News</router-link>
                 </li>
                 <li>
+                    <!-- 嵌套路由跳转路径要写完整路径 -->
                     <router-link class="list-group-item" active-class="active" to="/home/message">Message</router-link>
                 </li>
             </ul>

@@ -57,6 +57,17 @@
                 <h2>尚硅谷</h2>
                 <h2>北京</h2>
             </template>
+
+            <!-- v-if 指令会根据表达式重建或销毁元素或组件以及它们所绑定的事件！（关于组件后面讲）v-show 指令只是简单地设置 css 属性 -->
+            <!-- v-if 组件未销毁问题的解决方案（以后可能遇到） -->
+            <!-- 复用多个相似的组件，在用 v-if 配合开关进行展示的时候，组件可能出现未被成功销毁的情况 -->
+            <!-- 解决办法：给组件添加不同的 :key="" -->
+            <!-- 出现问题的代码 -->
+            <!-- <List v-if="whichList===2" :whichList="2"></List> -->
+            <!-- <List v-if="whichList===1" :whichList="1"></List> -->
+            <!-- 解决后： -->
+            <!-- <List v-if="whichList===2" :whichList="2" :key="2"></List> -->
+            <!-- <List v-if="whichList===1" :whichList="1" :key="1"></List> -->
         </div>
         <script>
             Vue.config.productionTip = false;
