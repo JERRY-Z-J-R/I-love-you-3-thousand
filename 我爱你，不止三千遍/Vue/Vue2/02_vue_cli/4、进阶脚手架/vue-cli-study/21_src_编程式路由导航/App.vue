@@ -13,7 +13,6 @@
             <div class="col-xs-6">
                 <div class="panel">
                     <div class="panel-body">
-                        <!-- 指定组件的呈现位置 -->
                         <router-view></router-view>
                     </div>
                 </div>
