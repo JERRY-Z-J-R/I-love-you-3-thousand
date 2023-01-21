@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 源数据
+            let person = {
+                name: '张三',
+                age: 18
+            };
+
+            // 模拟 Vue3 中实现响应式
+            // ES6 提供的 Proxy 代理函数，能用来映射对某个对象的操作
+            // 第一个参数：被代理对象(源对象)，第二个参数：配置对象（没有配置时可以为空对象）
+            // 返回值：Proxy 代理对象
+            // const p = new Proxy(person, {});
+            // 对代理对象操作后需要触发的逻辑可以写到配置对象中
+            const p = new Proxy(person, {
+                // 读取时触发的逻辑
+                get(target, propName) {
+                    // target：new Proxy 时传入的对象（源对象）此处为 person
+                    // propName：当前读取的属性名，读 name 时就是 'name'，读 age 时就是 'age'
+                    return target[propName];
+                },
+                // 修改或增加时触发的逻辑
+                set(target, propName, value) {
+                    // value 为修改或增加的值
+                    target[propName] = value;
+                    console.log('更新界面');
+                },
+                // 删除时触发的逻辑
+                deleteProperty(target, propName) {
+                    // 删除成功返回 true，失败返回 false
+                    let delStatus = delete target[propName];
+                    // 如果为 true 即成功删除，那么更新界面
+                    if (delStatus === true) console.log('更新界面');
+                    // 返回删除状态 true or false
+                    return delStatus;
+                }
+            });
+        </script>
+    </body>
+</html>
