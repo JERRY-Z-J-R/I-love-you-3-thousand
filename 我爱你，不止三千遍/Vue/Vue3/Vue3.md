@@ -1,6 +1,8 @@
-# Vue3 快速上手
+# Vue3 笔记
 
 <img src="mark-img/93624428-53932780-f9ae-11ea-8d16-af949e16a09f.png" style="width: 200px;" />
+
+> 该笔记只是核心知识点的罗列，详细内容请配合示例代码看！
 
 > Vue3 改变较大，详细内容请一定结合[官网文档](https://cn.vuejs.org/)进行学习！
 
@@ -900,45 +902,46 @@ export default {
 
 - 与 Vue2 中 watch 配置功能一致
 
-- 两个小 “坑”：
+- 两几个小 “坑”：
 
-  - 监视 reactive 定义的响应式数据时：oldValue 无法正确获取、强制开启了深度监视（deep 配置失效）。
-  - 监视 reactive 定义的响应式数据中某个属性时：deep 配置有效。
+  - 监视 reactive 定义的响应式数据时：oldValue 无法正确获取（底层的原因）
+  - 监视 reactive 定义的响应式数据时：强制开启了深度监视（deep 配置无效）
+  - 监视 reactive 定义的响应式数据中的某个属性时：需要利用箭头函数来返回，且 deep 配置有效
   
   ```js
-  // 情况一：监视ref定义的响应式数据
+  // 情况一：监视 ref 定义的响应式数据
   watch(sum, (newValue, oldValue) => {
   	console.log('sum变化了', newValue, oldValue);
   }, {immediate: true});
   
-  // 情况二：监视多个ref定义的响应式数据
+  // 情况二：监视多个 ref 定义的响应式数据
   watch([sum, msg], (newValue, oldValue) => {
   	console.log('sum或msg变化了', newValue, oldValue);
   });
   
   /* 
-  	情况三：监视reactive定义的响应式数据
-  			若watch监视的是reactive定义的响应式数据，则无法正确获得oldValue！！
-  			若watch监视的是reactive定义的响应式数据，则强制开启了深度监视 
+  	情况三：监视 reactive  定义的响应式数据
+  			若 watch 监视的是 reactive 定义的响应式数据，则无法正确获得 oldValue
+  			若 watch 监视的是 reactive 定义的响应式数据，则强制开启了深度监视 
   */
   watch(person, (newValue, oldValue) => {
   	console.log('person变化了', newValue, oldValue);
-  }, {immediate: true, deep: false});	// 此处的deep配置不再奏效
+  }, {immediate: true, deep: false});	// 此处的 deep 配置不奏效
   
-  // 情况四：监视reactive定义的响应式数据中的某个属性
+  // 情况四：监视 reactive 定义的响应式数据中的某个属性
   watch(() => person.job, (newValue, oldValue) => {
   	console.log('person的job变化了', newValue, oldValue);
-  }, {immediate: true, deep: true}); 
+  }, {immediate: true, deep: true}); // 此处的 deep 配置奏效
   
-  // 情况五：监视reactive定义的响应式数据中的某些属性
+  // 情况五：监视 reactive 定义的响应式数据中的某些属性
   watch([() => person.job, () => person.name], (newValue, oldValue) => {
   	console.log('person的job变化了', newValue, oldValue);
-  }, {immediate: true, deep: true});
+  }, {immediate: true, deep: true});	// 此处的 deep 配置奏效
   
   // 特殊情况
   watch(() => person.job, (newValue, oldValue) => {
       console.log('person的job变化了', newValue, oldValue);
-  },{deep: true}); // 此处由于监视的是reactive素定义的对象中的某个属性，所以deep配置有效
+  }, {deep: true}); // 此处的 deep 配置奏效
   ```
 
 ### watchEffect 函数
@@ -953,7 +956,7 @@ export default {
   - 而 watchEffect 更注重的是过程（回调函数的函数体），所以不用写返回值。
 
   ```js
-  // watchEffect所指定的回调中用到的数据只要发生变化，则直接重新执行回调。
+  // watchEffect 所指定的回调中用到的数据只要发生变化，则直接重新执行回调。
   watchEffect(() => {
       const x1 = sum.value;
       const x2 = person.age;
@@ -988,7 +991,7 @@ export default {
 
 - 作用：创建一个 ref 对象，其 value 值指向另一个对象中的某个属性
 - 语法：`const name = toRef(person, 'name')`
-- 应用:   要将响应式对象中的某个属性单独提供给外部使用时
+- 应用：要将响应式对象中的某个属性单独提供给外部使用时
 
 
 - 扩展：`toRefs` 与 `toRef` 功能一致，但可以批量创建多个 ref 对象，语法：`toRefs(person)`
@@ -996,25 +999,25 @@ export default {
 
 # 五、其它 Composition API
 
-## 1.shallowReactive 与 shallowRef
+## 5.1 shallowReactive 与 shallowRef
 
 - shallowReactive：只处理对象最外层属性的响应式（浅响应式）。
-- shallowRef：只处理基本数据类型的响应式, 不进行对象的响应式处理。
+- shallowRef：只处理基本数据类型的响应式，不进行对象的响应式处理。
 
-- 什么时候使用?
-  -  如果有一个对象数据，结构比较深, 但变化时只是外层属性变化 ===> shallowReactive。
+- 什么时候使用？
+  -  如果有一个对象数据，结构比较深，但变化时只是外层属性变化 ===> shallowReactive。
   -  如果有一个对象数据，后续功能不会修改该对象中的属性，而是生新的对象来替换 ===> shallowRef。
 
-## 2.readonly 与 shallowReadonly
+## 5.2 readonly 与 shallowReadonly
 
-- readonly: 让一个响应式数据变为只读的（深只读）。
+- readonly：让一个响应式数据变为只读的（深只读）。
 - shallowReadonly：让一个响应式数据变为只读的（浅只读）。
-- 应用场景: 不希望数据被修改时。
+- 应用场景：不希望数据被修改时。
 
-## 3.toRaw 与 markRaw
+## 5.3 toRaw 与 markRaw
 
 - toRaw：
-  - 作用：将一个由```reactive```生成的<strong style="color:orange">响应式对象</strong>转为<strong style="color:orange">普通对象</strong>。
+  - 作用：将一个由 `reactive` 生成的<strong style="color:orange">响应式对象</strong>转为<strong style="color:orange">普通对象</strong>。
   - 使用场景：用于读取响应式对象对应的普通对象，对这个普通对象的所有操作，不会引起页面更新。
 - markRaw：
   - 作用：标记一个对象，使其永远不会再成为响应式对象。
@@ -1022,7 +1025,7 @@ export default {
     1. 有些值不应被设置为响应式的，例如复杂的第三方类库等。
     2. 当渲染具有不可变数据源的大列表时，跳过响应式转换可以提高性能。
 
-## 4.customRef
+## 5.4 customRef
 
 - 作用：创建一个自定义的 ref，并对其依赖项跟踪和更新触发进行显式控制。
 
@@ -1035,42 +1038,42 @@ export default {
   </template>
   
   <script>
-  	import {ref,customRef} from 'vue'
+  	import {ref, customRef} from 'vue';
   	export default {
   		name:'Demo',
-  		setup(){
-  			// let keyword = ref('hello') //使用Vue准备好的内置ref
-  			//自定义一个myRef
-  			function myRef(value,delay){
-  				let timer
-  				//通过customRef去实现自定义
-  				return customRef((track,trigger)=>{
-  					return{
-  						get(){
-  							track() //告诉Vue这个value值是需要被“追踪”的
-  							return value
+  		setup() {
+  			// let keyword = ref('hello');  // 使用 Vue 准备好的内置 ref
+  			// 自定义一个 myRef
+  			function myRef(value, delay) {
+  				let timer;
+  				// 通过 customRef 去实现自定义
+  				return customRef((track, trigger) => {
+  					return {
+  						get() {
+  							track(); // 告诉 Vue 这个 value 值是需要被“追踪”的
+  							return value;
   						},
-  						set(newValue){
-  							clearTimeout(timer)
-  							timer = setTimeout(()=>{
-  								value = newValue
-  								trigger() //告诉Vue去更新界面
-  							},delay)
+  						set(newValue) {
+  							clearTimeout(timer);
+  							timer = setTimeout(() => {
+  								value = newValue;
+  								trigger(); // 告诉 Vue 去更新界面
+  							}, delay);
   						}
   					}
   				})
   			}
-  			let keyword = myRef('hello',500) //使用程序员自定义的ref
+  			let keyword = myRef('hello', 500); // 使用程序员自定义的 ref
   			return {
   				keyword
-  			}
+  			};
   		}
   	}
   </script>
   ```
 
 
-## 5.provide 与 inject
+## 5.5 provide 与 inject
 
 - 作用：实现<strong style="color:#DD5145">祖与后代组件间</strong>通信
 
@@ -1081,10 +1084,10 @@ export default {
   1. 祖组件中：
 
      ```js
-     setup(){
+     setup() {
      	......
-         let car = reactive({name:'奔驰',price:'40万'})
-         provide('car',car)
+         let car = reactive({name:'奔驰', price:'40万'});
+         provide('car', car);
          ......
      }
      ```
@@ -1092,85 +1095,55 @@ export default {
   2. 后代组件中：
 
      ```js
-     setup(props,context){
+     setup(props, context) {
      	......
-         const car = inject('car')
-         return {car}
+         const car = inject('car');
+         return {car};
      	......
      }
      ```
 
-## 6.响应式数据的判断
+## 5.6 响应式数据的判断
 
-- isRef: 检查一个值是否为一个 ref 对象
-- isReactive: 检查一个对象是否是由 `reactive` 创建的响应式代理
-- isReadonly: 检查一个对象是否是由 `readonly` 创建的只读代理
-- isProxy: 检查一个对象是否是由 `reactive` 或者 `readonly` 方法创建的代理
+- isRef：检查一个值是否为一个 ref 对象
+- isReactive：检查一个对象是否是由 `reactive` 创建的响应式代理
+- isReadonly：检查一个对象是否是由 `readonly` 创建的只读代理
+- isProxy：检查一个对象是否是由 `reactive` 或者 `readonly` 方法创建的代理
 
 # 六、Composition API 的优势
 
-## 1.Options API 存在的问题
+## 6.1 Options API 存在的问题
 
-使用传统OptionsAPI中，新增或者修改一个需求，就需要分别在data，methods，computed里修改 。
+传统 Options API（选项式 API）开发方式中，新增或修改一个需求，就需要分别在 data、methods、computed…… 里实现 。这种开发方式，对于小型项目没有太大的问题，但是对于稍微复杂的一点的项目，代码结构的混乱度与割裂感就会明显突显出来。
 
-<div style="width:600px;height:370px;overflow:hidden;float:left">
-    <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f84e4e2c02424d9a99862ade0a2e4114~tplv-k3u1fbpfcp-watermark.image" style="width:600px;float:left" />
-</div>
-<div style="width:300px;height:370px;overflow:hidden;float:left">
-    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e5ac7e20d1784887a826f6360768a368~tplv-k3u1fbpfcp-watermark.image" style="zoom:50%;width:560px;left" /> 
-</div>
+| ![img](mark-img/f84e4e2c02424d9a99862ade0a2e4114tplv-k3u1fbpfcp-watermark.gif) | ![img](mark-img/e5ac7e20d1784887a826f6360768a368tplv-k3u1fbpfcp-watermark.gif) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 
+## 6.2 Composition API 的优势
 
+我们可以更加优雅的组织我们的代码（数据、函数、生命周期……）让相关功能的代码更加有序的组织在一起。
 
+同时，Composition API 借助 hook 函数的方式，能在更大的程度上，优化代码结构，提高复用性！
 
-
-
-
-
-
-
-
-
-
-
-## 2.Composition API 的优势
-
-我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
-
-<div style="width:500px;height:340px;overflow:hidden;float:left">
-    <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image"style="height:360px"/>
-</div>
-<div style="width:430px;height:340px;overflow:hidden;float:left">
-    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cc55165c0e34069a75fe36f8712eb80~tplv-k3u1fbpfcp-watermark.image"style="height:360px"/>
-</div>
-
-
-
-
-
-
-
-
-
-
-
+| ![img](mark-img/bc0be8211fc54b6c941c036791ba4efetplv-k3u1fbpfcp-watermark.gif) | ![img](mark-img/6cc55165c0e34069a75fe36f8712eb80tplv-k3u1fbpfcp-watermark.gif) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 
 # 七、新的组件
 
-## 1.Fragment
+## 7.1 Fragment
 
-- 在Vue2中: 组件必须有一个根标签
-- 在Vue3中: 组件可以没有根标签, 内部会将多个标签包含在一个Fragment虚拟元素中
-- 好处: 减少标签层级, 减小内存占用
+- 在 Vue2 中：组件必须有一个根标签
+- 在 Vue3 中：组件可以没有根标签，内部会将多个标签包含在一个 Fragment 虚拟元素中
+- 好处：减少标签层级，减小内存占用
 
-## 2.Teleport
+## 7.2 Teleport
 
-- 什么是Teleport？—— `Teleport` 是一种能够将我们的<strong style="color:#DD5145">组件html结构</strong>移动到指定位置的技术。
+- 什么是 Teleport？—— `Teleport` 是一种能够将我们的<strong style="color:#DD5145">组件 html 结构</strong>移动到指定位置的技术。
 
   ```vue
-  <teleport to="移动位置">
+  <teleport to="移动位置（CSS选择器）">
   	<div v-if="isShow" class="mask">
   		<div class="dialog">
   			<h3>我是一个弹窗</h3>
@@ -1180,7 +1153,7 @@ export default {
   </teleport>
   ```
 
-## 3.Suspense
+## 7.3 Suspense
 
 - 等待异步组件时渲染一些额外内容，让应用有更好的用户体验
 
@@ -1189,12 +1162,14 @@ export default {
   - 异步引入组件
 
     ```js
-    import {defineAsyncComponent} from 'vue'
-    const Child = defineAsyncComponent(()=>import('./components/Child.vue'))
+    import {defineAsyncComponent} from 'vue';
+    const Child = defineAsyncComponent(() => import('./components/Child.vue'));
     ```
 
-  - 使用```Suspense```包裹组件，并配置好```default``` 与 ```fallback```
+  - 使用 `Suspense` 包裹组件，并配置好 `default`  与 `fallback`
 
+  - `<Suspense></Suspense>` 底层就是一个插槽实现的！
+  
     ```vue
     <template>
     	<div class="app">
@@ -1215,59 +1190,60 @@ export default {
 
 ## 8.1 全局 API 的转移
 
-- Vue 2.x 有许多全局 API 和配置。
+- Vue 2 有许多全局 API 和配置。
   - 例如：注册全局组件、注册全局指令等。
 
     ```js
-    //注册全局组件
+    // 注册全局组件
     Vue.component('MyButton', {
       data: () => ({
         count: 0
       }),
       template: '<button @click="count++">Clicked {{ count }} times.</button>'
-    })
+    });
     
-    //注册全局指令
+    // 注册全局指令
     Vue.directive('focus', {
-      inserted: el => el.focus()
-    }
+      inserted: el => el.focus();
+    });
     ```
 
-- Vue3.0中对这些API做出了调整：
+- Vue3 中对这些 API 做出了调整：
 
-  - 将全局的API，即：```Vue.xxx```调整到应用实例（```app```）上
+  - 将全局的 API，即：`Vue.xxx` 调整到应用实例（`app`）上
 
-    | 2.x 全局 API（```Vue```） | 3.x 实例 API (`app`)                        |
-    | ------------------------- | ------------------------------------------- |
-    | Vue.config.xxxx           | app.config.xxxx                             |
-    | Vue.config.productionTip  | <strong style="color:#DD5145">移除</strong> |
-    | Vue.component             | app.component                               |
-    | Vue.directive             | app.directive                               |
-    | Vue.mixin                 | app.mixin                                   |
-    | Vue.use                   | app.use                                     |
-    | Vue.prototype             | app.config.globalProperties                 |
+    | Vue2 全局 API（`Vue`）   | Vue3 实例 API（`app`）                                       |
+    | ------------------------ | ------------------------------------------------------------ |
+    | Vue.config.xxx           | app.config.xxx                                               |
+    | Vue.config.productionTip | <strong style="color:#DD5145">移除</strong>（开发状态下能自动检测到，不进行生产提示） |
+    | Vue.component            | app.component                                                |
+    | Vue.directive            | app.directive                                                |
+    | Vue.mixin                | app.mixin                                                    |
+    | Vue.use                  | app.use                                                      |
+    | Vue.prototype            | app.config.globalProperties                                  |
   
 
 ## 8.2 其他改变
 
-- data选项应始终被声明为一个函数。
+- data 选项应始终被声明为一个函数。
 
 - 过度类名的更改：
 
-  - Vue2.x写法
+  - Vue2 写法
 
     ```css
     .v-enter,
     .v-leave-to {
       opacity: 0;
     }
+    
     .v-leave,
     .v-enter-to {
       opacity: 1;
     }
     ```
 
-  - Vue3.x写法
+  - Vue3 写法
 
     ```css
     .v-enter-from,
@@ -1281,9 +1257,9 @@ export default {
     }
     ```
 
-- <strong style="color:#DD5145">移除</strong>keyCode作为 v-on 的修饰符，同时也不再支持```config.keyCodes```
+- <strong style="color:#DD5145">移除</strong> keyCode 作为 v-on 的修饰符，同时也不再支持 `config.keyCodes`
 
-- <strong style="color:#DD5145">移除</strong>```v-on.native```修饰符
+- <strong style="color:#DD5145">移除</strong> `v-on.native` 修饰符
 
   - 父组件中绑定事件
 
@@ -1299,6 +1275,7 @@ export default {
     ```vue
     <script>
       export default {
+        // 没有在 emits 中声明的，能作为原生事件的就自动作为原生事件
         emits: ['close']
       }
     </script>
