@@ -1425,21 +1425,73 @@ Vue2 vs Vue3 生命周期：
   - `<Suspense></Suspense>` 底层就是一个插槽实现的！
   
     ```html
+    <script>
+    // import Child from './components/Child.vue';	// 静态引入
+    import { defineAsyncComponent } from 'vue';
+    const Child = defineAsyncComponent(() => import('./components/Child.vue')); // 异步引入
+    export default {
+        name: 'App',
+        components: { Child }
+    };
+    </script>
+    
     <template>
-    	<div class="app">
-    		<h3>我是App组件</h3>
-    		<Suspense>
-                // default 插槽：最终页面
-    			<template v-slot:default>
-    				<Child/>
-    			</template>
-                // fallback 插槽：异步完成前的页面
-    			<template v-slot:fallback>
-    				<h3>加载中.....</h3>
-    			</template>
-    		</Suspense>
-    	</div>
+        <div class="app">
+            <h3>我是App组件</h3>
+            <Suspense>
+                <!-- default 插槽：最终页面 -->
+                <template v-slot:default>
+                    <Child />
+                </template>
+                <!-- fallback 插槽：异步完成前的页面 -->
+                <template v-slot:fallback>
+                    <h3>稍等，加载中...</h3>
+                </template>
+            </Suspense>
+        </div>
     </template>
+    
+    <style>
+    .app {
+        background-color: gray;
+        padding: 10px;
+    }
+    </style>
+    ```
+
+- 异步组件中，setup 前可以使用 `async`
+
+    ```vue
+    <script>
+    import { ref } from 'vue';
+    export default {
+        name: 'Child',
+        // 异步组件中，setup 前可以使用 async
+        async setup() {
+            let sum = ref(0);
+            let p = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({ sum });
+                }, 3000);
+            });
+            return await p;
+        }
+    };
+    </script>
+    
+    <template>
+        <div class="child">
+            <h3>我是Child组件</h3>
+            {{ sum }}
+        </div>
+    </template>
+    
+    <style>
+    .child {
+        background-color: skyblue;
+        padding: 10px;
+    }
+    </style>
     ```
 
 # 八、其他
