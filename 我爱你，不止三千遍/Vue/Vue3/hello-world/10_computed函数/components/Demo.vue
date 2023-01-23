@@ -1,19 +1,3 @@
-<template>
-    <h1>一个人的信息</h1>
-    姓：<input type="text" v-model="person.firstName" />
-    <br />
-    名：<input type="text" v-model="person.lastName" />
-    <br />
-    <span>全名：{{ person.fullName }}</span>
-    <br />
-    全名：<input type="text" v-model="person.fullName" />
-    <!-- 
-	<span>全名：{{ fullName }}</span>
-    <br />
-    全名：<input type="text" v-model="fullName" />
-	-->
-</template>
-
 <script>
 // 引入 reactive 和 computed
 import { reactive, computed } from 'vue';
@@ -66,3 +50,19 @@ export default {
     }
 };
 </script>
+
+<template>
+    <h1>一个人的信息</h1>
+    姓：<input type="text" v-model="person.firstName" />
+    <br />
+    名：<input type="text" v-model="person.lastName" />
+    <br />
+    <span>全名：{{ person.fullName }}</span>
+    <br />
+    全名：<input type="text" v-model="person.fullName" />
+    <!-- 
+	<span>全名：{{ fullName }}</span>
+    <br />
+    全名：<input type="text" v-model="fullName" />
+	-->
+</template>

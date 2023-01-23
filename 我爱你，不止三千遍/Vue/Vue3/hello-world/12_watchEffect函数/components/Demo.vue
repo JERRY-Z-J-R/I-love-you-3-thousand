@@ -1,29 +1,3 @@
-<template>
-    <h2>当前求和为：{{ sum }}</h2>
-    <button @click="sum++">点我+1</button>
-    <hr />
-    <h2>当前信息为：{{ msg }}</h2>
-    <button @click="msg += '~'">点我修改</button>
-    <br />
-    <h2>姓名：{{ person.name }}</h2>
-    <h2>年龄：{{ person.age }}</h2>
-    <h2>薪资：{{ person.job.j1.salary }}K</h2>
-    <button @click="person.name += '~'">修改姓名</button>
-    <button @click="person.age++">年龄+1</button>
-    <button @click="person.job.j1.salary++">薪资+1</button>
-    <button
-        @click="
-            person.job = {
-                j1: {
-                    salary: 24
-                }
-            }
-        "
-    >
-        直接替换person.job对象
-    </button>
-</template>
-
 <script>
 // 引入 ref reactive watchEffect
 import { ref, reactive, watchEffect } from 'vue';
@@ -76,3 +50,29 @@ export default {
     }
 };
 </script>
+
+<template>
+    <h2>当前求和为：{{ sum }}</h2>
+    <button @click="sum++">点我+1</button>
+    <hr />
+    <h2>当前信息为：{{ msg }}</h2>
+    <button @click="msg += '~'">点我修改</button>
+    <br />
+    <h2>姓名：{{ person.name }}</h2>
+    <h2>年龄：{{ person.age }}</h2>
+    <h2>薪资：{{ person.job.j1.salary }}K</h2>
+    <button @click="person.name += '~'">修改姓名</button>
+    <button @click="person.age++">年龄+1</button>
+    <button @click="person.job.j1.salary++">薪资+1</button>
+    <button
+        @click="
+            person.job = {
+                j1: {
+                    salary: 24
+                }
+            }
+        "
+    >
+        直接替换person.job对象
+    </button>
+</template>

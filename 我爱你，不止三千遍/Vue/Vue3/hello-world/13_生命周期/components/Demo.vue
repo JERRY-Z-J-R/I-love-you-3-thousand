@@ -1,8 +1,3 @@
-<template>
-    <h2>当前求和为：{{ sum }}</h2>
-    <button @click="sum++">点我+1</button>
-</template>
-
 <script>
 import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
 export default {
@@ -38,3 +33,8 @@ export default {
     }
 };
 </script>
+
+<template>
+    <h2>当前求和为：{{ sum }}</h2>
+    <button @click="sum++">点我+1</button>
+</template>

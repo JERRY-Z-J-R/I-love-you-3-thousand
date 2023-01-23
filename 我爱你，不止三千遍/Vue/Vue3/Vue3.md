@@ -1194,6 +1194,8 @@ Vue2 vs Vue3 生命周期：
 | <img src="mark-img/lifecycle.png" alt="Vue 实例生命周期" style="zoom: 33%;" /> | <img src="mark-img/lifecycle.16e4c08e.png" alt="组件生命周期图示" style="zoom: 50%;" /> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
+<img src="mark-img/e8256adeaa1d4ab79df2cea118b8b38e.png" alt="e8256adeaa1d4ab79df2cea118b8b38e.png" style="zoom:50%;" />
+
 - Vue3 整体上生命周期与 Vue2 变化不大，值得注意的是 `setup` 在 beforeCreate 之前就执行一次，且执行时的 this 是 undefined！（我们几乎不会在 setup 中用到 this）
 - Vue3 中可以继续使用 Vue2 中的生命周期钩子，但有有两个被更名：
   - `beforeDestroy` 改名为 `beforeUnmount`
@@ -1207,7 +1209,7 @@ Vue2 vs Vue3 生命周期：
   - `unmounted` =====> `onUnmounted`
   - 可以发现，Vue3 的 Composition API 中并没有提供 `beforeCreate` 和 `created` 两个生命周期钩子的 API，这是因为在 Composition API 中 `beforeCreate` 和 `created` 被 `setup()` 替代！Vue3 官方认为 `setup()` 就是  `beforeCreate` + `created`！
 
--  注意：Vue3 中支持两种风格的生命周期混用！其中有相同的钩子时， Composition API 形式的生命周期钩子优先级更高！先执行 Composition API 形式的生命周期钩子再执行 Options API（选项式 API，Vue2 风格 API）形式的生命周期钩子！不过，极度不建议混用！
+- 注意：Vue3 中支持两种风格的生命周期混用！其中有相同的钩子时， Composition API 形式的生命周期钩子优先级更高！先执行 Composition API 形式的生命周期钩子再执行 Options API（选项式 API，Vue2 风格 API）形式的生命周期钩子！不过，极度不建议混用！
 
 ## 4.10 自定义 hook 函数
 
