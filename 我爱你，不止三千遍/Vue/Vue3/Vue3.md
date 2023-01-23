@@ -210,18 +210,18 @@ npm run preview
 
   VITE v4.0.4  ready in 607 ms
 
-  ➜  Local:   http://localhost:5173/
+  ➜  Local: http://localhost:5173/
   ➜  Network: use --host to expose
   ➜  press h to show help
 
-![image-20230119191344500](mark-img/image-20230119191344500.png)
+<img src="mark-img/image-20230119191344500.png" alt="image-20230119191344500" style="zoom: 25%;" />
 
 也可以通过这种方式创建：
 
 - `npm create vite@latest <project-name> -- --template vue`（JS 版本）
 - `npm create vite@latest <project-name> -- --template vue-ts`（TS 版本）
 
-![image-20230119200951250](mark-img/image-20230119200951250.png)
+<img src="mark-img/image-20230119200951250.png" alt="image-20230119200951250" style="zoom: 25%;" />
 
 Vite 基本项目结构：
 
@@ -309,7 +309,7 @@ app.mount('#app');
 // 对应的还有一个 unmount 卸载方法
 ```
 
-![image-20230120095320413](mark-img/image-20230120095320413.png)
+<img src="mark-img/image-20230120095320413.png" alt="image-20230120095320413" style="zoom: 50%;" />
 
 App.vue 文件：
 
@@ -418,7 +418,7 @@ export default {
 - 备注：
   - 接收的数据可以是：基本类型、也可以是对象类型。
   - 基本类型的数据：响应式依然是靠 `Object.defineProperty()` 的 `get` 与 `set` 来实现。
-  - 对象类型的数据（包括数组）：内部属性（元素）的响应式<i style="color:gray;font-weight:bold">“ 求助 ”</i> 了 Vue3 中的一个新函数 `reactive` 来实现。
+  - 对象类型的数据（包括数组）：内部属性（元素）的响应式 “求助” 了 Vue3 中的一个新函数 `reactive` 来实现。
   - 对象类型的数据（包括数组）在操作其内部属性（元素）时不用加 `.value`。
 
 **setup 中普通的数据和函数的修改只会在内存中完成，不会带有响应式！**
@@ -507,9 +507,9 @@ export default {
 
 橙色框的 value 就类似 Vue2 中 vm 上的数据，绿色框的 value 就类似与 Vue2 中 _data 上的数据，而且这里巧妙的把绿色框的 value 放在了原型对象上，这样橙色框的 value 找不到就会自动去找绿色款（原型对象）上的 value，所以橙色框的 value 不需要有 get set（从这个角度就可以看出 Vue3 的先进之处）！
 
-![image-20230120124153251](mark-img/image-20230120124153251.png)
+<img src="mark-img/image-20230120124153251.png" alt="image-20230120124153251" style="zoom:50%;" />
 
-注意：对于对象类型（包括数组）来说，内部属性（元素）的响应式<i style="color:gray;font-weight:bold">“ 求助 ”</i> 了 Vue3 中的一个新函数 `reactive` 来实现，而 `reactive` 函数接收一个对象（或数组），返回一个 <strong style="color:#DD5145">代理对象（Proxy 的实例对象，简称 proxy 对象）</strong>，所以访问对象内部属性或元素时是不用加 `.value` 的！（Proxy 是 ES6 的新特性）
+注意：对于对象类型（包括数组）来说，内部属性（元素）的响应式 “求助” 了 Vue3 中的一个新函数 `reactive` 来实现，而 `reactive` 函数接收一个对象（或数组），返回一个 <strong style="color:#DD5145">代理对象（Proxy 的实例对象，简称 proxy 对象）</strong>，所以访问对象内部属性或元素时是不用加 `.value` 的！（Proxy 是 ES6 的新特性）
 
 ```vue
 <script>
@@ -564,7 +564,7 @@ export default {
 <style scoped></style>
 ```
 
-![image-20230120135909051](mark-img/image-20230120135909051.png)
+<img src="mark-img/image-20230120135909051.png" alt="image-20230120135909051" style="zoom:50%;" />
 
 ## 4.3 reactive 函数
 
@@ -1191,10 +1191,8 @@ export default {
 
 Vue2 vs Vue3 生命周期：
 
-| <img src="mark-img/lifecycle.png" alt="Vue 实例生命周期" style="zoom: 80%;" /> | ![组件生命周期图示](mark-img/lifecycle.16e4c08e.png) |
-| ------------------------------------------------------------ | ---------------------------------------------------- |
-
-<img src="mark-img/image-20230123004443002.png" alt="image-20230123004443002" style="zoom: 50%;" />
+| <img src="mark-img/lifecycle.png" alt="Vue 实例生命周期" style="zoom: 33%;" /> | <img src="mark-img/lifecycle.16e4c08e.png" alt="组件生命周期图示" style="zoom: 50%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 - Vue3 整体上生命周期与 Vue2 变化不大，值得注意的是 `setup` 在 beforeCreate 之前就执行一次，且执行时的 this 是 undefined！（我们几乎不会在 setup 中用到 this）
 - Vue3 中可以继续使用 Vue2 中的生命周期钩子，但有有两个被更名：
@@ -1213,17 +1211,19 @@ Vue2 vs Vue3 生命周期：
 
 ## 4.10 自定义 hook 函数
 
-- 什么是 hook？—— 本质是一个函数，把 setup 函数中使用的 Composition API 进行了封装。
+- 什么是 hook？—— 本质是一个函数，把 setup 函数中使用的 Composition API（ref、reactive、computed、watch、生命周期……）进行封装的办法。
 
-- 类似于 vue2 中的 mixin。
+- 类似于 Vue2 中的 mixin。
 
 - 自定义 hook 的优势：复用代码，让 setup 中的逻辑更清楚易懂。
+
+> 命名规范：hook 函数一般放在 src/hooks 下，文件命名一般是 `useXxx.js`
 
 ## 4.11 toRef
 
 - 作用：创建一个 ref 对象，其 value 值指向另一个对象中的某个属性
 - 语法：`const name = toRef(person, 'name')`
-- 应用：要将响应式对象中的某个属性单独提供给外部使用时
+- 应用：将响应式对象中的某个属性单独提供给外部使用时
 
 
 - 扩展：`toRefs` 与 `toRef` 功能一致，但可以批量创建多个 ref 对象，语法：`toRefs(person)`
