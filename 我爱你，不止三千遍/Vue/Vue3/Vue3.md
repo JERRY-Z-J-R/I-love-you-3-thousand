@@ -856,7 +856,7 @@ export default {
   - 所以，在 setup 中 `this` 是没有任何意义的！我们不会去碰 this！
   
 - setup 的参数（setup 是可以接收参数的！）
-  - props：值为对象（Proxy 对象），包含：组件外部传递过来，且组件内部声明接收了的属性（注意：组件内部也要配置相应的 `props:[]` 进行接受，如果不配置会发出警告！这是 Vue3 比较严谨的地方）
+  - props：值为对象（Proxy 对象），包含：组件外部传递过来，且组件内部声明接收了的属性（注意：组件内部也要配置相应的 `props:[]` 进行接受（也支持 `props:{}` 指定接收的类型），如果不配置会发出警告！这是 Vue3 比较严谨的地方）
   - context：上下文对象（普通对象）
     - attrs：值为对象（Proxy 对象），包含：组件外部传递过来，但没有在 props 配置中声明的属性，相当于 Vue2 中的 `this.$attrs`
     - slots：值为对象（Proxy 对象），包含：收到的插槽内容，相当于 Vue2 的 `this.$slots`
@@ -1079,40 +1079,137 @@ export default {
   </script>
   ```
 
+【watch 函数有关 value 问题的说明】
+
+通过之前的学习，我们知道用 `watch` 时，我们第一个参数是没有 `.value` 的，而是直接写 ref 变量名，那么为什么要这样呢？如果 `.value` 后会发生什么？
+
+答案是：`.value` 后会报错！
+
+原因是：`watch` 检测的是 ref 变量！而我们 `.value` 返回的是一个普通值！`watch` 是不能对一个普通的值做监视的！
+
+不过，当我们用 ref 定义对象时，问题就特殊了！
+
+我们通过之前的学习知道，对象用 ref 定义后会返回一个 Reflmpl 对象（ref 对象），而这个 Reflmpl 对象的 value 值是一个 Proxy 对象！所以，如果我们用 ref 定义对象的话，我们在对其属性进行监视时，我们一定要在 `watch` 第一个参数上加上 `.value`（取到 Reflmpl 中的 Proxy）！当然，不加 `.value` 也有一种情况也可以监视到，就是我们直接替换这个 Reflmpl 对象（引用的内存地址发生改变），因为当我们不加 `.value` 那么 watch 检测的实际是这个 Reflmpl 对象，只有这个 Reflmp 对象的内存地址发生改变了，才会触发监视！而当我们加上 `.value` 则 watch 监视的就是  Proxy 对象！ 
+
 ### watchEffect 函数
 
 - watch 的套路是：既要指明监视的属性，也要指明监视的回调。
 
 - watchEffect 的套路是：不用指明监视哪个属性，监视的回调中用到哪个属性，那就监视哪个属性。
 
+- 一旦运行就会立即监听并自动触发一次，用到的数据改变时再次触发，组件卸载的时候会停止监听。
+
 - watchEffect 有点像 computed：
 
   - 但 computed 注重的计算出来的值（回调函数的返回值），所以必须要写返回值。
   - 而 watchEffect 更注重的是过程（回调函数的函数体），所以不用写返回值。
 
-  ```js
-  // watchEffect 所指定的回调中用到的数据只要发生变化，则直接重新执行回调。
-  watchEffect(() => {
-      const x1 = sum.value;
-      const x2 = person.age;
-      console.log('watchEffect配置的回调执行了');
-  });
+-   watchEffect 默认监听不了对象内部的数据改变！即：不具备深度监听！
+  
+  ```vue
+  <template>
+      <h2>当前求和为：{{ sum }}</h2>
+      <button @click="sum++">点我+1</button>
+      <hr />
+      <h2>当前信息为：{{ msg }}</h2>
+      <button @click="msg += '~'">点我修改</button>
+      <br />
+      <h2>姓名：{{ person.name }}</h2>
+      <h2>年龄：{{ person.age }}</h2>
+      <h2>薪资：{{ person.job.j1.salary }}K</h2>
+      <button @click="person.name += '~'">修改姓名</button>
+      <button @click="person.age++">年龄+1</button>
+      <button @click="person.job.j1.salary++">薪资+1</button>
+      <button
+          @click="
+              person.job = {
+                  j1: {
+                      salary: 24
+                  }
+              }
+          "
+      >
+          直接替换person.job对象
+      </button>
+  </template>
+  
+  <script>
+  // 引入 ref reactive watchEffect
+  import { ref, reactive, watchEffect } from 'vue';
+  export default {
+      name: 'Demo',
+      setup() {
+          let sum = ref(0);
+          let msg = ref('你好！');
+          let person = reactive({
+              name: '张三',
+              age: 18,
+              job: {
+                  j1: {
+                      salary: 20
+                  }
+              }
+          });
+  
+          // 执行时间：初始化时自动执行一次，所用到的数据变化时自动执行一次
+          watchEffect(
+              () => {
+                  let s = sum.value;
+  
+                  // 特别注意：watchEffect 不具备深度监视能力！
+                  // person 内的属性变化是监测不到的！（除非直接替换了 person 对象，即发生引用内存改变）
+                  // let p = person;
+  
+                  // 只能监测单层数据
+                  let pn = person.name;
+  
+                  // person.job 内的属性变化是监测不到的！（除非直接替换了 person.job 对象，即发生引用内存改变）
+                  let pj = person.job;
+  
+                  // person.job.j1 内的属性变化是监测不到的！（除非直接替换了 person.job.j1 对象，即发生引用内存改变）
+                  // let pjj = person.job.j1;
+  
+                  // 只能监测单层数据
+                  // let pjjs = person.job.j1.salary;
+  
+                  console.log('watchEffect监视到了！', s, pn, pj);
+              },
+              { deep: true }
+          );
+  
+          return {
+              sum,
+              msg,
+              person
+          };
+      }
+  };
+  </script>
   ```
 
 ## 4.8 生命周期
 
+Vue2 vs Vue3 生命周期：
+
+| <img src="mark-img/lifecycle.png" alt="Vue 实例生命周期" style="zoom: 80%;" /> | ![组件生命周期图示](mark-img/lifecycle.16e4c08e.png) |
+| ------------------------------------------------------------ | ---------------------------------------------------- |
+
+<img src="mark-img/image-20230123004443002.png" alt="image-20230123004443002" style="zoom: 50%;" />
+
+- Vue3 整体上生命周期与 Vue2 变化不大，值得注意的是 `setup` 在 beforeCreate 之前就执行一次，且执行时的 this 是 undefined！（我们几乎不会在 setup 中用到 this）
 - Vue3 中可以继续使用 Vue2 中的生命周期钩子，但有有两个被更名：
   - `beforeDestroy` 改名为 `beforeUnmount`
   - `destroyed` 改名为 `unmounted`
 - Vue3 也提供了 Composition API 形式的生命周期钩子，与 Vue2 中钩子对应关系如下：
-  - `beforeCreate` ===> `setup()`
-  - `created` =======> `setup()`
   - `beforeMount` ===> `onBeforeMount`
   - `mounted` =======> `onMounted`
   - `beforeUpdate` ===> `onBeforeUpdate`
   - `updated` =======> `onUpdated`
   - `beforeUnmount` ==> `onBeforeUnmount`
   - `unmounted` =====> `onUnmounted`
+  - 可以发现，Vue3 的 Composition API 中并没有提供 `beforeCreate` 和 `created` 两个生命周期钩子的 API，这是因为在 Composition API 中 `beforeCreate` 和 `created` 被 `setup()` 替代！Vue3 官方认为 `setup()` 就是  `beforeCreate` + `created`！
+
+-  注意：Vue3 中支持两种风格的生命周期混用！其中有相同的钩子时， Composition API 形式的生命周期钩子优先级更高！先执行 Composition API 形式的生命周期钩子再执行 Options API（选项式 API，Vue2 风格 API）形式的生命周期钩子！不过，极度不建议混用！
 
 ## 4.10 自定义 hook 函数
 
@@ -1420,4 +1517,6 @@ export default {
 
   > 过滤器虽然这看起来很方便，但它需要一个自定义语法，打破大括号内表达式是 “只是 JavaScript” 的假设，这不仅有学习成本，而且有实现成本！建议用方法调用或计算属性去替换过滤器。
 
-- ......
+- 已经没有 `$on` `$emit` `$off` 方法，所以我们无法在使用全局事件总线！在 Vue3 中，官方推荐使用 [mitt - npm (npmjs.com)](https://www.npmjs.com/package/mitt) 这个三方库来帮助我们实现全局事件总线。
+
+- ……
