@@ -98,7 +98,7 @@ npm run serve
 >
 > 时过境迁，我们见证了诸如 [webpack](https://webpack.js.org/)、[Rollup](https://rollupjs.org/) 和 [Parcel](https://parceljs.org/) 等工具的变迁，它们极大地改善了前端开发者的开发体验。
 >
-> 然而，当我们开始构建越来越大型的应用时，需要处理的 JavaScript 代码量也呈指数级增长。 包含数千个模块的大型项目相当普遍。 基于 JavaScript 开发的工具就会开始遇到性能瓶颈：通常需要很长时间（甚至是几分钟！ ）才能启动开发服务器，即使使用了模块热替换（HMR），文件修改后的效果也需要几秒钟才能在浏览器中反映出来。 如此循环往复，迟钝的反馈会极大地影响开发者的开发效率和幸福感。
+> 然而，当我们开始构建越来越大型的应用时，需要处理的 JavaScript 代码量也呈指数级增长。 包含数千个模块的大型项目相当普遍。 基于 JavaScript 开发的工具就会开始遇到性能瓶颈：通常需要很长时间（甚至是几分钟！）才能启动开发服务器，即使使用了模块热替换（HMR），文件修改后的效果也需要几秒钟才能在浏览器中反映出来。 如此循环往复，迟钝的反馈会极大地影响开发者的开发效率和幸福感。
 >
 > 随着前端生态的发展，大量的浏览器开始原生支持 ES 模块，且越来越多 JavaScript 工具使用编译型语言编写，而 Vite 就是希望利用这些新成果来解决之前打包的问题。
 
@@ -354,7 +354,7 @@ import HelloWorld from './components/HelloWorld.vue';
 ## 4.1 拉开序幕的 setup
 
 1. 理解：Vue3 中一个新的配置项，值为一个函数。
-2. setup 是所有 <strong style="color:#DD5145">Composition API（组合API）</strong><i style="color:gray;font-weight:bold">“ 表演的舞台 ”</i>。
+2. setup 是所有 <strong style="color:#DD5145">Composition API（组合API）</strong>“表演的舞台”。
 4. 组件中所用到的：数据、方法、计算属性、监视属性、生命周期钩子等，均要配置在 setup 中！
 5. setup 函数的两种返回值：
    1. 若返回一个对象，则对象中的属性、方法在模板中均可以直接使用（重点关注！）
@@ -856,7 +856,7 @@ export default {
   - 所以，在 setup 中 `this` 是没有任何意义的！我们不会去碰 this！
   
 - setup 的参数（setup 是可以接收参数的！）
-  - props：值为对象（Proxy 对象），包含：组件外部传递过来，且组件内部声明接收了的属性（注意：组件内部也要配置相应的 `props:[]` 进行接受（也支持 `props:{}` 指定接收的类型），如果不配置会发出警告！这是 Vue3 比较严谨的地方）
+  - props：值为对象（Proxy 对象），包含：组件外部传递过来，且组件内部声明接收了的属性（注意：组件内部也要配置相应的 `props:[]` 进行接受（也支持 `props:{}` 指定接收的类型），如果不配置会发出警告！这是 Vue3 比较严谨的地方）（注意：在 Vue3 中 props 是只读的！如果要修改请将其值用新的响应式变量来保存一份）
   - context：上下文对象（普通对象）
     - attrs：值为对象（Proxy 对象），包含：组件外部传递过来，但没有在 props 配置中声明的属性，相当于 Vue2 中的 `this.$attrs`
     - slots：值为对象（Proxy 对象），包含：收到的插槽内容，相当于 Vue2 的 `this.$slots`
@@ -1237,10 +1237,10 @@ Vue2 vs Vue3 生命周期：
 
 - shallowReactive：只处理对象最外层属性的响应式（浅响应式）。
 - shallowRef：只处理基本数据类型的响应式，不进行对象的响应式处理。
-
 - 什么时候使用？
   -  如果有一个对象数据，结构比较深，但变化时只是外层属性变化 ===> shallowReactive。
   -  如果有一个对象数据，后续功能不会修改该对象中的属性，而是生新的对象来替换 ===> shallowRef。
+  -  如果传入的值必须限定为非对象类型，那么使用 ===> shallowRef。
 
 ## 5.2 readonly 与 shallowReadonly
 
@@ -1251,8 +1251,9 @@ Vue2 vs Vue3 生命周期：
 ## 5.3 toRaw 与 markRaw
 
 - toRaw：
-  - 作用：将一个由 `reactive` 生成的<strong style="color:orange">响应式对象</strong>转为<strong style="color:orange">普通对象</strong>。
+  - 作用：将一个由 `reactive` 生成的 <strong style="color:orange">响应式对象</strong> 转为 <strong style="color:orange">普通对象</strong>。
   - 使用场景：用于读取响应式对象对应的普通对象，对这个普通对象的所有操作，不会引起页面更新。
+  - 注意：toRaw 不支持 `ref`
 - markRaw：
   - 作用：标记一个对象，使其永远不会再成为响应式对象。
   - 应用场景:
@@ -1267,51 +1268,64 @@ Vue2 vs Vue3 生命周期：
 
   ```vue
   <template>
-  	<input type="text" v-model="keyword">
-  	<h3>{{keyword}}</h3>
+      <input type="text" v-model="keyWord" />
+      <h3>{{ keyWord }}</h3>
   </template>
   
   <script>
-  	import {ref, customRef} from 'vue';
-  	export default {
-  		name:'Demo',
-  		setup() {
-  			// let keyword = ref('hello');  // 使用 Vue 准备好的内置 ref
-  			// 自定义一个 myRef
-  			function myRef(value, delay) {
-  				let timer;
-  				// 通过 customRef 去实现自定义
-  				return customRef((track, trigger) => {
-  					return {
-  						get() {
-  							track(); // 告诉 Vue 这个 value 值是需要被“追踪”的
-  							return value;
-  						},
-  						set(newValue) {
-  							clearTimeout(timer);
-  							timer = setTimeout(() => {
-  								value = newValue;
-  								trigger(); // 告诉 Vue 去更新界面
-  							}, delay);
-  						}
-  					}
-  				})
-  			}
-  			let keyword = myRef('hello', 500); // 使用程序员自定义的 ref
-  			return {
-  				keyword
-  			};
-  		}
-  	}
+  import { ref, customRef } from 'vue';
+  export default {
+      name: 'App',
+      setup() {
+          // 自定义一个 ref 名为：myRef
+          function myRef(value, delay) {
+              // 定时器
+              let timer;
+              // 规定写法：必须 return 一个 customRef
+              return customRef((track, trigger) => {
+                  // 规定写法：必须 return 一个对象（对象里有 get set）
+                  return {
+                      get() {
+                          console.log(`有人从myRef这个容器中读取数据了，我把${value}给他了`);
+                          track(); // 告诉 Vue 这个 value 值是需要被“追踪”的（写在 return 之前）
+                          return value;
+                      },
+                      set(newValue) {
+                          console.log(`有人把myRef这个容器中数据改为了：${newValue}`);
+                          // 如果有多余的定时器，先清理多余的定时器（实现防抖/节流）
+                          clearTimeout(timer);
+                          timer = setTimeout(() => {
+                              value = newValue;
+                              trigger(); // 通知 Vue 去重新解析模板（只有配置了 track()，重新解析模板时调用 get 拿到的数据才是最新的）
+                          }, delay);
+                      }
+                  };
+              });
+          }
+  
+          // let keyWord = ref('hello') // 使用 Vue 提供的 ref
+          let keyWord = myRef('hello', 1000); // 使用程序员自定义的 ref（实现更自由）
+  
+          return { keyWord };
+      }
+  };
   </script>
   ```
 
 
 ## 5.5 provide 与 inject
 
-- 作用：实现<strong style="color:#DD5145">祖与后代组件间</strong>通信
+- 作用：实现<strong style="color:#DD5145">祖与后代组件间</strong>通信（组与后代：除了儿子组件之外的所有后代组件，孙子、重孙、重重孙、……）
 
-- 套路：父组件有一个 `provide` 选项来提供数据，后代组件有一个 `inject` 选项来开始使用这些数据
+- 注意：其实父与儿子间通信也可以，但是这种情况下请使用 `props` 更好！
+
+- 套路：祖组件有一个 `provide` 选项来提供数据，后代组件有一个 `inject` 选项来使用这些数据！
+
+- 优势：
+
+    | Prop 逐级透传                                | provide 和 inject                                            |
+    | :------------------------------------------- | ------------------------------------------------------------ |
+    | ![prop-drilling](mark-img/prop-drilling.png) | <img src="mark-img/provide-inject.png" alt="provide-inject"  /> |
 
 - 具体写法：
 
@@ -1344,11 +1358,15 @@ Vue2 vs Vue3 生命周期：
 - isReadonly：检查一个对象是否是由 `readonly` 创建的只读代理
 - isProxy：检查一个对象是否是由 `reactive` 或者 `readonly` 方法创建的代理
 
+返回值：true 或 false
+
 # 六、Composition API 的优势
 
 ## 6.1 Options API 存在的问题
 
-传统 Options API（选项式 API）开发方式中，新增或修改一个需求，就需要分别在 data、methods、computed…… 里实现 。这种开发方式，对于小型项目没有太大的问题，但是对于稍微复杂的一点的项目，代码结构的混乱度与割裂感就会明显突显出来。
+传统 Options API（选项式 API）开发方式中，新增或修改一个需求，就需要分别在 data、methods、computed…… 里实现 。
+
+这种开发方式，对于小型项目没有太大的问题，但是对于稍微复杂的一点的项目，代码结构的混乱度与割裂感就会明显突显出来。
 
 | ![img](mark-img/f84e4e2c02424d9a99862ade0a2e4114tplv-k3u1fbpfcp-watermark.gif) | ![img](mark-img/e5ac7e20d1784887a826f6360768a368tplv-k3u1fbpfcp-watermark.gif) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1369,15 +1387,17 @@ Vue2 vs Vue3 生命周期：
 ## 7.1 Fragment
 
 - 在 Vue2 中：组件必须有一个根标签
-- 在 Vue3 中：组件可以没有根标签，内部会将多个标签包含在一个 Fragment 虚拟元素中
+- 在 Vue3 中：组件可以没有根标签，内部会将多个标签包自动含在一个 Fragment 虚拟元素中
 - 好处：减少标签层级，减小内存占用
 
 ## 7.2 Teleport
 
 - 什么是 Teleport？—— `Teleport` 是一种能够将我们的<strong style="color:#DD5145">组件 html 结构</strong>移动到指定位置的技术。
 
-  ```vue
-  <teleport to="移动位置（CSS选择器）">
+- 用途举例：在一个组件嵌套层次很深的地方我们写了一个弹窗组件，但由于其组件嵌套层次太深（最终 dom 嵌套太深），我们用 css 不好为这个弹窗组件写定位及样式（全屏居中，自带遮罩），要是这个组件的 html 能被渲染到 body 或 html 标签后就好了，CSS 就会非常好写定位！那么我们就可以利用 Teleport 实现……
+
+  ```html
+  <teleport to="渲染时移动的位置（CSS选择器）">
   	<div v-if="isShow" class="mask">
   		<div class="dialog">
   			<h3>我是一个弹窗</h3>
@@ -1389,7 +1409,7 @@ Vue2 vs Vue3 生命周期：
 
 ## 7.3 Suspense
 
-- 等待异步组件时渲染一些额外内容，让应用有更好的用户体验
+- 等待异步组件时渲染一些额外内容（例如：加载中……、骨架屏），让应用有更好的用户体验！
 
 - 使用步骤：
 
@@ -1404,14 +1424,16 @@ Vue2 vs Vue3 生命周期：
 
   - `<Suspense></Suspense>` 底层就是一个插槽实现的！
   
-    ```vue
+    ```html
     <template>
     	<div class="app">
     		<h3>我是App组件</h3>
     		<Suspense>
+                // default 插槽：最终页面
     			<template v-slot:default>
     				<Child/>
     			</template>
+                // fallback 插槽：异步完成前的页面
     			<template v-slot:fallback>
     				<h3>加载中.....</h3>
     			</template>
