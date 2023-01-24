@@ -1523,7 +1523,7 @@ Vue2 vs Vue3 生命周期：
     | Vue2 全局 API（`Vue`）   | Vue3 实例 API（`app`）                                       |
     | ------------------------ | ------------------------------------------------------------ |
     | Vue.config.xxx           | app.config.xxx                                               |
-    | Vue.config.productionTip | <strong style="color:#DD5145">移除</strong>（开发状态下能自动检测到，不进行生产提示） |
+    | Vue.config.productionTip | <strong style="color:#DD5145">移除</strong>（脚手架能自动检测到是否处于开发状态，如果是，则不进行生产提示） |
     | Vue.component            | app.component                                                |
     | Vue.directive            | app.directive                                                |
     | Vue.mixin                | app.mixin                                                    |
@@ -1583,7 +1583,7 @@ Vue2 vs Vue3 生命周期：
     ```vue
     <script>
       export default {
-        // 没有在 emits 中声明的，能作为原生事件的就自动作为原生事件
+        // 没有在 emits 中声明的事件，就自动作为原生事件
         emits: ['close']
       }
     </script>
@@ -1596,3 +1596,20 @@ Vue2 vs Vue3 生命周期：
 - 已经没有 `$on` `$emit` `$off` 方法，所以我们无法在使用全局事件总线！在 Vue3 中，官方推荐使用 [mitt - npm (npmjs.com)](https://www.npmjs.com/package/mitt) 这个三方库来帮助我们实现全局事件总线。
 
 - ……
+
+## 8.3 Vue Router（路由）
+
+官方文档：[Home | Vue Router (vuejs.org)](https://router.vuejs.org/zh/)
+
+## 8.4 pinia（集中式状态管理）
+
+官方文档：[Home | Pinia (vuejs.org)](https://pinia.vuejs.org/zh/)
+
+## 8.5 setup 语法糖
+
+官网说明：[`<script setup>` | Vue.js (vuejs.org)](https://cn.vuejs.org/api/sfc-script-setup.html#script-setup)
+
+## 8.6 最后
+
+Vue3 的官方文档才是真正的核心：[Vue.js - 渐进式 JavaScript 框架 | Vue.js (vuejs.org)](https://cn.vuejs.org/)
+
