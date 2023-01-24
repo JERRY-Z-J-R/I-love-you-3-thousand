@@ -15,16 +15,16 @@ ECMA：欧洲计算机制造商协会
 
 具体内容：语法 + API
 
-历史版本：ES1——>3、ES5——>6（ES4 被废弃了）
+历史版本：ES1 ——> 3、ES5 ——> 6（ES4 被废弃了）
 
-我们目前使用 JS 的大部分内容都是 ES3 **的部分**。
+我们目前使用 JS 的大部分内容都是 ES3 的部分。
 
 ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM + BOM`
 
  ES6 的兼容性：
 
 - 主流浏览器的最新版本几乎都全部支持 ES6
-- IE 老版本等不支持的浏览器，可以使用 Babel 转码
+- IE 老版本等不支持的浏览器，可以使用 Babel 转译
 - **总之，请放心大胆地使用 ES6**
 
 ## 1.2 let 和 const
@@ -44,11 +44,11 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
 
 **（1）为什么需要 const**
 
-因为某些量的值是一直固定的，不需要也不能被修改，如果被修改就会报错。
+因为某些量的值是一直固定的，不需要也不能被修改，如果被修改就应该报错。
 
 **（2）const 注意事项**
 
-- 使用 const 声明常量，一但声明就**必须立即初始化**，不能分开赋值
+- 使用 const 声明常量，一但声明就必须立即初始化，不能分开赋值！
 
   ```javascript
   const name = 'jerry'; √
@@ -57,7 +57,7 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
   name = 'jerry'; ×
   ```
 
-- const 声明的常量，允许在不重新赋值的情况下修改它的值
+- const 声明的常量，允许在不重新赋值（不修改内存地址）的情况下修改它的值
 
   ```javascript
   // 基本数据类型不适用
@@ -66,7 +66,7 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
   const person = {
       username: 'jerry'
   };
-  
+  // 修改对象内的属性，该对象的内存地址并没有发生变化
   person.username = 'zjr'; √
   ```
 
@@ -74,7 +74,7 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
 
 原则：如果不知道用什么的时候，就用 const
 
-原因：如果应该是常量，那么刚好符合需求。如果应该是变量，那么后来报错时，再来改为变量也为时不晚。同时，一开始就设置为常量还会避免真的需要为常量时，该值在后来被意外修改的情况。
+原因：如果应该是常量，那么刚好符合需求。如果应该是变量，那么后来报错时，再来改为变量也为时不晚。同时，一开始就设置为常量还会避免真的需要为常量时，该值却被意外修改的情况！
 
 ## 1.3 let、const 与 var 的区别
 
@@ -97,7 +97,7 @@ console.log(a);		// 24
 ```javascript
 let a = 10;
 let a = 24;
-console.log(a);		// 报错
+console.log(a);		// 报错（变量重复声明）
 ```
 
 ```javascript
@@ -111,7 +111,7 @@ func(24);
 ```javascript
 function func(a) {
     let a = 1;
-    console.log(a);		// 报错
+    console.log(a);		// 报错（变量重复声明）
 }
 func(24);
 ```
@@ -124,7 +124,7 @@ var a = 24;
 ```
 
 ```javascript
-console.log(a);		// 报错
+console.log(a);		// 报错（变量未定义）
 let a = 24;
 ```
 

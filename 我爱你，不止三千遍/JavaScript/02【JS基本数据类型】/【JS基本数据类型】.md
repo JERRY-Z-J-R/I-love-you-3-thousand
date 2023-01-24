@@ -8,19 +8,19 @@
 
 **（1）基本数据类型**
 
-> JS 没有字符型，JS 的 String 是基本类型！
+> JS 没有字符型（char），JS 的 String 是基本类型！
 
-- Number
-- String
-- Boolean
-- Undefined
-- Null
+- Number（数字）
+- String（字符串）
+- Boolean（布尔）
+- Undefined（未定义）
+- Null（空）
 
 **（2）复杂数据类型**
 
-- Object
-- Array
-- Function
+- Object（对象）
+- Array（数组）
+- Function（函数）
 - RegExp（正则表达式）
 - Date
 - Map
@@ -32,7 +32,7 @@
 
 使用 `typeof` 运算符可以检测值或者变量的类型。
 
-> typeof 是一个运算符，而不是内置函数，所以不用加 `()`，如果加了也不会报错，但是并不推荐。
+> typeof 是一个运算符，而不是内置函数，所以不用加 `()`，如果加了也不会报错，但是并不推荐！
 
 ```javascript
 typeof 5;		  // number
@@ -41,28 +41,28 @@ typeof '周吉瑞';	// string
 
 <img src="mark-img/2d58a5fb189647d5a91ff84ff317f057.png" style="zoom:50%;" />
 
-> 利用浏览器控制台进行交互测试。
+> 利用浏览器控制台进行交互测试……
 
 ```javascript
 console.log(typeof 5);
-console.log(typeof "周吉瑞");
-var a = "5";
+console.log(typeof '周吉瑞');
+var a = '5';
 console.log(typeof a);
 ```
 
 <img src="mark-img/a9e0293e0228434cb0cd0af7bad15f71.png" style="zoom: 67%;" />
 
-> 从以上测试也可以看出，JS 是一个弱类型的语言，变量值是什么类型，那么变量就是什么类型，而不用显式地指出类型。
+> 从以上测试也可以看出，JS 是一个弱类型的语言，变量值是什么类型，那么变量就是什么类型，而不用显式地指出变量的类型。
 
 ## 1.3 5种基本数据类型的 typeof 检测结果
 
-| 类型名         | typeof 检测结果            | 值举例          |
-| -------------- | -------------------------- | --------------- |
-| 数字类型       | number                     | `5`、`2.5`      |
-| 字符串类型     | string                     | `'慕课网'`      |
-| 布尔类型       | boolean                    | `true`、`false` |
-| undefined 类型 | undefined                  | `undefined`     |
-| null 类型      | object（可以理解为空对象） | `null`          |
+| 类型名         | typeof 检测结果            | 值举例                       |
+| -------------- | -------------------------- | ---------------------------- |
+| 数字类型       | number                     | `5`、`2.5`、`-0.5`           |
+| 字符串类型     | string                     | `'前端'`、`"后端"`、`'3.14'` |
+| 布尔类型       | boolean                    | `true`、`false`              |
+| undefined 类型 | undefined                  | `undefined`                  |
+| null 类型      | object（可以理解为空对象） | `null`                       |
 
 # 二、Number（数字）类型
 
@@ -84,7 +84,7 @@ typeof -24; // number
 
 ## 2.3 科学计数法
 
-较大数或较小数（绝对值较小）可以写成科学计数法。
+较大数或较小数可以写成科学计数法。
 
 ```javascript
 3e8;			// 300000000
@@ -94,7 +94,7 @@ typeof 3e8;		// number
 typeof 3e-4;	// number
 ```
 
-<img src="mark-img/780e65666c1c45eb8e6c9e08565464e8.png" style="zoom:50%;" />
+<img src="mark-img/780e65666c1c45eb8e6c9e08565464e8.png" style="zoom: 33%;" />
 
 ## 2.4 不同进制的数字
 
@@ -119,23 +119,23 @@ typeof 3e-4;	// number
 
 ## 2.5 一个特殊的数字型值 NaN
 
-`NaN` 是 “not a number” 的意思，即 “不是一个数”，但它是一个数字类型的值。
+`NaN` 是 “not a number” 的意思，即 “不是一个数”，但它属于数字类型。
 
 ```javascript
 typeof NaN;	// number
 ```
 
-- 0 除以 0 的结果是 NaN，事实上，在数学运算中，若结果不能得到数字，其结果往往都是 NaN
+- 0 除以 0 的结果是 NaN，事实上，在 JS 数学运算中，若结果不能得到数字，其结果往往都是 NaN
 - NaN 有一个 “奇怪” 的性质：不自等（这个知识点将在后续课程中讲解）
 
 ```javascript
 0 / 0;	// NaN
 5 - 3;	// 2
-"我" - "你";	// NaN
-"我" * "你";	// NaN
-"我" / "你";	// NaN
-"我" + "你";	// "我你"
-NaN == NaN;   // false
+'我' - '你';	// NaN
+'我' * '你';	// NaN
+'我' / '你';	// NaN
+'我' + '你';	// "我你"（字符串遇到加法是拼接功能）
+NaN == NaN;   // false（NaN 不自等）
 ```
 
 > 再次强调：NaN 是一个值（特殊的值），不是类型。
@@ -150,24 +150,25 @@ NaN == NaN;   // false
 
 ## 3.1 字符串的表示
 
-字符串要用引号包裹，双引号或者单引号均可。
+字符串要用引号包裹，双引号或者单引号均可（无论用哪种，都应该保持风格统一）。
 
-注意：大部分 JS 项目习惯约定使用单引号。
+注意：大部分 JS 项目习惯约定使用单引号（因为可以减少按下 shift 键）。
 
 ```javascript
 typeof "周吉瑞";	// string
+或
 typeof '周吉瑞';	// string
 ```
 
-数字 `10` 和字符串 `"10"` 在语义上是不同的，前者表示一个数量，后者是一个文本。
+数字 `10` 和字符串 `'10'` 在语义上是不同的，前者表示一个数量，后者是一个文本。
 
 ## 3.2 字符串的拼接
 
 加号可以用来拼接多个字符串。
 
 ```javascript
-"周" + "吉瑞";	// "周吉瑞"
-"abc" + "d" + "ef";	// "abcdef"
+'周' + '吉瑞';	// "周吉瑞"
+'abc' + 'd' + 'ef';	// "abcdef"
 ```
 
 ## 3.3 字符串和变量的拼接
@@ -176,18 +177,18 @@ typeof '周吉瑞';	// string
 
 ```javascript
 var year = 2022;
-var str = "北京冬奥会在" + year + "年召开";	// "北京冬奥会在2022年召开"
+var str = '北京冬奥会在' + year + '年召开';	// "北京冬奥会在2022年召开"
 
 var a = 24;
 var str1 = 54 + a;		// 78
-var str2 = "54" + a;	// "5424"
+var str2 = '54' + a;	// "5424"
 
-1 + "10"; // "110"
+1 + '10'; // "110"
 
-2 + "";	// "2"
+2 + '';	// "2"
 ```
 
-> ES6 中增加了反引号 ( ` ) 表示法，可以更方便进行变量插值，后续课程将进行介绍。
+> ES6 中增加了反引号 ( ` ) 表示法，可以更方便进行变量插值，后面会进行介绍。
 
 ## 3.4 空字符串
 
@@ -195,6 +196,8 @@ var str2 = "54" + a;	// "5424"
 
 ```javascript
 var str = "";
+或
+var str = '';
 ```
 
 空字符串可以用于将变量变为字符串！
@@ -202,7 +205,7 @@ var str = "";
 ```javascript
 var a = 24;
 console.log(typeof a);	// number
-a = a + "";
+a = a + '';
 console.log(a);	// "24"
 console.log(typeof a);	// string
 ```
@@ -211,14 +214,14 @@ console.log(typeof a);	// string
 
 > 通过对 String 类型 “打点” 的方式，可以调用其内置属性。
 >
-> > 注意：在 JS 中，String 是基本类型，之所以 String 可以 “打点” 调用属性和方法，那是因为 JS 的解释器会自动将基本类型包装成对应的对象类型。
+> > 注意：在 JS 中，String 是基本类型，之所以 String 可以 “打点” 调用属性和方法，那是因为 JS 的解释器会自动将基本类型包装成对应的 Object 类型。
 
 字符串的 length 属性表示字符串的长度。
 
 ```javascript
-"我喜欢JS".length;	// 5
-"我喜欢JS，我也喜欢NODE".length;	// 14
-"".length;	// 0
+'我喜欢JS'.length;	// 5
+'我喜欢JS，我也喜欢TS'.length;	// 12
+''.length;	// 0
 ```
 
 ## 3.6 字符串的常用方法
@@ -246,16 +249,16 @@ console.log(typeof a);	// string
 
 字符串中的每个字符都按顺序编号，编号从 0 开始。
 
-| `"`  | 我   | 喜   | 欢   | J    | S    | ,    | 我   | 也   | 喜   | 欢   | N    | O    | D    | E    | `"`  |
+| `'`  | 我   | 喜   | 欢   | J    | S    | ,    | 我   | 也   | 喜   | 欢   | N    | O    | D    | E    | `'`  |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 |      | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   | 12   | 13   |      |
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".charAt(0);		// "我"
-"我喜欢JS，我也喜欢NODE".charAt(5);		// "，"
-"我喜欢JS，我也喜欢NODE".charAt(11);	// "O"
-"我喜欢JS，我也喜欢NODE".charAt(99);	// ""
-"我喜欢JS，我也喜欢NODE".charAt(-1);	// ""
+'我喜欢JS，我也喜欢NODE'.charAt(0);		// "我"
+'我喜欢JS，我也喜欢NODE'.charAt(5);		// "，"
+'我喜欢JS，我也喜欢NODE'.charAt(11);	// "O"
+'我喜欢JS，我也喜欢NODE'.charAt(99);	// ""
+'我喜欢JS，我也喜欢NODE'.charAt(-1);	// ""
 ```
 
 > 超出范围的输出空字符 `""`。
@@ -264,50 +267,50 @@ console.log(typeof a);	// string
 
 **（1）`substring(a, b)` 方法得到从 a 开始到 b 结束（不包括 b 处）的子串** `[a, b)`
 
-> 编程语言的区间一般都是：左闭右开
+> 编程语言的区间一般都是：左闭右开！
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".substring(3, 5);		// "JS"
-"我喜欢JS，我也喜欢NODE".substring(10, 14);		// "NODE"
-"我喜欢JS，我也喜欢NODE".substring(10, 99);		// "NODE"
-"我喜欢JS，我也喜欢NODE".substring(-1, 4);		// "我喜欢J"
+'我喜欢JS，我也喜欢NODE'.substring(3, 5);		// "JS"
+'我喜欢JS，我也喜欢NODE'.substring(10, 14);		// "NODE"
+'我喜欢JS，我也喜欢NODE'.substring(10, 99);		// "NODE"
+'我喜欢JS，我也喜欢NODE'.substring(-1, 4);		// "我喜欢J"
 ```
 
-> 超出范围的部分，取到端点字符。
+> 超出范围的部分，取到端点字符！
 
-- substring(a, b) 方法如果省略第二个参数，返回的子串会一直到字符串的结尾
+- `substring(a, b)` 方法如果省略第二个参数，返回的子串会一直到字符串的结尾
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".substring(6);		// "我也喜欢NODE"
+'我喜欢JS，我也喜欢NODE'.substring(6);		// "我也喜欢NODE"
 ```
 
-- substring(a, b) 中，a 可以大于 b，数字顺序将自动调整为小数在前
+- `substring(a, b)` 中，a 可以大于 b，数字顺序将自动调整为小数在前
 
-> 应该没有人会这样用
+> 应该没有人会这样用^^
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".substring(3, 5);		// "JS"
-"我喜欢JS，我也喜欢NODE".substring(5, 3);		// "JS"
+'我喜欢JS，我也喜欢NODE'.substring(3, 5);		// "JS"
+'我喜欢JS，我也喜欢NODE'.substring(5, 3);		// "JS"
 ```
 
 **（2）`substr(a, b)` 中，将得到从 a 开始的长度为 b 的子串**
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".substr(3, 2);		// "JS"
+'我喜欢JS，我也喜欢NODE'.substr(3, 2);		// "JS"
 ```
 
-- substr(a, b) 中，b 可以省略，表示到字符串结尾
+- `substr(a, b)` 中，b 可以省略，表示到字符串结尾
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".substr(3);		// "JS，我也喜欢NODE"
+'我喜欢JS，我也喜欢NODE'.substr(3);		// "JS，我也喜欢NODE"
 ```
 
-- substr(a, b) 中，a 可以是负数，表示倒数位置
+- `substr(a, b)` 中，a 可以是负数，表示倒数位置
 
 > 倒数第一位为 -1，而不是 -0
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".substr(-4, 2);		// "NO"
+'我喜欢JS，我也喜欢NODE'.substr(-4, 2);		// "NO"
 ```
 
 **（3）`slice(a, b)` 方法得到从 a 开始到 b 结束（不包括 b 处）的子串**
@@ -315,20 +318,20 @@ console.log(typeof a);	// string
 > slice：切片
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".slice(3, 5);		// "JS"
+'我喜欢JS，我也喜欢NODE'.slice(3, 5);		// "JS"
 ```
 
-- slice(a, b) 的参数 a 可以是负数（与 substring(a, b) 的区别）
+- `slice(a, b)` 的参数 a 可以是负数（与 substring(a, b) 的区别）
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".slice(-4, -1);		// "NOD"
+'我喜欢JS，我也喜欢NODE'.slice(-4, -1);		// "NOD"
 // (-4, -1)：从 倒数第4位 到 倒数第1位，不包括 倒数第1位
 ```
 
 - slice(a, b) 中，参数 a 必须小于参数 b，否则便会返回一个空字符串
 
 ```javascript
-"我喜欢JS，我也喜欢NODE".slice(5, 2);		// ""
+'我喜欢JS，我也喜欢NODE'.slice(5, 2);		// ""
 ```
 
 ### 3.6.3 toUpperCase() 和 toLowerCase() 方法
@@ -337,8 +340,8 @@ console.log(typeof a);	// string
 - `toLowerCase()` 转为小写
 
 ```javascript
-"I Love You".toUpperCase();		// "I LOVE YOU"
-"IMooc".toLowerCase();		    // "imooc"
+'I Love You'.toUpperCase();		// "I LOVE YOU"
+'IMooc'.toLowerCase();		    // "imooc"
 ```
 
 > 注意：toUpperCase() 和 toLowerCase()，只是返回一个大小写格式，变量本身的值并没有改变。
@@ -346,9 +349,9 @@ console.log(typeof a);	// string
 > ```javascript
 > var str = "I Love You";
 > console.log(str.toUpperCase());		// "I LOVE YOU"
-> console.log(str);				   // "I Love You"
+> console.log(str);				    // "I Love You"
 > str = str.toUpperCase();
-> console.log(str);				   // "I LOVE YOU"
+> console.log(str);				    // "I LOVE YOU"
 > ```
 
 ### 3.6.4 indexOf() 方法
@@ -357,21 +360,23 @@ console.log(typeof a);	// string
 
 如果要检索的字符串没有出现，则返回 `-1`
 
+这个方法用于判断字符串是否包含目标子串时特别有用！
+
 ```javascript
-"abcdebb".indexOf("b");		// 1
-"abcdebb".indexOf("deb");	// 3
-"abcdebb".indexOf("m");		// -1
+'abcdebb'.indexOf('b');		// 1
+'abcdebb'.indexOf('deb');	// 3
+'abcdebb'.indexOf('m');		// -1
 ```
 
 ### 3.6.5 trim()、trimStart()、trimEnd() 方法
 
 ```javascript
 // 删除首尾空格
-console.log("---" + " 123 ".trim() + "---");
+console.log('---' + ' 123 '.trim() + '---');
 // 删除首部空格
-console.log("---" + " 123 ".trimStart() + "---");
+console.log('---' + ' 123 '.trimStart() + '---');
 // 删除尾部空格
-console.log("---" + " 123 ".trimEnd() + "---");
+console.log('---' + ' 123 '.trimEnd() + '---');
 
 /*
 ---123---
@@ -395,17 +400,17 @@ typeof false;	// boolean
 
 ```javascript
 3 < 5;	 // true
-5 > 3; 	 // true
+5 > 3; 	 // true 
 5 >= 100; // false
 ```
 
-> 注意：在 JS 中，1 可以 “代表” true，0或-0 可以 “代表” false，原理是类型的自动转换，但非常不建议以数字来代替布尔值！
+> 注意：在 JS 中，1 可以 “代表” true，0 或 -0 可以 “代表” false，原理是类型的自动转换，但非常不建议以数字来代替布尔值！
 
 # 五、Undefined 类型
 
 一个没有赋值的变量的默认值是 `undefined`，而 undefined 的类型也是 undefined。
 
-即：undefined 既是类型，又是值（且这种类型只有它自身一个值）。
+即：undefined 既是类型，又是值（且这种类型只有一个唯一的值：就是它自身）。
 
 ```javascript
 typeof undefined;	// undefined
@@ -438,7 +443,7 @@ typeof null;	// object
 
 # 七、数据类型的转换
 
-## 7.1 其他值——>数字
+## 7.1 其他值 ——> 数字
 
 ### 7.1.1 使用 Number() 函数
 
@@ -446,7 +451,7 @@ typeof null;	// object
 
 > 由于 Number() 属于内置构造函数，所以 Number() 的首字母 N 要大写。
 
-**（1）字符串——>数字**
+**（1）字符串 ——> 数字**
 
 ```javascript
 Number('123');			 // 123
@@ -464,14 +469,14 @@ Number('1+1');			// NaN
 Number(1+1);			// 2
 ```
 
-**（2）布尔值——>数字**
+**（2）布尔值 ——> 数字**
 
 ```javascript
 Number(true);			// 1
 Number(false);			// 0
 ```
 
-**（3）undefined和null——>数字**
+**（3）undefined 和 null ——> 数字**
 
 ```javascript
 Number(undefined);		// NaN
@@ -513,7 +518,7 @@ parseInt('3.99');		  // 3
 
 - true、false、undefined、null 转为 NaN
 
-> 之所以会出现这种情况的原因是，parseInt() 的原理是，先将参数转换为字符串，再将字符串转为整数。
+> 之所以会出现这种情况的原因是，parseInt() 的原理是先将参数转换为字符串，再将字符串转为整数。
 >
 > 所以，true 等会先被转为 `'true'`。
 
@@ -548,7 +553,7 @@ parseFloat('3.99');			// 3.99
 parseFloat('-3.99');		// -3.99
 ```
 
-## 7.2 其他值——>字符串
+## 7.2 其他值 ——> 字符串
 
 ### 7.2.1 使用 String() 函数
 
@@ -556,7 +561,7 @@ parseFloat('-3.99');		// -3.99
 
 > 由于 String() 属于内置构造函数，所以 String() 的首字母 S 要大写。
 
-**（1）数字——>字符串**
+**（1）数字 ——> 字符串**
 
 变为 “长得相同” 的字符串。
 
@@ -571,7 +576,7 @@ String(Infinity);	// 'Infinity'
 String(0xf);		// '15'
 ```
 
-**（2）布尔值——>字符串**
+**（2）布尔值 ——> 字符串**
 
 变为 “长得相同” 的字符串。
 
@@ -580,7 +585,7 @@ String(true);		// 'true'
 String(false);		// 'false'
 ```
 
-**（3）undefined 和 null——>字符串**
+**（3）undefined 和 null ——> 字符串**
 
 变为 “长得相同” 的字符串。
 
@@ -595,19 +600,19 @@ String(null);		// 'null'
 
 > 纯数字不能直接 “打点” 调用 toString() 方法，要把纯数字用 `()` 包裹起来，此时 JS 会提升该数字为一个对象（包装为对象）。
 
-<img src="mark-img/878d37e5173e437da326d2feedf9fbb7.png" style="zoom: 50%;" />
+<img src="mark-img/878d37e5173e437da326d2feedf9fbb7.png" style="zoom: 33%;" />
 
 > toString() 方法依旧是返回一个字符串，并不改变变量原有的类型！
 
 <img src="mark-img/8a39843577404c8fb96839908c5c6def.png" style="zoom:50%;" />
 
-## 7.3 其他值——>布尔值
+## 7.3 其他值 ——> 布尔值
 
 `Boolean()` 函数是 JS 内置函数。
 
 > 由于 Boolean() 属于内置构造函数，所以 Boolean() 的首字母 B 要大写。
 
-**（1）数字——>布尔值**
+**（1）数字 ——> 布尔值**
 
 0 和 NaN 转为 `false`，其他数字都转为 `true`。
 
@@ -621,7 +626,7 @@ Boolean(-Infinity);		// true
 
 > Infinity 属性用于存放表示正无穷大的数值。
 
-**（2）字符串——>布尔值**
+**（2）字符串 ——> 布尔值**
 
 空字符串变为 `false`，其他都转为 `true`。
 
@@ -631,7 +636,7 @@ Boolean('abc');				// true
 Boolean('false');			// true
 ```
 
-**（3）undefined和null——>布尔值**
+**（3）undefined 和 null ——> 布尔值**
 
 转为 false。
 
@@ -644,7 +649,7 @@ Boolean(null);					// false
 
 - 使用 `prompt()` 函数弹出浏览器输入框，让用户输入两个数字
 
-- 由于 prompt() 函数输入的任何值都将默认为字符串，所以我们要将其先转为数字类型
+- 由于 `prompt()` 函数输入的任何值都将默认为字符串，所以我们要将其先转为数字类型
 - 对数字进行加法运算
 - 最后用 `alert()` 显示结果
 
@@ -676,9 +681,9 @@ function() {
 > 在 JS 中普通类型也可以包装为复杂类型（对象）
 >
 > ```javascript
-> str01 = "zjr";
-> str02 = new String("zjr");
-> str03 = String("zjr");
+> str01 = 'zjr';
+> str02 = new String('zjr');
+> str03 = String('zjr');
 > console.log(typeof str01);		// string
 > console.log(typeof str02);		// object
 > console.log(typeof str03);		// string
