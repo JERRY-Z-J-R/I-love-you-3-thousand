@@ -3660,3 +3660,9 @@ function 需要节流的函数() {
 ```
 
 ![](mark-img/6ce3942a0d204578b8025195c37f48aa.gif)
+
+# 十六、JQuery
+
+- [jQuery 教程 (w3school.com.cn)](https://www.w3school.com.cn/jquery/index.asp)
+
+- [jQuery 教程 | 菜鸟教程 (runoob.com)](https://www.runoob.com/jquery/jquery-tutorial.html)
