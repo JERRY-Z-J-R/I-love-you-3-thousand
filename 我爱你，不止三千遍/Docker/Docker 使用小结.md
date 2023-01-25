@@ -1,6 +1,8 @@
 # Docker 使用小结
 
-> 此处以利用 Docker 配置一个 Node.Js 容器并运行一个 Vue 项目为例。
+官网文档：[Docker Documentation | Docker Documentation](https://docs.docker.com/)
+
+> 此处以利用 Docker 配置一个 Node.js 容器并运行一个 Vue 及 Koa 项目为例。
 
 ### 一、制作 Dockerfile 文件
 
@@ -37,13 +39,17 @@ node         vue       5f26022d0c60   3 minutes ago    905MB
 
 ### 四、由镜像来启动一个容器
 
-> 由于启动容器的同时应该将主机上的项目文件挂载进容器里，所以在启动容器的同时使用 `-v` 命令来将本机上的 vue 项目挂载进容器中（数据卷）。本机 vue 项目路径为：`/mnt/f/front-end-of-online-classroom`
+> 由于启动容器的同时应该将主机上的项目文件挂载进容器里，所以在启动容器的同时使用 `-v` 命令来将本机上的 vue 项目挂载进容器中。
+>
+> 同时，把主机的 99 端口映射到容器中的 80 端口上…… 
+>
+> 本机 vue 项目路径为：`/mnt/f/test-vue`
 
 ```shell
-$ docker run -it -p 99:80 -v /mnt/f/front-end-of-online-clas# sroom:/usr/front-end-of-online-classroom 5f26022d0c60 bash 
+$ docker run -it -p 99:80 -v /mnt/f/test-vue
 ```
 
-输入以上命令之后，便成功启动了容器并进入了容器的终端……
+输入以上命令之后，便成功启动了容器并自动切入了容器终端……
 
 ```shell
 root@f005399b6c73:/# ls
@@ -53,26 +59,23 @@ root@f005399b6c73:/# node -v
 v16.13.0
 root@f005399b6c73:/# cd usr
 root@f005399b6c73:/usr# ls
-bin  front-end-of-online-classroom  games  include  lib  local  sbin  share  src
-root@f005399b6c73:/usr# cd front-end-of-online-classroom
-root@f005399b6c73:/usr/front-end-of-online-classroom# ls
-README.md        favicon.ico  package.json  src  babel.config.js  
-index.html   package-lock.json  public        vue.config.js
-root@f005399b6c73:/usr/front-end-of-online-classroom#
+bin  test-vue  games  include  lib  local  sbin  share  src
+root@f005399b6c73:/usr# cd test-vue
+root@f005399b6c73:/usr/test-vue# ls
+public  src  babel.config.js  package.json  package-lock.json  vue.config.js  README.md
+root@f005399b6c73:/usr/test-vue#
 ```
 
 可以看到，容器中已经成功挂载了主机上的 vue 项目。
 
-### 五、配置 vue 启动环境
+### 五、安装项目启动依赖
 
 ```shell
-# 在 /usr/front-end-of-online-classroom 路径下
+# 在 /usr/test-vue 路径下
 $ npm install
-$ npm i node-sass -D --verbose
-$ npm rebuild node-sass
 ```
 
-若成功配置，执行后目录下将成功生成一个 `node_modules` 文件。
+若依赖安装成功，执行后目录下将成功生成一个 `node_modules` 文件。
 
 ### 六、启动 vue 项目
 
@@ -83,7 +86,7 @@ $ npm run serve
 成功启动项目……
 
 ```
-> dj_works@0.1.0 serve
+> test-vue@0.1.0 serve
 > vue-cli-service serve
 
  INFO  Starting development server...
@@ -102,7 +105,7 @@ $ npm run serve
   To create a production build, run npm run build.
 ```
 
-> 由于 `http://localhost:80/` 这里的端口是容器里的，而我们改才将容器里的 `80` 端口映射到了主机上的 `99` 端口，所以我们在主机上访问 `http://localhost:99/` 便可以成功打开 vue 项目了。
+> 由于 `http://localhost:80/` 这里的ip和端口都是指容器里的，而我们刚才将容器里的 `80` 端口映射到了主机上的 `99` 端口，所以我们在主机上访问 `http://localhost:99/` 便可以成功打开 vue 项目了。
 
 ### 七、将容器打包为镜像
 
@@ -127,7 +130,7 @@ node         vue2      6ba5f379c62e   55 seconds ago   961MB
 node         vue       5f26022d0c60   2 hours ago      905MB
 ```
 
-> 注意：由于是将主机上的 `front-end-of-online-classroom` 挂载到容器里（只有主机上唯一的一份源文件，容器只是单纯的做了一个映射），所以将容器打包为镜像后，这个镜像中是不包含项目代码及 vue 启动环境的！（之所以不包含 vue 启动环境是因为配置 vue 启动环境的时候是在 `front-end-of-online-classroom` 路径下配置的，是配置在了主机的真实文件上，并不在容器中）。
+> 注意：由于是将主机上的 `test-vue` 挂载到容器里（只有主机上唯一的一份源文件，容器只是单纯的做了一个映射），所以将容器打包为镜像后，这个镜像中是不包含项目代码及 vue 启动依赖的！（之所以不包含 vue 启动依赖是因为 vue 安装启动依赖的时候是在主机的真实路径上安装，并不在容器中）！
 
 ### 八、Docker 数据卷
 
@@ -166,9 +169,9 @@ $ docker run -v 本机路径:容器内部路径 镜像ID
 
 ### 九、Dockerfile 文件
 
-学会使用 image 文件以后，接下来的问题就是，如何可以生成 image 文件？如果你要推广自己的软件，势必要自己制作 image 文件。
+学会使用 image 文件以后，接下来的问题就是，如何可以生成 image 文件？如果你要推广自己的软件（运行环境），势必要自己制作 image 文件。
 
-这就需要用到 Dockerfile 文件。它是一个文本文件，用来配置 image。Docker 根据 该文件生成二进制的 image 文件。
+这就需要用到 Dockerfile 文件。它是一个文本文件，用来配置 image，Docker 根据 该文件生成二进制的 image 文件。
 
 下面通过一个实例，演示如何编写 Dockerfile 文件。
 
