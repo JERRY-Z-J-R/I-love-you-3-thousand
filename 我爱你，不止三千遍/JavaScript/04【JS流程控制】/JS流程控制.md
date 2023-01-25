@@ -29,7 +29,7 @@ if (测试条件) {
 ```
 
 - 条件语句可以嵌套（最好不要嵌套超过三层）
-- if-elseif-else 语句注意条件的区间（下一级条件的成立是建立在上一级条件不成立的条件下）
+- if-elseif-else 语句注意条件的区间（下一级条件的成立是建立在上一级条件不成立的前提下）
 - 可以只有 if 和 else if
 
 # 二、switch 选择语句
@@ -55,11 +55,11 @@ switch (变量/表达式) {
 
 `条件表达式 ? 表达式1 : 表达式2;`
 
-当条件表达式为真时执行表达式1并返回结果，否则执行表达式2并返回结果。
+当条件表达式为真时执行 表达式1 并返回结果，否则执行 表达式2 并返回结果。
 
 【三元运算符的用途】
 
-根据某个条件是否成立，在两个不同值中选择变量的值。
+根据某个条件是否成立，在两个不同值中选择最终值。
 
 ```javascript
 var age = 24;
@@ -93,15 +93,17 @@ for (初次表达式; 判断条件; 历次表达式) {
 
 `for` 循环的一个变体是 `for ... in` 循环，它可以把一个对象的所有属性依次循环出来：
 
+其中：`key` 是字符串类型，值为对象的属性名。
+
 ```javascript
 var o = {
-    name: "Jerry",
+    name: 'Jerry',
     age: 20,
-    city: "Beijing"
+    city: 'Beijing'
 };
 
 for (var key in o) {
-    console.log(key + ": " + o[key]);
+    console.log(key + ': ' + o[key]);
 }
 /*
 "name: Jerry"
@@ -114,14 +116,14 @@ for (var key in o) {
 
 ```javascript
 var o = {
-    name: "Jerry",
+    name: 'Jerry',
     age: 20,
-    city: "Beijing"
+    city: 'Beijing'
 };
 
 for (var key in o) {
     if (o.hasOwnProperty(key)) {
-        console.log(key + ": " + o[key]);
+        console.log(key + ': ' + o[key]);
     }
 }
 /*
@@ -131,13 +133,15 @@ for (var key in o) {
 */
 ```
 
-由于数组也是对象，而它的每个元素的索引被视为对象的属性，因此，`for ... in` 循环可以直接循环出数组的索引：
+由于数组也是对象的一种，因此，`for ... in` 循环可以直接循环出数组的索引：
+
+其中：`i` 是字符串类型，值为数组的索引值（字符串类型）。
 
 ```javascript
 var a = ['A', 'B', 'C'];
 
 for (var i in a) {
-    console.log(i + ": " + a[i]);
+    console.log(i + ': ' + a[i]);
 }
 /*
 0: A
@@ -146,7 +150,57 @@ for (var i in a) {
 */
 ```
 
-请注意，`for ... in` 对数组的循环得到的索引是 `String` 而不是 `Number`。
+再次提醒：`for ... in` 对数组的循环得到的索引是 `String` 而不是 `Number`。
+
+**【for ... of 循环】**
+
+`for in` 更适合遍历对象，当然也可以遍历数组，但是会存在一些问题，例如：索引为字符串型数字，不能直接进行几何运算！某些情况下，遍历顺序有可能不是按照实际数组的内部顺序！
+
+使用 `for in` 会遍历数组所有的可枚举属性，包括原型，如果不想遍历原型上的方法和属性的话，可以在循环内部判断一下，使用 `hasOwnProperty()` 方法可以判断某属性是不是该对象的实例属性：
+
+```js
+var arr = [1, 2, 3];
+Array.prototype.n = 123;
+    
+for (var i in arr) {
+  var res = arr[i];
+  console.log(res);
+}
+// 1 2 3 123
+
+for(var i in arr) {
+    if(arr.hasOwnProperty(i)) {
+        var res = arr[i];
+  		console.log(res);
+    }
+}
+// 1 2 3
+```
+
+ES6 中，引入了 `for ... of` 循环！适用遍历 数组/字符串/map/set 等拥有迭代器对象（iterator）的集合，但是不能遍历普通对象！如果想遍历对象的属性，你可以用 `for in` 循环（这也是它的本职工作）或用内建的 `Object.keys()` 方法（获取对象的实例属性组成的数组，不包括原型方法和属性）……
+
+`for of` 遍历的是数组元素的值，而且 `for of` 遍历的只是数组内的元素，不包括原型属性和索引！
+
+```js
+var arr = [1, 2, 3];
+Array.prototype.a = 123;
+
+for (var value of arr) {
+  console.log(value);
+}
+// 1 2 3
+```
+
+```js
+var str = '13579';
+
+for (var c of str) {
+    console.log(c);
+}
+// 1 3 5 7 9
+```
+
+推荐：变量普通对象用：`for in`，变量数组及字符串等用：`for of`。
 
 # 五、while 循环语句
 
@@ -174,7 +228,7 @@ do {
 
 # 七、label 表达式
 
-`label` 是一个标签，可以使用 `break` 或 `continue` 使程序跳转到这个标签处执行（执行：`break` 或 `continue`），从而改变程序的执行流程。
+`label` 是一个标签，可以配合 `break` 或 `continue` 使程序跳转到这个标签处执行（执行 `break` 或 `continue`），从而改变程序的执行流程。
 
 ```javascript
 // 注意：label 不是一个特定的关键字，可以随便取名
@@ -217,7 +271,7 @@ i=9
 ```
 
 ```javascript
-// label + break 配合可以用在循环外
+// label + break 配合可以用在循环外的 if 语句中
 label: {
     if (1 > 0) {
         console.log("1");

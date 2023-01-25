@@ -162,14 +162,14 @@ func();
 ```javascript
 var age = 18;
 function add() {}
-console.log(window.age);			// 18
+console.log(window.age);			 // 18
 console.log(window.add === add);	 // true
 ```
 
 ```javascript
 let age = 18;
 const add = function() {}
-console.log(window.age);			// undefined
+console.log(window.age);			 // undefined
 console.log(window.add === add);	 // false
 ```
 
@@ -249,9 +249,7 @@ console.log(i);		// 报错
 
 无论点击谁都是 3，这是因为 var 没有块级作用域，三个点击事件函数中的 i 都是同一个全局变量，最终 i 都为 3 了，所以固然都输出 3。
 
-<img src="mark-img/image-20220313204615728.png" alt="image-20220313204615728" style="zoom: 25%;" />
-
-- 使用 var，同时利用闭包
+- 使用 var，同时配合函数作用域
 
 ```html
 <!DOCTYPE html>
@@ -284,6 +282,7 @@ console.log(i);		// 报错
     var btns = document.querySelectorAll('.btn');
 
     for (var i = 0; i < btns.length; i++) {
+        // index 属于函数作用域
         (function (index) {
             btns[index].addEventListener(
                 'click',
@@ -300,10 +299,6 @@ console.log(i);		// 报错
 ```
 
 <img src="mark-img/1-16471758864061.gif" alt="1" style="zoom:50%;" />
-
-三个点击事件函数中的 i 对应到三个闭包上，且闭包的 i 为函数参数（局部变量），分别是 0、1、2。
-
-<img src="mark-img/image-20220313210146671.png" alt="image-20220313210146671" style="zoom:25%;" />
 
 - 使用 let
 
@@ -353,8 +348,6 @@ console.log(i);		// 报错
 
 <img src="mark-img/1-16471758864061.gif" alt="1" style="zoom:50%;" />
 
-<img src="mark-img/image-20220313210915202.png" alt="image-20220313210915202" style="zoom:25%;" />
-
 # 二、模板字符串
 
 ## 2.1 认识模板字符串
@@ -392,10 +385,7 @@ const person = {
     sex: '男'
 };
 
-const info =
-    '我的名字是：' + person.name +
-    '，性别是：' + person.sex +
-    '，今年：' + person.age + '岁';
+const info = '我的名字是：' + person.name + '，性别是：' + person.sex + '，今年：' + person.age + '岁';
 
 console.log(info);
 
@@ -431,7 +421,6 @@ console.log(info);
 第二行
 */
 
-
 // 模板字符串
 const info = `第一行
 第二行`;	// 注意不能有缩进
@@ -442,7 +431,7 @@ console.log(info);
 */
 ```
 
-> 模板字符串中，所有的空格、换行或缩进都会被保存在输出中
+> 模板字符串中，所有的空格、换行或缩进都会被保存在输出中！
 
 ### 2.3.2 输出 `` ` 和 `\` 等特殊字符
 
@@ -505,7 +494,7 @@ console.log(info);
 </ul>
 
 <script>
-    // 数据（此处只是模拟数据，后期是通过 Ajax 从后台获取）
+    // 数据（此处只是模拟数据，真实场景中应该是通过 Ajax 从后台获取）
     const students = [
         {
             username: 'Alex',
@@ -547,7 +536,7 @@ console.log(info);
 普通函数：
 
 - `function 函数名() {}`
-- `const 变量名 = function () {};`
+- `const 常量名 = function() {};`
 
 箭头函数：
 
@@ -592,7 +581,7 @@ const add = (x, y) => {
     return x + y;
 };
 
-// 单行函数体可以省略 return 和 {}，且一但省略就 return 和 {} 都要一起省略
+// 单行函数体可以省略 return 和 {}，且 return 和 {} 都要一起省略
 const add = (x, y) => x + y; 
 ```
 
@@ -612,8 +601,6 @@ const add = (x, y) => ({value: x + y});
 // 数组就没有以上问题
 const add = (x, y) => [x, y];
 ```
-
-> 推荐：一般情况最好不要简写！
 
 ## 3.3 非箭头函数中的 this 指向
 
@@ -723,7 +710,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
     const timer = {
         time: 0,
         start: function () {
-            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 time
+            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 timer
             btn.addEventListener(
                 'click',
                 function () {
@@ -779,7 +766,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
     const timer = {
         time: 0,
         start: function () {
-            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 time
+            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 timer
          	// 用 that 或 self 代替 this
             var that = this;
             btn.addEventListener(
@@ -836,7 +823,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
     const timer = {
         time: 0,
         start: function () {
-            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 time
+            // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 timer
             btn.addEventListener(
                 'click',
                 // 箭头函数中没有 this，所以下面的 this 是 start 的
@@ -901,7 +888,7 @@ console.log(a, b);	// 1 2
 
 **（2）默认值的生效条件**
 
-只有当一个数组成员严格等于 (===) undefined 时，对应的默认值才会生效。
+只有当一个数组成员严格等于 === undefined 时，对应的默认值才会生效。
 
 ```javascript
 const [a = 1, b = 2] = [3, 0];		// 3 0
@@ -911,7 +898,7 @@ const [a = 1, b = 2] = [3];		    // 3 2
 
 **（3）默认值表达式**
 
-如果默认值是表达式，默认值表达式是惰性求值的（即：当无需用到默认值时，表达式是不会求值的）
+如果默认值是表达式，那么默认值表达式是惰性求值的（即：当无需用到默认值时，表达式是不会求值的）
 
 ```javascript
 const func = () => {

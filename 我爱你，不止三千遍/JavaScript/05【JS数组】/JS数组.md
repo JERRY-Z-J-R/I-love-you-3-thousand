@@ -72,7 +72,7 @@ console.log(arr.length);	// 4
 
 如果更改的数组项超过了 `length-1`，则会创造该项。
 
-> JS 数组是可以动态扩容的！这就 NB 了！
+> JS 数组是可以动态扩容的！
 
 ```javascript
 var arr = [1, 2, 3, 4];
@@ -91,10 +91,73 @@ for (var i = 0; i < arr.length; i++) {
 }
 
 var a = ['A', 'B', 'C'];
-for (var i in a) {
-    console.log(i); 	// '0', '1', '2'
-    console.log(a[i]); 	// 'A', 'B', 'C'
+for (var v of a) {
+    console.log(v); 	// 'A', 'B', 'C'
 }
+```
+
+## 7.1 forEach() 方法
+
+Array.forEach 方法为数组的每个元素都运行一个函数。
+
+语法：
+
+```javascript
+arr.forEach(function(item, index, array) {
+  // ...
+});
+```
+
+案例：
+
+```javascript
+['Bilbo', 'Gandalf', 'Nazgul'].forEach(function (item, index, array) {
+  console.log(`${item} 的索引值为：${index}，在数组：${array} 中`);
+});
+
+或者：
+
+var arr = ['Bilbo', 'Gandalf', 'Nazgul'];
+arr.forEach(function (item, index, array) {
+  console.log(`${item} 的索引值为：${index}，在数组：${array} 中`);
+});
+// Bilbo 的索引值为：0，在数组：Bilbo,Gandalf,Nazgul 中
+// Gandalf 的索引值为：1，在数组：Bilbo,Gandalf,Nazgul 中
+// Nazgul 的索引值为：2，在数组：Bilbo,Gandalf,Nazgul 中
+```
+
+该函数的结果（如果它有返回）会被抛弃和忽略。
+
+## 7.2 map() 方法
+
+Array.map 方法是最有用和经常使用的方法之一。
+
+它对数组的每个元素都调用函数，并返回结果数组。
+
+语法：
+
+```javascript
+var result = arr.map(function(item, index, array) {
+  // ...
+})
+```
+
+例如，在这里我们将每个元素转换为它的字符串长度：
+
+```javascript
+var lengths = ["Bilbo", "Gandalf", "Nazgul"].map(function(item, index, array) {
+    return item.length;
+});
+console.log(lengths); 
+// [5, 7, 6]
+
+// 可以省略不需要的形参：
+var arr = ["Bilbo", "Gandalf", "Nazgul"];
+var lengths = arr.map(function(item) {
+    return item.length;
+});
+console.log(lengths); 
+// [5, 7, 6]
 ```
 
 # 八、数组类型的检测
@@ -275,9 +338,8 @@ console.log(childArr3);		// ['C', 'D', 'E']
 
 字符串也可以使用 `[下标]` 的形式访问某个字符，等价于 `charAt()` 方法。
 
-> 在对字符串中的字符进行遍历时不用转为数组，直接利用 [下标] 即可。
+> 在对字符串中的字符进行遍历时不用转为数组，直接利用 [下标] 即可！
 >
-> 字符串的一些算法问题，会转为数组解决！
 
 ```javascript
 '我爱前端'[0];			// "我"
@@ -317,7 +379,7 @@ arr.reverse();
 console.log(arr);	// ["D", "C", "B", "A"]
 ```
 
-【一个小案例】
+【小案例】
 
 字符串 `'ABCDEFG'` 逆序。
 
@@ -353,15 +415,204 @@ console.log(arr);	// ["D", "C", "B", "A"]
 
 ## 9.9 sort() 方法
 
-数组有 `sort()` 方法可以用于数组的排序，但是涉及到函数的相关知识，在函数一节课进行介绍。
+`sort()` 方法用原地算法（直接改变原数组）对数组的元素进行排序，并返回数组。
+
+默认排序顺序是将元素转换为字符串，然后根据字典序进行排序（数字 ——> 大写字母 ——> 小写字母，字符串内逐个字符进行比较，相同时比较下一位）
+
+```js
+var arr = [3, 18, 10, 24];
+console.log(arr.sort());	// [ 10, 18, 24, 3 ]
+
+var arr = ['A', 'a', 'c', 'D', 1];
+console.log(arr.sort());	// [ 1, 'A', 'D', 'a', 'c' ]
+
+var arr = ['aa', 'a0', 'aA', 'A1', 'Aa', 'AA'];
+console.log(arr.sort());	// [ 'A1', 'AA', 'Aa', 'a0', 'aA', 'aa' ]
+```
+
+`sort()` 方法可以接收一个函数作为参数，我们可以在这个函数中自定义我们的排序规则：
+
+```js
+arr.sort(function(a, b) {
+    // 比较规则...
+});
+// 参数a：前一个用于比较的元素。
+// 参数b：后一个用于比较的元素。
+```
+| `function(a, b)` 返回值 | 排序顺序               |
+| :---------------------- | :--------------------- |
+| > 0                     | `a` 在 `b` 后          |
+| < 0                     | `a` 在 `b` 前          |
+| === 0                   | 保持 `a` 和 `b` 的顺序 |
+
+案例1：按数字大小进行排序（降序）：
+
+```js
+var arr = [3, 18, 10, 24];
+arr.sort(function(a, b) {
+   if (a > b) {
+       return -1;
+   } else if (a < b) {
+       return 1;
+   } else {
+       return 0;
+   }
+});
+console.log(arr);	// [ 24, 18, 10, 3 ]
+```
+
+案例2：按照学生分数进行排序（降序）：
+
+```js
+var students = [
+    { name: 'Edward', score: 66 },
+    { name: 'Sharpe', score: 84 },
+    { name: 'And', score: 58 },
+    { name: 'The', score: 92 },
+    { name: 'Magnetic', score: 99 },
+    { name: 'Zeros', score: 74 }
+];
+students.sort(function (a, b) {
+    if (a.score > b.score) {
+        return -1;
+    } else if (a.score < b.score) {
+        return 1;
+    } else {
+        return 0;
+    }
+});
+console.log(students);
+/*
+[ 
+{ name: 'Magnetic', score: 99 },
+{ name: 'The', score: 92 },
+{ name: 'Sharpe', score: 84 },
+{ name: 'Zeros', score: 74 },
+{ name: 'Edward', score: 66 },
+{ name: 'And', score: 58 } 
+]
+*/
+```
 
 除了内置排序方法外，还有一些排序算法：`冒泡排序` 和 `快速排序` 将在后面介绍。
 
-## 9.10 有关数组在 ES6 中的增强
+## 9.10 find/findIndex/findLastIndex() 方法
+
+想象一下，我们有一个对象数组。我们如何找到具有特定条件的对象？
+
+这时可以用 Array.find 方法。
+
+语法如下：
+
+```javascript
+var result = arr.find(function(item, index, array) {
+  // 如果返回 true，则返回 item 并停止迭代
+  // 如果返回 falsy，则继续迭代，如果一直没有返回 true，那么结束时返回 undefined
+});
+```
+
+依次对数组中的每个元素调用该函数：
+
+- `item` 是元素。
+- `index` 是它的索引。
+- `array` 是数组本身。
+
+如果它返回 `true`，则搜索停止，并返回 `item`。如果没有搜索到，则返回 `undefined`。
+
+例如，我们有一个存储用户的数组，每个用户都有 `id` 和 `name` 字段。让我们找到 `id === 1` 的那个用户：
+
+```javascript
+var users = [
+  {id: 1, name: "John"},
+  {id: 2, name: "Pete"},
+  {id: 3, name: "Mary"}
+];
+
+var user = users.find(function(item) {
+    return item.id === 1;
+});
+
+console.log(user.name); // John
+```
+
+在现实生活中，对象数组是很常见的，所以 `find` 方法非常有用。
+
+注意在这个例子中，我们传给了 `find` 一个单参数函数。这很典型，并且 `find` 方法的其他参数很少使用。
+
+arr.findIndex 方法（与 `arr.find`）具有相同的语法，但它返回找到的元素的索引，而不是元素本身。如果没找到，则返回 `-1`。
+
+arr.findLastIndex 方法类似于 `findIndex`，但从右向左搜索，类似于 `lastIndexOf`。
+
+这是一个例子：
+
+```javascript
+var users = [
+    { id: 1, name: 'John' },
+    { id: 2, name: 'Pete' },
+    { id: 3, name: 'Mary' },
+    { id: 4, name: 'John' }
+];
+
+// 寻找第一个 John 的索引
+console.log(
+    users.findIndex(function (user) {
+        return user.name === 'John';
+    })
+); // 0
+
+// 寻找最后一个 John 的索引
+console.log(
+    users.findLastIndex(function (user) {
+        return user.name === 'John';
+    })
+); // 3
+```
+
+## 9.11 filter() 方法
+
+`find` 方法搜索的是使函数返回 `true` 的第一个（单个）元素。
+
+如果需要匹配的有很多，我们可以使用 `Array.filter(fn)`。
+
+语法与 `find` 大致相同，但是 `filter` 返回的是所有匹配元素组成的数组：
+
+filter：过滤、过滤器
+
+```javascript
+var results = arr.filter(function(item, index, array) {
+  // 如果返回 true，那么 item 被 push 到 results，迭代继续
+  // 如果什么都没找到，则返回空数组
+});
+```
+
+例如：
+
+```javascript
+var users = [
+  {id: 1, name: 'John'},
+  {id: 2, name: 'Pete'},
+  {id: 3, name: 'Jerry'},
+  {id: 4, name: 'Mary'}
+];
+
+// 返回前两个用户的数组
+var someUsers = users.filter(function(item) {
+    return item.id < 3;
+});
+console.log(someUsers); // [ { id: 1, name: 'John' }, { id: 2, name: 'Pete' } ]
+
+// 返回用户名字含四个字母的数组
+var fourNameUsers = users.filter(function(item) {
+    return item.name.length <= 4;
+});
+console.log(fourNameUsers);	// [ { id: 1, name: 'John' }, { id: 2, name: 'Pete' }, { id: 4, name: 'Mary' } ]
+```
+
+## 9.12 有关数组在 ES6 中的增强
 
 数组在 ES6 中新增了较多的新方法，将在 ES6 相关课程中介绍。
 
-## 9.11 数组去重和随机样本
+## 9.13 数组去重和随机样本
 
 【数组去重】
 
@@ -397,7 +648,7 @@ for (var i = 0; i < 3; i++) {
 console.log(resultArr);
 ```
 
-## 9.12 冒泡排序
+## 9.14 冒泡排序
 
 冒泡排序是一个著名的排序算法，也是最基础的交换排序。
 
@@ -422,7 +673,7 @@ for (var i = 0; i < arr.length - 1; i++) {
 console.log(arr);
 ```
 
-## 9.13 快速排序（冒泡排序改进版）
+## 9.15 快速排序（冒泡排序改进版）
 
 快速排序（Quicksort）是使用得最广泛，速度也较快的排序算法。它是图灵奖得主 C. A. R. Hoare（1934--）于 1960 时提出来的。是二十世纪10大算法之一，非常重要！时间复杂度： `O(nlogn)`，稳定性：`不稳定`。
 

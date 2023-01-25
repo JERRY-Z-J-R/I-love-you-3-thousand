@@ -399,8 +399,8 @@ typeof false;	// boolean
 > 布尔类型在 关系运算 和 逻辑运算 中广泛运用。
 
 ```javascript
-3 < 5;	 // true
-5 > 3; 	 // true 
+3 < 5;	  // true
+5 > 3; 	  // true 
 5 >= 100; // false
 ```
 
@@ -520,7 +520,7 @@ parseInt('3.99');		  // 3
 
 > 之所以会出现这种情况的原因是，parseInt() 的原理是先将参数转换为字符串，再将字符串转为整数。
 >
-> 所以，true 等会先被转为 `'true'`。
+> 所以，true 会先被转为 `'true'`，null 会被转为 'null'，其它同理……
 
 ```javascript
 parseInt(true);			// NaN
@@ -559,7 +559,7 @@ parseFloat('-3.99');		// -3.99
 
 `String()` 函数是 JS 内置函数。
 
-> 由于 String() 属于内置构造函数，所以 String() 的首字母 S 要大写。
+> 由于 String() 属于内置**构造函数**，所以 String() 的首字母 S 要大写。
 
 **（1）数字 ——> 字符串**
 
@@ -596,9 +596,9 @@ String(null);		// 'null'
 
 ### 7.2.2 使用 toString() 方法
 
-`toString()` 是几乎所有值都有的方法，功能是将值转为字符串。
+`toString()` 是几乎所有基本类型都自带的方法，功能是将值转为字符串。
 
-> 纯数字不能直接 “打点” 调用 toString() 方法，要把纯数字用 `()` 包裹起来，此时 JS 会提升该数字为一个对象（包装为对象）。
+> 纯数字不能直接 “打点” 调用 toString() 方法，要把纯数字用 `()` 包裹起来，此时 JS 会提升该数字为一个 Number 对象（包装对象）
 
 <img src="mark-img/878d37e5173e437da326d2feedf9fbb7.png" style="zoom: 33%;" />
 
@@ -610,7 +610,7 @@ String(null);		// 'null'
 
 `Boolean()` 函数是 JS 内置函数。
 
-> 由于 Boolean() 属于内置构造函数，所以 Boolean() 的首字母 B 要大写。
+> 由于 Boolean() 属于内置**构造函数**，所以 Boolean() 的首字母 B 要大写。
 
 **（1）数字 ——> 布尔值**
 
@@ -624,11 +624,11 @@ Boolean(Infinity);		// true
 Boolean(-Infinity);		// true
 ```
 
-> Infinity 属性用于存放表示正无穷大的数值。
+> 全局属性 **`Infinity`** 是一个数值，表示无穷大。
 
 **（2）字符串 ——> 布尔值**
 
-空字符串变为 `false`，其他都转为 `true`。
+空字符串 `''` 转为 `false`，其他都转为 `true`。
 
 ```javascript
 Boolean('');				// false
@@ -654,7 +654,7 @@ Boolean(null);					// false
 - 最后用 `alert()` 显示结果
 
 ```javascript
-// 输入两个数字
+// 输入两个数字，并将他们转为数字类型
 var a = Number(prompt('请输入第一个数字：'));
 var b = Number(prompt('请输入第二个数字：'));
 // 计算两个数字的和
@@ -693,4 +693,4 @@ function() {
 > // Number、Boolean 同理
 > ```
 
-复杂数据类型都是 “引用类型”（type: object），将在后续课程中介绍。
+复杂数据类型都是 “引用类型”（type: object），将在后续介绍。
