@@ -16,6 +16,12 @@
 >
 > Typora 主题推荐：[JERRY-Z-J-R/Typora-DrakeVue3-Gruvbox: Typora Theme Drake-Vue3 & Gruvbox (github.com)](https://github.com/JERRY-Z-J-R/Typora-DrakeVue3-Gruvbox)
 
+### 赞助
+
+> 本仓库开源，完全免费！作为独立开发爱好者，我并没有稳定的开发收入，本项目的初衷在于维护好一个适合于初学者的资料库，希望获得帮助的朋友，可以请我喝杯咖啡^^
+
+<img src="../mark-img/pay.png" alt="pay" width="50%" />
+
 ### License
 
 > Copyright (c) 2023 周吉瑞（JERRY）
@@ -26,10 +32,5 @@
 >
 > - 本人拥有仓库资料的所有权，严禁盗用！
 
-### 赞助
 
-本仓库开源，完全免费！
 
-作为独立开发爱好者，我并没有稳定的开发收入，本项目的初衷在于维护好一个适合于初学者的资料库，希望获得帮助的朋友，可以请我喝杯咖啡^^
-
-<img src="../mark-img/pay.png" alt="pay" width="50%" />
