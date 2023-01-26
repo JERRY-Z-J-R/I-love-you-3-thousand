@@ -8,6 +8,8 @@ DOM（Document Object Model，文档对象模型）是 JavaScript 操作 HTML �
 
 DOM 最大的特点就是将 HTML 文档表示为 “节点树”。
 
+DOM 元素/节点：就是渲染到页面上的，一个个的 HTML 标签体（标签 + 属性 + 内容）。
+
 # 二、DOM节点树
 
 ```html
@@ -25,7 +27,7 @@ DOM 最大的特点就是将 HTML 文档表示为 “节点树”。
         <h2>Coder Dream</h2>
         <img src="logo.png">
         <div class="box">
-            慕课专栏
+            文本内容
         </div>
     </div>
 </body>
@@ -35,9 +37,9 @@ DOM 最大的特点就是将 HTML 文档表示为 “节点树”。
 
 【DOM】
 
-![](mark-img/5782ab2ac7a34aaca8b1380ee9f21089.png)
+<img src="mark-img/5782ab2ac7a34aaca8b1380ee9f21089.png" style="width: 50%;" />
 
-> 整个 html 文档就对应一个 document 对象，可以操作 html 文档里面所有的标记和文本等。
+> 整个 html 文档就对应一个 document 对象，可以操作 html 文档里面所有的标签及其属性和文本。
 
 # 三、nodeType
 
@@ -78,7 +80,7 @@ document.nodeType;	// 9
 
 ## 4.3 访问元素节点的常用方法
 
-注意：以下方法的参数都是字符串值 `''`。
+注意：以下方法的参数都是字符串类型 `''`。
 
 | 方法                                | 功能                       | 兼容性                       |
 | ----------------------------------- | -------------------------- | ---------------------------- |
@@ -120,11 +122,13 @@ var para = document.getElementById('para');
 
 ## 4.5 延迟运行
 
-在测试 DOM 代码时，通常 JS 代码要写到 HTML 节点的后面，否则 JS 无法找到相应的 HTML 节点。
+通常 JS 代码要写到 HTML 结构的最后，否则 JS 无法找到相应的 DOM 节点。
 
-当然，可以使用 `window.onload = function(){}` 事件，使页面加载完毕后，再执行指定的代码。
+可以使用 `window.onload = function(){}` 来延迟 JS 的执行，直到 HTML 文档加载完毕后（触发 window.onload 事件），再执行函数里的代码。
 
-> 一般 script 标签会被放在头部或尾部。头部就是 `<head></head>` 里面，尾部一般指 `<body></body>` 里，但也有放在 `</body>` 闭合标签之后的（最好不要这样）。
+> 一般 script 标签会被放在头部或尾部。
+>
+> 头部就是 `<head></head>` 里面，尾部一般指 `</body>` 前，但也有放在 `</body>` 之后的（最好不要这样）！
 
 ```html
 <!DOCTYPE html>
@@ -141,8 +145,10 @@ var para = document.getElementById('para');
     <div id="box">我是一个盒子</div>
     <p id="para">我是一个段落</p>
     <script>
+        // 获取 DOM 节点
         var box = document.getElementById('box');
         var para = document.getElementById('para');
+        // 输出获取到的 DOM 节点
         console.log(box);	// <div id="box">我是一个盒子</div>
         console.log(para);	// <p id="para">我是一个段落</p>
     </script>
@@ -161,8 +167,11 @@ var para = document.getElementById('para');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
+        // 获取 DOM 节点
         var box = document.getElementById('box');
         var para = document.getElementById('para');
+        // 输出获取到的 DOM 节点
+        // 由于 HTML 代码是顺序执行的，当执行到此处的 JS 代码时，后面 body 内的 DOM 节点还没来得及执行
         console.log(box);	// null
         console.log(para);	// null
     </script>
@@ -186,9 +195,12 @@ var para = document.getElementById('para');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
+        // window.onload 事件：当 HTML 文档加载完毕后触发
         window.onload = function () {
+            // 获取 DOM 节点
             var box = document.getElementById('box');
             var para = document.getElementById('para');
+            // 输出获取到的 DOM 节点
             console.log(box);	// <div id="box">我是一个盒子</div>
             console.log(para);	// <p id="para">我是一个段落</p>
         }
@@ -393,7 +405,7 @@ querySelector() 方法从 IE8 开始兼容，但从 IE9 开始支持 CSS3 的选
 
 # 五、节点的关系
 
-![](mark-img/3c085acf7fcb4bb98af133369c922241.png)
+<img src="mark-img/3c085acf7fcb4bb98af133369c922241.png" style="width: 50%;" />
 
 | 关系           | 考虑所有结点      |
 | -------------- | ----------------- |
@@ -484,11 +496,11 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 
 - 结果
 
-<img src="mark-img/59691c6f0d424e538657b10a99e55a1e.png" style="zoom:80%;" />
+<img src="mark-img/59691c6f0d424e538657b10a99e55a1e.png" style="width: 50%;" />
 
 注意：文本也算作节点（如图选中空白部分）
 
-![](mark-img/5236374c628640628b2be7c232cd99b7.png)
+<img src="mark-img/5236374c628640628b2be7c232cd99b7.png" style="width:50%;" />
 
 # 六、书写常见的节点关系函数
 
@@ -641,7 +653,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 </html>
 ```
 
-<img src="mark-img/5a0f6903a8dc4f35977d19e63360f167.png" style="zoom: 67%;" />
+<img src="mark-img/5a0f6903a8dc4f35977d19e63360f167.png" style="width: 33%;" />
 
 - innerHTML
 
@@ -668,7 +680,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 </html>
 ```
 
-<img src="mark-img/93d396b4ae784751b781fb2e9402c53c.png" style="zoom:67%;" />
+<img src="mark-img/93d396b4ae784751b781fb2e9402c53c.png" style="width: 25%;" />
 
 - innerText
 
@@ -694,7 +706,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 </html>
 ```
 
-<img src="mark-img/3492cc06309c4c08a156e35cd06eab45.png" style="zoom:67%;" />
+<img src="mark-img/3492cc06309c4c08a156e35cd06eab45.png" style="width: 33%;" />
 
 - innerText
 
@@ -720,7 +732,7 @@ DOM 中，文本节点也属于节点，在使用节点的关系时一定要注�
 </html>
 ```
 
-<img src="mark-img/c8210b44616242fc9b3465ac93d23c23.png" style="zoom: 50%;" />
+<img src="mark-img/c8210b44616242fc9b3465ac93d23c23.png" style="width: 33%;" />
 
 ## 7.2 如何改变元素节点的CSS样式
 
@@ -845,7 +857,7 @@ alert(n);
 </html>
 ```
 
-<img src="mark-img/2fba8d550d464f37ae300e2b54eed0ce.png" style="zoom:50%;" />
+<img src="mark-img/2fba8d550d464f37ae300e2b54eed0ce.png" style="width:35%;" />
 
 # 八、节点的创建、移动、删除和克隆
 
@@ -903,7 +915,7 @@ var oDiv = document.createElement('div');
 </html>
 ```
 
-<img src="mark-img/e2ffcdd3c509446280c97bc1450c49f3.png" style="zoom:50%;" />
+<img src="mark-img/e2ffcdd3c509446280c97bc1450c49f3.png" style="width:24%;" />
 
 ### 8.2.2 insertBefore()
 
@@ -946,7 +958,7 @@ var oDiv = document.createElement('div');
 </html>
 ```
 
-<img src="mark-img/de9796a998234c4b9bfaa3bddf70687d.png" style="zoom:50%;" />
+<img src="mark-img/de9796a998234c4b9bfaa3bddf70687d.png" style="width:25%;" />
 
 ## 8.3 节点创建小案例
 
@@ -994,7 +1006,7 @@ var oDiv = document.createElement('div');
 </html>
 ```
 
-<img src="mark-img/260e2e4ae2b54cdcb2e60c6e29a0d9ca.png" style="zoom:50%;" />
+<img src="mark-img/260e2e4ae2b54cdcb2e60c6e29a0d9ca.png" style="width:25%;" />
 
 【九九乘法表】
 
@@ -1043,7 +1055,7 @@ var oDiv = document.createElement('div');
 </html>
 ```
 
-![](mark-img/86dcaf404820444abe361c3a5ea4a670.png)
+<img src="mark-img/86dcaf404820444abe361c3a5ea4a670.png" style="width: 50%;" />
 
 ## 8.4 移动节点
 
@@ -1095,7 +1107,7 @@ var oDiv = document.createElement('div');
 </html>
 ```
 
-<img src="mark-img/7cd9c894d8e04e0cbb64ce710df9aab6.png" style="zoom:50%;" />
+<img src="mark-img/7cd9c894d8e04e0cbb64ce710df9aab6.png" style="width:25%;" />
 
 ## 8.5 删除节点
 
@@ -1137,7 +1149,7 @@ var oDiv = document.createElement('div');
 </html>
 ```
 
-<img src="mark-img/8ba0e61b217a42a28e3e3ecec215ff58.png" style="zoom:50%;" />
+<img src="mark-img/8ba0e61b217a42a28e3e3ecec215ff58.png" style="width:25%;" />
 
 ## 8.6 克隆节点
 
@@ -1186,7 +1198,7 @@ var 孤儿节点 = 老节点.cloneNode(true);
 </html>
 ```
 
-<img src="mark-img/fe25a44f19804275a1ff3d8e7a750759.png" style="zoom:50%;" />
+<img src="mark-img/fe25a44f19804275a1ff3d8e7a750759.png" style="width:25%;" />
 
 ```html
 <!DOCTYPE html>
@@ -1220,7 +1232,7 @@ var 孤儿节点 = 老节点.cloneNode(true);
 </html>
 ```
 
-<img src="mark-img/41d2b250d63e4fd3bf14752815602cfe.png" style="zoom:50%;" />
+<img src="mark-img/41d2b250d63e4fd3bf14752815602cfe.png" style="width:25%;" />
 
 # 九、事件监听
 
@@ -1353,7 +1365,7 @@ oBox.onclick = fun;
 
     <script>
         var myform = document.getElementById('myform');
-        // 表单对象可以通过 “打点”name 属性，得到里面的子元素。
+        // 表单对象可以通过 “打点” name 属性，得到里面的子元素。
         var nameField = myform.nameField;
         var ageField = myform.ageField;
 
@@ -1456,19 +1468,19 @@ oBox.onclick = fun;
 </html>
 ```
 
-<img src="mark-img/7732a11fa88f4524985552ac4080e6ae.png" style="zoom:50%;" />
+<img src="mark-img/7732a11fa88f4524985552ac4080e6ae.png" style="width:25%;" />
 
-![](mark-img/949aed65331840478a6749dac642a196.png)
+<img src="mark-img/949aed65331840478a6749dac642a196.png" style="width: 50%;" />
 
-![](mark-img/87664139d4af41c9b2040f3eca05171e.png)
+<img src="mark-img/87664139d4af41c9b2040f3eca05171e.png" style="width:50%;" />
 
 ## 10.1 捕获阶段和冒泡阶段
 
-![](mark-img/28a5ea37ffba43a5bf367b9f7033efb8.png)
+<img src="mark-img/28a5ea37ffba43a5bf367b9f7033efb8.png" style="width:50%;" />
 
 ## 10.2 onxxx写法只能监听冒泡阶段
 
-![](mark-img/518daf0ad2e94eb09e7545e0eeea489e.png)
+<img src="mark-img/518daf0ad2e94eb09e7545e0eeea489e.png" style="width:50%;" />
 
 ## 10.3 addEventListener()方法
 
@@ -1478,7 +1490,7 @@ oBox.addEventListener('click', function(){}, true);
 
 > Event：事件
 
-![](mark-img/8d112b4208944d75bdd3e655b4b8a7b4.png)
+<img src="mark-img/8d112b4208944d75bdd3e655b4b8a7b4.png" style="width:50%;" />
 
 【小案例】
 
@@ -1566,7 +1578,7 @@ oBox.addEventListener('click', function(){}, true);
 </html>
 ```
 
-<img src="mark-img/b1d04ae4a389469cb9612cf9399bd838.png" style="zoom:50%;" />
+<img src="mark-img/b1d04ae4a389469cb9612cf9399bd838.png" style="width: 25%;" />
 
 【注意事项】
 
@@ -1639,9 +1651,9 @@ oBox.addEventListener('click', function(){}, true);
 我是box3的捕获阶段
 ```
 
-> 在新版的 Chrome 中都默认先执行最内层元素的捕获再执行冒泡。
+> 注意：在新版的 Chrome 中都默认先执行最内层元素的捕获再执行冒泡！
 
-- 如果给元素设置相同的两个或多个同名事件，则 DOM 0级写法后面写的会覆盖先写的；而 DOM 2级会按顺序执行
+- 如果给元素设置相同的两个或多个同名事件，则 onclick 写法后面写的会覆盖先写的；而 addEventListener 会按顺序执行（原因是 onclick 函数赋值多次会发生覆盖）
 
 ```html
 <!DOCTYPE html>
@@ -1706,13 +1718,13 @@ oBox.addEventListener('click', function(){}, true);
 </html>
 ```
 
-<img src="mark-img/22f213b615f64aef95c28b60c3fdd260.png" style="zoom:50%;" />
+<img src="mark-img/22f213b615f64aef95c28b60c3fdd260.png" style="width: 25%;" />
 
 ## 10.4 removeEventListener()方法
 
 当我们 addEventListener() 后，该监听事件就会一直生效，直到关闭页面或是移除该对应的监听！
 
-removeEventListener() 方法用来移除监听事件（只能移除具名函数的监听，且方法名称后面不能带 `()`）
+removeEventListener() 方法用来移除监听事件（只能移除具名函数的监听，且方法名称后面不能带）
 
 ```javascript
 var body = document.querySelector('body'),
@@ -1746,6 +1758,7 @@ mouseOverTarget.addEventListener('mouseover', function () {
     // 移除监听
     clickTarget.removeEventListener('click',
         makeBackgroundYellow,
+        // 可以指定是移除冒泡类型的，还是捕获类型的！
         false
     );
 });
@@ -1792,6 +1805,8 @@ over
 btn
 ```
 
+> 特别注意：事件传播过程中如果没有控制，那么事件捕获最先从 document 对象开始，事件冒泡最晚到达 document 对象！
+
 # 十一、事件对象
 
 ## 11.1 什么是事件对象
@@ -1821,15 +1836,15 @@ oBox.onmousemove = function(e) {
 
 - 浏览器
 
-<img src="mark-img/cfd65b2855084028ac209f18da9ab32f.png" style="zoom:33%;" />
+<img src="mark-img/cfd65b2855084028ac209f18da9ab32f.png" style="width:33%;" />
 
 - 整张网页
 
-<img src="mark-img/b8e255e4f8f54dd4aefd2139a518ceb1.png" style="zoom:33%;" />
+<img src="mark-img/b8e255e4f8f54dd4aefd2139a518ceb1.png" style="width:33%;" />
 
 - 事件源
 
-<img src="mark-img/96059664dd5e4ceb8535973c9b17dbb5.png" style="zoom: 33%;" />
+<img src="mark-img/96059664dd5e4ceb8535973c9b17dbb5.png" style="width: 33%;" />
 
 【小案例】
 
@@ -1885,7 +1900,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/709b6caf822e40e1af8d3b262244d786.gif" style="zoom: 33%;" />
+<img src="mark-img/709b6caf822e40e1af8d3b262244d786.gif" style="width: 25%;" />
 
 【注意事项】
 
@@ -1953,7 +1968,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/b64bdf28426a44b79b412db5fb20ccb6.gif" style="zoom:33%;" />
+<img src="mark-img/b64bdf28426a44b79b412db5fb20ccb6.gif" style="width:25%;" />
 
 ## 11.3 e.charCode和e.keyCode属性
 
@@ -2028,7 +2043,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/99770e9c9af8412ca9db1aa8552d6d83.gif" style="zoom:50%;" />
+<img src="mark-img/99770e9c9af8412ca9db1aa8552d6d83.gif" style="width:50%;" />
 
 【小案例 - 盒子移动】
 
@@ -2099,7 +2114,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/f8a977b365214fbea637f829c704a014.gif" style="zoom:50%;" />
+<img src="mark-img/f8a977b365214fbea637f829c704a014.gif" style="width: 33%;" />
 
 ## 11.4 e.preventDefault()方法
 
@@ -2146,7 +2161,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/27548b611bfe406b957870b4256f655f.gif" style="zoom: 33%;" />
+<img src="mark-img/27548b611bfe406b957870b4256f655f.gif" style="width: 33%;" />
 
 【小案例2】
 
@@ -2203,7 +2218,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/973fb9858bf542b6815b3b1f2f77249c.gif" style="zoom: 33%;" />
+<img src="mark-img/973fb9858bf542b6815b3b1f2f77249c.gif" style="width: 25%;" />
 
 - 阻止事件的 “默认动作” 后
 
@@ -2257,7 +2272,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/5c65bcd5518f4175bd6227fdd767b962.gif" style="zoom:33%;" />
+<img src="mark-img/5c65bcd5518f4175bd6227fdd767b962.gif" style="width:25%;" />
 
 【小案例3】
 
@@ -2297,7 +2312,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-![](mark-img/bdde5ade8da44af8aadf8e536e9e5b15.gif)
+<img src="mark-img/bdde5ade8da44af8aadf8e536e9e5b15.gif" style="width: 33%;" />
 
 - 阻止事件的 “默认动作” 后
 
@@ -2334,7 +2349,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-![](mark-img/11cf64b786754582bd21671a5b9f92ea.gif)
+<img src="mark-img/11cf64b786754582bd21671a5b9f92ea.gif" style="width:33%;" />
 
 ## 11.5 e.stopPropagation()方法
 
@@ -2380,7 +2395,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/c1b81c5b9a5c4dc98adda42fee50173e.png" style="zoom:50%;" />
+<img src="mark-img/c1b81c5b9a5c4dc98adda42fee50173e.png" style="width:25%;" />
 
 【阻止冒泡】
 
@@ -2424,7 +2439,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/28487ac4a75644d4a968196ebd516961.png" style="zoom:50%;" />
+<img src="mark-img/28487ac4a75644d4a968196ebd516961.png" style="width:25%;" />
 
 【阻止传播】
 
@@ -2468,7 +2483,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/1d37cdf849424fb5b3eaa0efcee9f424.png" style="zoom:50%;" />
+<img src="mark-img/1d37cdf849424fb5b3eaa0efcee9f424.png" style="width:25%;" />
 
 【小案例】
 
@@ -2528,7 +2543,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/8f0ca4fd795748cf8140bc3b59409d3d.gif" style="zoom:50%;" />
+<img src="mark-img/8f0ca4fd795748cf8140bc3b59409d3d.gif" style="width:50%;" />
 
 # 十二、事件委托
 
@@ -2577,7 +2592,7 @@ oBox.onmousemove = function(e) {
         // 书写循环语句，批量给元素添加监听
         for (var i = 0; i < lis.length; i++) {
             lis[i].onclick = function () {
-                // 在这个函数中，this表示点击的这个元素，this涉及函数上下文的相关知识，我们在“面向对象”课程中介绍
+                // 在这个函数中，this 表示点击的这个元素，this 涉及函数上下文的相关知识，我们在“面向对象”课程中介绍
                 this.style.color = 'red';
             };
         }
@@ -2618,17 +2633,16 @@ oBox.onmousemove = function(e) {
 
         // 按钮的点击事件
         oBtn.onclick = function () {
-            // 创建一个新的li列表项，孤儿节点
+            // 创建一个新的 li 列表项，孤儿节点
             var oLi = document.createElement('li');
             oLi.innerHTML = '我是列表项';
             // 上树
             oList.appendChild(oLi);
-            // 给新创建的这个li节点添加onclick事件监听
+            // 给新创建的这个 li 节点添加 onclick 事件监听
             oLi.onclick = function () {
                 this.style.color = 'red';
             };
         };
-        // 注意：此处不能使用上一次循环的方式，因为在 var lis = oList.getElementsByTagName('li'); 的时候还没有得到任何东西，后面添加的 li 是监测不到的。
     </script>
 </body>
 
@@ -2645,7 +2659,7 @@ oBox.onmousemove = function(e) {
 
 利用事件冒泡机制，将后代元素事件委托给祖先元素。
 
-![](mark-img/ca442d80a9424d399391760d58060803.png)
+<img src="mark-img/ca442d80a9424d399391760d58060803.png" style="width:50%;" />
 
 ## 12.6 e.target和e.currentTarget属性
 
@@ -2678,7 +2692,7 @@ oBox.onmousemove = function(e) {
         var oBtn = document.getElementById('btn');
 
         oList.onclick = function (e) {
-            // e.target表示用户真正点击的那个元素
+            // e.target 表示用户真正点击的那个元素，即 “事件源元素”
             e.target.style.color = 'red';
         };
 
@@ -2696,7 +2710,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/ee71ffa8650645779a52081ad329d2a7.gif" style="zoom: 67%;" />
+<img src="mark-img/ee71ffa8650645779a52081ad329d2a7.gif" style="width: 25%;" />
 
 ## 12.7 事件委托的使用场景
 
@@ -2762,7 +2776,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/f53b135d49874c24965c6b525aef3f9e.gif" style="zoom:67%;" />
+<img src="mark-img/f53b135d49874c24965c6b525aef3f9e.gif" style="width:25%;" />
 
 【onmouseover】
 
@@ -2814,11 +2828,11 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/1ea54cba540d46efa5eb9bcffab9ec99.gif" style="zoom:67%;" />
+<img src="mark-img/1ea54cba540d46efa5eb9bcffab9ec99.gif" style="width:25%;" />
 
 （2）最内层元素不能再有额外的内层元素了，比如：
 
-![](mark-img/9619f89a852d40b2881d7cac91e9fc7f.png)
+<img src="mark-img/9619f89a852d40b2881d7cac91e9fc7f.png" style="width:50%;" />
 
 这会导致点击 li 时效果正常，但是点击 span 时，只有 span 会变色。
 
@@ -2864,7 +2878,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/6ea82efcbc0e431e994f6109e48a3043.gif" style="zoom:67%;" />
+<img src="mark-img/6ea82efcbc0e431e994f6109e48a3043.gif" style="width:25%;" />
 
 # 十三、定时器和延时器
 
@@ -2874,7 +2888,7 @@ oBox.onmousemove = function(e) {
 
 > Interval：间隔
 
-![](mark-img/4d70d6d2a23e430cb7825498629929bf.png)
+<img src="mark-img/4d70d6d2a23e430cb7825498629929bf.png" style="width:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -2899,13 +2913,13 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-<img src="mark-img/75e9d6efb7cf4e0daf0bfbb959bfe9ff.gif" style="zoom:67%;" />
+<img src="mark-img/75e9d6efb7cf4e0daf0bfbb959bfe9ff.gif" style="width:24%;" />
 
 ## 13.2 函数的参数
 
 `setInterval()` 函数可以接收第 3、4、…… 个参数，它们将按顺序传入函数。
 
-![](mark-img/7af3cab742ca4aa3a12f10f166438cf6.png)
+<img src="mark-img/7af3cab742ca4aa3a12f10f166438cf6.png" style="width:50%;" />
 
 ## 13.3 具名函数也可以传入setInterval
 
@@ -2915,13 +2929,13 @@ oBox.onmousemove = function(e) {
 >
 > 匿名函数：无名称的函数。
 
-![](mark-img/c99d6095b3c941538c8db2a2c1d75fe3.png)
+<img src="mark-img/c99d6095b3c941538c8db2a2c1d75fe3.png" style="width:50%;" />
 
 ## 13.4 清除定时器
 
 `clearInterval()` 函数可以清除一个定时器。
 
-![](mark-img/8e6c49ba5a044ddfa7c54741bd69d800.png)
+<img src="mark-img/8e6c49ba5a044ddfa7c54741bd69d800.png" style="width:50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -3023,7 +3037,7 @@ oBox.onmousemove = function(e) {
 
 `setTimeout()` 函数可以设置一个延时器，当指定时间到了之后，会执行函数一次，不再重复执行。
 
-![](mark-img/fddf2a5fc5af41d3892796071e325dbe.png)
+<img src="mark-img/fddf2a5fc5af41d3892796071e325dbe.png" style="width:50%;" />
 
 ## 13.6 清除延时器
 
@@ -3069,7 +3083,7 @@ oBox.onmousemove = function(e) {
 
 异步（asynchronous）：不会阻塞 CPU 继续执行其他语句，当异步完成时，会执行 “回调函数”（callback）。
 
-![](mark-img/e3423b0d66af49b5a113b2fce2c1dc62.png)
+<img src="mark-img/e3423b0d66af49b5a113b2fce2c1dc62.png" style="width:50%;" />
 
 ## 13.8 使用定时器实现动画
 
@@ -3127,7 +3141,7 @@ oBox.onmousemove = function(e) {
 </html>
 ```
 
-![](mark-img/9cdd8fb6242143858bd1a9df1899ce6f.gif)
+<img src="mark-img/9cdd8fb6242143858bd1a9df1899ce6f.gif" style="width:50%;" />
 
 使用定时器实现动画较为不便：
 
@@ -3250,17 +3264,17 @@ function 需要节流的函数() {
 </html>
 ```
 
-![](mark-img/cd2d762739b64d9b9aeca7bb69a1874b.gif)
+<img src="mark-img/cd2d762739b64d9b9aeca7bb69a1874b.gif" style="width:50%;" />
 
 # 十五、常见动画制作
 
 ## 15.1 动画效果开发1-无缝连续滚动特效
 
-![](mark-img/ec75f87bc4aa4922aecb45262157b4b7.gif)
+<img src="mark-img/ec75f87bc4aa4922aecb45262157b4b7.gif" style="width:50%;" />
 
 原理:
 
-![](mark-img/e97c8629d8a748aba71398b87638d4a3.gif)
+<img src="mark-img/e97c8629d8a748aba71398b87638d4a3.gif" style="width:50%;" />
 
 代码：
 
@@ -3512,13 +3526,13 @@ function 需要节流的函数() {
 </html>
 ```
 
-![](mark-img/73872995bfae4c37bae88638ca30aea9.gif)
+<img src="mark-img/73872995bfae4c37bae88638ca30aea9.gif" style="width:70%;" />
 
 原理：
 
-![](mark-img/410afbfa99594640bf979eff8a62dd9b.gif)
+<img src="mark-img/410afbfa99594640bf979eff8a62dd9b.gif" style="width:70%;" />
 
-![](mark-img/7bd01d838eae44a3ac0e07f2e4b2e013.gif)
+<img src="mark-img/7bd01d838eae44a3ac0e07f2e4b2e013.gif" style="width:70%;" />
 
 ## 15.3 动画效果开发3-呼吸灯轮播图特效
 
@@ -3659,7 +3673,7 @@ function 需要节流的函数() {
 </html>
 ```
 
-![](mark-img/6ce3942a0d204578b8025195c37f48aa.gif)
+<img src="mark-img/6ce3942a0d204578b8025195c37f48aa.gif" style="width:70%;" />
 
 # 十六、JQuery
 

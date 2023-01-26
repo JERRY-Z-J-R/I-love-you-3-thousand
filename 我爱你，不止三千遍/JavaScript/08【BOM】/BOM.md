@@ -191,7 +191,7 @@ history.go(-1);	// 等同于 history.back();
 </html>
 ```
 
-<img src="mark-img/1fdace562f72414c8a3839383e14be69.gif" style="zoom:67%;" />
+<img src="mark-img/1fdace562f72414c8a3839383e14be69.gif" style="width:50%;" />
 
 # 十二、Location对象
 
@@ -477,7 +477,7 @@ DOM 元素都有 `offsetTop` 属性，表示此元素到定位祖先元素的垂
 </html>
 ```
 
-![](mark-img/e37cf208422d4177afb2f4691e141232.gif)
+<img src="mark-img/e37cf208422d4177afb2f4691e141232.gif" style="width:80%;" />
 
-![](mark-img/2491bae6d5f747f995cc22476b14513e.gif)
+<img src="mark-img/2491bae6d5f747f995cc22476b14513e.gif" style="width:80%;" />
 
