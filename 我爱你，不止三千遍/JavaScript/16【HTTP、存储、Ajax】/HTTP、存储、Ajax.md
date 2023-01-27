@@ -8,7 +8,7 @@
 
 前端和后端数据交互的过程。
 
-浏览器/客服端 与 后端 的数据交互的过程。
+浏览器/客服端 与 后端服务器 的数据交互的过程。
 
 ### 1.1.2 为什么需要前后端通信
 
@@ -18,12 +18,12 @@
 
 ## 1.2 前后端通信过程与概念解释
 
-![前后端通信](mark-img/1152162627-0.jpg)
+<img src="mark-img/1152162627-0.jpg" alt="前后端通信" style="width:50%;" />
 
 【概念解释】
 
 - 前端：浏览器网页端
-- 客户端：凡是能与服务器交互的终端（软件、APP、命令行工具……）
+- 客户端：凡是能与服务器交互的终端（桌面端软件、APP、命令行工具……）
 - 后端：服务器端
 
 > 其实：浏览器网页端也是客户端的一种。
@@ -37,7 +37,7 @@
   - 浏览器请求过程是并行的，而非串行的，当然并行数量有一定限制
   - 还有一些标签，浏览器不会自主向服务器发送请求，而是等待用户的指令，如：a、form
 - Ajax 和 Fetch
-  - 专门实现前后端通信的 JS 工具（功能更丰富强大）
+  - 专门实现前后端通信的 JS 工具
 
 ## 1.4 初始HTTP
 
@@ -49,11 +49,11 @@ HTML、JS、CSS、图片、字体、音频、视频都是通过 HTTP 协议在�
 
 ### 1.4.2 HTTP请求响应的过程
 
-- 用户在浏览器输出 域名 或 IP
+- 用户在浏览器输入 域名 或 IP
   - 浏览器先去缓存中查看是否已经访问过该网站
     - 已经访问过
-      - 请求服务器询问是否已经过期（取决于浏览器与网站）（过程等同：没有访问过）
-        - 过期：请求服务器（过程等同：没有访问过）
+      - 请求服务器询问是否已经过期
+        - 过期：请求服务器
         - 未过期：直接从缓存返回该网站内容
     - 没有访问过
       - 输入的是域名
@@ -67,36 +67,40 @@ HTML、JS、CSS、图片、字体、音频、视频都是通过 HTTP 协议在�
 
 > TCP 与 HTTP：
 >
-> 大多数人对 HTTP 与 TCP 的关系模糊不清，这有一点是由于 HTTP 名字的中文翻译失误，HyperText Transfer Protocol，它翻译成“超文本传输协议”，问题就在这个传输。于是很多人总是把 HTTP 和 TCP（传输控制协议）的职能认为是同类型的了，然而实际上它们不是。
+> 大多数人对 HTTP 与 TCP 的关系模糊不清，这有一点是由于 HTTP 名字的中文翻译失误，HyperText Transfer Protocol，它翻译成 “超文本传输协议”，问题就在这个传输。于是很多人总是把 HTTP 和 TCP（传输控制协议）的职能认为是同类型的了，然而实际上它们不是。
 >
-> HTTP 是在 TCP 之上，它负责在发送端“生成针对目标 Web 服务器的 HTTP 请求报文”和在接收端“对 Web 服务器请求的内容进行处理”，传输功能是由 TCP 完成的，HTTP 只是为传输做好了前期准备（说白了就是规定了要传输什么格式及内容），即“传达”一份将要拿去传输的东西让 TCP 去传输，所以将 Transfer 翻译成“传达”会比较合适。而在网络原理中，“传输”是对另一个词的翻译：Transport。
+> HTTP 是在 TCP 之上，它负责在发送端 “生成针对目标 Web 服务器的 HTTP 请求报文” 和在接收端 “对 Web 服务器请求的内容进行处理”，传输功能是由 TCP 完成的，HTTP 只是为传输做好了前期准备（说白了就是规定了要传输什么格式及内容），即 “传达” 一份将要拿去传输的东西让 TCP 去传输，所以将 Transfer 翻译成 “传达” 会比较合适。而在网络原理中，“传输” 是对另一个词的翻译：Transport。
 >
 > TCP/IP 和 HTTP 协议的关系，从本质上来说，二者没有可比性，我们在传输数据时，可以只使用（传输层）TCP/IP 协议，但是那样的话，如果没有应用层，便无法识别数据内容，如果想要使传输的数据有意义，则必须使用到应用层协议，应用层协议有很多，比如 HTTP、FTP、TELNET 等，也可以自己定义应用层协议。WEB 使用 HTTP 协议作应用层协议，以封装 HTTP 文本信息，然后使用 TCP/IP 做传输层协议将它发到网络上。
 >
-> 其中：IP 负责终端到终端的通信（本机与服务器），TCP 负责终端与终端内端口之间的通信（本机浏览器端口与服务器后端服务的端口）
+> 其中：IP 负责终端到终端的通信（本机与服务器），TCP 负责终端与终端内端口之间的通信（本机浏览器端口与服务器后端服务端口）
+>
+> - 网络层：IP 协议（计算机与计算机之间，或者确切地说应该是网卡与网卡之间）
+> - 传输层：TCP 协议（应用与应用之间，或者确切地说应该是端口与端口之间）
+> - 应用层：HTTP 协议（对所传输的数据进行格式上的语义化规定，通俗的理解就是约定传输的数据用什么格式）
 
 ### 1.4.3 HTTP报文
 
-浏览器向服务器发送请求时，请求本身就是一段信息，叫请求报文。
+浏览器向服务器发送请求时，请求本身就是一段信息，叫：请求报文。
 
-服务器向浏览器发送响应时传输的信息，叫响应报文。
+服务器向浏览器发送响应时传输的信息，叫：响应报文。
 
 【HTTP 报文格式】
 
-- 请求报文
+- 【**请求报文**】
 
   ![image-20220717123316141](mark-img/image-20220717123316141.png)
 
-  - 请求行：HTTP 请求中的第一行数据，请求行包含三块内容，分别是 GET[请求方式] /[请求URL路径] HTTP/1.1[HTTP协议及版本]，请求方式有七种,最常用的是 GET 和 POST
+  - **请求行：**HTTP 请求中的第一行数据，请求行包含三块内容，分别是 `GET[请求方式]` `/[请求URL路径]` `HTTP/1.1[HTTP协议及版本]`，请求方式有七种,最常用的是 GET 和 POST
 
-  - 请求头：格式为 key: value 形式，请求头中会包含若干个属性，常见的 HTTP 请求头有：
+  - **请求头：**格式为 `key:value` 形式，请求头中会包含若干个属性，常见的 HTTP 请求头有：
 
     ```
     Host: 表示请求的主机名
-    User-Agent: 浏览器版本,例如Chrome浏览器的标识类似Mozilla/5.0 ...Chrome/79，IE浏览器的标识类似Mozilla/5.0 (Windows NT ...)like Gecko；
-    Accept：表示浏览器能接收的资源类型，如text/*，image/*或者*/*表示所有；
-    Accept-Language：表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；
-    Accept-Encoding：表示浏览器可以支持的压缩类型，例如gzip, deflate等。
+    User-Agent: 浏览器版本，例如Chrome浏览器的标识类似Mozilla/5.0 ...Chrome/79，IE浏览器的标识类似Mozilla/5.0 (Windows NT ...)like Gecko
+    Accept：表示浏览器能接收的资源类型，如text/*，image/*，*/*表示所有
+    Accept-Language：表示浏览器偏好的语言，服务器可以据此返回不同语言的网页
+    Accept-Encoding：表示浏览器可以支持的压缩类型，例如gzip，deflate等
     ```
 
     请求头内容的作用：
@@ -107,22 +111,22 @@ HTML、JS、CSS、图片、字体、音频、视频都是通过 HTTP 协议在�
     * 服务端根据客户端请求头中的数据获取到客户端的浏览器类型，就可以根据不同的浏览器设置不同的代码来达到一致的效果
     * 这就是我们常说的浏览器兼容问题
 
-  - 请求体：POST 请求的最后一部分，存储请求参数（GET 请求没有请求体）
+  - **请求体：**POST 请求的最后一部分，存储请求参数（GET 请求没有请求体，GET 的请求内容在请求行的请求URL路径中）
 
     ![image-20220717115935153](mark-img/image-20220717115935153.png)
 
     如上图红线框的内容就是请求体的内容，请求体和请求头之间是有一个空行隔开。此时浏览器发送的是 POST 请求，为什么不能使用 GET 呢？这时就需要回顾 GET 和 POST 两个请求之间的区别了：
 
-    * GET 请求请求参数在请求行中，大小有限制，没有请求体，POST 请求请求参数在请求体中
-    * GET 请求请求参数大小有限制，POST 没有
+    * GET 请求参数在请求行中，大小有限制，没有请求体，POST 请求参数在请求体中
+    * GET 请求参数大小有限制，POST 没有
 
-- 响应报文
+- 【**响应报文**】
 
   ![image-20220717123336777](mark-img/image-20220717123336777.png)
 
-  - 响应行：响应数据的第一行,响应行包含三块内容，分别是 HTTP/1.1[HTTP协议及版本] 200[响应状态码] ok[状态码的描述]
+  - **响应行：**响应数据的第一行，响应行包含三块内容，分别是 `HTTP/1.1[HTTP协议及版本]` `200[响应状态码]` `ok[状态码的描述]`
 
-  - 响应头：格式为 key-value 形式，响应头中会包含若干个属性，常见的 HTTP 响应头有：
+  - **响应头：**格式为 `key-value` 形式，响应头中会包含若干个属性，常见的 HTTP 响应头有：
 
     ```
     Content-Type：表示该响应内容的类型，例如text/html，image/jpeg；
@@ -131,14 +135,14 @@ HTML、JS、CSS、图片、字体、音频、视频都是通过 HTTP 协议在�
     Cache-Control：指示客户端应如何缓存，例如max-age=300表示可以最多缓存300秒
     ```
 
-  - 响应体：最后一部分，存放响应数据，上图中 `<html>...</html>` 这部分内容就是响应体，它和响应头之间有一个空行隔开
+  - **响应体：**最后一部分，存放响应数据，上图中 `<html>...</html>` 这部分内容就是响应体，它和响应头之间有一个空行隔开
 
 【响应状态码】
 
 关于响应状态码，我们先主要认识三个状态码，其余的等后期用到了再去掌握:
 
-* 200  ok 客户端请求成功
-* 404  Not Found 请求资源不存在
+* 200 ok 客户端请求成功
+* 404 Not Found 请求资源不存在
 * 500 Internal Server Error 服务端发生不可预期的错误
 
 ## 1.5 HTTP方法
@@ -221,9 +225,9 @@ POST：创建数据
 
 ### 1.6.2 发送数据
 
-GET 通过地址在请求头中携带数据，能携带的数据量和地址长度有关系，一般最多几 K。
+GET 通过地址在请求行中携带数据，能携带的数据量和地址长度有关系，一般最多几 K。
 
-POST 既可以通过地址在请求头中携带数据（一般不会这么做），还可以通过请求体携带数据。
+POST 既可以通过地址在请求行中携带数据（一般不会这么做），还可以通过请求体携带数据。
 
 ### 1.6.3 缓存
 
@@ -231,7 +235,7 @@ GET 可以被缓存，POST 不会被缓存。
 
 ### 1.6.4 安全性
 
-GET 和 POST 都不安全，但是 GET 的数据直接能在地址栏中看见并且还能被浏览器缓存所有更不安全！
+GET 和 POST 都不安全，但是 GET 的数据直接在地址栏中显示并且还会被浏览器缓存所以更不安全！
 
 ## 1.7 HTTP状态码
 
@@ -251,13 +255,90 @@ HTTP 状态码的语义：
 
 400~499：请求错误（404）
 
-500~599：服务器错误 （500）
+500~599：服务器错误（500）
 
 # 二、本地存储
 
-## 2.1 Cookie
+## 2.1 前言
 
-### 2.1.1 初始Cookie
+**【会话跟踪】**
+
+**会话：**浏览器访问服务器资源时，会话就会建立！直到有一方断开连接，会话才会结束！在一次会话中可以包含多次请求和响应。
+
+> 可以把会话想象成微信聊天，当我（“浏览器”）与他（“服务器”）开始聊天时，“会话” 就建立了，除非我们其中有人退出聊天，那么 “会话” 才结束！在一次聊天（“会话”）中，我们可以多次发送消息（“请求”）和接收消息（“响应”）。
+
+> 一个浏览器可能存在多个会话！例如：浏览器打开了多个标签，每个标签都是不同的网站，那么这些不同的网站所连接的服务器也是不同的！那么就会建立不同的会话。
+
+**会话跟踪：**一种维护浏览器状态的方法，服务器需要识别多次请求是否来自于同一浏览器，以便在同一次会话的多次请求间共享数据。
+
+> 解释：浏览器和服务器之间使用的是 HTTP 协议来进行数据传输，由于 HTTP 协议是无状态的，就是说每一次的 HTTP 请求都是彼此独立的，即便你是同一个浏览器发的多次请求，服务器也根本不知道这是否来自同一个浏览器。HTTP 协议设计成无状态的目的是让每次请求之间相互独立，互不影响，并且足够安全。可是这样的设计也带来了问题，由于服务器识别不了是否来自同一浏览器，所以会话就不能实现跟踪！会话一但不能跟踪许多功能就无法实现，例如：
+>
+> - 勾选 “记住我” 按钮后，来自同一浏览器的登录请求，可以自动登录，免除账号密码验证。
+> - 服务器发送一个验证码图片到浏览器，用户输入验证码后将结果发送回服务器，服务器判断验证码填写是否正确。
+> - 登录过期。
+> - ……
+
+那么该如何实现会话跟踪技术呢? 具体的实现方式有：
+
+- 客户端会话跟踪技术：Cookie
+- 服务端会话跟踪技术：Session
+- 令牌会话跟踪技术：Token
+
+**【Cookie】**
+
+Cookie：客户端会话跟踪技术，将数据保存到客户端（浏览器），以后每次请求都会自动携带 Cookie 数据进行服务器的访问。
+
+**原理：**服务器响应浏览器数据时，可以在 HTTP 响应头中设置一个头信息：`set-cookie`，这个头信息后面就跟着 Cookie 数据（键值对），例如：`Set-Cookie:username=jerry`（实际上该头信息的内容不只是 Cookie 数据的键值对，还会包括该 Cookie 的最长有效时间、主机名、URL等），浏览器获取到响应结果后，从响应头中就可以获取到 `Set-Cookie` 对应的值 `username=jerry`，并将数据存储在浏览器的内存中，浏览器下次发送请求给同一服务器时，浏览器会自动在请求头中添加一个头信息：`Cookie:username=jerry` 发送给服务器，服务器就拿到了 Cookie 的值，那么会话就成功实现跟踪了！比如：在 Cookie 中存放用户登录的有效凭证，那么下一次请求登录时，就可以验证这个凭证实现免密登录了……
+
+> 说明：
+>
+> 1. 服务器可以向浏览器发送多个 Cookie，浏览器都会保存下来，并在下一次请求服务器时，捆绑在一起发送给服务器。
+> 2. 默认情况下，Cookie 存储在浏览器内存中，当浏览器关闭，内存释放，则 Cookie 被销毁，但是如果服务器在发送 Cookie 时为其设置了存活时间，那么浏览器就会根据存活时间将该 Cookie 保存到硬盘上。
+
+**【Session】**
+
+Session：服务端会话跟踪技术，将数据保存到服务端（服务器）
+
+- Session 是存储在服务端而 Cookie 是存储在客户端（浏览器）
+- 存储在客户端的数据容易被窃取和截获，存在很多不安全的因素，敏感信息千万不能用 Cookie 存储
+- 存储在服务端的数据相比于客户端来说就更安全
+
+**原理：**首先要知道，Session 是基于 Cookie 实现的！只不过 “绕了个弯”！具体原理是，服务器会生成一个 Session，这个 Session 里存放了会话信息（例如：用户登录凭证），同时这个 Session 会有一个自己唯一的 id（一个复杂的哈希字符串），当服务器响应信息给浏览器时，服务器会在 HTTP 响应头中设置一个 `set-cookie` 头信息，这个 Cookie 的内容就是 Session 的 id，即 `Set-Cookie:JESSIONID=XXX...`，浏览器在收到响应后就保存这个 Cookie，然后在下一次请求同一服务器时携带这个 Cookie 即 `Cookie:JESSIONID=XXX...`，服务器在收到这个 Cookie 后，识别到是名为 `JESSIONID` 的 Cookie，就会拿其值 `XXX...`（id）去匹配服务器中的 Session id，最终就拿到了具体的 Session 值，那么会话就成功实现跟踪了！
+
+> 说明：
+>
+> 1. Session 默认是存储在服务器的内存中的，服务器重新启动后，内存中的数据已经被释放了，Session 也就被销毁了，我们可以借助服务器中的 “Session 钝化” 技术来把 Session 自动存在服务器硬盘中（一种特殊的保存 Session 的文件），在服务器重启之后利用 “Session 活化” 技术来自动复原之前的 Session（之前保存的文件在活化后会被删除/更新）
+> 2. Session 默认有一个自动销毁时间（一般是 30 分钟），服务端也可以自己指定 Session 的销毁时间，甚至是根据具体业务来销毁 Session，比如：当用户退出登录后就删除该用户有关的 Session……
+> 3. 因为 Session 是基于 Cookie 实现的，所以即便 Session 比 Cookie 要安全得多，但依旧不能把敏感信息放在 Session 中（比如：用户密码）
+
+**【Token】**
+
+Token：令牌会话跟踪技术。
+
+准确的说应该叫：JWT 认证机制（或者是会话跟踪机制也行），JWT（英文全称：JSON Web Token）是目前最流行的跨域认证解决方案。
+
+为什么有了 Cookie 和 Session 还需要 JWT 呢？
+
+- Cookie 默认不支持跨域访问（什么是跨域后面讲），所以当涉及到前端跨域请求后端的时候，需要做很多额外的配置，非常麻烦！而且 Session 也是基于 Cookie 的，所以 Session 也具有同样的问题！
+- 无论是 Cookie 还是 Session 都不算安全！JWT 相较前两者要安全的多！（这不代表可以存储密码）
+
+JWT 原理：
+
+<img src="mark-img/image-20230127182050299.png" alt="image-20230127182050299" style="width:70%;" />
+
+> 说明：服务端也是可以设置 Token 存活时间的！同时也可以借助一些技术实现 “Token 钝化” 和 “Token 活化”。
+
+**【本地存储】**
+
+刚刚我们所讲的 Cookie Session Token 都是服务器发给我们的，其实前端自己也提供了相应的 API 可以操作 Cookie Session Token！
+
+> 说明：Session 在客户端（浏览器）其实本质上就是一个 Cookie，所以这里所说的前端操作 Session 实际还是操作 Cookie，至于 Token 通常是存储到浏览器的 LocalStorage 或 SessionStorage 中，我们所说的操作 Token 实际操作的是 LocalStorage 或 SessionStorage（LocalStorage、SessionStorage 后面学习）
+
+下面，就开始学习客户端（浏览器）对 Cookie 及 Storage 的操作吧！
+
+## 2.2 Cookie
+
+### 2.2.1 初始Cookie
 
 Cookie 是什么？
 
@@ -265,33 +346,39 @@ Cookie 全称 HTTP Cookie，简称 Cookie，是浏览器存储数据的一种方
 
 同时，Cookie 一般会自动跟随着浏览器每次请求发送到服务器端。
 
-Cookie 有什么用？
-
-利用 Cookie 跟踪统计用户访问该网站的习惯，比如说以什么语言访问，在哪里访问，什么时间访问，访问了哪些页面，在每一个页面的停留时间等。
-
 如何查看 Cookie？
 
 F12 打开浏览器控制台，选择 Application（应用程序）中的 Storage（存储）中的 Cookies，里面就能看到当前页面的 Cookie 了。
 
 Cookie 一般都是以 网址 或 IP 的形式进行标识。
 
-每个 Cookie 中，以 `名=值` 的形式存储一系列记录，记录与记录之间用 `;`+ ` ` 隔开。
+- 浏览器每个页面都会有各自的 Cookie 列表，列表中可能有多个 Cookie 项，因为同一个页面可能请求了多个不同的服务器，那么就会收到多个服务器发送过来的 Cookie，而每个 Cookie 项中会存有多条数据。
+
+每个 Cookie 中，以 `key=value` 的形式存储一系列记录，记录与记录之间用 `;` + ` ` 隔开。
 
 当浏览器向服务器发送请求时，会连同一起发送 Cookie。
 
-![image-20220717180630574](mark-img/image-20220717180630574.png)
+<img src="mark-img/image-20220717180630574.png" alt="image-20220717180630574" style="width:80%;" />
 
-### 2.1.2 Cookie的基本用法
+### 2.2.2 Cookie的基本用法
 
-读取 Cookie：`document.cookie`（返回一个由名值对构成的字符串，名值对之间用 “一个分号+一个空格” 隔开）。
+读取 Cookie：`document.cookie`（返回一个由 “名值对” 构成的字符串，“名值对” 之间用 “一个分号 + 一个空格” 隔开）。
 
-注意：读取的 Cookie 是全部的 Cookie，不能通过“名”单独读出某条“名值对”。
+注意：读取时只能一次性读取全部的 Cookie，不能通过 “名” 单独读出某条 “名值对”。
 
 写入 Cookie：`document.cookie = 'username=jerry'`。
 
 注意：不能同时设置多个 Cookie `document.cookie = 'username=jerry; age=18'`，只能一个一个设置。
 
-### 2.1.3 Cookie的属性
+<img src="mark-img/image-20230127202642005.png" alt="image-20230127202642005" style="width:90%;" />
+
+<img src="mark-img/image-20230127202459587.png" alt="image-20230127202459587" style="width:90%;" />
+
+<img src="mark-img/image-20230127202737276.png" alt="image-20230127202737276" style="width:90%;" />
+
+<img src="mark-img/image-20230127202825706.png" alt="image-20230127202825706" style="width:90%;" />
+
+### 2.2.3 Cookie的属性
 
 - Cookie 的名称（Name）：（必须属性）
 
@@ -302,12 +389,14 @@ Cookie 一般都是以 网址 或 IP 的形式进行标识。
 > ```javascript
 > document.cookie = `username=${encodeURIComponent('张三')}`;
 > document.cookie = `${encodeURIComponent('用户名')}=zhangsan`;
-> // 一般名称使用英文字母，不要使用中文，值可以使用中文，但是要编码
+> // 一般名称使用英文字母，不要使用中文，值可以使用中文，但是要编码（否则会乱码）
 > ```
 
 - 失效（到期）时间：对于失效的 Cookie，会被浏览器清除（非必须属性，有默认值）
 
-> 如果没有设置失效时间，那么这样的 Cookie 默认称为：会话 Cookie（默认值为 Session），它存在内存中，当会话结束，也就是浏览器关闭时，Cookie 会消失。
+> 如果没有设置失效时间，那么这样的 Cookie 称为：会话 Cookie（到期时间默认值为 Session，注意这个 Session 单纯是 “会话” 的意思！和服务器那个 Session 无关！），它存在内存中，当会话结束，也就是浏览器关闭时，Cookie 会消失。
+>
+> <img src="mark-img/image-20230127203620505.png" alt="image-20230127203620505" style="width:80%;" />
 >
 > 想长时间存在，设置 Expires 或 Max-Age：
 >
@@ -328,13 +417,53 @@ Cookie 一般都是以 网址 或 IP 的形式进行标识。
 > documetn.cookie = 'username=alex; max-age=0';
 > // 负数：立即删除
 > documetn.cookie = 'username=alex; max-age=-1';
+> 
+> // 同时有 Max-Age 和 Expires，Max-Age 优先级更高会覆盖 Expires！
 > ```
 
-- Domain 域：限定了同一站点下不同域名访问 Cookie 的范围（了解即可）（非必须属性，有默认值）
+- Domain 域：限定了同一站点下不同域名访问 Cookie 的范围（非必须属性，有默认值，默认值为当前域）
 
 > 可以通过 Domain 设置同一站点下不同域名对 Cookie 的访问范围。
 >
-> 比如：www.zjr.com 和 www.m.zjr.com 是一个网站的网页端和移动端，但是这两个页面只能访问到添加了其域名或父域名 Domain 的对应 Cookie。
+> 比如：`www.bilibili.com` 和 `m.bilibili.com` 分别是B站的PC端和移动端，但它们只能各自访问到添加了其域名或父域名的 Domain 对应的 Cookie。
+>
+> - 我们清空 B站 PC端的 Cookie，然后自己添加一条 Cookie，浏览器会自动帮我们把 Domain 设置为 `www.bilibili.com`
+>
+> <img src="mark-img/image-20230127211643060.png" alt="image-20230127211643060" style="width:80%;" />
+>
+> - 我们清空 B站 移动端的 Cookie，然后自己添加一条 Cookie，浏览器会自动帮我们把 Domain 设置为 `m.bilibili.com`
+>
+> <img src="mark-img/image-20230127211317239.png" alt="image-20230127211317239" style="width:80%;" />
+>
+> - 现在我们在 PC 端只能访问 Domain 为 `www.bilibili.com` 的 Cookie，我们在移动端只能访问 Domain 为 `m.bilibili.com` 的 Cookie
+>
+> <img src="mark-img/image-20230127211909818.png" alt="image-20230127211909818" style="width:80%;" />
+>
+> <img src="mark-img/image-20230127211950705.png" alt="image-20230127211950705" style="width:80%;" />
+>
+> 
+>
+> - 我们在 PC 端添加一个 Domain 为 `.bilibili.com` 的域名，则 PC 端与 移动端 都能访问到，因为这是它们的父域名
+>
+> <img src="mark-img/image-20230127212308350.png" alt="image-20230127212308350" style="width:80%;" />
+>
+> <img src="mark-img/image-20230127212352150.png" alt="image-20230127212352150" style="width:80%;" />
+>
+> <img src="mark-img/image-20230127212458776.png" alt="image-20230127212458776" style="width:80%;" />
+>
+> - 当然，在移动端里添加 Domain 为 `www.bilibili.com` 的 Cookie 也是可以的，不过添加了移动端也访问不了，但是 PC 端能访问
+>
+> <img src="mark-img/image-20230127213301897.png" alt="image-20230127213301897" style="width:80%;" />
+>
+> <img src="mark-img/image-20230127213346726.png" alt="image-20230127213346726" style="width:80%;" />
+>
+> <img src="mark-img/image-20230127213654822.png" alt="image-20230127213654822" style="width:80%;" />
+>
+> <img src="mark-img/image-20230127213720876.png" alt="image-20230127213720876" style="width:80%;" />
+>
+> 
+>
+> > 实际上，浏览器就是根据 Cookie 的 Domain 把它们划分成 Cookie 列表然后放到开发者工具中的，开发者工具根据你打开的窗口的域名，呈现该域名所能访问的 Cookie，这样就比较清晰，方面开发者查看。
 >
 > 【添加 Domain】（默认值为当前域名）
 >
@@ -343,13 +472,9 @@ Cookie 一般都是以 网址 或 IP 的形式进行标识。
 > // 比如：当前我们在 www.zjr.com，那么父域是 .zjr.com
 > document.cookie='username=alex; domain=www.zjr.com';
 > document.cookie='username=alex; domain=.zjr.com';
-> // 比如：当前我们在 www.m.zjr.com，那么父域是 .zjr.com
-> document.cookie='username=alex; domain=www.m.zjr.com';
-> document.cookie='username=alex; domain=.zjr.com';
-> // 通过设置父域名，就可以同时访问到该 Cookie
 > ```
 
-- Path 路径：限定了同一站点下同一域名下不同路径访问 Cookie 的范围（了解即可）（非必须属性，有默认值）
+- Path 路径：限定了同一站点下同一域名下不同路径访问 Cookie 的范围（非必须属性，有默认值）
 
 >可以通过 Path 设置同一站点下同一域名下不同路径访问 Cookie 的范围。
 >
@@ -375,150 +500,25 @@ Cookie 一般都是以 网址 或 IP 的形式进行标识。
 - HttpOnly：设置了 HttpOnly 属性的 Cookie 不能通过 JS 去访问（为了安全性）
 - Secure 安全标志：限定了只有在使用了 https 而不是 http 的情况下才可以发送给服务端
 
-### 2.1.4 Cookie的封装
-
-JS 对 Cookie 的原生操作方式比较繁琐，我们一般都是对其封装后再使用：
-
-我们将 Cookie 封装为一个模块，对外提供三个方法：set、get、remove。
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cookie 的封装</title>
-  </head>
-  <body>
-    <button id="cn">中文</button>
-    <button id="en">英文</button>
-
-    <script type="module">
-      // import { set, get, remove } from './cookie.js';
-      // import { set, get, remove } from './cookie.js';
-      // set('username', 'alex');
-      // set('username', 'zs');
-      // set('age', 18);
-      // set('用户名', '张三');
-
-      // set('sex', 'male', {
-      //   maxAge: 30 * 24 * 3600
-      // });
-
-      // remove('username');
-      // remove('用户名');
-
-      // console.log(get('username'));
-      // console.log(get('age'));
-      // console.log(get('用户名'));
-      // console.log(get('sex'));
-
-      // 使用封装好的 Cookie 实现网站语言切换
-      import { set } from './cookie.js';
-      const cnBtn = document.getElementById('cn');
-      const enBtn = document.getElementById('en');
-
-      cnBtn.addEventListener(
-          'click',
-          () => {
-              set('language', 'cn', {
-                  maxAge: 30 * 24 * 3600
-              });
-              // 每次点击后就刷新该页面（浏览器重新带着 Cookie 请求服务器)
-              window.location = './2-6.Cookie 的封装.html';
-          },
-          false
-      );
-        enBtn.addEventListener(
-            'click',
-            () => {
-                set('language', 'en', {
-                    maxAge: 30 * 24 * 3600
-                });
-                // 每次点击后就刷新该页面（浏览器重新带着 Cookie 请求服务器)
-                window.location = './2-6.Cookie 的封装.html';
-            },
-            false
-        );
-    </script>
-  </body>
-</html>
-```
-
-```java
-// cookie.js
-// 写入 Cookie
-const set = (name, value, { maxAge, domain, path, secure } = {}) => {
-    let cookieText = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
-    
-    if (typeof maxAge === 'number') {
-        cookieText += `; max-age=${maxAge}`;
-    }
-    
-    if (domain) {
-        cookieText += `; domain=${domain}`;
-    }
-    
-    if (path) {
-        cookieText += `; path=${path}`;
-    }
-    
-    if (secure) {
-        cookieText += `; secure`;
-    }
-    
-    document.cookie = cookieText;
-};
-
-// 通过 name 获取 cookie 的值
-const get = name => {
-    name = `${encodeURIComponent(name)}`;
-    
-    // 通过 ; 拆分字符串为数组
-    const cookies = document.cookie.split('; ');
-    
-    for (const item of cookies) {
-        // 通过 = 拆分字符串为数组
-        const [cookieName, cookieValue] = item.split('=');
-        
-        if (cookieName === name) {
-            return decodeURIComponent(cookieValue);
-        }
-  }
-    
-  return;
-};
-
-// 'username=alex; age=18; sex=male'
-// ["username=alex", "age=18", "sex=male"]
-// ["username","alex"]
-
-// get('用户名');
-
-// 根据 name、domain 和 path 删除 Cookie
-const remove = (name, { domain, path } = {}) => {
-    set(name, '', { domain, path, maxAge: -1 });
-};
-
-export { set, get, remove };
-```
-
-### 2.1.5 Cookie注意事项
+### 2.2.4 Cookie注意事项
 
 - 前后端都可以写入和获取 Cookie
   - 前端可以生成 Cookie 并通过请求发送给服务器后端进行读取
   - 后端可以生成 Cookie 并通过响应返回给浏览器，然后浏览器进行存储
 - Cookie 有数量限制
-  - 每个域名下的 Cookie 数量有限制（大概 20~50）
+  - 每个域下的 Cookie 数量有限制（大概 < 50）
 - Cookie 有大小限制 
   - 每个 Cookie 的存储容量很小，最多只有 4KB 左右
 
-## 2.2 LocalStorage
+## 2.3 LocalStorage
 
-### 2.2.1 初始localStorage
+### 2.3.1 初始localStorage
 
 【localStrorage 是什么】
 
- localStrorage 也是一种浏览器存储数据的方式（本地存储），它只是存储在本地，不会发送到服务器端。
+localStrorage 也是一种浏览器存储数据的方式（本地存储），它只是存储在本地，不会发送到服务器端。
+
+可以理解为浏览器自带的一种 “小型数据库”
 
 单个域名下的 localStrorage 总大小有限制。
 
@@ -526,7 +526,7 @@ localStrorage 是 key-value 形式。
 
 【在浏览器中操作 localStrorage】
 
-![image-20220718010521547](mark-img/image-20220718010521547.png)
+<img src="mark-img/image-20230127215003828.png" alt="image-20230127215003828" style="width:90%;" />
 
 【基本用法】
 
@@ -597,17 +597,22 @@ localStorage.clear();
 
 ```
 
-### 2.2.2 localStorage的注意事项
+### 2.3.2 localStorage的注意事项
 
 - localStorage 的存储期限
   - localStorage 是持久化的本地存储，除非手动清除（比如通过 JS 删除，或者清除浏览器缓存），否则数据是永远不会过期的
-  - 补充：sessionStorage 当会话结束（比如关闭浏览器）的时候，sessionStorage 中的数据会被清空，其它用法与 localStorage 一致
 - localStorage 键和值的类型
   - 其键和值的类型只能是字符串，不是字符串类型也会先转为字符串类型再存进去 
 - 不同域名下能否共用 localStorage 
   - 不能！
 - localStorage 的兼容性
   - IE7 及以下版本不支持。
+
+## 2.4 SessionStorage
+
+sessionStorage 当会话结束（比如关闭浏览器）的时候，sessionStorage 中的数据会被清空，其它用法与 localStorage 一致。
+
+<img src="mark-img/image-20230127215308863.png" alt="image-20230127215308863" style="width:90%;" />
 
 # 三、Ajax
 

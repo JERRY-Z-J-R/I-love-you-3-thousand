@@ -23,7 +23,7 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
 
  ES6 的兼容性：
 
-- 主流浏览器的最新版本几乎都全部支持 ES6
+- 主流浏览器的最新版本几乎都支持 ES6
 - IE 老版本等不支持的浏览器，可以使用 Babel 转译
 - **总之，请放心大胆地使用 ES6**
 
@@ -85,6 +85,8 @@ ES 与 JS 的关系：`JavaScript(浏览器端) = ESMAScript(语法+API) + DOM +
 - 块级作用域
 
 > 下面以 let 与 var 的对比来说明，const 与 let 同理
+
+> 有了 let 和 const 之后，非必要情况，请不要再使用 var ！
 
 ### 1.3.1 重复声明
 
@@ -245,7 +247,7 @@ console.log(i);		// 报错
 </html>
 ```
 
-<img src="mark-img/1.gif" alt="1" style="zoom: 50%;" />
+<img src="mark-img/1.gif" alt="1" style="width: 50%;" />
 
 无论点击谁都是 3，这是因为 var 没有块级作用域，三个点击事件函数中的 i 都是同一个全局变量，最终 i 都为 3 了，所以固然都输出 3。
 
@@ -298,7 +300,7 @@ console.log(i);		// 报错
 </html>
 ```
 
-<img src="mark-img/1-16471758864061.gif" alt="1" style="zoom:50%;" />
+<img src="mark-img/1-16471758864061.gif" alt="1" style="width:50%;" />
 
 - 使用 let
 
@@ -346,7 +348,7 @@ console.log(i);		// 报错
 </html>
 ```
 
-<img src="mark-img/1-16471758864061.gif" alt="1" style="zoom:50%;" />
+<img src="mark-img/1-16471758864061.gif" alt="1" style="width:50%;" />
 
 # 二、模板字符串
 
@@ -527,7 +529,7 @@ console.log(info);
 </html>
 ```
 
-<img src="mark-img/image-20220315130229559.png" alt="image-20220315130229559" style="zoom:50%;" />
+<img src="mark-img/image-20220315130229559.png" alt="image-20220315130229559" style="width:50%;" />
 
 # 三、箭头函数
 
@@ -711,11 +713,13 @@ adder();		// 指向 undefined（非严格模式下指向 window）
         time: 0,
         start: function () {
             // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 timer
+            // 事件监听器回调函数中的上下文是被绑定的 dom 对象，即 this 是指向被绑定的 dom 对象
             btn.addEventListener(
                 'click',
                 function () {
                     setInterval(function () {
-                        console.log(this);	// 计时器 this 是指向 window
+                        // 定时器、延时器回调函数，上下文是 window 对象，即 this 是指向 window
+                        console.log(this);
                         this.time++;
                         result.innerHTML = this.time;
                     }, 1000);
@@ -730,9 +734,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
 </body>
 </html>
 ```
-<img src="mark-img/1-16473495911521.gif" alt="1" style="zoom:50%;" />
-
----
+<img src="mark-img/1-16473495911521.gif" alt="1" style="width:20%;" />
 
 ```html
 <!DOCTYPE html>
@@ -767,7 +769,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
         time: 0,
         start: function () {
             // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 timer
-         	// 用 that 或 self 代替 this
+         	// 用 that 或 self 或 _this 代替 this
             var that = this;
             btn.addEventListener(
                 'click',
@@ -787,9 +789,7 @@ adder();		// 指向 undefined（非严格模式下指向 window）
 </body>
 </html>
 ```
-<img src="mark-img/2.gif" alt="2" style="zoom:50%;" />
-
----
+<img src="mark-img/2.gif" alt="2" style="width:20%;" />
 
 ```html
 <!DOCTYPE html>
@@ -826,9 +826,12 @@ adder();		// 指向 undefined（非严格模式下指向 window）
             // 我们希望的 this 是 start 里的 this，因为这个 this 才会指向 timer
             btn.addEventListener(
                 'click',
-                // 箭头函数中没有 this，所以下面的 this 是 start 的
+                // 箭头函数
                 () => {
+                    // 箭头函数
                     setInterval(() => {
+                        // 箭头函数中没有 this，所以 this 应该是上一级 btn 的（事件监听器回调函数中的上下文是被绑定的 dom 对象）
+                    	// 再由于 addEventListener 的回调函数也是箭头函数也没有 this，所以再往上 this 就是 timer 的
                         console.log(this);
                         this.time++;
                         result.innerHTML = this.time;
@@ -838,14 +841,13 @@ adder();		// 指向 undefined（非严格模式下指向 window）
             );
         }
     };
-
     timer.start();
 </script>
 </body>
 </html>
 ```
 
-<img src="mark-img/2-16473496264402.gif" alt="2" style="zoom:50%;" />
+<img src="mark-img/2-16473496264402.gif" alt="2" style="width:20%;" />
 
 # 四、解构赋值
 
@@ -985,12 +987,16 @@ console.log(x, y);
 
 ```javascript
 const {age: age, name: name} = {name: 'jerry', age: '18'};
-或
+// js 对象的 key 本身就是字符串，只不过当其符合 js 标识符命名规范时，可以不写引号
 const {'name': name, 'age': age} = {name: 'jerry', age: '18'};
 
 // 这样写法的一个最大的好处就是可以自定义别名
 const {name: myName, age: myAge} = {name: 'jerry', age: '18'};
 console.log(myName, myAge);	// jerry 18
+
+// 简写（js 对象中，key 与 value 同名时可以缩写为一个）
+const {name, age} = {name: 'jerry', age: '18'};
+console.log(name, age);	// jerry 18
 ```
 
 ### 4.2.3 对象解构赋值的默认值
@@ -1052,7 +1058,7 @@ console.log(x, y, z);	// 1 [ 2, 3, 4 ] { a: 5, b: 6 }
 // ----------------------------------------------------
 const {y: [, y2]} = obj;
 console.log(y2);	// 3
-console.log(y);		// 报错
+console.log(y);		// 报错（y 只是对象属性的名称，不是变量）
 
 // ----------------------------------------------------
 const {y: y, y: [, y2]} = obj;
@@ -1117,6 +1123,10 @@ console.log(b, toString);	// 1 [Function: toString]
 
 ### 5.1.1 对象字面量
 
+所谓的对象字面量就是对象的一种新的写法！
+
+之前我们需要用 new 构造函数来生成一个对象，现在我们也可以直接用对象字面量的写法来生成一个对象！
+
 ```javascript
 // 实例化构造函数生成对象
 const person = new Object();
@@ -1145,13 +1155,14 @@ console.log(person.age);	// 18
 
 const age = 18;
 const person = {
+    // js 对象的 key 本身就是字符串，只不过当其符合 js 标识符命名规范时，可以不写引号
     'age': age
 };
 console.log(person.age);	// 18
 
 // -----------------------
 
-// 键名和变量或常量名一样的时候，可以只写一个
+// 键名和值名一样的时候，可以只写一个
 const age = 18;
 const person = {
     age
@@ -1230,7 +1241,7 @@ person.age 等价于 person['age']
 
 ## 6.1 认识函数参数的默认值
 
-调用函数的时候传参了，就用传递的参数；如果没传参，就用默认值
+调用函数的时候传参了，就用传递的参数；如果没传参，就用默认值。
 
 ## 6.2 函数参数默认值的基本用法
 
@@ -1257,7 +1268,7 @@ console.log(multiply(2));		// 6
 
 ## 6.3 默认值的生效条件
 
-不传参数，或者明确的传递 undefined 作为参数，只有这两种情况下，默认值才会生效。
+不传参数，或者明确的传递 undefined 作为参数，只有这两种情况下，默认值才会生效！
 
 注意：null 就是 null，不会使用默认值。
 
@@ -1267,13 +1278,14 @@ console.log(multiply(2));		// 6
 
 ## 6.5 设置默认值的小技巧
 
-函数参数的默认值最好从参数列表的右边开始设置。
+函数参数的默认值最好从参数列表的右边开始设置！
 
 ```javascript
 // 从左边开始设置默认值的缺陷
 const multiply = (x = 1, y) => x * y;
-console.log(multiply(undefined, 2));	// 2
+console.log(multiply(2));	// NaN（2 给了 x，y 没有给值默认为 undefined）
 // 为了避免歧义，前面的参数必须指定为 undefined
+console.log(multiply(undefined, 2));	// 2
 ```
 
 ## 6.6函数参数默认值的应用
@@ -1303,7 +1315,7 @@ logUser({
 
 // ------------------------------------------------------------
 
-// 再优化
+// 再优化（利用解构赋值）
 const logUser = ({username, age, sex}) => {
     console.log(username, age, sex);
 };
@@ -1325,7 +1337,6 @@ const logUser = ({
     console.log(username, age, sex);
 };
 
-// 其实是解构赋值原理
 logUser({username: 'jerry'});	// jerry 18 male
 
 logUser({});	// zjr 18 male
@@ -1346,12 +1357,10 @@ logUser();	// zjr 18 male
 
 /* 
 解释：
-1、options 与 {username = 'zjr', age = 18, sex = 'male'} 互等
-2、{username = 'zjr', age = 18, sex = 'male'} = {} 其实就是 options = {}
-3、由于 logUser() 的实参为 undefined，所以默认值为 {}
-4、再因为 {username = 'zjr', age = 18, sex = 'male'} = {} 是解构赋值
-5、由于 {} 内为 undefined，所以解构赋值启用默认值
-5、所以真正的形参为 {username = 'zjr', age = 18, sex = 'male'}
+1、由于 logUser() 的实参为 undefined，所以默认值为 {}
+2、再因为 {username = 'zjr', age = 18, sex = 'male'} = {} 是解构赋值
+3、由于 {} 内为 undefined，所以解构赋值启用默认值
+4、所以真正的形参为 {username = 'zjr', age = 18, sex = 'male'}
 注明：这样做的好处是增加函数的健壮性！
 */
 ```

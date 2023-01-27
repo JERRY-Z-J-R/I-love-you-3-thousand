@@ -66,8 +66,9 @@ console.log(add(1, 2, 3));	// 6
 - 与数组解构赋值结合
 
 ```javascript
-const func = ([num, ...args]) => {};
+const func = ([num, ...args]) => {console.log(num, args)};
 func([1, 2, 3]);
+// 1 [ 2, 3 ]
 ```
 
 - 与对象解构赋值结合
@@ -76,7 +77,7 @@ func([1, 2, 3]);
 const {x, y, ...z} = {a: 3, x: 1, y: 2, b: 4};
 console.log(x, y, z);
 // 1 2 { a: 3, b: 4 }
-// 这里的剩余参数是个对象（准确的应该叫：剩余元素）
+// 这里的剩余参数是个对象（准确的应该叫：剩余属性/元素）
 ```
 
 ```javascript
@@ -166,9 +167,26 @@ function func() {
 }
 func(1, 2);
 
-// NodeList
+
 console.log([...document.querySelectorAll('p')].push);
 ```
+
+```html
+<body>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <script>
+        // NodeList
+        console.log(document.getElementsByTagName('p'));
+        console.log(...document.getElementsByTagName('p'));
+        console.log([...document.getElementsByTagName('p')]);
+    </script>
+</body>
+```
+
+<img src="mark-img/image-20230126230622456.png" alt="image-20230126230622456" style="width:30%;" />
 
 # 三、对象展开运算符
 
@@ -223,7 +241,6 @@ console.log({...{}, a: 1});		// { a: 1 }
 
 ```javascript
 console.log({...1});			// {}
-console.log(new Object(1));		// [Number: 1]
 console.log({...undefined});	// {}
 console.log({...null});			// {}
 console.log({...true});			// {}
@@ -762,7 +779,7 @@ console.log(m2, m2 === m);
 </html>
 ```
 
-![image-20220327154158420](mark-img/image-20220327154158420.png)
+<img src="mark-img/image-20220327154158420.png" alt="image-20220327154158420" style="width:50%;" />
 
 # 五、Iterator 遍历器与 for...of 循环
 

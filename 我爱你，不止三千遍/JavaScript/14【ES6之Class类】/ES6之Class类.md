@@ -101,6 +101,7 @@ function Person(name, age) {
     this.name = name;
     this.age = age;
 }
+
 Person.prototype.speak = function() {
     console.log(this.name + " sya Hi!");
 }

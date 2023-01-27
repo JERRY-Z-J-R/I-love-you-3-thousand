@@ -14,7 +14,7 @@
 
 模块系统：系统的解决了模块化一系列问题。
 
-1. 模块化的写法（之前我们用立即执行函数模拟模块化，ES6 则实现了针对模块化的语法）
+1. 模块化的写法（之前我们用立即执行函数模拟模块化【之所以用立即执行函数，是因为函数包裹解决了作用域问题】，ES6 则实现了针对模块化的语法）
 2. 消除全局变量（模块中的变量都是局部的，不同模块之间不会相互干扰，可以通过特定语法暴露指定内容）
 3. 管理加载顺序（之前我们将一个总的 JavaScript 程序分几个文件写，但在最终合并调用时，js 的引入需要满足前后依赖关系。比如：被引用的 js 文件就一定要在引用它的 js 文件之前加载）
 
@@ -46,7 +46,7 @@
 
 ```html
 <!-- 一个模块没有导出，也可以将其导入 -->
-<!-- 被导入的模块的代码都会执行一遍，并且同一个模块的导入只执行一遍！ -->
+<!-- 被导入的模块的代码都会自动执行一遍（和普通引入 js 一样），并且同一个模块的导入只执行一遍！ -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -250,7 +250,7 @@ console.log(imObj.age);				// 18
 // export default 也同样有效：imObj.default
 ```
 
-<img src="mark-img/image-20220602154710981.png" alt="image-20220602154710981" style="zoom:50%;" />
+<img src="mark-img/image-20220602154710981.png" alt="image-20220602154710981" style="width:40%;" />
 
 **（5）同时导入**
 
@@ -306,7 +306,7 @@ import sex, {fn, className, age} from "./module.js";
   // import 和 export 命令只能在模块的顶层，不能在代码块中执行！ 
   ```
 
-- import() 可以按条件导入，并且返回一个 promise 对象
+- import()（注意：不是 `import` 而是 `import()`）可以按条件导入，并且返回一个 promise 对象
 
   ```javascript
   if (...) {
@@ -330,7 +330,7 @@ export {age} from "./module.js";
 // 先导入用，用完后再导出，相当于 “中转站”
 ```
 
-# 二、Babel与webpack
+# 二、Babel与Webpack
 
 ## 2.1 认识Babel
 
@@ -360,7 +360,7 @@ Node.js 是一个基于 Chrome JavaScript 运行时建立的一个平台。
 
 Node.js 是一个事件驱动 I/O 服务端 JavaScript 环境，基于 Google 的 V8 引擎，V8 引擎执行 Javascript 的速度非常快，性能非常好。
 
-后端的 JavaScript = ECMAScript + IO + File + ...服务器端的操作。
+后端的 JavaScript = ECMAScript + IO + File + Http + ...服务器端的操作。
 
 npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码部署上的很多问题，常见的使用场景有以下几种：
 
@@ -386,7 +386,9 @@ Node.js 中文官网：[Node.js (nodejs.org)](https://nodejs.org/zh-cn/)
 
 - 确认配置并正式生成项目
 
-![image-20220604001956543](mark-img/image-20220604001956543.png)
+<img src="mark-img/image-20220604001956543.png" alt="image-20220604001956543" style="width:80%;" />
+
+> 我们也可以用 `npm init -y` -y 就是 yes 的意思，可以省去敲击回车的操作！
 
 > 当依次正确完成以上步骤后，项目路径下就会生成一个 `package.json` 文件，里面最初记录了我们 npm 项目的初始化配置信息，往后我们利用 npm 安装的依赖及包都会记录在这个文件中。
 >
@@ -410,26 +412,28 @@ Node.js 中文官网：[Node.js (nodejs.org)](https://nodejs.org/zh-cn/)
 
 ### 2.3.4 安装Babel需要的包
 
-安装命令：`npm install --save-dev @babel/core @babel/cli`
+安装命令：`npm install --save-dev @babel/core @babel/cli` 或 `npm i --save-dev @babel/core @babel/cli`
 
 注意：`--save-dev` 表示这是一个开发环境的依赖，即上线之后是用不到的。
 
 当我们安装成功后，会得到一个依赖及包代码的放置目录和两个 json 文件，其中 package.json 文件会新增一个 `devDependencies` （开发依赖）属性，并记录下我们的安装记录。
 
-<img src="mark-img/image-20220604003001083.png" alt="image-20220604003001083" style="zoom:50%;" />
+<img src="mark-img/image-20220604003001083.png" alt="image-20220604003001083" style="width:30%;" />
 
-![image-20220604002444370](mark-img/image-20220604002444370.png)
+<img src="mark-img/image-20220604002444370.png" alt="image-20220604002444370" style="width:80%;" />
 
 - @babel/cli：CLI 中使用 Babel 必须的包，实现了命令行中 Babel 命令的识别与执行等
 - @babel/core：Babel 中用于完成 “发号施令” 的包，即：指挥控制其它 Babel 包的行为
 
 > 注意：我们在安装时，要特别注意一下依赖及包的版本号，不能随意的依赖最新版本，因为最新版本可能会不兼容某些旧版本。
 
-> 当我们迁移了项目环境时，也许项目的依赖及包代码（node_modules 文件夹）已经不在了或者错误了，那么只要 package.json 文件还在，那么我们只需要执行 `npm install` 命令，即可根据 package.json 内容重新生成项目的依赖及包代码（node_modules 文件夹）。
+> 当我们迁移了项目环境时，也许项目的依赖及包代码（node_modules 文件夹）已经不在了或者错误了，那么只要 package.json 文件还在（最好是 package-lock.json 也在，这样才能保证版本安全性），那么我们只需要执行 `npm install` 命令，即可根据 package.json 内容重新生成项目的依赖及包代码（node_modules 文件夹）。
 >
 > 注意：`npm install` 可以简写为：`npm i`
 >
 > 注意：在平时的项目开发中，我们在拷贝项目或者迁移项目时，通常不会把 node_modules 文件夹一同拷贝或迁移，因为该文件夹的文件数量级太大了，所以拷贝或迁移的时间会特别长，而且还容易出错，我们一般都是通过 `npm install` 来重新生成。
+
+> 在 npm5.x 之后，当我们 `npm install xxx` 或 `npm install` 后，会生成一个 package-lock.json 文件（如果本来就有，那么就只是更新该文件），原因是 package.json 中记录的依赖的版本只是一个大版本（版本号前有 `^`），即这个版本有一个范围（比如：^1.2.3 会匹配任意的 1.x.x 但低于 2.0.0），所以我们每次 `npm install` 安装或更新依赖时，如果只是根据 package.json 中的内容来，那么 node_modules 中的依赖如果找不到那么就去下载大版本中的最新版，如果找得到那么就检查它是不是大版本中的最新版，如果是就原封不动，如果不是就升级到最新版！所以这会造成依赖版本频繁的变动，虽然大版本内的升级几乎是一些 bug 的修补，API 一般不会变化，但即便这样，也经常会引发兼容性带来的各种莫名其妙的问题，所以最好的解决办法就是锁定依赖的版本号！所以 package-lock.json 就诞生了，它不仅会把依赖的详细版本记录好，并且还会记录该依赖版本下载时的下载地址，以及它自身所依赖的下层库的版本等信息，这样当我们进行 `npm install` 时，就几乎不会发生莫名其妙的因为兼容性带来的错误了！
 
 ### 2.3.5 使用Babel编译ES6代码
 
@@ -467,9 +471,9 @@ Node.js 中文官网：[Node.js (nodejs.org)](https://nodejs.org/zh-cn/)
 
 首先，我们需要额外安装一个包：`npm install @babel/preset-env --save-dev`，这个包能告诉编译器具体如何转换编译 ES6 的语法。
 
-安装成功后，在项目目录下，创建一个 `.babelrc`。
+安装成功后，在项目目录下，创建一个 `.babelrc`（Babel 配置文件）。
 
-在文件中写入：
+在文件中把刚刚下载的包配置为 Babel 预设（@babel/preset-env 这是 Babel 官方提供的一个转换 ES6 语法的预设）：
 
 ```json
 {
@@ -495,7 +499,13 @@ Webpack 是静态模块打包器，当 Webpack 处理应用程序时，会将所
 
 Webpack 没办法处理动态的部分，只能处理静态的部分。
 
+（4）基本原理：
+
+Webpack 根据配置中的入口信息，先找到打包入口（一般是一个 JS 文件），然后顺着这个 JS 文件找出该文件的依赖模块，遇到依赖模块时就进入到该模块中继续找出它的依赖模块，如此反复，直到形成整个项目各个文件之间的 “依赖关系树”。有了这个依赖关系树之后，Webpack 会递归这个依赖关系树，找到每个节点对应的资源文件，然后根据配置中的 loader 规则，交给对应的加载器去加载这个模块，最后将加载好结果进行打包，最终合并到出口文件中（bundle.js）。
+
 [webpack 中文文档 | webpack 中文网 (webpackjs.com)](https://www.webpackjs.com/)
+
+<img src="mark-img/image-20230127105737221.png" alt="image-20230127105737221" style="width:80%;" />
 
 ## 2.5 Webpack初体验
 
@@ -514,7 +524,7 @@ Webpack 没办法处理动态的部分，只能处理静态的部分。
 - 编辑配置内容：
 
   ```js
-  // 导入模块（Node 方式）
+  // 导入路径处理的模块（Node 方式，也就是 CommonJS 模块化方式，另外的还有 ES6 Module 模块化方式）
   const path = require('path');
   
   // 以模块方式导出配置
@@ -523,16 +533,17 @@ Webpack 没办法处理动态的部分，只能处理静态的部分。
     entry: './src/index.js',
     // 出口
     output: {
+      // __dirname 表示当前路径
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
     },
   };
   
-  // Webpack 的配置文件的内容也是以模块的方式导出，但是这里的模块不是 JS 模块，而是 Node 模块
+  // Webpack 的配置文件的内容也是以模块的方式导出，但是这里的模块不是 ES6 模块，而是 Node 模块（CommonJS 模块）
   ```
-  
+
   与此同时，还需要在 package.json 中添加：
-  
+
   ```json
   "scripts": {
       // 执行 webpack 命令就相当于去执行 webpack 配置文件
@@ -816,13 +827,13 @@ module.exports = {
 
 loader：加载器
 
-webpack 本身是用来打包 js 的（主要就是来解决 JS 模块化问题），如果需要用到其他模块的功能，那么就需要各种各样的 loader。
+Webpack 本身是用来打包 js 的（主要就是来解决 JS 模块化问题），如果需要用到其他模块的功能，那么就需要各种各样的 loader。
 
 [loaders | webpack 中文网 (webpackjs.com)](https://www.webpackjs.com/loaders/)
 
 【babel-loader】
 
-在 webpack 中使用 babel 就需要借助 babel-loader。
+在 Webpack 中使用 Babel 就需要借助 babel-loader。
 
 安装：babel-loader + babel/core + babel/preset-env
 
@@ -830,7 +841,7 @@ webpack 本身是用来打包 js 的（主要就是来解决 JS 模块化问题�
 npm install --save-dev babel-loader@8.1.0 @babel/core@7.11.0 @babel/preset-env@7.11.0
 ```
 
-记得配置 babel，`.babelrc`
+记得配置 Babel：`.babelrc`
 
 ```
 {
@@ -869,11 +880,11 @@ module.exports = {
 };
 ```
 
-之后，当我们 `npm run webpack` 后，会先处理 loader，再 webpack 打包！
+之后，当我们 `npm run webpack` 后，会先处理 loader，再 Webpack 打包！
 
 最后，我们查看打包后的 dist/index.js 文件，会发现里面的 let 等 ES6 语法都已经转为 var 等之前版本的语法了！说明 babel 确实生效了！
 
-但是！细心观察会发现，babel 只是会将一些 ES6 的基本语法进行转换，但是诸如：Object、Set、Map、Promise 等 ES6 提供的 API，babel 是无法直接转换的，所以我们需要再借助其它的模块，而这些第三方模块可以帮我们实现 ES6 中的 API。
+但是！细心观察会发现，Babel 只是会将一些 ES6 的基本语法进行转换，但是诸如：Object、Set、Map、Promise 等 ES6 提供的 API，Babel 是无法直接转换的，所以我们需要再借助其它的模块，而这些第三方模块可以帮我们实现 ES6 中的 API。
 
 > core-js 是 JavaScript 标准库的 polyfill（垫片/补丁），将新功能的 ES API 转换为大部分现代浏览器都可以支持运行的一个 API 补丁包集合。它支持最新的 ECMAScript 标准，它支持 ECMAScript 标准库提案，它支持一些 WHATWG / W3C 标准（跨平台或者 ECMAScript 相关），它最大限度的模块化：你能仅仅加载你想要使用的功能，它能够不污染全局命名空间，它和 Babel 紧密集成：这能够优化 core-js 的导入，它是最普遍、最流行的为 JavaScript 标准库打补丁的方式。
 
@@ -912,11 +923,15 @@ class Person {
 new Person('Alex', 18);
 ```
 
+当我们执行 `npm run webpack` 之后，生成的代码就完全是 ES6 之前的语法实现的了！
+
+> 注意：core-js 与 Babel 的配合是需要在 Webpack 的环境下的，单独的 core-js 和 Babel 是配合不了的！因为 Babel 并不会去处理 `import 'core-js/stable';` 这样的语句！
+
 ## 2.8 plugins
 
 plugins：插件
 
-loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。
+Webpack 插件则可以用于执行范围更广的任务。
 
 [Plugins | webpack 中文网 (webpackjs.com)](https://www.webpackjs.com/plugins/)
 
@@ -1155,7 +1170,7 @@ body {
 
 - `npm run webpack`
 
-![image-20220716214929353](mark-img/image-20220716214929353.png)
+<img src="mark-img/image-20220716214929353.png" alt="image-20220716214929353" style="width:80%;" />
 
 可见，css 以 `<style>` 的方式引入了 HTML 中！
 
@@ -1220,7 +1235,7 @@ module.exports = {
 
 再次 `npm run webpack`：
 
-![image-20220717000236167](mark-img/image-20220717000236167.png)
+<img src="mark-img/image-20220717000236167.png" alt="image-20220717000236167" style="width:80%;" />
 
 ## 2.10 处理CSS图片
 
@@ -1235,9 +1250,9 @@ body {
 
 - `npm run webpack`
 
-![image-20220717002428302](mark-img/image-20220717002428302.png)
+<img src="mark-img/image-20220717002428302.png" alt="image-20220717002428302" style="width:80%;" />
 
-乍一看，一切正常啊！确实默认可以处理 CSS 图片啊！为什么还要单独讲解如何处理 CSS 图片呢？这是因为上面的例子中 CSS 的图片是一个网络地址的图片，而 webpack 本身就不会处理网络的内容，只会对本地的内容进行处理，网络的内容没有任何的影响，所以当我们把图片地址换成一个本地图片时：
+乍一看，一切正常啊！确实默认可以处理 CSS 图片啊！为什么还要单独讲解如何处理 CSS 图片呢？这是因为上面的例子中 CSS 的图片是一个网络地址的图片，而 webpack 本身就不会处理网络的内容，只会对本地的内容进行处理，网络的内容没有任何的影响，而当我们把图片地址换成一个本地图片时：
 
 - /css/index.css
 
@@ -1248,7 +1263,7 @@ body {
 }
 ```
 
-![image-20220717003134658](mark-img/image-20220717003134658.png)
+<img src="mark-img/image-20220717003134658.png" alt="image-20220717003134658" style="width:80%;" />
 
 webpack 直接报错！因为 webpack 当处理网络内容时直接跳过，而对于本地内容时就要处理，可 webpack 本身并不能处理 css 图片。
 
@@ -1315,7 +1330,7 @@ module.exports = {
 
 - `npm run webpack`
 
-<img src="mark-img/image-20220717004103633.png" alt="image-20220717004103633" style="zoom:50%;" />
+<img src="mark-img/image-20220717004103633.png" alt="image-20220717004103633" style="width:40%;" />
 
 - /dist/css/index.css
 
@@ -1326,7 +1341,7 @@ body {
 }
 ```
 
-![image-20220717004339980](mark-img/image-20220717004339980.png)
+<img src="mark-img/image-20220717004339980.png" alt="image-20220717004339980" style="width:80%;" />
 
 发现图片并没有成功引入，那是因为路径有问题。
 
@@ -1405,7 +1420,7 @@ module.exports = {
 };
 ```
 
-- `npm run webpack` 再次打包查看 dist/css/index.css，便正确了！
+- `npm run webpack` 再次打包查看 dist/css/index.css 便正确了！
 
 ```css
 body {
@@ -1481,7 +1496,7 @@ module.exports = {
 };
 ```
 
-![image-20220717005549792](mark-img/image-20220717005549792.png)
+<img src="mark-img/image-20220717005549792.png" alt="image-20220717005549792" style="width:80%;" />
 
 > 注意：file-loader 的本质是把文件直接进行拷贝并重设地址，不只是对图片有用，对其它文件也有用！
 
@@ -1704,15 +1719,15 @@ module.exports = {
 
 执行 `npm run webpack`：
 
-![image-20220717021246176](mark-img/image-20220717021246176.png)
+<img src="mark-img/image-20220717021246176.png" alt="image-20220717021246176" style="width:80%;" />
 
-![image-20220717021324142](mark-img/image-20220717021324142.png)
+<img src="mark-img/image-20220717021324142.png" alt="image-20220717021324142" style="width:80%;" />
 
 ## 2.14 webpack-dev-server
 
 为什么需要 webpack-dev-server？
 
-答案：自动打包！（每次修改都会自动打包）
+答案：自动打包！（每次修改都会自动打包，也就是所谓的 “热更新/热重载”）
 
 安装：
 
@@ -1722,7 +1737,7 @@ npm install --save-dev webpack-dev-server@3.11.0
 
 修改 package.json，增加 `"dev": "webpack-dev-server"`：
 
-> `"dev"*:* "webpack-dev-server --open chrome"` *自动打包后打开*  chrome 浏览器
+> `"dev"*:* "webpack-dev-server --open chrome"` 自动打包后打开 Chrome 浏览器
 
 ```json
 {
@@ -1760,3 +1775,4 @@ npm install --save-dev webpack-dev-server@3.11.0
 
 注意：`npm run dev` 会在内存中生成打包后的文件，但在项目中是不可见的！如果在开发完后需要生成 dist 目录，那么最后 `npm run webpack` 即可。
 
+> 提示：Webpack 是一个目前前端技术栈中非常重要的工具！许多前端框架的脚手架工具都是基于 Webpack 来打造的！即便我们不使用任何前端框架，我们也几乎还是会或多或少使用到 Webpack，Webpack 入门简单，但想要用好，却非常的复杂和繁琐！并且 “坑” 特别多！甚至诞生了一个岗位叫作 “Webpack配置工程师”，作为普通的前端开发者，我们掌握了 Webpack 的使用基础即可，不用扣细节！最好就是边用边查边学，这样性价比才高！
