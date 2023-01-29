@@ -229,6 +229,10 @@ GET 通过地址在请求行中携带数据，能携带的数据量和地址长�
 
 POST 既可以通过地址在请求行中携带数据（一般不会这么做），还可以通过请求体携带数据。
 
+GET 一般情况不能用来上传文件，POST 可以用来上传文件！
+
+> 关于上传文件：GET 用 URL 来携带数据，如果我们要上传文件就需要把文件进行某种编码（如图片进行 Base64 格式编码）成一段字符串然后添加到 URL 中，就可以实现文件上传，但是由于 GET 的 URL 是有长度限制的！所以这种方式只能上传非常小的文件！我们基本也不会这样来做！但是 POST 不同，POST 的数据是在 body 中进行携带，可以携带大数据，并且还能直接携带文件（二进制），所以是可以用来上传文件的！不过值得注意的是，其实 GET 也可以有 body，只要我们强行进行设置即可，但这样打破了原有的规则，一般不会这样做！
+
 ### 1.6.3 缓存
 
 GET 可以被缓存，POST 不会被缓存。
@@ -620,7 +624,7 @@ sessionStorage 当会话结束（比如关闭浏览器）的时候，sessionStor
 
 ### 3.1.1 Ajax 是什么
 
-AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。
+AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
 
 AJAX 不是新的编程语言，而是一种使用现有标准的新方法。
 
@@ -634,9 +638,9 @@ Ajax 中的异步：可以异步地向服务器发送请求，在等待响应的
 
 ### 3.2.1 XMLHttpRequest
 
-Ajax 想要实现浏览器与服务器之间的异步通信，需要依靠 XMLHttpRequest，它是一个构造函数。
+Ajax 想要实现浏览器与服务器之间的异步通信，需要依靠 XMLHttpRequest 构造函数。
 
-> 之所有叫 XMLHttpRequest，是因为之前前后端主要的通信载体都是 XML，所以当时微软在为这个函数取名时就加上了 XML，但是这并不代表它只能与 XML 格式绑定，即可以 XML 也可以 JSON，未来还可以其它的。
+> 之所以叫 XMLHttpRequest，是因为曾经的前后端主要的通信载体都是 XML，所以当时在为这个函数取名时就加上了 XML，但是这并不代表它只能与 XML 格式绑定，即可以 XML 也可以 JSON，未来还可以其它的。
 >
 
 ### 3.2.2 Ajax 的使用步骤
@@ -649,7 +653,7 @@ xhr.open('HTTP方法GET/POST/PUT/DELETE', '地址URL', '异步还是同步true/f
 // 发送请求，调用 send()
 xhr.send(null);	// GET（POST/PUT/DELETE 需要通过其它方式）
 // 监听事件，处理响应
-// 当获取到响应后，会触发 xhr 对象的 readystatechange 事件，可以在该事件中对响应进行处理
+// 当获取到响应后，会触发 xhr 对象的 readystatechange 事件，可以在该事件的回调函数中对响应进行处理
 xhr.onreadystatechange = () => {
     /*
     readystatechange 事件监听 readyState 这个状态的变化
@@ -767,11 +771,12 @@ xhr.send(null);
 let name = 'zjr';
 let age = 18;
 const url = 'https://www.jerry.com/api/user?' + 'name=' + name + '&age=' + age;
-const url = encodeURIComponent(__url);
 const xhr = new XMLHttpRequest();
 //......
 xhr.open('GET', url, true);
 xhr.send(null);
+
+// 注意：用 Ajax 发送 Get 请求，浏览器地址栏的 URL 是不会被修改的！Get 请求真正的 URL 在 HTTP 请求行的 URL 里
 ```
 
 ### 3.3.2 数据编码
@@ -832,7 +837,7 @@ xhr.send(payload);
 
 ### 3.5.1 初始JSON
 
-JSON（[JavaScript](https://baike.baidu.com/item/JavaScript) Object Notation, JS对象简谱）是一种轻量级的数据交换格式。它基于 [ECMAScript](https://baike.baidu.com/item/ECMAScript)（European Computer Manufacturers Association, 欧洲计算机协会制定的 js 规范）的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。
+JSON（JavaScript Object Notation, JS对象简谱）是一种轻量级的数据交换格式。它基于 ECMAScript（European Computer Manufacturers Association, 欧洲计算机协会制定的 js 规范）的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。
 
 之前常用的前后端数据交互格式是 XML，目前则是 JSON。
 
@@ -955,15 +960,15 @@ export {set, get, remove, clear};
 先看一个同域的例子：
 
 ```javascript
+// 请求一个本地文件
 const url = './index.html';
-const xhr.new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.onreadystatechange = () => {
     ...
 }
 xhr.open('GET', url, true);
 xhr.send(null);
 /*
-返回内容：index.html 中 body 内的标签字符串内容
 <h1>index</h1>
 <p>hello</p>
 */
@@ -972,8 +977,9 @@ xhr.send(null);
 跨域：
 
 ```javascript
+// 请求一个网站接口
 const url = 'https://www.imooc.com';
-const xhr.new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.onreadystatechange = () => {
     ...
 }
@@ -982,7 +988,7 @@ xhr.send(null);
 // 报错！
 ```
 
-不同域（跨域），浏览器会默认认为不安全，便会被浏览器阻止！
+不同域（跨域），浏览器会认为不安全，便会拒收响应数据！
 
 跨域：向一个域发送请求，如果要请求的域和当前域是不同域，就叫跨域
 
@@ -990,14 +996,14 @@ xhr.send(null);
 
 ### 3.6.2 什么是不同域，什么是同域
 
-https://www.imooc.com:433/course/list
+例如：https://www.imooc.com:433/course/list
 
 - https（协议）
 - www.imooc.com（域名）
 - 443（端口号）
 - /course/list（路径）
 
-只要 协议、域名、端口号 任何一个不一样，就是不同域！
+只要 `协议`、`域名`、`端口号` 任何一个不一样，就是不同域！
 
 与路径无关，路径一不一样无所谓！
 
@@ -1013,15 +1019,17 @@ https://www.imooc.com:443/ 与 https://www.imooc.com/ 是一样的。
 
 其它客户端或服务器都不存在跨域被阻止的问题。
 
+本质是：浏览器发送请求，服务器返回响应，浏览器拿到响应但拒收/丢弃了！
+
 ### 3.6.4 跨域解决方案
 
-- CORS 跨域资源共享
+- CORS 跨域资源共享（使用最多）
 
-- JSONP
+- JSONP（基本不用）
 
 > 优先使用 CORS 跨域资源共享，如果浏览器不支持 CORS 的话，再使用 JSONP
 
-【CORS 跨域资源共享】
+**【CORS 跨域资源共享】**
 
 刚才，我们请求 'https://www.imooc.com' 时发生了跨区请求失败，但是之前我们请求某个 API 接口，不是可以请求成功吗？那也是跨域请求啊！为什么那个就不会被阻止呢？
 
@@ -1048,65 +1056,64 @@ CORS 的兼容性：
 
 IE10 及以上版本的浏览器可以正常使用 CORS。
 
-这里的正常指的是能否识别 Access-Control-Allow-Origin。
+这里的正常指的是浏览器能否识别 Access-Control-Allow-Origin 头信息。
 
-【JSONP】
+**【JSONP】**
 
- **JSONP 的原理：**
+JSONP 的原理：
+
 `<script>` 标签跨域不会被浏览器阻止
 
-JSONP 主要就是利用 script 标签，加载跨域文件
+JSONP 主要就是利用 script 标签的特性，加载跨域文件！
+
+**原理细节：**
+
+前端提前写好一个函数的实现，并且这个函数要能接受参数（这些参数就是我们想要服务器传递给我们的数据），前端利用 script 标签请求服务器，服务器返回这个函数的调用（同时传入参数），前端接收到服务器响应后，就拿到了函数的调用，那么真正的数据也就以函数调用参数的形式得到了！
 
 **使用 JSONP 实现跨域：**
 
 首先必须在服务器端准备好一个 JSONP 接口，例如：
-`https://www.imooc.com/api/http/jsonp?callback=handleResponse`
 
-```html
-<!DOCTYPE html>
-<html lang="en">
+`http://127.0.0.1:8080/api/user?callback=test`
 
-<head>
-    <meta charset="UTF-8" />
-    <title>JSONP</title>
-</head>
+```js
+// 服务器端接口代码（这里用 Node.js 举例）
+const http = require('http');
+const url = require('url');
 
-<body>
-    <script>
-        // 动态加载 JSONP 接口
-        const script = document.createElement('script');
-        script.src = 'https://www.imooc.com/api/http/jsonp?callback=handleResponse';
-        document.body.appendChild(script);
+const app = http.createServer((req, res) => {
+  let urlObj = url.parse(req.url, true);
 
-        // 声明函数
-        const handleResponse = data => {
-            console.log(data);
-        };
+  switch (urlObj.pathname) {
+    case '/api/user':
+      res.end(`${urlObj.query.callback}({"name": "jerry"})`);
+      break;
+    default:
+      res.end('访问资源不存在，404');
+      break;
+  }
+});
 
-        // handleResponse({
-        //   code: 200,
-        //   data: [
-        //     {
-        //       word: 'jsp'
-        //     },
-        //     {
-        //       word: 'js'
-        //     },
-        //     {
-        //       word: 'json'
-        //     },
-        //     {
-        //       word: 'js 入门'
-        //     },
-        //     {
-        //       word: 'jstl'
-        //     }
-        //   ]
-        // });
-    </script>
-</body>
+app.listen(8080, () => {
+  console.log('localhost:8080');
+});
+```
 
-</html>
+```js
+// 前端代码
+var oscript = document.createElement('script');
+// JSONP 利用 script 标签没有跨域限制的条件
+oscript.src = 'http://127.0.0.1:8080/api/user?callback=test'
+document.body.appendChild(oscript);
+function test(obj) {
+    console.log(obj);
+}
+
+// 服务器返回函数的调用：test({"name": "jerry"})
+// 前端自动执行预留好的函数：test()
+
+// JSONP 只支持 GET 请求而不支持 POST 请求！
+// 没有关于 JSONP 调用的错误处理，一但回调函数调用失败，浏览器会以静默失败的方式处理 
 ```
 
 ## 3.7 XHR
@@ -1115,9 +1122,9 @@ JSONP 主要就是利用 script 标签，加载跨域文件
 
 **responseType 和 response 属性**
 
-responseType 得到的结果默认一定是字符串格式，可以在 xhr.open 和 xhr.send 之间设置 xhr.responseType = 'json'，（默认是 xhr.responseType = '' 或 xhr.responseType = 'text'）那么如果返回的是 JSON 格式的数据，便会自动调用 JSON.pares() 将其转换为 JS 对象，这样我们就不用在手动转换了，同时获取的时候就只能是用 `xhr.response` 来获取。
+responseType 得到的结果默认一定是字符串格式，可以在 xhr.open 和 xhr.send 之间设置 xhr.responseType = 'json'，（默认是 xhr.responseType = '' 或 xhr.responseType = 'text'）那么如果返回的是 JSON 格式的数据，便会自动调用 JSON.pares() 将其转换为 JS 对象，这样我们就不用再手动转换了，同时获取的时候就只能是用 `xhr.response` 来获取，而不要再使用 `responseText`。
 
-当然，在没有设置 xhr.responseType = 'xxxx' 的时候，我们用 responseType 和 response 来获取到的数据都是字符串的，所以实际上是完全可以用 response 来代替 responseType 获取响应数据的，唯一要注意的就是 IE10 及之后的 IE 浏览器才兼容 response。
+当然，在没有设置 responseType 的时候，我们用 responseText 和 response 来获取到的数据都是字符串的，所以实际上是完全可以用 response 来代替 responseText 获取响应数据的，唯一要注意的就是 IE10 及之后的 IE 浏览器才兼容 response。
 
 ```javascript
 const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
@@ -1139,7 +1146,7 @@ xhr.send(null);
 
 **timeout 属性**
 
-设置请求的超时时间（单位 ms），如果这个时间内没有响应，那么就会触发 timeout 事件。
+设置请求的超时时间（单位 ms），如果这个时间内没有响应，那么就会触发 timeout 事件（该事件在后面讲）。
 
 兼容性：IE8 及以上支持。
 
@@ -1160,7 +1167,7 @@ xhr.send(null);
 ```javascript
 // 设置跨域时携带 Cookie
 xhr.withCredentials = true;
-// 注意：这里设置了，还需要服务器端对 Access-Control-Allow-Origin 设置到允许跨域的域名，而不能是 *
+// 注意：这里设置了，还需要服务器端对 Access-Control-Allow-Origin 设置到允许跨域的具体域名，而不能是 *
 ```
 
 ### 3.7.2 XHR的方法
@@ -1179,24 +1186,31 @@ xhr.abort();	// abort() 一定要在 send 后调用
 注意：不是所有的请求头信息都能设置的，大部分都不能设置，我们目前重点关注：Content-Type
 
 ```javascript
-xhr.open('GET', url, true);
+xhr.open('POST', url, true);
 // 请求头中的 Content-Type 字段用来告诉服务器，浏览器发送的数据是什么格式
+// 注意：只有使用 POST 请求方式时，Content-Type 的设置才有意义，GET 请求设置 Content-Type 是没有意义的！
+
+// 设置 application/x-www-form-urlencoded 格式
 // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-xhr.setRequestHeader('Content-Type', 'application/json');
+// application/x-www-form-urlencoded 格式发送的数据
 // xhr.send('username=alex&age=18');
+
+// 设置 application/json 格式
+xhr.setRequestHeader('Content-Type', 'application/json');
+// application/json 格式发送的数据
 xhr.send(JSON.stringify({
     username: 'alex',
     age: 18
-}))
+}));
 ```
 
-> 注意：'Content-Type', 'application/x-www-form-urlencoded' 的方式也是表单提交时的默认方式，也就是说表单提交的默认格式就是 'username=alex&age=18' 形式。
+> 注意：application/x-www-form-urlencoded 的方式就是表单提交时的默认方式，也就是说表单提交的默认格式就是 'username=alex&age=18' 形式。而我们用 Ajax 设置 Content-Type 字段为 application/x-www-form-urlencoded，实际上是伪装 form 表单的请求方式。
 
 ### 3.7.3 XHR的事件
 
 **load 事件**
 
-响应数据可用时触发（可以替代 readystatechange 事件）
+响应数据可用时触发（可以替代 readystatechange 事件），推荐使用 load 事件！
 
 兼容性：IE9 及以上
 
@@ -1204,6 +1218,7 @@ xhr.send(JSON.stringify({
 const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
 const xhr = new XMLHttpRequest();
 /*
+// 之前我们使用 readystatechange 事件
 xhr.onreadystatechange = () => {
     if (xhr.readyState !== 4) {
         return;
@@ -1215,6 +1230,7 @@ xhr.onreadystatechange = () => {
 */
 
 /*
+// 现在我们使用 load 事件（推荐！）
 xhr.onload = () => {
     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
         console.log(xhr.response);
@@ -1235,7 +1251,7 @@ xhr.send(null);
 
 **error 事件**
 
-请求错误时，触发！注意：不是状态码错误，而是请求就错误了！
+请求错误时，触发！注意：不是状态码错误，而是请求本身就错误了！（例如：请求 URL 写错了）
 
 兼容性：IE10 及以上
 
@@ -1245,6 +1261,8 @@ const xhr = new XMLHttpRequest();
 xhr.addEventListener('load', () => {
      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
         console.log(xhr.response);
+    } else {
+        console.log('状态码异常！')
     }
 }, false);
 xhr.addEventListener('error', () => {
@@ -1315,7 +1333,7 @@ xhr.abort();
 
 **使用 Ajax 提交表单**
 
-```javascript
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1325,8 +1343,9 @@ xhr.abort();
 </head>
 
 <body>
-    <form id="login" action="https://www.imooc.com/api/http/search/suggest?words=js" method="POST"
-        enctype="multipart/form-data">
+    <!-- 通常情况下，我们直接通过 form 提交表单的话，提交后当前页面会自动跳转到 form 的 action 所指向的页面。-->
+    <!-- 所以我们一般是用 Ajax 来控制提交 -->
+    <form id="login" action="https://www.imooc.com/api/http/search/suggest?words=js" method="POST">
         <input type="text" name="username" placeholder="用户名" />
         <input type="password" name="password" placeholder="密码" />
         <input id="submit" type="submit" value="登录" />
@@ -1348,7 +1367,7 @@ xhr.abort();
                 // 阻止表单自动提交
                 e.preventDefault();
 
-                // 表单数据验证……
+                // 表单数据验证（比如校验格式等）……
 
                 // 发送 Ajax 请求
                 const xhr = new XMLHttpRequest();
@@ -1372,8 +1391,7 @@ xhr.abort();
                 const data = `username=${username.value}&password=${password.value}`;
                 
                 xhr.setRequestHeader(
-                    'Content-Type',
-                    'application/x-www-form-urlencoded'
+                    'Content-Type', 'application/x-www-form-urlencoded'
                 );
 
                 xhr.send(data);
@@ -1386,13 +1404,13 @@ xhr.abort();
 </html>
 ```
 
-上面的方法，虽然可以实现用 Ajax 提交表单，但是存在一个问题，就是当表单项非常多的时候，组装数据拼接字符串是非常麻烦的，所以我们一般用 FormData 来解决。
+上面的方法，虽然可以实现用 Ajax 提交表单，但是存在一个问题，就是当表单项非常多的时候，组装数据拼接字符串比较麻烦，所以我们一般用 FormData 来解决。
 
 通过 HTML 表单元素创建 FormData 对象
 
-const fd = new FormData(表单元素)
+`const fd = new FormData(表单元素)`
 
-xhr.send(fd)
+`xhr.send(fd)`
 
 兼容性：IE10 及上可以支持
 
@@ -1404,12 +1422,7 @@ xhr.send(fd)
     <title>FormData</title>
   </head>
   <body>
-    <form
-      id="login"
-      action="https://www.imooc.com/api/http/search/suggest?words=js"
-      method="POST"
-      enctype="multipart/form-data"
-    >
+    <form id="login" action="https://www.imooc.com/api/http/search/suggest?words=js" method="POST">
       <input type="text" name="username" placeholder="用户名" />
       <input type="password" name="password" placeholder="密码" />
       <input id="submit" type="submit" value="登录" />
@@ -1459,22 +1472,384 @@ xhr.send(fd)
 </html>
 ```
 
-> FormData 会自动添加 Content-Type，当然这个 Content-Type 的值为 multipart/form-data。
+> FormData 会自动添加 Content-Type，这个 Content-Type 的值为 multipart/form-data，这里必须使用 multipart/form-data，而不能使用 application/x-www-form-urlencoded，因为虽然都是作为表单发送，但是我们这里发送的 FormData 数据与之前的 `&` 拼接的数据的结构是不一样的！所以我们这里要使用 multipart/form-data。
 
- FormData 的更多使用方法：
+FormData 的更多使用方法：
 
 可以单独通过 `append()` 方法额外添加数据
 
 ```javascript
-const fd = new FormData(表单元素)
-fd.append('age', 18)
-fd.append('sex', 'male')
-xhr.send(fd)
+const fd = new FormData(form元素);
+fd.append('age', 18);
+fd.append('sex', 'male');
+xhr.send(fd);
 ```
 
-## 3.9 封装Ajax
+甚至，我们可以创建一个空的 FormData 对象，然后自己添加数据，而无需用一个 form 元素来初始化
 
-<img src="mark-img/image-20220719130924846.png" alt="image-20220719130924846" style="zoom: 50%;" />
+```js
+const myForm = new FormData();
+myForm.append('name', 'jerry');
+myForm.append('age', 18);
+xhr.send(myForm);
+```
+
+> 注意：利用 FormData 最大的优点在于方便上传文件！
+
+## 3.9 Ajax文件上传
+
+一般情况下，通过表单提交实现文件上传，只需要将表单的 enctype 属性设置为 multipart/form-data 即可。
+
+> 注意：必须是 multipart/form-data，application/x-www-form-urlencoded 是不能上传文件类型的！
+>
+> > multipart/form-data，application/x-www-form-urlencoded 的区别：
+> >
+> > 前端请求后端时，需要对发送过去的数据进行编码！（也就是设置 Content-Type），其中编码格式可分为四种：application/x-www-form-urlencoded、multipart/form-data、application/json、text/plain。
+> >
+> > - text/plain：纯文本数据（很少使用）
+> > - application/x-www-form-urlencoded：将数据封装成一个字符串，参数名和参数值使用 "=" 拼接，参数之间使用 "&" 拼接，最终发送的数据格式形如：'key1=value1&key2=value2&...'，并且 key 和 value 都会分别使用 encodeURI() 对其进行编码，所以某些非英文字符会变为 "%E7%A8%8B%E5..." 这种样子，服务器接收到后会进行解码。并且 application/x-www-form-urlencoded 就是 form 表单请求以及 Ajax 请求的默认方式！
+> > - application/json：JSON 字符串格式的数据。
+> > - multipart/form-data：主要是用于传输文件，或者是既要传输文本也要传输文件的情况，它采用一种 boundary 格式（了解即可），它最大的价值在于可以将文件作为二进制的形式进行异步上传，且不涉及转码问题！一般我们需要上传文件或者是上传文件的同时上传文本，我们都会使用 multipart/form-data。
+
+```html
+<form action="/" enctype="multipart/form-data" method="post">
+    <input type="file" />
+    <input type="submit" value="提交" />  
+</form>
+```
+
+[Input file | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/file)
+
+带有 **`type="file"`** 的 input 元素允许用户可以从他们的设备中选择一个或多个文件。选择后，这些文件可以使用提交表单的方式上传到服务器上，或者通过 Javascript 代码对文件进行操作。
+
+> 文件 input 的 `value` 属性包含了一个字符串，表示已选择文件的路径。如果用户没有选择任何文件，则该值为空字符串 `""`。如果用户选择了多个文件，则 `value` 表示他们选择的文件列表中的第一个文件。可以使用 input 的 `HTMLInputElement.files` 属性标识其他文件。
+>
+> 注意：为了阻止恶意软件猜测文件路径，该值的字符串表示总是以 `C:\fakepath\` 为前缀的文件名，而并不是文件的真实路径。
+>
+> input file 的常用属性：
+>
+> - accept：一个字符串，它定义了文件 input 应该接受的文件类型，例如：`accept=".doc,.docx,.pdf,.excel,.jpg,.jpeg,.png,.mp3,.mp4"`，`accept="image/*,video/*,audio/*"` 任何的图片、视频、音频文件。
+> - multiple：文件 input 允许用户选择多个文件，例如：`<input type="file" multiple>`。
+>
+> 获取已选择文件的信息:
+>
+> 被选择的文件以 `HTMLInputElement.files` 属性返回，它是包含一系列 `File` 对象的 `FileList` 对象。`FileList` 的行为像一个数组，可以通过检查 `length` 属性来获得已选择文件的数量。注意：即便你只选择了一个文件，或者你没有设置 multiple，但是 `HTMLInputElement.files` 属性返回的依旧是 `FileList` 对象，只不过里面最多包含一个 `File` 对象！
+>
+> 每个 `File` 对象包含下列信息：
+>
+>    - `name`：文件名。
+>    - `lastModified`：一个数字，指定文件最后一次修改的日期和时间，以 UNIX 新纪元（1970 年 1 月 1 日午夜）以来的毫秒数表示。
+>    - `size`：以字节数为单位的文件大小。
+>    - `type`：文件的 [MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)。
+>
+> > 关于 [Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob)、[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)、[FileList](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)、[FileReader](https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader) 的介绍。
+
+用 JS 对文件进行操作的例子：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            html {
+                font-family: sans-serif;
+            }
+
+            form {
+                width: 600px;
+                background: #ccc;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid black;
+            }
+
+            form ol {
+                padding-left: 0;
+            }
+
+            form li,
+            div > p {
+                background: #eee;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                list-style-type: none;
+                border: 1px solid black;
+            }
+
+            form img {
+                height: 124px;
+                order: 1;
+            }
+
+            form p {
+                line-height: 32px;
+                padding-left: 10px;
+            }
+
+            form label,
+            form button {
+                background-color: #7f9ccb;
+                padding: 5px 10px;
+                border-radius: 5px;
+                border: 1px ridge black;
+                font-size: 0.8rem;
+                height: auto;
+            }
+
+            form label:hover,
+            form button:hover {
+                background-color: #2d5ba3;
+                color: white;
+            }
+
+            form label:active,
+            form button:active {
+                background-color: #0d3f8f;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <label for="image_uploads">选择图片上传 (PNG, JPG)</label>
+                <input type="file" id="image_uploads" name="image_uploads" accept="image/*" multiple />
+            </div>
+            <div class="preview">
+                <p>请选择要上传的图片文件……</p>
+            </div>
+        </form>
+        <script>
+            // 获取 file 输入框 DOM 元素
+            const input = document.querySelector('#image_uploads');
+            // 获取 预览框 DOM 元素
+            const preview = document.querySelector('.preview');
+            // 将 file 输入框设为透明
+            // 这样做是因为文件输入往往很难看，难于设计样式，而且在跨浏览器中对它们的设计不一致
+            // 可以通过单击 <label> 部分来激活 input 元素，因此，最好在视觉上隐藏 input 并将 label 设计成按钮的样式
+            // 使用 opacity，而不是使用 visibility: hidden 或者 display: none，因为辅助技术将后两种样式解释为文件 input 是不可交互的！
+            input.style.opacity = 0;
+
+            // 我们将事件监听器添加到 input 中，以监听选择的值的更改
+            input.addEventListener('change', updateImageDisplay);
+
+            // 每当 updateImageDisplay() 函数被调用时，我们：
+            function updateImageDisplay() {
+                // 1、清空预览区的内容
+                while (preview.firstChild) {
+                    preview.removeChild(preview.firstChild);
+                }
+
+                // 2、获取包含所有已选择文件信息的 FileList 对象，并将其用一个变量 curFiles 保存
+                const curFiles = input.files;
+
+                // 3、通过检查 curFiles.length 是否等于 0 来检查是否没有文件被选择
+                if (curFiles.length === 0) {
+                    // 如果是，则向预览区 <div> 输出一条消息，表示没有选择文件
+                    const para = document.createElement('p');
+                    para.textContent = '请选择要上传的图片文件……';
+                    preview.appendChild(para);
+                } else {
+                    // 如果选择了文件，我们将循环遍历每个文件，并将关于它的信息输出到预览区 <div>
+
+                    // 创建一个 ul 列表
+                    const list = document.createElement('ul');
+                    preview.appendChild(list);
+
+                    // 遍历 FileList 中的每个 File 对象
+                    for (const file of curFiles) {
+                        // 创建一个 li 列表项
+                        const listItem = document.createElement('li');
+                        // 创建一个 p 文本
+                        const para = document.createElement('p');
+
+                        // 我们自制的 validFileType() 函数来再次检查文件的类型是否正确
+                        // 原因是：Input file 的 accept 属性不验证所选文件的类型，它只是为浏览器提供提示来引导用户选择正确的文件类型，所以它是不安全的。
+                        if (validFileType(file)) {
+                            // 类型正确
+                            // 将其名称和文件大小输出到预览区 <div> 的一个列表项中
+                            // 从 file.name 和 file.size 获取这些信息
+                            // 其中，自制的 returnFileSize() 函数返回一个用 bytes/KB/MB 表示的可读性良好的文件大小（默认情况下，浏览器以绝对字节数报告大小）
+                            para.textContent = `文件名称：${file.name}，文件大小：${returnFileSize(file.size)}.`;
+                            // 创建一个 img 元素
+                            const image = document.createElement('img');
+                            // 通过调用 URL.createObjectURL(File) 来生成图片的一张缩略预览图，并赋给 img 的 src 属性
+                            // URL.createObjectURL(File)：参数：用于创建 URL 的 File 对象、Blob 对象或者 MediaSource 对象。返回值：一个 DOMString 包含了一个对象 URL，该 URL 可用于指定源 object 的内容。
+                            image.src = URL.createObjectURL(file);
+                            listItem.appendChild(image);
+                            listItem.appendChild(para);
+                        } else {
+                            // 类型不正确
+                            // 在列表项中显示一条消息，告诉用户需要选择一个其它的文件类型
+                            para.textContent = `文件名称：${file.name}，不是有效的文件类型！请更新您的选择……`;
+                            listItem.appendChild(para);
+                        }
+
+                        list.appendChild(listItem);
+                    }
+                }
+            }
+
+            // -----------------------------------------------------------------------------
+            // -----------------------------------------------------------------------------
+
+            // validFileType() 函数接受一个 File 对象作为参数，然后使用 Array.prototype.includes() 检查 fileTypes 中是否有值和文件的 type 属性匹配。
+            // 如果找到匹配项，函数返回 true。如果没找到，返回 false。
+            const fileTypes = ['image/apng', 'image/bmp', 'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/svg+xml', 'image/tiff', 'image/webp', 'image/x-icon'];
+            function validFileType(file) {
+                return fileTypes.includes(file.type);
+            }
+
+            // -----------------------------------------------------------------------------
+            // -----------------------------------------------------------------------------
+
+            // returnFileSize() 函数接受一个数字（字节数，取自当前文件的 size 属性）作为参数，并且将其转化为用 bytes/KB/MB 表示的可读性良好的文件大小。
+            function returnFileSize(number) {
+                if (number < 1024) {
+                    return `${number} bytes`;
+                } else if (number >= 1024 && number < 1048576) {
+                    return `${(number / 1024).toFixed(1)} KB`;
+                } else if (number >= 1048576) {
+                    return `${(number / 1048576).toFixed(1)} MB`;
+                }
+            }
+        </script>
+    </body>
+</html>
+
+```
+
+<img src="mark-img/wow.gif" alt="wow" style="width:60%;" />
+
+而对于 Ajax 而言，我们上传文件时，需要使用 FormData 的方法，默认 Content-Type 的值就是 multipart/form-data 的形式。
+
+[FormData 对象的使用 - Web API 接口参考 | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <input type="file" id="input_file" accept=".jpg,.jpeg,.png" multiple />
+        <button id="submit">上传</button>
+        <script>
+            const btn = document.getElementById('submit');
+            const inputFile = document.getElementById('input_file');
+            const url = 'http://www.xxx.com/api/xxx';
+
+            btn.addEventListener(
+                'click',
+                () => {
+                    const xhr = new XMLHttpRequest();
+
+                    xhr.addEventListener(
+                        'load',
+                        () => {
+                            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                                console.log(xhr.response);
+                            }
+                        },
+                        false
+                    );
+
+                    xhr.open('POST', url, true);
+
+                    // 创建一个 FormData 对象
+                    const data = new FormData();
+
+                    // 向 FormData 对象添加 File
+                    for (let i = 0; i < inputFile.files.length; i++) {
+                        data.append(`img-${i}`, inputFile.files[i]);
+                        // append 方法可以接收第三个参数，可以手动指定文件名（如果不加该参数，文件名默认就是上传文件的原始名称）
+                        // data.append(`img-${i}`, inputFile.files[0], `img-${i}`);
+                    }
+
+                    xhr.send(data);
+                },
+                false
+            );
+        </script>
+    </body>
+</html>
+```
+
+上传 3 张图片，并提交后的请求体数据：
+
+<img src="mark-img/file.gif" alt="file" style="width:50%;" />
+
+当然，我们也可以直接用 form 对象来直接初始化一个 FormData：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="/" enctype="multipart/form-data" method="post" id="form">
+            <input type="text" name="myText" /><br />
+            <input type="file" name="myImg" accept=".jpg,.jpeg,.png" multiple />
+        </form>
+        <input type="file" id="input_file" accept=".jpg,.jpeg,.png" /><br />
+        <button id="submit">上传</button>
+        <script>
+            const form = document.getElementById('form');
+            const btn = document.getElementById('submit');
+            const inputFile = document.getElementById('input_file');
+            const url = 'http://www.xxx.com/api/xxx';
+
+            btn.addEventListener(
+                'click',
+                () => {
+                    const xhr = new XMLHttpRequest();
+
+                    xhr.addEventListener(
+                        'load',
+                        () => {
+                            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                                console.log(xhr.response);
+                            }
+                        },
+                        false
+                    );
+
+                    xhr.open('POST', url, true);
+
+                    // 创建一个 FormData 对象，并用 form 进行初始化
+                    const data = new FormData(form);
+
+                    // 我们还可以追加数据
+                    data.append('addImg', inputFile.files[0]);
+
+                    xhr.send(data);
+                },
+                false
+            );
+        </script>
+    </body>
+</html>
+```
+
+<img src="mark-img/image-20230129200901787.png" alt="image-20230129200901787" style="width:80%;" />
+
+<img src="mark-img/image-20230129200934952.png" alt="image-20230129200934952" style="width:80%;" />
+
+## 3.10 封装Ajax
+
+<img src="mark-img/image-20220719130924846.png" alt="image-20220719130924846" style="width:20%;" />
 
 - ajax.js
 
@@ -1886,7 +2261,7 @@ export {
 </html>
 ```
 
-## 3.10 使用Promise改造封装好的Ajax
+## 3.11 使用Promise改造封装好的Ajax
 
 - ajax.js
 
@@ -2365,7 +2740,7 @@ export {
 </html>
 ```
 
-## 3.11 多个Ajax请求的并发执行
+## 3.12 多个Ajax请求的并发执行
 
 当我们发送多个 Ajax 请求并且要并发执行的时候，应该满足：多个响应都成功了才成功，只要有一个不成功那么就失败，所以可以这么做：
 
@@ -2454,7 +2829,7 @@ Promise.all([p1, p2]).then(() => {
 
 # 四、Axios
 
-[Axios 中文文档 | Axios 中文网 | Axios 是一个基于 promise 的网络请求库，可以用于浏览器和 node.js (axios-http.cn)](https://www.axios-http.cn/)（具体内容请参照文档！！！）
+https://axios-http.com/zh/
 
 ## 4.1 Axiso基本用法
 
@@ -2473,7 +2848,7 @@ Promise.all([p1, p2]).then(() => {
      headers: {
          'Content-Type': 'application/json'
      },
-     // 请求头数据
+     // 请求行数据
      params: {
          usrname: 'alex'
      },
@@ -2505,7 +2880,7 @@ Promise.all([p1, p2]).then(() => {
      headers: {
          'Content-Type': 'application/x-www-form-urlencoded'
      },
-     // 请求头数据
+     // 请求行数据
      params: {
          usrname: 'alex'
      },
@@ -2533,8 +2908,8 @@ axios.get(url, {
         usrname: 'alex',
         age: 18
     },
-     timeout: 10000,
-     withCredentials: true
+    timeout: 10000,
+    withCredentials: true
 }).then(response => {
     console.log(response.data);
 }).catch(err => {
@@ -2593,7 +2968,7 @@ Promise.all([getUserAccount(), getUserPermissions()])
 
 Fetch 是 Ajax 的一种替代方案，它是基于 Promise 的。
 
-`fetch()`是 XMLHttpRequest 的升级版，用于在 JavaScript 脚本里面发出 HTTP 请求，浏览器原生提供这个对象！
+`fetch()` 是 XMLHttpRequest 的升级版，用于在 JavaScript 脚本里面发出 HTTP 请求，浏览器原生提供这个对象！
 
 [使用 Fetch - Web API 接口参考 | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
 
