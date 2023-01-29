@@ -1513,7 +1513,7 @@ xhr.send(myForm);
 
 ```html
 <form action="/" enctype="multipart/form-data" method="post">
-    <input type="file" />
+    <input type="file" name="file"/>
     <input type="submit" value="提交" />  
 </form>
 ```
@@ -1800,7 +1800,9 @@ xhr.send(myForm);
     </head>
     <body>
         <form action="/" enctype="multipart/form-data" method="post" id="form">
+            <!-- 利用 form 表单上传时，input 必须加上 name 属性，否则会出错 -->
             <input type="text" name="myText" /><br />
+            <!-- 利用 form 表单上传时，input 必须加上 name 属性，否则会出错 -->
             <input type="file" name="myImg" accept=".jpg,.jpeg,.png" multiple />
         </form>
         <input type="file" id="input_file" accept=".jpg,.jpeg,.png" /><br />
@@ -1833,6 +1835,7 @@ xhr.send(myForm);
 
                     // 我们还可以追加数据
                     data.append('addImg', inputFile.files[0]);
+                    data.append('addMsg', '添加的数据');
 
                     xhr.send(data);
                 },
@@ -1843,9 +1846,9 @@ xhr.send(myForm);
 </html>
 ```
 
-<img src="mark-img/image-20230129200901787.png" alt="image-20230129200901787" style="width:80%;" />
+<img src="mark-img/image-20230129215216885.png" alt="image-20230129215216885" style="width:80%;" />
 
-<img src="mark-img/image-20230129200934952.png" alt="image-20230129200934952" style="width:80%;" />
+<img src="mark-img/image-20230129215309243.png" alt="image-20230129215309243" style="width:80%;" />
 
 ## 3.10 封装Ajax
 
@@ -2835,7 +2838,7 @@ https://axios-http.com/zh/
 
 ### 4.1.1 引入Axiso
 
-`<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>`
+网络引入：`<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>`
 
 ### 4.1.2 使用Axiso
 
