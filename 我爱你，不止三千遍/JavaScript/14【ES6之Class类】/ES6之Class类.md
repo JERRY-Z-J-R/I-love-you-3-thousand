@@ -414,10 +414,10 @@ class Programmer extends Person {
 const zjr = new Programmer('jerry', '男');
 console.log(zjr.name);				// jerry
 console.log(zjr.sex);				// 男
-zjr.say();						   // say
-zjr.speak();					   // speak
+zjr.say();						    // say
+zjr.speak();					    // speak
 Programmer.speak();				    // static speak
-console.log(Programmer.version);	 // 1.0 
+console.log(Programmer.version);	// 1.0 
 // 由此可见，子类集成了父类所以属性及方法！
 ```
 
@@ -470,8 +470,8 @@ const zjr = new Programmer('jerry', '男', 18);
 console.log(zjr.name);		// zjr
 console.log(zjr.sex);		// 男
 console.log(zjr.age);		// 18
-zjr.speak();			   // 子类 speak
-zjr.say();				   // say
+zjr.speak();			    // 子类 speak
+zjr.say();				    // say
 ```
 
 # 八、super
