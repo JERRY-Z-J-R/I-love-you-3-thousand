@@ -1,8 +1,6 @@
 # 【api接口项目案例】
 
-> 大事件后台 API 项目：[Headline - api_server_ev (escook.cn)](http://www.escook.cn:8088/#/)
->
-> API 接口文档请参考：https://www.showdoc.cc/escook?page_id=3707158761215217
+> 本项目 API 接口文档：https://www.showdoc.cc/escook?page_id=3707158761215217
 
 # 一、初始化
 
@@ -657,7 +655,7 @@ db.query(sql, req.user.id, (err, results) => {
 });
 ```
 
-![image-20221230142245395](mark-img/image-20221230142245395.png)
+<img src="mark-img/image-20221230142245395.png" alt="image-20221230142245395" style="width:80%;" />
 
 ## 3.2 更新用户的基本信息
 
@@ -753,7 +751,7 @@ db.query(sql, [req.body, req.body.id], (err, results) => {
 });
 ```
 
-![image-20221230201140180](mark-img/image-20221230201140180.png)
+<img src="mark-img/image-20221230201140180.png" alt="image-20221230201140180" style="width:80%;" />
 
 ## 3.3 重置密码
 
@@ -953,7 +951,7 @@ db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
 });
 ```
 
-![image-20221230213331915](mark-img/image-20221230213331915.png)
+<img src="mark-img/image-20221230213331915.png" alt="image-20221230213331915" style="width:80%;" />
 
 # 四、文章分类管理
 
@@ -961,11 +959,11 @@ db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
 
 ### 4.1.1 创建表结构
 
-![文章分类表结构](mark-img/2.jpg)
+<img src="mark-img/2.jpg" alt="文章分类表结构" style="width:80%;" />
 
 ### 4.1.2 新增两条初始数据
 
-![文章分类表结构](mark-img/3.jpg)
+<img src="mark-img/3.jpg" alt="文章分类表结构" style="width:40%;" />
 
 ## 4.2 获取文章分类列表
 
@@ -1062,7 +1060,7 @@ db.query(sql, (err, results) => {
 });
 ```
 
-![image-20221230224206922](mark-img/image-20221230224206922.png)
+<img src="mark-img/image-20221230224206922.png" alt="image-20221230224206922" style="width:80%;" />
 
 ## 4.3 新增文章分类
 
@@ -1174,7 +1172,7 @@ db.query(sql, req.body, (err, results) => {
 });
 ```
 
-![image-20221231103849274](mark-img/image-20221231103849274.png)
+<img src="mark-img/image-20221231103849274.png" alt="image-20221231103849274" style="width:80%;" />
 
 ## 4.4 根据id删除文章分类
 
@@ -1255,7 +1253,7 @@ db.query(sql, req.params.id, (err, results) => {
 });
 ```
 
-![image-20221231105448229](mark-img/image-20221231105448229.png)
+<img src="mark-img/image-20221231105448229.png" alt="image-20221231105448229" style="width:80%;" />
 
 ## 4.5 根据id获取文章分类数据
 
@@ -1332,7 +1330,7 @@ db.query(sql, req.params.id, (err, results) => {
 });
 ```
 
-![image-20221231110737976](mark-img/image-20221231110737976.png)
+<img src="mark-img/image-20221231110737976.png" alt="image-20221231110737976" style="width:80%;" />
 
 ## 4.6 根据id更新文章分类数据
 
@@ -1435,13 +1433,13 @@ db.query(sql, [req.body, req.body.id], (err, results) => {
 });
 ```
 
-![image-20221231111904110](mark-img/image-20221231111904110.png)
+<img src="mark-img/image-20221231111904110.png" alt="image-20221231111904110" style="width:80%;" />
 
 # 五、文章管理
 
 ## 5.1 新建ev_articles表
 
-![ev_articles表结构](mark-img/4.jpg)
+<img src="mark-img/4.jpg" alt="ev_articles表结构" style="width:70%;" />
 
 ## 5.2 发布新文章
 
@@ -1511,11 +1509,13 @@ module.exports = router;
 
 > 注意：使用 `express.urlencoded()` 中间件无法解析 `multipart/form-data` 格式的请求体数据。由于此接口涉及到文件上传的功能，因此提交的请求体，必须是 `FormData` 格式！
 
-> 当前项目，推荐使用 multer 来解析 `multipart/form-data` 格式的表单数据。https://www.npmjs.com/package/multer
+> 推荐使用 multer 来解析 `multipart/form-data` 格式的表单数据。
+>
+> multer：https://www.npmjs.com/package/multer
 
 > Multer 是一个 node.js 中间件，用于处理 `multipart/form-data` 类型的表单数据，它主要用于上传文件。它是写在 [busboy](https://github.com/mscdex/busboy) 之上非常高效。
 >
-> **注意**: Multer 不会处理任何非 `multipart/form-data` 类型的表单数据。
+> **注意**: Multer 不会处理任何非 `multipart/form-data` 类型的表单数据！
 
 1. 运行如下的终端命令，在项目中安装 `multer`：
 
@@ -1551,7 +1551,7 @@ router.post('/add', upload.single('cover_img'), article_handler.addArticle);
 // 发布新文章的处理函数
 exports.addArticle = (req, res) => {
   console.log(req.body); // 文本类型的数据
-  console.log('--------分割线----------');
+  console.log('----------分割线----------');
   console.log(req.file); // 文件类型的数据
 
   res.send('ok');
@@ -1664,4 +1664,4 @@ db.query(sql, articleInfo, (err, results) => {
 app.use('/uploads', express.static('./uploads'));
 ```
 
-![image-20221231131054480](mark-img/image-20221231131054480.png)
+<img src="mark-img/image-20221231131054480.png" alt="image-20221231131054480" style="width:80%;" />
