@@ -13,6 +13,6 @@ exports.add_article_schema = {
         title,
         cate_id,
         content,
-        state,
-    },
+        state
+    }
 };

@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
+        <link rel="stylesheet" href="/assets/lib/cropper/cropper.css" />
+        <link rel="stylesheet" href="/assets/css/article/art_pub.css" />
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
-  <link rel="stylesheet" href="/assets/lib/cropper/cropper.css" />
-  <link rel="stylesheet" href="/assets/css/article/art_pub.css" />
-</head>
-
-<body>
-  <!-- 卡片区域 -->
-  <div class="layui-card">
-    <div class="layui-card-header">写文章</div>
-    <div class="layui-card-body">
-      <!-- 发布文章的表单 -->
-      <form class="layui-form" id="form-pub">
-        <!-- 第一行 -->
-        <div class="layui-form-item">
-          <label class="layui-form-label">文章标题</label>
-          <div class="layui-input-block">
-            <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
-              class="layui-input" />
-          </div>
-        </div>
-        <!-- 第二行 -->
-        <div class="layui-form-item">
-          <label class="layui-form-label">文章类别</label>
-          <div class="layui-input-block">
-            <select name="cate_id" lay-verify="required"></select>
-          </div>
-        </div>
-        <!-- 第三行 -->
-        <div class="layui-form-item">
-          <!-- 左侧的 label -->
-          <label class="layui-form-label">文章内容</label>
-          <!-- 为富文本编辑器外部的容器设置高度 -->
-          <div class="layui-input-block" style="height: 400px;">
-            <!-- 重要：将来这个 textarea 会被初始化为富文本编辑器 -->
-            <textarea name="content"></textarea>
-          </div>
-        </div>
-        <!-- 第四行 -->
-        <div class="layui-form-item">
-          <!-- 左侧的 label -->
-          <label class="layui-form-label">文章封面</label>
-          <!-- 选择封面区域 -->
-          <div class="layui-input-block cover-box">
-            <!-- 左侧裁剪区域 -->
-            <div class="cover-left">
-              <img id="image" src="/assets/images/sample2.jpg" alt="" />
+    <body>
+        <!-- 卡片区域 -->
+        <div class="layui-card">
+            <div class="layui-card-header">写文章</div>
+            <div class="layui-card-body">
+                <!-- 发布文章的表单 -->
+                <form class="layui-form" id="form-pub">
+                    <!-- 第一行 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文章标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" />
+                        </div>
+                    </div>
+                    <!-- 第二行 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文章类别</label>
+                        <div class="layui-input-block">
+                            <select name="cate_id" lay-verify="required"></select>
+                        </div>
+                    </div>
+                    <!-- 第三行 -->
+                    <div class="layui-form-item">
+                        <!-- 左侧的 label -->
+                        <label class="layui-form-label">文章内容</label>
+                        <!-- 为富文本编辑器外部的容器设置高度 -->
+                        <div class="layui-input-block" style="height: 400px">
+                            <!-- 重要：将来这个 textarea 会被初始化为富文本编辑器 -->
+                            <textarea name="content"></textarea>
+                        </div>
+                    </div>
+                    <!-- 第四行 -->
+                    <div class="layui-form-item">
+                        <!-- 左侧的 label -->
+                        <label class="layui-form-label">文章封面</label>
+                        <!-- 选择封面区域 -->
+                        <div class="layui-input-block cover-box">
+                            <!-- 左侧裁剪区域 -->
+                            <div class="cover-left">
+                                <img id="image" src="/assets/images/sample2.jpg" alt="" />
+                            </div>
+                            <!-- 右侧预览区域和选择封面区域 -->
+                            <div class="cover-right">
+                                <!-- 预览的区域 -->
+                                <div class="img-preview"></div>
+                                <!-- 选择封面按钮 -->
+                                <button type="button" class="layui-btn layui-btn-danger" id="btnChooseImage">选择封面</button>
+                                <!-- 隐藏的文件选择框 -->
+                                <input type="file" id="coverFile" style="display: none" accept="image/png,image/jpeg,image/gif" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第五行 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit>发布</button>
+                            <button class="layui-btn layui-btn-primary" lay-submit id="btnSave2">存为草稿</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!-- 右侧预览区域和选择封面区域 -->
-            <div class="cover-right">
-              <!-- 预览的区域 -->
-              <div class="img-preview"></div>
-              <!-- 选择封面按钮 -->
-              <button type="button" class="layui-btn layui-btn-danger" id="btnChooseImage">选择封面</button>
-              <!-- 隐藏的文件选择框 -->
-              <input type="file" id="coverFile" style="display: none;" accept="image/png,image/jpeg,image/gif" />
-            </div>
-          </div>
         </div>
-        <!-- 第五行 -->
-        <div class="layui-form-item">
-          <div class="layui-input-block">
-            <button class="layui-btn" lay-submit>发布</button>
-            <button class="layui-btn layui-btn-primary" lay-submit id="btnSave2">存为草稿</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
 
-  <!-- 分类的模板结构 -->
-  <script type="text/html" id="tpl-cate">
-      <option value="">请选择文章类别</option>
-      {{each data}}
-      <option value="{{$value.Id}}">{{$value.name}}</option>
-      {{/each}}
-    </script>
+        <!-- 分类的模板结构 -->
+        <script type="text/html" id="tpl-cate">
+            <option value="">请选择文章类别</option>
+            {{each data}}
+            <option value="{{$value.Id}}">{{$value.name}}</option>
+            {{/each}}
+        </script>
 
-  <!-- 导入第三方的 JS 插件 -->
-  <script src="/assets/lib/layui/layui.all.js"></script>
-  <script src="/assets/lib/jquery.js"></script>
-  <script src="/assets/js/baseAPI.js"></script>
-  <!-- 导入 art-template -->
-  <script src="/assets/lib/template-web.js"></script>
-  <!-- 富文本 -->
-  <script src="/assets/lib/tinymce/tinymce.min.js"></script>
-  <script src="/assets/lib/tinymce/tinymce_setup.js"></script>
-  <!-- 导入 cropper 相关的脚本 -->
-  <script src="/assets/lib/cropper/Cropper.js"></script>
-  <script src="/assets/lib/cropper/jquery-cropper.js"></script>
-  <!-- 导入自己的 JS -->
-  <script src="/assets/js/article/art_pub.js"></script>
-</body>
-
+        <!-- 导入第三方的 JS 插件 -->
+        <script src="/assets/lib/layui/layui.all.js"></script>
+        <script src="/assets/lib/jquery.js"></script>
+        <script src="/assets/js/baseAPI.js"></script>
+        <!-- 导入 art-template -->
+        <script src="/assets/lib/template-web.js"></script>
+        <!-- 富文本 -->
+        <script src="/assets/lib/tinymce/tinymce.min.js"></script>
+        <script src="/assets/lib/tinymce/tinymce_setup.js"></script>
+        <!-- 导入 cropper 相关的脚本 -->
+        <script src="/assets/lib/cropper/Cropper.js"></script>
+        <script src="/assets/lib/cropper/jquery-cropper.js"></script>
+        <!-- 导入自己的 JS -->
+        <script src="/assets/js/article/art_pub.js"></script>
+    </body>
 </html>

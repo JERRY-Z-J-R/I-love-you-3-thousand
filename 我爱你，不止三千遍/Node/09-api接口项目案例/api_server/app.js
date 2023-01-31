@@ -25,7 +25,7 @@ app.use((req, res, next) => {
             // 状态
             status,
             // 状态描述，判断 err 是 错误对象 还是 字符串
-            message: err instanceof Error ? err.message : err,
+            message: err instanceof Error ? err.message : err
         });
     };
     next();

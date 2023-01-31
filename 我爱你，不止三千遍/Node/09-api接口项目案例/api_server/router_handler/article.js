@@ -19,7 +19,7 @@ exports.addArticle = (req, res) => {
         // 文章的发布时间
         pub_date: new Date(),
         // 文章作者的 id
-        author_id: req.user.id,
+        author_id: req.user.id
     };
 
     const sql = `insert into ev_articles set ?`;

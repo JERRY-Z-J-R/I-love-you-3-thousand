@@ -15,7 +15,7 @@ exports.getArticleCates = (req, res) => {
         res.send({
             status: 0,
             message: '获取文章分类列表成功！',
-            data: results,
+            data: results
         });
     });
 };
@@ -79,7 +79,7 @@ exports.getArticleById = (req, res) => {
         res.send({
             status: 0,
             message: '获取文章分类数据成功！',
-            data: results[0],
+            data: results[0]
         });
     });
 };

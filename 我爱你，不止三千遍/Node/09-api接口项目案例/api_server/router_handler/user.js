@@ -13,7 +13,6 @@ exports.regUser = (req, res) => {
     const userinfo = req.body;
     // 判断数据是否合法
     if (!userinfo.username || !userinfo.password) {
-        // return res.send({ status: 1, message: '用户名或密码不能为空！' });
         return res.cc('用户名或密码不能为空！');
     }
 
@@ -23,12 +22,10 @@ exports.regUser = (req, res) => {
     db.query(sql, [userinfo.username], (err, results) => {
         // 执行 sql 语句失败
         if (err) {
-            // return res.send({ status: 1, message: err.message });
             return res.cc(err);
         }
         // 用户名被占用
         if (results.length > 0) {
-            // return res.send({ status: 1, message: '用户名被占用，请更换其他用户名！' });
             return res.cc('用户名被占用，请更换其他用户名！');
         }
 
@@ -42,16 +39,13 @@ exports.regUser = (req, res) => {
         db.query(sql, { username: userinfo.username, password: userinfo.password }, (err, results) => {
             // 执行 sql 语句失败
             if (err) {
-                // return res.send({ status: 1, message: err.message });
                 return res.cc(err);
             }
             // sql 语句执行成功，但影响行数不为 1
             if (results.affectedRows !== 1) {
-                // return res.send({ status: 1, message: '注册用户失败，请稍后再试！' });
                 return res.cc('注册用户失败，请稍后再试！');
             }
             // 注册成功
-            // res.send({ status: 0, message: '注册成功！' });
             res.cc('注册成功！', 0);
         });
     });
@@ -89,7 +83,7 @@ exports.login = (req, res) => {
         // 将用户信息对象加密成 Token 字符串
         const tokenStr = jwt.sign(user, config.jwtSecretKey, {
             // token 有效期为 10 个小时
-            expiresIn: '10h',
+            expiresIn: '10h'
         });
 
         // 将生成的 Token 字符串响应给客户端
@@ -97,7 +91,7 @@ exports.login = (req, res) => {
             status: 0,
             message: '登录成功！',
             // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
-            token: 'Bearer ' + tokenStr,
+            token: 'Bearer ' + tokenStr
         });
     });
 };

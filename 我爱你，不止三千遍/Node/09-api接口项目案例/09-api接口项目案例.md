@@ -287,7 +287,7 @@ db.query(sql, { username: userinfo.username, password: userinfo.password }, func
 
 > 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 `res.cc()` 函数
 
-在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.cc()` 函数 ：
+在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.cc()` 函数：
 
 ```js
 // 响应数据的中间件
@@ -315,7 +315,7 @@ app.use(function (req, res, next) {
 
 > 表单验证的原则：前端验证为辅，后端验证为主，后端**永远不要相信**前端提交过来的**任何内容**
 
-在实际开发中，前后端都需要对表单的数据进行合法性的验证，而且，**后端作为数据合法性验证的最后一个关口**，在拦截非法数据方面，起到了至关重要的作用。
+在实际开发中，前后端都需要对表单的数据进行合法性的验证，而且**后端作为数据合法性验证的最后一个关口**，在拦截非法数据方面，起到了至关重要的作用。
 
 单纯的使用 `if...else...` 的形式对数据合法性进行验证，效率低下、出错率高、维护性差。因此，推荐使用**第三方数据验证模块**，来降低出错率、提高验证的效率与可维护性，**让后端程序员把更多的精力放在核心业务逻辑的处理上**。
 
@@ -344,8 +344,6 @@ const joi = require('joi');
  * required() 值是必填项，不能为 undefined
  * pattern(正则表达式) 值必须符合正则表达式的规则
  */
-
-// 使用文档：https://www.npmjs.com/package/@escook/express-joi
 
 // 用户名的验证规则
 const username = joi.string().alphanum().min(1).max(10).required();
@@ -493,7 +491,7 @@ const jwt = require('jsonwebtoken');
 
 ```js
 module.exports = {
-  jwtSecretKey: 'itheima No1. ^_^',
+  jwtSecretKey: 'I Love Node. ^_^',
 };
 ```
 
@@ -516,6 +514,7 @@ res.send({
   status: 0,
   message: '登录成功！',
   // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
+  // 客户端拿到 token 后直接保存到 Storage 中，下次请求时放在请求头中的 Authorization 字段中发送
   token: 'Bearer ' + tokenStr,
 });
 ```
