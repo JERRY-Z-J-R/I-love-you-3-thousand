@@ -5,8 +5,8 @@ const mysql = require('mysql');
 const db = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
-    password: '123456',
-    database: 'my_db_01'
+    password: '245424',
+    database: 'api_server'
 });
 
 // 向外共享 db 数据库连接对象

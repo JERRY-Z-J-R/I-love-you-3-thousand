@@ -59,6 +59,27 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 ```
 
+该项目中没有涉及对于 `application/json` 格式请求数据的处理，但是这也是非常重要的！如果你要使用，那么你应该在 app.js 中加上：
+
+```js
+app.use(express.json());
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+```
+
+我们对于 JWT 的处理需要读取 Authorization 请求头，所以我们可以随便把 Authorization 加上：
+```js
+app.use(express.json());
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
+```
+
 ## 1.4 初始化路由相关的文件夹
 
 1. 在项目根目录中，新建 `router` 文件夹，用来存放所有的 `路由模块`
@@ -142,7 +163,7 @@ module.exports = router;
 
 ## 2.1 新建ev_users表
 
-在 `my_db_01` 数据库中，新建 `ev_users` 表如下：
+在 `api_server` 数据库中，新建 `ev_users` 表如下：
 
 <img src="mark-img/1.jpg" alt="ev_users表结构" style="width: 80%;" />
 
@@ -167,7 +188,7 @@ const db = mysql.createPool({
   host: '127.0.0.1',
   user: 'root',
   password: '123456',
-  database: 'my_db_01',
+  database: 'api_server',
 });
 
 // 向外共享 db 数据库连接对象
@@ -192,7 +213,7 @@ module.exports = db;
 const userinfo = req.body;
 // 判断数据是否合法
 if (!userinfo.username || !userinfo.password) {
-  return res.send({ status: 1, message: '用户名或密码不能为空！' });
+  return res.send({ status: 'no', message: '用户名或密码不能为空！' });
 }
 ```
 
@@ -216,11 +237,11 @@ const sql = `select * from ev_users where username=?`;
 db.query(sql, [userinfo.username], function (err, results) {
   // 执行 SQL 语句失败
   if (err) {
-    return res.send({ status: 1, message: err.message });
+    return res.send({ status: 'no', message: err.message });
   }
   // 用户名被占用
   if (results.length > 0) {
-    return res.send({ status: 1, message: '用户名被占用，请更换其他用户名！' });
+    return res.send({ status: 'no', message: '用户名被占用，请更换其他用户名！' });
   }
   // 用户名可用，继续后续流程...
 });
@@ -255,7 +276,7 @@ const bcrypt = require('bcryptjs');
 
 ```js
 // 对用户的密码，进行 bcrypt 加密，返回值是加密之后的密码字符串
-userinfo.password = bcrypt.hashSync(userinfo.password, 5);
+userinfo.password = bcrypt.hashSync(userinfo.password, 6);
 ```
 
 ### 2.3.5 插入新用户
@@ -271,43 +292,43 @@ const sql = 'insert into ev_users set ?';
 ```js
 db.query(sql, { username: userinfo.username, password: userinfo.password }, function (err, results) {
   // 执行 SQL 语句失败
-  if (err) return res.send({ status: 1, message: err.message });
+  if (err) return res.send({ status: 'no', message: err.message });
   // SQL 语句执行成功，但影响行数不为 1
   if (results.affectedRows !== 1) {
-    return res.send({ status: 1, message: '注册用户失败，请稍后再试！' });
+    return res.send({ status: 'no', message: '注册失败，请稍后再试！' });
   }
   // 注册成功
-  res.send({ status: 0, message: '注册成功！' });
+  res.send({ status: 'ok', message: '注册成功！' });
 });
 ```
 
 ## 2.4 优化res.send()代码
 
-> 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 `res.cc()` 函数
+> 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 `res.fastSend()` 函数
 
-在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.cc()` 函数：
+在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.fastSend()` 函数：
 
 ```js
-// 响应数据的中间件
-app.use(function (req, res, next) {
-  // status = 0 为成功； status = 1 为失败； 默认将 status 的值设置为 1，方便处理失败的情况
-  res.cc = function (err, status = 1) {
-    res.send({
-      // 状态
-      status,
-      // 状态描述，判断 err 是 错误对象 还是 字符串
-      message: err instanceof Error ? err.message : err,
-    });
-  };
-  next();
+// 快速响应状态中间件
+app.use((req, res, next) => {
+    // status = 'ok' 成功状态
+    // status = 'no' 失败状态（默认）
+    res.fastSend = (info, status = 'no') => {
+        res.send({
+            status,
+            // 判断 info 是否为一个 Error 对象，如果是返回 Error.message，否则返回 info
+            message: info instanceof Error ? info.message : info
+        });
+    };
+    next();
 });
 ```
 
-将之前用 `res.send()` 返回状态及状态信息的方法都可以替换为 `res.cc()`：
+将之前用 `res.send()` 返回状态及状态信息的方法都可以替换为 `res.fastSend()`：
 
-- `res.cc('用户名已经存在');`
-- `res.cc(err);`
-- `res.cc('注册成功', 0);`
+- `res.fastSend('用户名已经存在');`
+- `res.fastSend(err);`
+- `res.fastSend('注册成功', 'ok');`
 
 ## 2.5 优化表单数据验证
 
@@ -334,27 +355,28 @@ npm i @escook/express-joi
 ```js
 const joi = require('joi');
 
-/**
- * string() 值必须是字符串
- * alphanum() 值只能是包含 a-zA-Z0-9 的字符串
- * min(length) 最小长度
- * max(length) 最大长度
- * required() 值是必填项，不能为 undefined
- * pattern(正则表达式) 值必须符合正则表达式的规则
- */
+// string()         值必须是字符串
+// alphanum()       值只能是包含 a-zA-Z0-9 的字符串
+// min(length)      最小长度
+// max(length)      最大长度
+// required()       值是必填项，不能为 undefined
+// pattern(RegExp)  值必须符合正则表达式的规则
 
 // 用户名的验证规则
 const username = joi.string().alphanum().min(1).max(10).required();
 // 密码的验证规则（6-15位非空字符序列）
-const password = joi.string().pattern(/^[\S]{6,15}$/).required();
+const password = joi
+    .string()
+    .pattern(/^[\S]{6,15}$/)
+    .required();
 
-// 注册和登录表单的验证规则对象
+// 注册和登录的验证规则对象
 exports.reg_login_schema = {
-  // 表示需要对 req.body 中的数据进行验证
-  body: {
-    username,
-    password,
-  },
+    // 对 req.body 中的数据进行验证
+    body: {
+        username,
+        password
+    }
 };
 ```
 
@@ -388,12 +410,13 @@ module.exports = router;
 ```js
 const joi = require('joi');
 
-// 错误中间件
+// 放在最后
+// 错误处理中间件
 app.use(function (err, req, res, next) {
   // 数据验证失败
-  if (err instanceof joi.ValidationError) return res.cc(err);
+  if (err instanceof joi.ValidationError) return res.fastSend(err);
   // 未知错误
-  res.cc(err);
+  res.fastSend(err);
 });
 ```
 
@@ -434,9 +457,9 @@ const sql = `select * from ev_users where username=?`;
 ```js
 db.query(sql, userinfo.username, function (err, results) {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
   // 执行 SQL 语句成功，但是查询到数据条数不等于 1
-  if (results.length !== 1) return res.cc('登录失败！');
+  if (results.length !== 1) return res.fastSend('登录失败！');
   // 判断用户输入的登录密码是否和数据库中的密码一致
 });
 ```
@@ -455,7 +478,7 @@ const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
 
 // 如果对比的结果等于 false, 则证明用户输入的密码错误
 if (!compareResult) {
-  return res.cc('登录失败！');
+  return res.fastSend('登录失败！');
 }
 
 // 登录成功，生成 Token 字符串
@@ -509,7 +532,7 @@ const tokenStr = jwt.sign(user, config.jwtSecretKey, {
 
 ```js
 res.send({
-  status: 0,
+  status: 'ok',
   message: '登录成功！',
   // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
   // 客户端拿到 token 后直接保存到 Storage 中，下次请求时放在请求头中的 Authorization 字段中发送
@@ -546,7 +569,7 @@ app.use(function (err, req, res, next) {
   // 省略其它代码...
 
   // 捕获身份认证失败的错误
-  if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！');
+  if (err.name === 'UnauthorizedError') return res.fastSend('身份认证失败！');
 
   // 未知错误...
 });
@@ -641,14 +664,14 @@ const sql = `select id, username, nickname, email, user_pic from ev_users where 
 // Token 生成时包含了哪些数据，Token 解析后 user 属性中也就有那些数据
 db.query(sql, req.user.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 执行 SQL 语句成功，但是查询到的数据条数不等于 1
-  if (results.length !== 1) return res.cc('获取用户信息失败！');
+  if (results.length !== 1) return res.fastSend('获取用户信息失败！');
 
   // 将用户信息响应给客户端
   res.send({
-    status: 0,
+    status: 'ok',
     message: '获取用户基本信息成功！',
     data: results[0],
   });
@@ -741,13 +764,13 @@ const sql = `update ev_users set ? where id=?`;
 ```js
 db.query(sql, [req.body, req.body.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 执行 SQL 语句成功，但影响行数不为 1
-  if (results.affectedRows !== 1) return res.cc('修改用户基本信息失败！');
+  if (results.affectedRows !== 1) return res.fastSend('修改用户基本信息失败！');
 
   // 修改用户信息成功
-  return res.cc('修改用户基本信息成功！', 0);
+  return res.fastSend('修改用户基本信息成功！', 0);
 });
 ```
 
@@ -825,10 +848,10 @@ const sql = `select * from ev_users where id=?`;
 // 执行 SQL 语句查询用户是否存在
 db.query(sql, req.user.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 检查指定 id 的用户是否存在
-  if (results.length !== 1) return res.cc('用户不存在！');
+  if (results.length !== 1) return res.fastSend('用户不存在！');
 
   // 判断提交的旧密码是否正确
 });
@@ -844,7 +867,7 @@ const bcrypt = require('bcryptjs');
 
 // 判断提交的旧密码是否正确
 const compareResult = bcrypt.compareSync(req.body.oldPwd, results[0].password);
-if (!compareResult) return res.cc('原密码错误！');
+if (!compareResult) return res.fastSend('原密码错误！');
 ```
 
 3. 对新密码进行 `bcrypt` 加密之后，更新到数据库中：
@@ -859,13 +882,13 @@ const newPwd = bcrypt.hashSync(req.body.newPwd, 10);
 // 执行 SQL 语句，根据 id 更新用户的密码
 db.query(sql2, [newPwd, req.user.id], (err, results) => {
   // SQL 语句执行失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('更新密码失败！');
+  if (results.affectedRows !== 1) return res.fastSend('更新密码失败！');
 
   // 更新密码成功
-  res.cc('更新密码成功！', 0);
+  res.fastSend('更新密码成功！', 0);
 });
 ```
 
@@ -941,13 +964,13 @@ const sql = 'update ev_users set user_pic=? where id=?';
 ```js
 db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 执行 SQL 语句成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('更新头像失败！');
+  if (results.affectedRows !== 1) return res.fastSend('更新头像失败！');
 
   // 更新用户头像成功
-  return res.cc('更新头像成功！', 0);
+  return res.fastSend('更新头像成功！', 0);
 });
 ```
 
@@ -1049,11 +1072,11 @@ const sql = 'select * from ev_article_cate where is_delete=0 order by id asc';
 ```js
 db.query(sql, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 执行 SQL 语句成功
   res.send({
-    status: 0,
+    status: 'ok',
     message: '获取文章分类列表成功！',
     data: results,
   });
@@ -1137,13 +1160,13 @@ const sql = `select * from ev_article_cate where name=? or alias=?`;
 // 执行查重操作
 db.query(sql, [req.body.name, req.body.alias], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 2) return res.cc('分类名称与别名被占用，请更换后重试！');
+  if (results.length === 2) return res.fastSend('分类名称与别名被占用，请更换后重试！');
   // 分别判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 1 && results[0].name === req.body.name) return res.cc('分类名称被占用，请更换后重试！');
-  if (results.length === 1 && results[0].alias === req.body.alias) return res.cc('分类别名被占用，请更换后重试！');
+  if (results.length === 1 && results[0].name === req.body.name) return res.fastSend('分类名称被占用，请更换后重试！');
+  if (results.length === 1 && results[0].alias === req.body.alias) return res.fastSend('分类别名被占用，请更换后重试！');
 
   // 新增文章分类
 });
@@ -1162,13 +1185,13 @@ const sql = `insert into ev_article_cate set ?`;
 ```js
 db.query(sql, req.body, (err, results) => {
   // SQL 语句执行失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('新增文章分类失败！');
+  if (results.affectedRows !== 1) return res.fastSend('新增文章分类失败！');
 
   // 新增文章分类成功
-  res.cc('新增文章分类成功！', 0);
+  res.fastSend('新增文章分类成功！', 0);
 });
 ```
 
@@ -1243,13 +1266,13 @@ const sql = `update ev_article_cate set is_delete=1 where id=?`;
 ```js
 db.query(sql, req.params.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('删除文章分类失败！');
+  if (results.affectedRows !== 1) return res.fastSend('删除文章分类失败！');
 
   // 删除文章分类成功
-  res.cc('删除文章分类成功！', 0);
+  res.fastSend('删除文章分类成功！', 0);
 });
 ```
 
@@ -1316,14 +1339,14 @@ const sql = `select * from ev_article_cate where id=?`;
 ```js
 db.query(sql, req.params.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // SQL 语句执行成功，但是没有查询到任何数据
-  if (results.length !== 1) return res.cc('获取文章分类数据失败！');
+  if (results.length !== 1) return res.fastSend('获取文章分类数据失败！');
 
   // 把数据响应给客户端
   res.send({
-    status: 0,
+    status: 'ok',
     message: '获取文章分类数据成功！',
     data: results[0],
   });
@@ -1399,12 +1422,12 @@ const sql = `select * from ev_article_cate where id<>? and (name=? or alias=?)`;
 // 执行查重操作
 db.query(sql, [req.body.id, req.body.name, req.body.alias], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 2) return res.cc('分类名称与别名被占用，请更换后重试！');
-  if (results.length === 1 && results[0].name === req.body.name) return res.cc('分类名称被占用，请更换后重试！');
-  if (results.length === 1 && results[0].alias === req.body.alias) return res.cc('分类别名被占用，请更换后重试！');
+  if (results.length === 2) return res.fastSend('分类名称与别名被占用，请更换后重试！');
+  if (results.length === 1 && results[0].name === req.body.name) return res.fastSend('分类名称被占用，请更换后重试！');
+  if (results.length === 1 && results[0].alias === req.body.alias) return res.fastSend('分类别名被占用，请更换后重试！');
 
   // 更新文章分类
 });
@@ -1423,13 +1446,13 @@ const sql = `update ev_article_cate set ? where id=?`;
 ```js
 db.query(sql, [req.body, req.body.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('更新文章分类失败！');
+  if (results.affectedRows !== 1) return res.fastSend('更新文章分类失败！');
 
   // 更新文章分类成功
-  res.cc('更新文章分类成功！', 0);
+  res.fastSend('更新文章分类成功！', 0);
 });
 ```
 
@@ -1606,7 +1629,7 @@ router.post('/add', upload.single('cover_img'), expressJoi(add_article_schema), 
 // 发布新文章的处理函数
 exports.addArticle = (req, res) => {
   // 手动判断是否上传了文章封面
-  if (!req.file || req.file.fieldname !== 'cover_img') return res.cc('文章封面是必选参数！');
+  if (!req.file || req.file.fieldname !== 'cover_img') return res.fastSend('文章封面是必选参数！');
 
   // 表单数据合法，继续后面的处理流程...
 });
@@ -1647,13 +1670,13 @@ const db = require('../db/connect');
 // 执行 SQL 语句
 db.query(sql, articleInfo, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err);
+  if (err) return res.fastSend(err);
 
   // 执行 SQL 语句成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('发布文章失败！');
+  if (results.affectedRows !== 1) return res.fastSend('发布文章失败！');
 
   // 发布文章成功
-  res.cc('发布文章成功', 0);
+  res.fastSend('发布文章成功', 0);
 });
 ```
 
