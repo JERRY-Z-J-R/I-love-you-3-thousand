@@ -1,4 +1,4 @@
-# npm与包
+# 【npm与包】
 
 > 原创内容，转载请注明出处！
 
@@ -14,7 +14,7 @@ Node.js 中的第三方模块又叫作包。
 
 不同于 Node.js 中的内置模块与自定义模块，包是由第三方个人或团队开发出来的，免费供所有人使用。
 
-注意：Node.js 中的包都是免费开源的，不需要付费即可免费下载使用。
+注意：Node.js 中的包都是免费开源的，不需要付费便可免费下载使用。
 
 ## 1.3 为什么需要包？
 
@@ -67,25 +67,25 @@ npm install 包的完整名称
 npm i 包的完整名称
 ```
 
-<img src="mark-img/image-20221205113923721.png" alt="image-20221205113923721" style="zoom: 33%;" />
+<img src="mark-img/image-20221205113923721.png" alt="image-20221205113923721" style="width: 50%;" />
 
 **【利用 moment 对时间进行格式化】**
 
 首先我们打开 https://www.npmjs.com/，并在搜索框中搜索 moment。
 
-<img src="mark-img/image-20221205114603469.png" alt="image-20221205114603469" style="zoom: 25%;" />
+<img src="mark-img/image-20221205114603469.png" alt="image-20221205114603469" style="width: 50%;" />
 
 在结果列表中，找到 moment 点击进入。
 
-<img src="mark-img/image-20221205114727294.png" alt="image-20221205114727294" style="zoom:25%;" />
+<img src="mark-img/image-20221205114727294.png" alt="image-20221205114727294" style="width:50%;" />
 
 moment 主页的相关说明（其它包也大同小异）：
 
-<img src="mark-img/npm.png" alt="npm" style="zoom:25%;" />
+<img src="mark-img/npm.png" alt="npm" style="width:60%;" />
 
 点击文档，即可查看使用说明：
 
-<img src="mark-img/image-20221205121014847.png" alt="image-20221205121014847" style="zoom: 25%;" />
+<img src="mark-img/image-20221205121014847.png" alt="image-20221205121014847" style="width: 60%;" />
 
 > 目前绝大多数的开源项目都是英文文档，所以良好的英文听说读写能力是一个出色程序员的标配！
 
@@ -102,20 +102,21 @@ const dt = moment().format('YYYY-MM-DD HH:mm:ss');
 console.log(dt);
 ```
 
-<img src="mark-img/image-20221205121825146.png" alt="image-20221205121825146" style="zoom: 33%;" />
+<img src="mark-img/image-20221205121825146.png" alt="image-20221205121825146" style="width: 60%;" />
 
 **【初次装包后多了哪些文件】**
 
-初次装包完成后，在项目文件夹下多一个叫作 node_modules 的文件夹和 package-lock.json 的配置文件（新版的 Node.js 还会自动添加 package.json 文件）。
+初次装包完成后，在项目文件夹下多一个叫作 node_modules 的文件夹和 package.json 及 package-lock.json 文件。
 
 其中：
 
 - node_modules 文件夹用来存放所有已安装到项目中的包。require() 导入第三方包时，就是从这个目录中查找并加载包
-- package-lock.json 配置文件用来记录 node_modules 目录下的每一个包的下载信息，例如包的名字、版本号、下载地址等
+- package.json 文件用来记录项目的基本信息以及 node_modules 目录下的每一个包的大版本号
+- package-lock.json 文件用来记录 node_modules 目录下的每一个包的详细下载信息，例如包的名字、具体版本号、下载地址等
 
-注意：程序员不要手动修改 node_modules 或 package-lock.json 文件中的任何代码，npm 包管理工具会自动维护它们。
+注意：程序员不要手动修改 node_modules 及 package.json package-lock.json 文件中的任何内容，npm 包管理工具会自动维护它们！
 
-<img src="mark-img\image-20221208195853018.png" alt="image-20221208195853018" style="zoom: 25%;" />
+<img src="mark-img\image-20221208195853018.png" alt="image-20221208195853018" style="width: 60%;" />
 
 **【安装指定版本的包】**
 
@@ -123,7 +124,7 @@ console.log(dt);
 
 **【包的语义化版本规范】**
 
-包的版本号是以“点分十进制”形式进行定义的，总共有三位数字，例如：2.24.0
+包的版本号是以 “点分十进制” 形式进行定义的，总共有三位数字，例如：2.24.0
 
 其中，每一位数字所代表的含义如下：
 
@@ -144,7 +145,7 @@ npm 规定，在项目根目录中，必须提供一个叫作 package.json 的�
 
 ## 3.1 多人协作的问题
 
-<img src="mark-img\image-20221208201810025.png" alt="image-20221208201810025" style="zoom: 33%;" />
+<img src="mark-img\image-20221208201810025.png" alt="image-20221208201810025" style="width: 40%;" />
 
 从我们之前创建的时间格式化项目文件夹就可以发现，真正的业务代码（test.js）只有 1 KB 的大小，而 node_modules 文件夹却有 4 MB 大小！这还只是一个非常小型的项目，对于中大型项目来说，一般业务代码只占整个项目大小的 1%！另外的 99% 大部分都是 node_modules 中的依赖包的大小！此时就会带来一个严重的问题：假如项目 1G 大小，而实际业务代码只有 10 MB，此时如果我们要将项目上传到云端或者发送给其他人，那么就需要发送 1G 的数据，这是非常耗费资源且耗时的！在实际团队合作的开发中，往往有一个统一的云端代码仓库实时同步各个程序员本地的代码，如果都不做任何处理直接上传和发送项目原始数据的话，根本不现实！ 
 
@@ -162,12 +163,20 @@ npm 规定，在项目根目录中，必须提供一个叫作 package.json 的�
 npm 包管理工具提供了一个快捷命令，可以在执行命令时所处的目录中，快速创建 package.json 这个包管理配置文件：
 
 ```shell
+npm init
+```
+
+我们也可以加上 `-yes` 或 `-y` 参数，表示创建项目时跳过确认。
+
+```shell
+npm init -yes 
+或
 npm init -y
 ```
 
-> 注意：执行这个命令时项目应是空的，在还没有写代码之前！
+> 注意：执行这个命令时项目应是空的！
 
-> 新版本的 Node.js 在我们写了代码，用 npm 安装依赖包时，除了会创建 node_modules 文件夹及 package-lock.json 文件之外，还会同时创建 package.json 文件（前提是项目之前没有执行过 npm init -y ）。
+> Node.js 在我们写了代码，用 npm 安装依赖包时，除了会创建 node_modules 文件夹及 package-lock.json 文件之外，还会同时创建 package.json 文件（前提是项目之前没有执行过 npm init -y ）。
 
 注意：
 
@@ -178,9 +187,13 @@ npm init -y
 
 可以发现，自动生成的 package.json 文件中自动记录了我们的项目名称（可以修改，默认使用文件夹名称），项目版本号，项目许可类型（默认 ISC）等信息。
 
+> 注意：当我们下载了包之后，package.json 中只是记录了该包的名称及大版本号！当 node_modules 文件夹不存在或是破损后，我们需要通过 package.json 文件的记录重新还原依赖包时，npm 会下载该大版本下的最新版的包，所以就不能 100% 确保我们的包是同一个版本的！虽然大版本内的更新一般都是 bug 更新，通常不会涉及 API 的更新，但是还是非常容易出现莫名其妙的版本问题，所以除了 package.json 之外还需要 package-lock.json 来辅助，该文件就是为了锁定依赖包的具体版本号的，它里面记录的包的名称以及具体的版本，并且还记录了包的下载地址以及它所依赖的包的信息！有了 package-lock.json 文件，当我们用 npm 恢复 node_modules 文件夹时就会依据 package-lock.json 中的记录来下载恢复，大大避免了依赖包版本导致的各种莫名其妙的问题！
+
 ## 3.4 dependencies节点
 
 package.json 文件中，有一个 dependencies 节点，专门用来记录你使用 npm install 命令安装了哪些包。
+
+dependencies：依赖关系
 
 实际演示：
 
@@ -205,13 +218,15 @@ package.json 文件中，有一个 dependencies 节点，专门用来记录你�
 
 同时，项目还多了 node_modules 文件夹（里面存放了 moment 的相关代码和资源）和 package-lock.json 文件。
 
-<img src="mark-img\image-20221208222458470.png" alt="image-20221208222458470" style="zoom: 25%;" />
+<img src="mark-img\image-20221208222458470.png" alt="image-20221208222458470" style="width: 50%;" />
+
+> 版本号前带 `^` 表示这是一个大版本，下次下载时，只需要保证版本高于 `2.29.4` 低于 `3.0.0` 即可！
 
 - 执行 `npm i jquery art-template` 命令后的 package.json 文件
 
  注：npm i 可以一次安装多个包，包与包之间用空格隔开。
 
-<img src="mark-img\image-20221208222947028.png" alt="image-20221208222947028" style="zoom: 25%;" />
+<img src="mark-img\image-20221208222947028.png" alt="image-20221208222947028" style="width: 50%;" />
 
 ## 3.5 一次性安装所有的依赖包
 
@@ -224,12 +239,12 @@ Error: Cannot find module 'moment'
 可以运行 `npm install` 命令（或 `npm i`）一次性安装所有的依赖包（复原 node_modules 文件夹）：
 
 ```shell
-# 执行 npm install 命令时，npm 包管理工具会先读取 package.json 中的 dependencies 节点
+# 执行 npm install 命令时，npm 包管理工具会先读取 package.json 及 package-lock.json 中的 dependencies 节点（package-lock.json 优先级更高）
 # 读取到记录的所有依赖包名称和版本号之后，npm 包管理工具会把这些依赖包一次性下载到项目中
 npm install
 ```
 
-<img src="mark-img\image-20221208224421695.png" alt="image-20221208224421695" style="zoom: 33%;" />
+<img src="mark-img\image-20221208224421695.png" alt="image-20221208224421695" style="width: 60%;" />
 
 ## 3.6 卸载包
 
@@ -240,11 +255,11 @@ npm install
 npm uninstall moment
 ```
 
-npm uninstall 命令执行成功后，会把对应的包从 node_modules 文件夹中删除，同时自动从 package.json 的 dependencies 中移除掉相应的部分。
+npm uninstall 命令执行成功后，会把对应的包从 node_modules 文件夹中删除，同时自动从 package.json 的 dependencies 中移除掉相应的部分，package-lock.json 同理。
 
 > 注意：npm uninstall 没有简写形式，npm uninstall 可以一次卸载多个包，包与包之间用空格隔开。
 
-<img src="mark-img\image-20221208225831587.png" alt="image-20221208225831587" style="zoom: 25%;" />
+<img src="mark-img\image-20221208225831587.png" alt="image-20221208225831587" style="width: 60%;" />
 
 ## 3.7 devDependencies节点
 
@@ -263,25 +278,25 @@ npm install 包名 --save-dev
 
 例如：
 
-<img src="mark-img\image-20221208231148400.png" alt="image-20221208231148400" style="zoom: 25%;" />
+<img src="mark-img\image-20221208231148400.png" alt="image-20221208231148400" style="width: 50%;" />
 
 > 注意：-D 或 --save-dev 后缀写到 npm install 或 包名 后面都可以。
 >
-> 即：npm i webpack -D 与 npm i -D webpack 是等同的。
+> 即：`npm i webpack -D` 与 `npm i -D webpack` 是等同的。
 
 说明：安装包需不需要指定 `-D`，一般来说在包的文档中都会说明。例如，我们去 npm 网站上搜索 webpack 进入其文档，就会发现有安装说明：
 
-<img src="mark-img\image-20221208231454045.png" alt="image-20221208231454045" style="zoom: 25%;" />
+<img src="mark-img\image-20221208231454045.png" alt="image-20221208231454045" style="width: 60%;" />
 
 # 四、镜像源
 
 ## 4.1 为什么包下载速度慢
 
-在使用 npm 下包的时候，默认从国外的 npm 官方服务器 https://registry.npmjs.org/ 进行下载，而目前国内的网络与外网是有“阻隔”的，因此下包速度会很慢。
+在使用 npm 下包的时候，默认从国外的 npm 官方服务器 https://registry.npmjs.org/ 进行下载，而目前国内的网络与外网是有 “阻隔” 的，因此下包速度会很慢，我们需要使用镜像源来解决这个问题。
 
 ## 4.2 淘宝npm镜像服务器
 
-![image-20221208232646684](mark-img\image-20221208232646684.png)
+<img src="mark-img\image-20221208232646684.png" alt="image-20221208232646684" style="width:70%;" />
 
 ## 4.3 切换npm的下包镜像源
 
@@ -296,7 +311,7 @@ npm config set registry=https://registry.npm.taobao.org/
 npm config get registry
 ```
 
-<img src="mark-img\image-20221208233625785.png" alt="image-20221208233625785" style="zoom: 33%;" />
+<img src="mark-img\image-20221208233625785.png" alt="image-20221208233625785" style="width: 60%;" />
 
 > 注意：npm 淘宝镜像源地址已经更换了，新的地址是：https://registry.npmmirror.com/
 
@@ -309,7 +324,7 @@ npm config get registry
 npm i nrm -g
 ```
 
-<img src="mark-img\image-20221208234458634.png" alt="image-20221208234458634" style="zoom:33%;" />
+<img src="mark-img\image-20221208234458634.png" alt="image-20221208234458634" style="width:60%;" />
 
 ```shell
 # 查看所有可用的镜像源
@@ -317,16 +332,16 @@ nrm ls
 # 将下包的镜像源切换为 taobao 镜像
 nrm use taobao
 ```
-<img src="mark-img\image-20221208235554902.png" alt="image-20221208235554902" style="zoom: 33%;" />
+<img src="mark-img\image-20221208235554902.png" alt="image-20221208235554902" style="width: 60%;" />
 
-> <img src="mark-img\image-20221208234645610.png" alt="image-20221208234645610" style="zoom:33%;" />
+> <img src="mark-img\image-20221208234645610.png" alt="image-20221208234645610" style="width:60%;" />
 >
 > 新版的 Windows 系统中，nrm 默认使用不了，解决方法是：
 >
 > 1. 管理员方式打开终端执行：`set-ExecutionPolicy RemoteSigned`
 > 2. 继续执行：`get-ExecutionPolicy`，如果输出为 `RemoteSigned ` 即为成功。
 >
-> <img src="mark-img\image-20221208235125869.png" alt="image-20221208235125869" style="zoom:33%;" />
+> <img src="mark-img\image-20221208235125869.png" alt="image-20221208235125869" style="width:50%;" />
 
 # 五、包的分类
 
@@ -346,9 +361,9 @@ npm i 包名	# 核心依赖包（会被记录到 dependencies 节点下）
 
 ## 5.2 全局包
 
-在执行 npm install 命令时，如果提供了 -g 参数，则会把包安装为全局包。
+在执行 npm install 命令时，如果提供了 `-g` 参数，则会把包安装为全局包。
 
-全局包会被安装到 C:\Users\用户目录\AppData\Roaming\npm\node_modules 目录下。
+全局包默认会被安装到 C:\Users\用户目录\AppData\Roaming\npm\node_modules 目录下。
 
 <img src="mark-img\image-20221209133414233.png" alt="image-20221209133414233" style="zoom: 33%;" />
 
@@ -374,11 +389,11 @@ npm uninstall 包名 -g 	# 卸载全局安装的包
 - 包的顶级目录下必须包含 package.json 这个包管理配置文件（moment 文件夹内包含 package.json）
 - package.json 中必须包含 name、version、main 这三个属性，分别代表包的名字、版本号、包的入口
 
-<img src="mark-img\image-20221209135350460.png" alt="image-20221209135350460" style="zoom:25%;" />
+<img src="mark-img\image-20221209135350460.png" alt="image-20221209135350460" style="width:60%;" />
 
-<img src="mark-img\image-20221209135840220.png" alt="image-20221209135840220" style="zoom:25%;" />
+<img src="mark-img\image-20221209135840220.png" alt="image-20221209135840220" style="width:60%;" />
 
-> main 属性：当我们加载对应包时，例如：const moment = require('moment')  那么程序就去找 moment 中的package.json 中的 main 属性，从而知道是要以 ./moment.js 为入口来加载该包。
+> main 属性：当我们加载对应包时，例如：const moment = require('moment') 那么程序就去找 moment 中的 package.json 中的 main 属性，从而知道是要以 ./moment.js 为入口来加载该包。
 
 # 七、开发与发布包
 
@@ -561,7 +576,7 @@ ISC
 
 **（7）本地测试**
 
-<img src="mark-img\image-20221211201743140.png" alt="image-20221211201743140" style="zoom: 25%;" />
+<img src="mark-img\image-20221211201743140.png" alt="image-20221211201743140" style="width: 60%;" />
 
 ## 7.2 发布包
 
@@ -575,27 +590,27 @@ ISC
 
 > 注意：在运行 npm login 命令之前，必须先把下包的服务器地址切换为 npm 官方服务器！
 
-<img src="mark-img\image-20221211205541668.png" alt="image-20221211205541668" style="zoom: 33%;" />
+<img src="mark-img\image-20221211205541668.png" alt="image-20221211205541668" style="width: 60%;" />
 
 **（3）把包发布到 npm 上**
 
 将终端切换到包的根目录之后，运行 `npm publish` 命令，即可将包发布到 npm 上。
 
-> 注意：包名不能雷同！
+> 注意：包名不能与 npm 仓库中已存在的包雷同！
 
-<img src="mark-img\image-20221211210011933.png" alt="image-20221211210011933" style="zoom:33%;" />
+<img src="mark-img\image-20221211210011933.png" alt="image-20221211210011933" style="width:60%;" />
 
 到 npm 官网上查看：
 
-<img src="mark-img\2022-12-11_210210.png" alt="2022-12-11_210210" style="zoom:25%;" />
+<img src="mark-img\2022-12-11_210210.png" alt="2022-12-11_210210" style="width:60%;" />
 
-<img src="mark-img\image-20221211210430646.png" alt="image-20221211210430646" style="zoom:25%;" />
+<img src="mark-img\image-20221211210430646.png" alt="image-20221211210430646" style="width:60%;" />
 
 ## 7.3 更新包
 
 比如，1.0.0 版本的文档有错误，我们对 README.md 进行了修复：
 
-<img src="mark-img\image-20221211212715569.png" alt="image-20221211212715569" style="zoom:25%;" />
+<img src="mark-img\image-20221211212715569.png" alt="image-20221211212715569" style="width:60%;" />
 
 - `npm version patch` 升级补丁，此时 package 中的 version 会自动升级，变成  `"version": "1.0.1"`
 - git 操作（若有）
@@ -620,11 +635,13 @@ ISC
 
 ## 8.1 优先从缓存中加载
 
-模块在第一次加载后会被缓存，接下来的加载都会优先从缓存中加载，从而提高模块的加载效率。这也意味着多次调用 `require()` 不会导致模块的代码被执行多次。
+模块在第一次加载后会被缓存，接下来的加载都会优先从缓存中加载，从而提高模块的加载效率。
+
+这也意味着多次调用 `require()` 不会导致模块的代码被执行多次！
 
 ## 8.2 自定义模块的加载机制
 
-使用 `require()` 加载自定义模块时，必须指定以 `./` 或 `../` 开头的路径标识符。在加载自定义模块时，如果没有指定 `./` 或 `../` 这样的路径标识符，则 Node.js 会把它当作内置模块或第三方模块进行加载。
+使用 `require()` 加载自定义模块时，必须指定以 `./` 或 `../` 开头的路径标识符。在加载自定义模块时，如果没有指定 `./` 或 `../` 这样的路径标识符，则 Node.js 会把它当作内置模块或第三方模块进行加载（加载不到就会报错）。
 
 同时，在使用 `require()` 导入自定义模块时，如果省略了文件的扩展名，则 Node.js 会按顺序分别尝试加载以下的文件：
 

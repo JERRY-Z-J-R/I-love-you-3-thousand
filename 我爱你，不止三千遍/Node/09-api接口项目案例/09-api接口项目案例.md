@@ -1,6 +1,8 @@
-# api接口项目
+# 【api接口项目案例】
 
-> 大事件后台 API 项目 [Headline - api_server_ev (escook.cn)](http://www.escook.cn:8088/#/)，API 接口文档请参考 https://www.showdoc.cc/escook?page_id=3707158761215217
+> 大事件后台 API 项目：[Headline - api_server_ev (escook.cn)](http://www.escook.cn:8088/#/)
+>
+> API 接口文档请参考：https://www.showdoc.cc/escook?page_id=3707158761215217
 
 # 一、初始化
 
@@ -91,7 +93,7 @@ router.post('/login', (req, res) => {
 module.exports = router;
 ```
 
-2. 在 `app.js` 中，导入并使用 用户路由模块：
+2. 在 `app.js` 中，导入并使用用户路由模块：
 
 ```js
 // 导入并注册用户路由模块
@@ -143,7 +145,8 @@ module.exports = router;
 ## 2.1 新建ev_users表
 
 在 `my_db_01` 数据库中，新建 `ev_users` 表如下：
-<img src="mark-img/1.jpg" alt="ev_users表结构" style="zoom:;" />
+
+<img src="mark-img/1.jpg" alt="ev_users表结构" style="width: 80%;" />
 
 ## 2.2 安装并配置mysql模块
 
@@ -253,8 +256,8 @@ const bcrypt = require('bcryptjs');
 3. 在注册用户的处理函数中，确认用户名可用之后，调用 `bcrypt.hashSync(明文密码, 随机盐的长度)` 方法，对用户的密码进行加密处理：
 
 ```js
-// 对用户的密码,进行 bcrypt 加密，返回值是加密之后的密码字符串
-userinfo.password = bcrypt.hashSync(userinfo.password, 10);
+// 对用户的密码，进行 bcrypt 加密，返回值是加密之后的密码字符串
+userinfo.password = bcrypt.hashSync(userinfo.password, 5);
 ```
 
 ### 2.3.5 插入新用户

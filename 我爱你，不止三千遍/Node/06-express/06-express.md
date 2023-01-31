@@ -1,4 +1,4 @@
-# Express
+# 【Express】
 
 > 原创内容，转载请注明出处！
 
@@ -16,13 +16,15 @@ Express 的本质：就是一个 npm 上的第三方的包，提供了快速创�
 
 Express 的中文官网：http://www.expressjs.com.cn/
 
-<img src="mark-img/image-20221213144211088.png" alt="image-20221213144211088" style="zoom:25%;" />
+Express 的中文文档：http://nodejs.cn/express/
+
+<img src="mark-img/image-20221213144211088.png" alt="image-20221213144211088" style="width:60%;" />
 
 **（2）进一步理解 Express**
 
 思考：不使用 Express 能否创建 Web 服务器？
 
-答案：能，使用 Node.js 提供的原生 http 模块即可。
+答案：能！使用 Node.js 提供的原生 http 模块即可。
 
 ---
 
@@ -81,7 +83,7 @@ app.listen(80, () => {
 // 参数2：请求对应的处理函数
 // 		req：请求对象（包含了与请求相关的属性与方法）
 //		res：响应对象（包含了与响应相关的属性与方法）
-app.get('请求URL', function (req, res) {
+app.get('请求URL', function(req, res) {
    // 处理     
 });
 ```
@@ -95,7 +97,7 @@ app.get('请求URL', function (req, res) {
 // 参数2：请求对应的处理函数
 // 		req：请求对象（包含了与请求相关的属性与方法）
 //		res：响应对象（包含了与响应相关的属性与方法）
-app.post('请求URL', funciton(req, res) {
+app.post('请求URL', function(req, res) {
    // 处理     
 });
 ```
@@ -106,7 +108,7 @@ app.post('请求URL', funciton(req, res) {
 
 ```javascript
 app.get('/user', (req, res) => {
-    // 向客户端发送 JSON 对象
+    // 向客户端发送 JSON 对象（express 会自动将 js 对象转为 json）
     res.send({ name: 'zjr', age: '18', gender: '男' });
 });
 
@@ -129,7 +131,7 @@ const app = express();
 
 // 监听客户端的 GET 和 POST 请求，并向客户端响应具体的内容
 app.get('/user', (req, res) => {
-    // 向客户端发送 JSON 对象
+    // 向客户端发送 JSON 对象（express 会自动将 js 对象转为 json）
     res.send({ name: 'zjr', age: '18', gender: '男' });
 });
 
@@ -147,13 +149,13 @@ app.listen(80, () => {
 
 运行：
 
-<img src="mark-img/image-20221213154814267.png" alt="image-20221213154814267" style="zoom:50%;" />
+<img src="mark-img/image-20221213154814267.png" alt="image-20221213154814267" style="width:80%;" />
 
 Apifox 测试：
 
-<img src="mark-img/image-20221213151456261.png" alt="image-20221213151456261" style="zoom:50%;" />
+<img src="mark-img/image-20221213151456261.png" alt="image-20221213151456261" style="width:80%;" />
 
-<img src="mark-img/image-20221213151517593.png" alt="image-20221213151517593" style="zoom:50%;" />
+<img src="mark-img/image-20221213151517593.png" alt="image-20221213151517593" style="width:80%;" />
 
 > 注意：对于一个请求，只能 `res.send()` 一次！
 
@@ -166,8 +168,10 @@ app.get('/', (req, res) => {
     // req.query 默认是一个空对象
     // 客户端使用 ?name=zjr&age=20 这种查询字符串的形式，发送到服务器的参数
     // 可以通过 req.query 对象访问到，例如：
-	// req.query.name	req.query.age
+	// req.query.name  req.query.age
     console.log(req.query);
+    console.log(req.query.name);
+    console.log(req.query.age);
 });
 ```
 
@@ -182,6 +186,7 @@ app.get('/user/:id', (req, res) => {
     // 里面存放着通过 : 动态匹配到的参数值
     // 例如：http://127.0.0.1/user/1010929843210，则服务器收到的 1010929843210 就被赋给了 id 参数
     console.log(req.params);
+    console.log(req.params.id);
 });
 ```
 
@@ -198,7 +203,7 @@ const app = express();
 
 // 监听客户端的 GET 和 POST 请求，并向客户端响应具体的内容
 app.get('/user', (req, res) => {
-    // 向客户端发送 JSON 对象
+    // 向客户端发送 JSON 对象（express 会自动将 js 对象转为 json）
     res.send({ name: 'zjr', age: '18', gender: '男' });
 });
 
@@ -213,8 +218,6 @@ app.get('/', (req, res) => {
     // 可以通过 req.query 对象访问到，例如：
     // req.query.name	req.query.age
     res.send(req.query);
-    res.send(req.query.name);
-    res.send(req.query.age);
 });
 
 // URL 地址中，可以通过 :参数名 的形式，匹配动态参数值
@@ -233,20 +236,20 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221213155149127.png" alt="image-20221213155149127" style="zoom:50%;" />
+<img src="mark-img/image-20221213155149127.png" alt="image-20221213155149127" style="width:80%;" />
 
-<img src="mark-img/image-20221213155141877.png" alt="image-20221213155141877" style="zoom:50%;" />
+<img src="mark-img/image-20221213155141877.png" alt="image-20221213155141877" style="width:80%;" />
 
-<img src="mark-img/image-20221213160212006.png" alt="image-20221213160212006" style="zoom:50%;" />
+<img src="mark-img/image-20221213160212006.png" alt="image-20221213160212006" style="width:80%;" />
 
 ## 1.3 托管静态资源
 
 ### 1.3.1 express.static()
 
-express 提供了一个非常好用的函数，叫做 `express.static()`，通过它，我们可以非常方便地创建一个静态资源服务器，例如，通过如下代码就可以将 public 目录下的图片、CSS 文件、JavaScript 文件对外开放访问了：
+express 提供了一个非常好用的函数，叫做 `express.static()`，通过它，我们可以非常方便地创建一个静态资源服务器！例如，通过如下代码就可以将 public 目录下的图片、CSS 文件、JavaScript 文件对外开放访问了：
 
 ```javascript
-app.use(express.static('public'))
+app.use(express.static('public'));
 ```
 
 现在，你就可以访问 public 目录中的所有文件了：
@@ -267,12 +270,12 @@ app.use(express.static('./public'));
 
 app.listen(80, () => {
     console.log('express server running at http://127.0.0.1');
-})
+});
 ```
 
-<img src="mark-img/image-20221213163159099.png" alt="image-20221213163159099" style="zoom:50%;" />
+<img src="mark-img/image-20221213163159099.png" alt="image-20221213163159099" style="width:80%;" />
 
-<img src="mark-img/image-20221213163117265.png" alt="image-20221213163117265" style="zoom:50%;" />
+<img src="mark-img/image-20221213163117265.png" alt="image-20221213163117265" style="width:80%;" />
 
 ### 1.3.2 托管多个静态资源目录
 
@@ -284,6 +287,8 @@ app.use(express.static('files'));
 ```
 
 访问静态资源文件时，`express.static()` 函数会根据目录的添加顺序查找所需的文件。
+
+例如：先查找 public 中有没有，没有再去 files 中查找……
 
 ### 1.3.3 挂载路径前缀
 
@@ -305,7 +310,7 @@ app.use('/public', express.static('public'))
 
 **（1）为什么要使用 nodemon**
 
-在编写调试 Node.js 项目的时候，如果修改了项目的代码，则需要频繁的手动 close 掉，然后再重新启动，非常繁琐。现在，我们可以使用 nodemon（https://www.npmjs.com/package/nodemon） 这个工具，它能够监听项目文件的变动，当代码被修改后，nodemon 会自动帮我们重启项目，极大方便了开发和调试。
+在编写调试 Node.js 项目的时候，如果修改了项目的代码，则需要频繁的手动 close 掉，然后再重新启动，非常繁琐。现在，我们可以使用 [nodemon](https://www.npmjs.com/package/nodemon) 这个工具，它能够监听项目文件的变动，当代码被修改后，nodemon 会自动帮我们重启项目，极大方便了开发和调试！
 
 **（2）安装 nodemon**
 
@@ -339,16 +344,16 @@ nodemon app.js
 
 在这里，路由是按键与服务之间的映射关系。
 
-<img src="mark-img/image-20221213185136745.png" alt="image-20221213185136745" style="zoom: 50%;" />
+<img src="mark-img/image-20221213185136745.png" alt="image-20221213185136745" style="width: 40%;" />
 
 ### 2.1.3 Express中的路由
 
-在 Express 中，路由指的是**客户端的请求**与**服务端处理函数**之间的映射关系。
+在 Express 中，路由指的是 **客户端的请求** 与 **服务端处理函数** 之间的映射关系。
 
 Express 中的路由分 3 部分组成，分别是：**请求的类型**、**请求的 URL 地址**、**处理函数**，格式如下：
 
 ```javascript
-app.METHOD(PATH, HANDLER)
+app.METHOD(PATH, HANDLER);
 ```
 
 ### 2.1.4 Express中的路由的例子
@@ -371,7 +376,7 @@ app.post('/', function (req, res) {
 
 在匹配时，会按照路由的顺序进行匹配，如果请求类型和请求的 URL 同时匹配成功，则 Express 会将这次请求，转交给对应的 function 函数进行处理。
 
-<img src="mark-img/image-20221213190428015.png" alt="image-20221213190428015" style="zoom: 67%;" />
+<img src="mark-img/image-20221213190428015.png" alt="image-20221213190428015" style="width: 60%;" />
 
 路由匹配的注意点：
 
@@ -494,13 +499,13 @@ app.listen(80, () => {
 });
 ```
 
-<img src="mark-img/image-20221213211450640.png" alt="image-20221213211450640" style="zoom:50%;" />
+<img src="mark-img/image-20221213211450640.png" alt="image-20221213211450640" style="width:80%;" />
 
 Apifox 测试：
 
-<img src="mark-img/image-20221213211745447.png" alt="image-20221213211745447" style="zoom:50%;" />
+<img src="mark-img/image-20221213211745447.png" alt="image-20221213211745447" style="width:80%;" />
 
-<img src="mark-img/image-20221213211806480.png" alt="image-20221213211806480" style="zoom:50%;" />
+<img src="mark-img/image-20221213211806480.png" alt="image-20221213211806480" style="width:80%;" />
 
 > 在注册路由模块时，我们使用到了 app.use() 函数，而在之前托管静态资源 app.use(express.static('public')) 时，也使用到了 app.use() 函数。
 >
@@ -522,14 +527,6 @@ app.use('/api', userRouter);
 
 例如：
 
-```javascript
-// 导入路由模块
-const userRouter = require('./router/user.js');
-
-// 使用 app.use() 注册路由模块
-app.use('/api', userRouter);
-```
-
 `http://127.0.0.1/api/user/add`
 
 `http://127.0.0.1/api/user/list`
@@ -548,7 +545,7 @@ app.use('/api', userRouter);
 
 在处理污水的时候，一般都要经过三个处理环节，从而保证处理过后的废水，达到排放的标准。
 
-<img src="mark-img/image-20221214151430425.png" alt="image-20221214151430425" style="zoom: 50%;" />
+<img src="mark-img/image-20221214151430425.png" alt="image-20221214151430425" style="width: 60%;" />
 
 处理污水的这三个中间处理环节（上一级的输出是下一级的输入），就可以叫作中间件。
 
@@ -556,13 +553,13 @@ app.use('/api', userRouter);
 
 当一个请求到达 Express 的服务器之后，可以连续调用多个中间件，从而对这次请求进行预处理。
 
-<img src="mark-img/image-20221214152006656.png" alt="image-20221214152006656" style="zoom: 33%;" />
+<img src="mark-img/image-20221214152006656.png" alt="image-20221214152006656" style="width: 60%;" />
 
 ### 3.1.4 Express中间件的格式
 
 Express 的中间件，本质上就是一个 **function** **处理函数**，Express 中间件的格式如下：
 
-<img src="mark-img/image-20221214152506926.png" alt="image-20221214152506926" style="zoom: 67%;" />
+<img src="mark-img/image-20221214152506926.png" alt="image-20221214152506926" style="width: 60%;" />
 
 注意：中间件函数的形参列表中，**必须包含 next 参数**。而路由处理函数中只包含 req 和 res。
 
@@ -570,7 +567,7 @@ Express 的中间件，本质上就是一个 **function** **处理函数**，Exp
 
 **next** **函数**是实现多个中间件**连续调用**的关键，它表示把流转关系转交给**下一个中间件或路由**。
 
-<img src="mark-img/image-20221214154001061.png" alt="image-20221214154001061" style="zoom: 50%;" />
+<img src="mark-img/image-20221214154001061.png" alt="image-20221214154001061" style="width: 60%;" />
 
 ## 3.2 Express中间件的初体验
 
@@ -637,9 +634,9 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221214212100951.png" alt="image-20221214212100951" style="zoom:50%;" />
+<img src="mark-img/image-20221214212100951.png" alt="image-20221214212100951" style="width:80%;" />
 
-<img src="mark-img/image-20221214212139237.png" alt="image-20221214212139237" style="zoom:50%;" />
+<img src="mark-img/image-20221214212139237.png" alt="image-20221214212139237" style="width:80%;" />
 
 ### 3.2.3 定义全局中间件的简化形式
 
@@ -686,7 +683,7 @@ app.listen(80, () => {
 
 多个中间件之间，**共享同一份** **req** **和** **res**。基于这样的特性，我们可以在上游的中间件中，统一为 req 或 res 对象添加自定义的属性或方法，供下游的中间件或路由进行使用。 
 
-<img src="mark-img/image-20221214215443810.png" alt="image-20221214215443810" style="zoom:50%;" />
+<img src="mark-img/image-20221214215443810.png" alt="image-20221214215443810" style="width:60%;" />
 
 代码示例：
 
@@ -720,7 +717,7 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221214215933674.png" alt="image-20221214215933674" style="zoom:50%;" />
+<img src="mark-img/image-20221214215933674.png" alt="image-20221214215933674" style="width:60%;" />
 
 ### 3.2.5 定义多个全局中间件
 
@@ -797,13 +794,13 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221215094108340.png" alt="image-20221215094108340" style="zoom:50%;" />
+<img src="mark-img/image-20221215094108340.png" alt="image-20221215094108340" style="width:80%;" />
 
-<img src="mark-img/image-20221215094137553.png" alt="image-20221215094137553" style="zoom:50%;" />
+<img src="mark-img/image-20221215094137553.png" alt="image-20221215094137553" style="width:80%;" />
 
 ### 3.2.7 定义多个局部中间件
 
-可以在路由中，通过如下两种等价的方式，使用多个局部中间件：
+可以在路由中，通过如下两种等价的方式，使用多个局部中间件，他们按照定义的先后顺序执行：
 
 ```javascript
 // 以下两种写法是“完全等价”的，可根据自己的喜好，选择任意一种方式进行使用
@@ -853,7 +850,9 @@ app.get('/', mw, (req, res) => {
 
 ### 3.3.2 路由级别的中间件
 
-绑定到 `express.Router()` 实例上的中间件，叫做路由级别的中间件。它的用法和应用级别中间件没有任何区别。只不过，应用级别中间件是绑定到 app 实例上，路由级别中间件绑定到 router 实例上，代码示例如下：
+绑定到 `express.Router()` 实例上的中间件，叫做路由级别的中间件。它的用法和应用级别中间件没有任何区别。
+
+只不过，应用级别中间件是绑定到 app 实例上，路由级别中间件绑定到 router 实例上，代码示例如下：
 
 ```javascript
 var app = express();
@@ -888,7 +887,7 @@ app.use(function (err, req, res, next) {		// 错误级别的中间件
 
 > 注意：错误级别的中间件，必须注册在所有路由之后！同时，即便没有 next()，错误级别的中间件也会自动捕捉到错误后立马生效！
 
-<img src="mark-img/image-20221215101926536.png" alt="image-20221215101926536" style="zoom:50%;" />
+<img src="mark-img/image-20221215101926536.png" alt="image-20221215101926536" style="width:80%;" />
 
 ### 3.3.4 Express内置的中间件
 
@@ -930,7 +929,7 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221215103931835.png" alt="image-20221215103931835" style="zoom:50%;" />
+<img src="mark-img/image-20221215103931835.png" alt="image-20221215103931835" style="width:80%;" />
 
 urlencoded 示例代码：
 
@@ -957,7 +956,7 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221215104727270.png" alt="image-20221215104727270" style="zoom:50%;" />
+<img src="mark-img/image-20221215104727270.png" alt="image-20221215104727270" style="width:80%;" />
 
 ### 3.3.5 第三方的中间件
 
@@ -998,9 +997,9 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221215105806336.png" alt="image-20221215105806336" style="zoom:50%;" />
+<img src="mark-img/image-20221215105806336.png" alt="image-20221215105806336" style="width:80%;" />
 
-<img src="mark-img/image-20221215105821572.png" alt="image-20221215105821572" style="zoom:50%;" />
+<img src="mark-img/image-20221215105821572.png" alt="image-20221215105821572" style="width:80%;" />
 
 ## 3.4 自定义中间件
 
@@ -1037,7 +1036,7 @@ app.use(function (req, res, next) {
 // 定义变量，用来存储客户端发送过来的请求体数据
 let str = '';
 // 监听 req 对象的 data 事件（客户端发送过来的新的请求体数据）
-req.on('data', (chunk) => {
+req.on('data', chunk => {
     // 拼接请求体数据，隐式转换为字符串
     str += chunk;
 });
@@ -1055,12 +1054,15 @@ req.on('end', () => {
     // 打印完整的请求体数据
     console.log(str);
     // 把字符串格式的请求体数据，解析成对象格式
+    // ...
 });
 ```
 
 ### 3.4.5 使用querystring模块解析请求体数据
 
-Node.js 内置了一个 querystring 模块，专门用来处理查询字符串。通过这个模块提供的 parse() 函数，可以轻松把查询字符串，解析成对象的格式。示例代码如下：
+Node.js 内置了一个 querystring 模块，专门用来处理查询字符串。
+
+通过这个模块提供的 parse() 函数，可以轻松把查询字符串，解析成对象的格式。示例代码如下：
 
 ```javascript
 // 导入处理 querystring 的 Node.js 内置模块
@@ -1160,7 +1162,7 @@ app.listen(80, function () {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221215112953903.png" alt="image-20221215112953903" style="zoom:50%;" />
+<img src="mark-img/image-20221215112953903.png" alt="image-20221215112953903" style="width:80%;" />
 
 # 四、Express编写接口
 
@@ -1229,7 +1231,7 @@ apiRouter.post('/post', (req, res) => {
 });
 ```
 
-注意：如果要获取 URL-encoded 格式的请求体数据，必须配置中间件 `app.use(express.urlencoded({ extended: false }))`。JSON 格式数据，同理。
+注意：如果要获取 URL-encoded 格式的请求体数据，必须配置中间件 `app.use(express.urlencoded({ extended: false }))`，JSON 格式数据，同理。
 
 ---
 
@@ -1278,6 +1280,7 @@ const app = express();
 
 // 配置解析表单数据的中间件
 // 注册解析表单数据的中间件，必须放在注册路由模块前，否则就不生效了
+// 获取 URL-encoded 格式的请求体数据
 app.use(express.urlencoded({ extended: false }));
 
 // 导入 apiRouter 模块
@@ -1293,9 +1296,9 @@ app.listen(80, () => {
 
 Apifox 测试：
 
-<img src="mark-img/image-20221215125657999.png" alt="image-20221215125657999" style="zoom:50%;" />
+<img src="mark-img/image-20221215125657999.png" alt="image-20221215125657999" style="width:80%;" />
 
-<img src="mark-img/image-20221215125729240.png" alt="image-20221215125729240" style="zoom:50%;" />
+<img src="mark-img/image-20221215125729240.png" alt="image-20221215125729240" style="width:80%;" />
 
 ## 4.5 CORS跨域资源共享
 
@@ -1351,16 +1354,18 @@ Apifox 测试：
 
 浏览器测试：
 
-<img src="mark-img/image-20221215130826990.png" alt="image-20221215130826990" style="zoom:50%;" />
+<img src="mark-img/image-20221215130826990.png" alt="image-20221215130826990" style="width:90%;" />
 
 刚才编写的 GET 和 POST 接口，存在一个很严重的问题：不支持跨域请求。
 
-因为，HTML 所打开的链接为：http://127.0.0.1:5500/index.html，而请求的 API 为 http://127.0.0.1/api/get 及 http://127.0.0.1/api/post，我们知道，只要 **协议、域名、端口号** 有一个不同（此处端口号不同），那么就属于跨域，浏览器就会默认阻止这种请求！
+因为，HTML 所打开的链接为：http://127.0.0.1:5500/index.html，而请求的 API 为 http://127.0.0.1/api/get 及 http://127.0.0.1/api/post，我们知道，只要 **协议、域名、端口号** 有一个不同（此处端口号不同），那么就属于跨域，浏览器就会默认阻止这种请求（丢弃响应数据，并报错）！
 
 解决接口跨域问题的方案主要有两种：
 
 - CORS（主流的解决方案，推荐使用）
 - JSONP（有缺陷的解决方案：只支持 GET 请求）
+
+> 注意：之前我们之所以没有遇到跨域问题，是因为 Apifox 是基于服务器而不是浏览器发送请求的，而服务器与服务器直接是不存在跨域的！
 
 ### 4.5.2 使用cors中间件解决跨域问题
 
@@ -1401,7 +1406,7 @@ app.listen(80, () => {
 
 浏览器测试：
 
-<img src="mark-img/image-20221215135307441.png" alt="image-20221215135307441" style="zoom:50%;" />
+<img src="mark-img/image-20221215135307441.png" alt="image-20221215135307441" style="width:80%;" />
 
 ### 4.5.3 什么是CORS
 
@@ -1409,7 +1414,7 @@ CORS （Cross-Origin Resource Sharing，跨域资源共享）由一系列 HTTP �
 
 浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果接口服务器配置了 CORS 相关的 HTTP 响应头，就可以解除浏览器端的跨域访问限制。
 
-<img src="mark-img/image-20221215114555175.png" alt="image-20221215114555175" style="zoom:50%;" />
+<img src="mark-img/image-20221215114555175.png" alt="image-20221215114555175" style="width:80%;" />
 
 ### 4.5.4 CORS的注意事项
 
@@ -1447,7 +1452,7 @@ Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewp
 如果客户端向服务器发送了额外的请求头信息，则需要在服务器端，通过 Access-Control-Allow-Headers 对额外的请求头进行声明，否则这次请求会失败！
 
 ```javascript
-// 允许客户端额外向服务器发送 Content-Type 请求头和 X-Custom-Header 请求头
+// 允许客户端向服务器发送额外的 Content-Type 请求头和 X-Custom-Header 请求头
 // 注意：多个请求头之间使用英文的逗号进行分割
 res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Custom-header');
 ```
@@ -1479,7 +1484,7 @@ res.setHeader('Access-Control-Alow-Methods', '*');
 同时满足以下两大条件的请求，就属于简单请求：
 
 - 请求方式：GET、POST、HEAD 三者之一
-- HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width 、Content-Type（只有三个值 application/x-www-form-urlencoded、multipart/form-data、text/plain）
+- HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width 、Content-Type（只限这三个值 application/x-www-form-urlencoded、multipart/form-data、text/plain）
 
 ### 4.5.10 预检请求
 
@@ -1489,7 +1494,9 @@ res.setHeader('Access-Control-Alow-Methods', '*');
 - 请求头中包含自定义头部字段
 - 向服务器发送了 application/json 格式的数据
 
-在浏览器与服务器正式通信之前，浏览器会先发送 OPTION 请求进行预检，以获知服务器是否允许该实际请求，所以这一次的 OPTION 请求称为“预检请求”。服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据。
+在浏览器与服务器正式通信之前，浏览器会先发送 OPTION 请求进行预检，以获知服务器是否允许该实际请求，所以这一次的 OPTION 请求称为 “预检请求”。服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据。
+
+所以，如果浏览器向服务器请求的数据为 application/json 格式的，那么要在服务器设置 `res.setHeader('Access-Control-Allow-Headers', 'Content-Type');`，表示可以接收额外的 `Content-Type` 请求头（默认只接收 application/x-www-form-urlencoded、multipart/form-data、text/plain）
 
 ### 4.5.11 简单请求和预检请求的区别
 
@@ -1497,7 +1504,7 @@ res.setHeader('Access-Control-Alow-Methods', '*');
 
 **预检请求的特点：**客户端与服务器之间会发生两次请求，OPTION 预检请求成功之后，才会发起真正的请求。
 
-<img src="mark-img/image-20221215140358435.png" alt="image-20221215140358435" style="zoom:50%;" />
+<img src="mark-img/image-20221215140358435.png" alt="image-20221215140358435" style="width:80%;" />
 
 ## 4.6 JSONP接口（了解）
 
@@ -1546,21 +1553,3 @@ app.get('/api/jsonp', (req, res) => {
     res.send(scriptStr);
 });
 ```
-
-### 4.6.5 在网页中使用jQuery发起JSONP请求
-
-调用 `$.ajax()` 函数，提供 JSONP 的配置选项，从而发起 JSONP 请求，示例代码如下：
-
-```javascript
-$('#btnJSONP').on('click', function () {
-   $.ajax({
-       method:'GET',
-       url: 'http://127.0.0.1/api/jsonp',
-       dataType: 'jsonp', 	// 表示要发起 JSONP 的请求
-       success: function (res) {
-           console.log(res);
-       }
-   });
-});
-```
-

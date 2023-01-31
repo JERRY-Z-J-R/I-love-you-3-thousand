@@ -28,7 +28,7 @@
 
 > 运行环境：代码正常运行所需的必要条件。
 
-<img src="mark-img/image-20221130202600841.png" alt="image-20221130202600841" style="width:60%;" />
+<img src="mark-img/image-20221130202600841.png" alt="image-20221130202600841" style="width:50%;" />
 
 - V8 引擎负责解析和执行 JavaScript 代码
 - 内置 API 是由运行环境提供的特殊接口，只能在所属的运行环境中被调用
@@ -53,7 +53,7 @@ Node.js 中文资料：http://nodejs.cn/
 
 ## 2.2 Node.js中的JavaScript运行环境
 
-<img src="mark-img/image-20221130203554992.png" alt="image-20221130203554992" style="zoom:50%;" />
+<img src="mark-img/image-20221130203554992.png" alt="image-20221130203554992" style="width:50%;" />
 
 - 浏览器是 JavaScript 的前端运行环境
 - Node.js 是 JavaScript 的后端运行环境
@@ -100,7 +100,7 @@ Node.js 官网：https://nodejs.org/zh-cn/
 
 点击绿色按钮进行下载，下载后打开安装包，默认下一步安装（对于这类基础环境推荐安装路径默认 C 盘）。
 
-<img src="mark-img/image-20221130205640710.png" alt="image-20221130205640710" style="zoom: 33%;" />
+<img src="mark-img/image-20221130205640710.png" alt="image-20221130205640710" style="width: 50%;" />
 
 > 区分 LTS 版本和 Current 版本的不同
 >

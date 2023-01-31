@@ -1,4 +1,4 @@
-# MySQL模块
+# 【MySQL模块】
 
 > 原创内容，转载请注明出处！
 
@@ -10,9 +10,9 @@
 - 通过 mysql 模块连接到 MySQL 数据库
 - 通过 mysql 模块执行 SQL 语句
 
-<img src="mark-img/image-20221215145012349.png" alt="image-20221215145012349" style="zoom:50%;" />
+<img src="mark-img/image-20221215145012349.png" alt="image-20221215145012349" style="width:80%;" />
 
-## 1.2 安装与配置 mysql 模块
+## 1.2 安装与配置mysql模块
 
 ### 1.2.1 安装mysql模块
 
@@ -76,7 +76,7 @@ db.query('SELECT * FROM users', (err, results) => {
 });
 ```
 
-<img src="mark-img/image-20221215172223576.png" alt="image-20221215172223576" style="zoom:50%;" />
+<img src="mark-img/image-20221215172223576.png" alt="image-20221215172223576" style="width:80%;" />
 
 ### 1.3.2 插入数据
 
@@ -105,7 +105,7 @@ db.query(sqlStr, [user.username, user.password], (err, results) => {
 });
 ```
 
-<img src="mark-img/image-20221215180517971.png" alt="image-20221215180517971" style="zoom:50%;" />
+<img src="mark-img/image-20221215180517971.png" alt="image-20221215180517971" style="width:80%;" />
 
 ### 1.3.3 插入数据的便捷方式
 
@@ -159,7 +159,7 @@ db.query(sqlStr, [user.username, user.password, user.id], (err, results) => {
 });
 ```
 
-<img src="mark-img/image-20221215182505224.png" alt="image-20221215182505224" style="zoom:50%;" />
+<img src="mark-img/image-20221215182505224.png" alt="image-20221215182505224" style="width:80%;" />
 
 ### 1.3.5 更新数据的便捷方式
 
@@ -206,7 +206,7 @@ db.query(sqlStr, 8, (err, results) => {
 });
 ```
 
-<img src="mark-img/image-20221215183134524.png" alt="image-20221215183134524" style="zoom:50%;" />
+<img src="mark-img/image-20221215183134524.png" alt="image-20221215183134524" style="width:80%;" />
 
 ### 1.3.7 标记删除
 
@@ -228,4 +228,4 @@ db.query('UPDATE USERS SET status=1 WHERE id=?', 8, (err, results) => {
 });
 ```
 
-<img src="mark-img/image-20221215183404453.png" alt="image-20221215183404453" style="zoom:50%;" />
+<img src="mark-img/image-20221215183404453.png" alt="image-20221215183404453" style="width:80%;" />
