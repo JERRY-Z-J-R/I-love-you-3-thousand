@@ -1,6 +1,8 @@
 # 【api接口项目案例】
 
-> 本项目 API 接口文档：https://www.showdoc.cc/escook?page_id=3707158761215217
+> 本项目的 API 文档：https://5fb05ilz4j.apifox.cn
+>
+> 提示：请配合 API 文档进行学习！
 
 # 一、初始化
 
@@ -70,14 +72,32 @@ app.use((req, res, next) => {
 });
 ```
 
-我们对于 JWT 的处理需要读取 Authorization 请求头，所以我们可以随便把 Authorization 加上：
+由于后续 JWT 的处理需要读取 Authorization 请求头，所以我们顺便把 Authorization 也加上：
 ```js
 app.use(express.json());
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
     next();
 });
+```
+
+cors 包是支持配置的，我们可以直接对 cors 包进行配置，而不用去手动修改。
+
+具体配置文档：[cors - npm (npmjs.com)](https://www.npmjs.com/package/cors)
+
+例如：
+
+```js
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 ```
 
 ## 1.4 初始化路由相关的文件夹
@@ -228,20 +248,22 @@ const db = require('../db/connect');
 2. 定义 SQL 语句：
 
 ```js
-const sql = `select * from ev_users where username=?`;
+const sql = 'SELECT * FROM ev_users WHERE username=?';
 ```
 
 3. 执行 SQL 语句并根据结果判断用户名是否被占用：
 
 ```js
-db.query(sql, [userinfo.username], function (err, results) {
+db.query(sql, userinfo.username, function (err, results) {
   // 执行 SQL 语句失败
   if (err) {
     return res.send({ status: 'no', message: err.message });
   }
   // 用户名被占用
-  if (results.length > 0) {
+  if (results.length === 1) {
     return res.send({ status: 'no', message: '用户名被占用，请更换其他用户名！' });
+  } else if (results.length !== 0) {
+    return res.send({ status: 'no', message: '注册异常，请稍后再试！' });
   }
   // 用户名可用，继续后续流程...
 });
@@ -284,18 +306,20 @@ userinfo.password = bcrypt.hashSync(userinfo.password, 6);
 1. 定义插入用户的 SQL 语句：
 
 ```js
-const sql = 'insert into ev_users set ?';
+const sql = 'INSERT INTO ev_users SET ?';
 ```
 
 2. 调用 `db.query()` 执行 SQL 语句，插入新用户：
 
 ```js
-db.query(sql, { username: userinfo.username, password: userinfo.password }, function (err, results) {
+db.query(sql, userinfo, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.send({ status: 'no', message: err.message });
+  if (err) {
+      return res.send({ status: 'no', message: err.message });
+  }
   // SQL 语句执行成功，但影响行数不为 1
   if (results.affectedRows !== 1) {
-    return res.send({ status: 'no', message: '注册失败，请稍后再试！' });
+    return res.send({ status: 'no', message: '注册异常，请稍后再试！' });
   }
   // 注册成功
   res.send({ status: 'ok', message: '注册成功！' });
@@ -326,7 +350,7 @@ app.use((req, res, next) => {
 
 将之前用 `res.send()` 返回状态及状态信息的方法都可以替换为 `res.fastSend()`：
 
-- `res.fastSend('用户名已经存在');`
+- `res.fastSend('用户名已存在');`
 - `res.fastSend(err);`
 - `res.fastSend('注册成功', 'ok');`
 
@@ -449,7 +473,7 @@ const userinfo = req.body;
 2. 定义 SQL 语句：
 
 ```js
-const sql = `select * from ev_users where username=?`;
+const sql = 'SELECT * FROM ev_users WHERE username=?';
 ```
 
 3. 执行 SQL 语句，查询用户的数据：
@@ -457,9 +481,15 @@ const sql = `select * from ev_users where username=?`;
 ```js
 db.query(sql, userinfo.username, function (err, results) {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
   // 执行 SQL 语句成功，但是查询到数据条数不等于 1
-  if (results.length !== 1) return res.fastSend('登录失败！');
+  if (results.length === 0) {
+      return res.fastSend('用户名不存在！');
+  } else if (results.length !== 1) {
+      return res.fastSend('登录异常，请稍后再试！');
+  }
   // 判断用户输入的登录密码是否和数据库中的密码一致
 });
 ```
@@ -478,7 +508,7 @@ const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
 
 // 如果对比的结果等于 false, 则证明用户输入的密码错误
 if (!compareResult) {
-  return res.fastSend('登录失败！');
+  return res.fastSend('密码错误！');
 }
 
 // 登录成功，生成 Token 字符串
@@ -653,7 +683,7 @@ const db = require('../db/connect');
 ```js
 // 根据用户的 id，查询用户的基本信息
 // 注意：为了防止用户的密码泄露，需要排除 password 字段
-const sql = `select id, username, nickname, email, user_pic from ev_users where id=?`;
+const sql = 'SELECT id, username, nickname, email, user_pic FROM ev_users WHERE id=?';
 ```
 
 3. 调用 `db.query()` 执行 SQL 语句：
@@ -664,10 +694,14 @@ const sql = `select id, username, nickname, email, user_pic from ev_users where 
 // Token 生成时包含了哪些数据，Token 解析后 user 属性中也就有那些数据
 db.query(sql, req.user.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  } 
 
   // 执行 SQL 语句成功，但是查询到的数据条数不等于 1
-  if (results.length !== 1) return res.fastSend('获取用户信息失败！');
+  if (results.length !== 1) {
+      return res.fastSend('获取用户信息失败，请稍后再试！');
+  } 
 
   // 将用户信息响应给客户端
   res.send({
@@ -677,8 +711,6 @@ db.query(sql, req.user.id, (err, results) => {
   });
 });
 ```
-
-<img src="mark-img/image-20221230142245395.png" alt="image-20221230142245395" style="width:80%;" />
 
 ## 3.2 更新用户的基本信息
 
@@ -714,7 +746,7 @@ exports.updateUserInfo = (req, res) => {
 // 定义 id, nickname, email 的验证规则
 const id = joi.number().integer().min(1).required();
 const nickname = joi.string().required();
-const email = joi.string().email().required();
+const email = joi.string().email();
 ```
 
 2. 并使用 `exports` 向外共享如下的 `验证规则对象`：
@@ -756,7 +788,7 @@ router.post('/userinfo', expressJoi(update_userinfo_schema), userinfo_handler.up
 1. 定义待执行的 SQL 语句：
 
 ```js
-const sql = `update ev_users set ? where id=?`;
+const sql = 'UPDATE ev_users SET ? WHERE id=?';
 ```
 
 2. 调用 `db.query()` 执行 SQL 语句并传参：
@@ -764,17 +796,19 @@ const sql = `update ev_users set ? where id=?`;
 ```js
 db.query(sql, [req.body, req.body.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // 执行 SQL 语句成功，但影响行数不为 1
-  if (results.affectedRows !== 1) return res.fastSend('修改用户基本信息失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('修改用户基本信息失败！');
+  }
 
   // 修改用户信息成功
-  return res.fastSend('修改用户基本信息成功！', 0);
+  res.fastSend('修改用户基本信息成功！', 'ok');
 });
 ```
-
-<img src="mark-img/image-20221230201140180.png" alt="image-20221230201140180" style="width:80%;" />
 
 ## 3.3 重置密码
 
@@ -843,15 +877,19 @@ router.post('/updatepwd', expressJoi(update_password_schema), userinfo_handler.u
 
 ```js
 // 定义根据 id 查询用户数据的 SQL 语句
-const sql = `select * from ev_users where id=?`;
+const sql = 'SELECT * FROM ev_users WHERE id=?';;
 
 // 执行 SQL 语句查询用户是否存在
 db.query(sql, req.user.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  } 
 
   // 检查指定 id 的用户是否存在
-  if (results.length !== 1) return res.fastSend('用户不存在！');
+  if (results.length !== 1) {
+      return res.fastSend('用户状态异常！');
+  }
 
   // 判断提交的旧密码是否正确
 });
@@ -874,21 +912,25 @@ if (!compareResult) return res.fastSend('原密码错误！');
 
 ```js
 // 定义更新用户密码的 SQL 语句
-const sql2 = `update ev_users set password=? where id=?`;
+const sql2 = 'UPDATE ev_users SET password=? WHERE id=?';
 
 // 对新密码进行 bcrypt 加密处理
-const newPwd = bcrypt.hashSync(req.body.newPwd, 10);
+const newPwd = bcrypt.hashSync(req.body.newPwd, 6);
 
 // 执行 SQL 语句，根据 id 更新用户的密码
 db.query(sql2, [newPwd, req.user.id], (err, results) => {
   // SQL 语句执行失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.fastSend('更新密码失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('更新密码异常，请稍后再试！');
+  }
 
   // 更新密码成功
-  res.fastSend('更新密码成功！', 0);
+  res.fastSend('更新密码成功！', 'ok');
 });
 ```
 
@@ -956,7 +998,7 @@ router.post('/update/avatar', expressJoi(update_avatar_schema), userinfo_handler
 1. 定义更新用户头像的 SQL 语句：
 
 ```js
-const sql = 'update ev_users set user_pic=? where id=?';
+const sql = 'UPDATE ev_users SET user_pic=? WHERE id=?';
 ```
 
 2. 调用 `db.query()` 执行 SQL 语句，更新对应用户的头像：
@@ -964,17 +1006,19 @@ const sql = 'update ev_users set user_pic=? where id=?';
 ```js
 db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // 执行 SQL 语句成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.fastSend('更新头像失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('更新头像异常，请稍后再试！');
+  }
 
   // 更新用户头像成功
-  return res.fastSend('更新头像成功！', 0);
+  res.fastSend('更新头像成功！', 'ok');
 });
 ```
-
-<img src="mark-img/image-20221230213331915.png" alt="image-20221230213331915" style="width:80%;" />
 
 # 四、文章分类管理
 
@@ -1020,8 +1064,8 @@ module.exports = router;
 ```js
 // 导入并使用文章分类路由模块
 const artCateRouter = require('./router/artcate');
-// 为文章分类的路由挂载统一的访问前缀 /my/article
-app.use('/my/article', artCateRouter);
+// 为文章分类的路由挂载统一的访问前缀 /my/artcate
+app.use('/my/artcate', artCateRouter);
 ```
 
 ### 4.2.3 初始化路由处理函数模块
@@ -1063,8 +1107,8 @@ const db = require('../db/connect');
 
 ```js
 // 根据分类的状态，获取所有未被删除的分类列表数据
-// is_delete 为 0 表示没有被 标记为删除 的数据
-const sql = 'select * from ev_article_cate where is_delete=0 order by id asc';
+// is_delete 为 0 表示没有被标记为删除的数据
+const sql = 'SELECT * FROM ev_article_cate WHERE is_delete=0 ORDER BY id ASC';
 ```
 
 3. 调用 `db.query()` 执行 SQL 语句：
@@ -1072,7 +1116,9 @@ const sql = 'select * from ev_article_cate where is_delete=0 order by id asc';
 ```js
 db.query(sql, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // 执行 SQL 语句成功
   res.send({
@@ -1082,8 +1128,6 @@ db.query(sql, (err, results) => {
   });
 });
 ```
-
-<img src="mark-img/image-20221230224206922.png" alt="image-20221230224206922" style="width:80%;" />
 
 ## 4.3 新增文章分类
 
@@ -1151,7 +1195,7 @@ router.post('/addcates', expressJoi(add_cate_schema), artcate_handler.addArticle
 
 ```js
 // 定义查询 分类名称 与 分类别名 是否被占用的 SQL 语句
-const sql = `select * from ev_article_cate where name=? or alias=?`;
+const sql = 'SELECT * FROM ev_article_cate WHERE name=? OR alias=?';
 ```
 
 2. 调用 `db.query()` 执行查重的操作：
@@ -1160,13 +1204,21 @@ const sql = `select * from ev_article_cate where name=? or alias=?`;
 // 执行查重操作
 db.query(sql, [req.body.name, req.body.alias], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // 判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 2) return res.fastSend('分类名称与别名被占用，请更换后重试！');
+  if (results.length === 2) {
+      return res.fastSend('分类名称与别名被占用，请更换后重试！');
+  }
   // 分别判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 1 && results[0].name === req.body.name) return res.fastSend('分类名称被占用，请更换后重试！');
-  if (results.length === 1 && results[0].alias === req.body.alias) return res.fastSend('分类别名被占用，请更换后重试！');
+  if (results.length === 1 && results[0].name === req.body.name) {
+      return res.fastSend('分类名称均被占用，请更换后重试！');
+  }
+  if (results.length === 1 && results[0].alias === req.body.alias) {
+      return res.fastSend('分类别名被占用，请更换后重试！');
+  }
 
   // 新增文章分类
 });
@@ -1177,7 +1229,7 @@ db.query(sql, [req.body.name, req.body.alias], (err, results) => {
 1. 定义新增文章分类的 SQL 语句：
 
 ```js
-const sql = `insert into ev_article_cate set ?`;
+const sql = 'INSERT INTO ev_article_cate SET ?';
 ```
 
 2. 调用 `db.query()` 执行新增文章分类的 SQL 语句：
@@ -1185,17 +1237,19 @@ const sql = `insert into ev_article_cate set ?`;
 ```js
 db.query(sql, req.body, (err, results) => {
   // SQL 语句执行失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.fastSend('新增文章分类失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('新增文章分类异常，请稍后再试！');
+  }
 
   // 新增文章分类成功
-  res.fastSend('新增文章分类成功！', 0);
+  res.fastSend('新增文章分类成功！', 'ok');
 });
 ```
-
-<img src="mark-img/image-20221231103849274.png" alt="image-20221231103849274" style="width:80%;" />
 
 ## 4.4 根据id删除文章分类
 
@@ -1258,7 +1312,7 @@ router.get('/deletecate/:id', expressJoi(delete_cate_schema), artcate_handler.de
 1. 定义删除文章分类的 SQL 语句：
 
 ```js
-const sql = `update ev_article_cate set is_delete=1 where id=?`;
+const sql = 'UPDATE ev_article_cate SET is_delete=1 WHERE id=?';;
 ```
 
 2. 调用 `db.query()` 执行删除文章分类的 SQL 语句：
@@ -1266,17 +1320,21 @@ const sql = `update ev_article_cate set is_delete=1 where id=?`;
 ```js
 db.query(sql, req.params.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.fastSend('删除文章分类失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('删除文章分类失败，请稍后再试！');
+  } else if (results.affectedRows !== 1) {
+      return res.fastSend('删除文章分类异常，请稍后再试！');
+  }
 
   // 删除文章分类成功
-  res.fastSend('删除文章分类成功！', 0);
+  res.fastSend('删除文章分类成功！', 'ok');
 });
 ```
-
-<img src="mark-img/image-20221231105448229.png" alt="image-20221231105448229" style="width:80%;" />
 
 ## 4.5 根据id获取文章分类数据
 
@@ -1339,10 +1397,16 @@ const sql = `select * from ev_article_cate where id=?`;
 ```js
 db.query(sql, req.params.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // SQL 语句执行成功，但是没有查询到任何数据
-  if (results.length !== 1) return res.fastSend('获取文章分类数据失败！');
+  if (results.length === 0) {
+      return res.fastSend('文章分类不存在！');
+  } else if (results.length !== 1) {
+      return res.fastSend('获取文章分类数据异常，请稍后再试！');
+  }
 
   // 把数据响应给客户端
   res.send({
@@ -1352,8 +1416,6 @@ db.query(sql, req.params.id, (err, results) => {
   });
 });
 ```
-
-<img src="mark-img/image-20221231110737976.png" alt="image-20221231110737976" style="width:80%;" />
 
 ## 4.6 根据id更新文章分类数据
 
@@ -1425,9 +1487,15 @@ db.query(sql, [req.body.id, req.body.name, req.body.alias], (err, results) => {
   if (err) return res.fastSend(err);
 
   // 判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 2) return res.fastSend('分类名称与别名被占用，请更换后重试！');
-  if (results.length === 1 && results[0].name === req.body.name) return res.fastSend('分类名称被占用，请更换后重试！');
-  if (results.length === 1 && results[0].alias === req.body.alias) return res.fastSend('分类别名被占用，请更换后重试！');
+  if (results.length === 2) {
+      return res.fastSend('分类名称与别名被占用，请更换后重试！');
+  }
+  if (results.length === 1 && results[0].name === req.body.name) {
+      return res.fastSend('分类名称被占用，请更换后重试！');
+  }
+  if (results.length === 1 && results[0].alias === req.body.alias) {
+      return res.fastSend('分类别名被占用，请更换后重试！');
+  }
 
   // 更新文章分类
 });
@@ -1449,14 +1517,14 @@ db.query(sql, [req.body, req.body.id], (err, results) => {
   if (err) return res.fastSend(err);
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.fastSend('更新文章分类失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('更新文章分类异常，请稍后再试！');
+  }
 
   // 更新文章分类成功
-  res.fastSend('更新文章分类成功！', 0);
+  res.fastSend('更新文章分类成功！', 'ok');
 });
 ```
-
-<img src="mark-img/image-20221231111904110.png" alt="image-20221231111904110" style="width:80%;" />
 
 # 五、文章管理
 
@@ -1553,9 +1621,22 @@ npm i multer@1.4.2
 const multer = require('multer');
 // 导入处理路径的核心模块
 const path = require('path');
+// 导入 uuid(v4) 库 npm i uuid
+const { v4: uuidv4 } = require('uuid');
 
-// 创建 multer 的实例对象，通过 dest 属性指定文件的存放路径
-const upload = multer({ dest: path.join(__dirname, '../uploads') });
+// multer 配置
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // 图片存放路径
+        cb(null, path.join(__dirname, '../uploads'));
+    },
+    filename: function (req, file, cb) {
+        // 图片重命名：uuid值.png
+        cb(null, uuidv4() + '.png');
+    }
+});
+
+var upload = multer({ storage: storage });
 ```
 
 3. 修改 `发布新文章` 的路由如下：
@@ -1563,8 +1644,8 @@ const upload = multer({ dest: path.join(__dirname, '../uploads') });
 ```js
 // 发布新文章的路由
 // upload.single() 是一个局部生效的中间件，用来解析 FormData 格式的表单数据
-// 将文件类型的数据，解析并挂载到 req.file 属性中
 // 将文本类型的数据，解析并挂载到 req.body 属性中
+// 将文件类型的数据，解析并挂载到 req.file 属性中
 router.post('/add', upload.single('cover_img'), article_handler.addArticle);
 ```
 
@@ -1647,7 +1728,7 @@ const articleInfo = {
   // 标题、内容、状态、所属的分类Id
   ...req.body,
   // 文章封面在服务器端的存放路径
-  cover_img: path.join('/uploads', req.file.filename),
+  cover_img: req.file.filename,
   // 文章发布时间
   pub_date: new Date(),
   // 文章作者的Id
@@ -1658,7 +1739,7 @@ const articleInfo = {
 2. 定义发布文章的 SQL 语句：
 
 ```js
-const sql = `insert into ev_articles set ?`;
+const sql = 'INSERT INTO ev_articles SET ?';
 ```
 
 3. 调用 `db.query()` 执行发布文章的 SQL 语句：
@@ -1670,13 +1751,17 @@ const db = require('../db/connect');
 // 执行 SQL 语句
 db.query(sql, articleInfo, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.fastSend(err);
+  if (err) {
+      return res.fastSend(err);
+  }
 
   // 执行 SQL 语句成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.fastSend('发布文章失败！');
+  if (results.affectedRows !== 1) {
+      return res.fastSend('发布文章异常，请稍后再试！');
+  }
 
   // 发布文章成功
-  res.fastSend('发布文章成功', 0);
+  res.fastSend('发布文章成功', 'ok');
 });
 ```
 
@@ -1687,4 +1772,480 @@ db.query(sql, articleInfo, (err, results) => {
 app.use('/uploads', express.static('./uploads'));
 ```
 
-<img src="mark-img/image-20221231131054480.png" alt="image-20221231131054480" style="width:80%;" />
+## 5.3 获取文章的列表数据
+
+- schema\article.js
+
+```js
+// 每页显示条数、页码值 验证规则
+const pagesize = joi.number().integer().min(1).required();
+const pagenum = joi.number().integer().min(1).required();
+
+// 获取文章列表数据验证规则对象
+exports.article_list_schema = {
+    query: {
+        pagesize,
+        pagenum,
+        cate_id: joi.number().integer().min(1),
+        state: joi.string().valid('已发布', '草稿')
+    }
+};
+```
+
+- router\article.js
+
+```js
+const { article_list_schema } = require('../schema/article');
+
+// 获取文章的列表数据
+router.get('/list', expressJoi(article_list_schema), article_handler.articleList);
+```
+
+- router_handler\article.js
+
+```js
+// 获取文章的列表数据处理函数
+exports.articleList = (req, res) => {
+    // 判断是否指定了文章分类
+    if (req.query.cate_id) {
+        // 指定了文章分类
+        let artcate = {};
+        let flag = true;
+        // 查询文章分类是否可用
+        const sql = 'SELECT * FROM ev_article_cate WHERE id=?';
+        db.query(sql, req.query.cate_id, (err, results) => {
+            if (err) {
+                flag = false;
+                return res.fastSend(err);
+            }
+            if (results.length === 0) {
+                flag = false;
+                return res.fastSend('文章分类不存在！');
+            }
+            if (results.length === 1) {
+                if (results[0].is_delete === 1) {
+                    flag = false;
+                    return res.fastSend('文章分类不可用！');
+                }
+                artcate = results[0];
+            } else {
+                flag = false;
+                return res.fastSend('处理异常，请稍后再试！');
+            }
+        });
+
+        if (!flag) {
+            return;
+        }
+
+        // 判断是否指定了文章发布状态
+        if (req.query.state) {
+            // 指定了文章发布状态
+            if (req.query.state === '已发布') {
+                // 分页查询目标类别已发布文章
+                const sql1 = 'SELECT * FROM ev_articles WHERE cate_id=? AND state="已发布" ORDER BY pub_date ASC LIMIT ?,?';
+                // 查询目标类别已发布文章总数
+                const sql2 = 'SELECT COUNT(*) AS total FROM ev_articles WHERE cate_id=? AND state="已发布"';
+                db.query(sql1, [req.query.cate_id, (req.query.pagenum - 1) * req.query.pagesize, req.query.pagesize], (err, results) => {
+                    if (err) {
+                        return res.fastSend(err);
+                    }
+                    const __results = results;
+                    db.query(sql2, req.query.cate_id, (err, results) => {
+                        if (err) {
+                            return res.fastSend(err);
+                        }
+                        const data = [];
+                        for (let i = 0; i < __results.length; i++) {
+                            data.push({
+                                id: __results[i].id,
+                                title: __results[i].title,
+                                pub_date: __results[i].pub_date,
+                                state: __results[i].state,
+                                cate_name: artcate.name,
+                                cate_alias: artcate.alias
+                            });
+                        }
+                        return res.send({
+                            status: 'ok',
+                            message: '获取文章列表成功！',
+                            total: results[0].total,
+                            data
+                        });
+                    });
+                });
+            } else if (req.query.state === '草稿') {
+                // 分页查询目标类别草稿文章
+                const sql1 = 'SELECT * FROM ev_articles WHERE cate_id=? AND state="草稿" ORDER BY pub_date ASC LIMIT ?,?';
+                // 查询目标类别已发布文章总数
+                const sql2 = 'SELECT COUNT(*) AS total FROM ev_articles WHERE cate_id=? AND state="草稿"';
+                db.query(sql1, [req.query.cate_id, (req.query.pagenum - 1) * req.query.pagesize, req.query.pagesize], (err, results) => {
+                    if (err) {
+                        return res.fastSend(err);
+                    }
+                    const __results = results;
+                    db.query(sql2, req.query.cate_id, (err, results) => {
+                        if (err) {
+                            return res.fastSend(err);
+                        }
+                        const data = [];
+                        for (let i = 0; i < __results.length; i++) {
+                            data.push({
+                                id: __results[i].id,
+                                title: __results[i].title,
+                                pub_date: __results[i].pub_date,
+                                state: __results[i].state,
+                                cate_name: artcate.name,
+                                cate_alias: artcate.alias
+                            });
+                        }
+                        return res.send({
+                            status: 'ok',
+                            message: '获取文章列表成功！',
+                            total: results[0].total,
+                            data
+                        });
+                    });
+                });
+            } else {
+                return res.fastSend('文章发布状态错误，请修改后重试！');
+            }
+        } else {
+            // 未指定文章发布状态
+            // 分页查询目标类别文章
+            const sql1 = 'SELECT * FROM ev_articles WHERE cate_id=? ORDER BY pub_date ASC LIMIT ?,?';
+            const sql2 = 'SELECT COUNT(*) AS total FROM ev_articles WHERE cate_id=?';
+            db.query(sql1, [req.query.cate_id, (req.query.pagenum - 1) * req.query.pagesize, req.query.pagesize], (err, results) => {
+                if (err) {
+                    return res.fastSend(err);
+                }
+                const __results = results;
+                db.query(sql2, req.query.cate_id, (err, results) => {
+                    if (err) {
+                        return res.fastSend(err);
+                    }
+                    const data = [];
+                    for (let i = 0; i < __results.length; i++) {
+                        data.push({
+                            id: __results[i].id,
+                            title: __results[i].title,
+                            pub_date: __results[i].pub_date,
+                            state: __results[i].state,
+                            cate_name: artcate.name,
+                            cate_alias: artcate.alias
+                        });
+                    }
+                    return res.send({
+                        status: 'ok',
+                        message: '获取文章列表成功！',
+                        total: results[0].total,
+                        data
+                    });
+                });
+            });
+        }
+    } else {
+        // 未指定文章分类
+        // 判断是否指定了文章发布状态
+        if (req.query.state) {
+            // 指定了文章发布状态
+            if (req.query.state === '已发布') {
+                const sql1 = 'SELECT * FROM ev_articles WHERE state="已发布" ORDER BY pub_date ASC LIMIT ?,?';
+                const sql2 = 'SELECT COUNT(*) AS total FROM ev_articles WHERE state="已发布"';
+                db.query(sql1, [(req.query.pagenum - 1) * req.query.pagesize, req.query.pagesize], (err, results) => {
+                    if (err) {
+                        return res.fastSend(err);
+                    }
+                    const __results = results;
+                    db.query(sql2, req.query.cate_id, (err, results) => {
+                        if (err) {
+                            return res.fastSend(err);
+                        }
+                        const data = [];
+                        for (let i = 0; i < __results.length; i++) {
+                            data.push({
+                                id: __results[i].id,
+                                title: __results[i].title,
+                                pub_date: __results[i].pub_date,
+                                state: __results[i].state
+                            });
+                        }
+                        return res.send({
+                            status: 'ok',
+                            message: '获取文章列表成功！',
+                            total: results[0].total,
+                            data
+                        });
+                    });
+                });
+            } else if (req.query.state === '草稿') {
+                const sql1 = 'SELECT * FROM ev_articles WHERE state="草稿" ORDER BY pub_date ASC LIMIT ?,?';
+                const sql2 = 'SELECT COUNT(*) AS total FROM ev_articles WHERE state="草稿"';
+                db.query(sql1, [(req.query.pagenum - 1) * req.query.pagesize, req.query.pagesize], (err, results) => {
+                    if (err) {
+                        return res.fastSend(err);
+                    }
+                    const __results = results;
+                    db.query(sql2, req.query.cate_id, (err, results) => {
+                        if (err) {
+                            return res.fastSend(err);
+                        }
+                        const data = [];
+                        for (let i = 0; i < __results.length; i++) {
+                            data.push({
+                                id: __results[i].id,
+                                title: __results[i].title,
+                                pub_date: __results[i].pub_date,
+                                state: __results[i].state
+                            });
+                        }
+                        return res.send({
+                            status: 'ok',
+                            message: '获取文章列表成功！',
+                            total: results[0].total,
+                            data
+                        });
+                    });
+                });
+            } else {
+                return res.fastSend('文章发布状态错误，请修改后重试！');
+            }
+        } else {
+            // 未指定文章发布状态
+            const sql1 = 'SELECT * FROM ev_articles ORDER BY pub_date ASC LIMIT ?,?';
+            const sql2 = 'SELECT COUNT(*) AS total FROM ev_articles';
+            db.query(sql1, [(req.query.pagenum - 1) * req.query.pagesize, req.query.pagesize], (err, results) => {
+                if (err) {
+                    return res.fastSend(err);
+                }
+                const __results = results;
+                db.query(sql2, req.query.cate_id, (err, results) => {
+                    if (err) {
+                        return res.fastSend(err);
+                    }
+                    const data = [];
+                    for (let i = 0; i < __results.length; i++) {
+                        data.push({
+                            id: __results[i].id,
+                            title: __results[i].title,
+                            pub_date: __results[i].pub_date,
+                            state: __results[i].state
+                        });
+                    }
+                    return res.send({
+                        status: 'ok',
+                        message: '获取文章列表成功！',
+                        total: results[0].total,
+                        data
+                    });
+                });
+            });
+        }
+    }
+};
+```
+
+## 5.4 根据id获取文章详情
+
+- schema\article.js
+
+```js
+// 文章分类 id 校验规则
+const id = joi.number().integer().min(1).required();
+
+// 根据 id 获取分类校验规则对象
+exports.get_article_schema = {
+    params: {
+        id
+    }
+};
+```
+
+- router\article.js
+
+```js
+const { get_article_schema } = require('../schema/article');
+// 获取文章详情
+router.get('/:id', expressJoi(get_article_schema), article_handler.getArticle);
+```
+
+- router_handler\article.js
+
+```js
+// 根据 id 获取文章详情处理函数
+exports.getArticle = (req, res) => {
+    const sql = 'SELECT * FROM ev_articles WHERE id=?';
+    db.query(sql, req.params.id, (err, results) => {
+        if (err) {
+            res.fastSend(err);
+        }
+        if (results.length === 0) {
+            res.fastSend('文章不存在！');
+        } else if (results.length !== 1) {
+            res.fastSend('处理异常，请稍后再试！');
+        }
+
+        return res.send({
+            status: 'ok',
+            message: '获取文章详情成功！',
+            data: {
+                id: results[0].id,
+                title: results[0].title,
+                content: results[0].content,
+                cover_img: '/uploads/' + results[0].cover_img,
+                pub_date: results[0].pub_date,
+                state: results[0].state,
+                is_delete: results[0].is_delete,
+                cate_id: results[0].cate_id,
+                author_id: results[0].author_id
+            }
+        });
+    });
+};
+```
+
+## 5.5 根据id更新文章信息
+
+- schema\article.js
+
+```js
+// 根据 id 更新文章信息验证规则对象
+exports.edit_article_schema = {
+    body: {
+        id,
+        title,
+        cate_id,
+        content,
+        state
+    }
+};
+```
+
+- router\article.js
+
+```js
+const { edit_article_schema } = require('../schema/article');
+// 根据 id 更新文章信息
+router.post('/edit', upload.single('cover_img'), expressJoi(edit_article_schema), article_handler.editArticle);
+```
+
+- router_handler\article.js
+
+```js
+const fs = require('fs');
+// 根据 id 更新文章信息处理函数
+exports.editArticle = (req, res) => {
+    // 根据 id 获取原图片数据
+    const sql = 'SELECT cover_img FROM ev_articles WHERE id=?';
+    db.query(sql, req.body.id, (err, results) => {
+        if (err) {
+            return res.fastSend(err);
+        }
+        if (results.length === 0) {
+            return res.fastSend('文章不存在！');
+        }
+        if (results.length !== 1) {
+            return res.fastSend('处理异常，请稍后再试！');
+        }
+
+        // 是否处理图片
+        let flag = false;
+        let oldImg = '';
+        // 判断是否上传了文章封面
+        if (req.file && req.file.fieldname === 'cover_img') {
+            flag = true;
+            // 保存原图片文件名
+            oldImg = results[0].cover_img;
+        }
+
+        // 更新文章信息
+        const sql = 'UPDATE ev_articles SET ? WHERE id=?';
+        if (flag === true) {
+            const articleInfo = {
+                // 标题、内容、状态、分类id
+                ...req.body,
+                // 文章封面在服务器端的存放路径
+                cover_img: req.file.filename,
+                // 文章发布时间
+                pub_date: new Date()
+            };
+            db.query(sql, [articleInfo, req.body.id], (err, results) => {
+                if (err) {
+                    return res.fastSend(err);
+                }
+                if (results.affectedRows !== 1) {
+                    return res.fastSend('处理异常，请稍后再试！----');
+                }
+                // 删除原图片
+                const filepath = path.join(__dirname, '../uploads', oldImg);
+                fs.unlink(filepath, err => {
+                    if (err) {
+                        return res.fastSend('处理异常，请稍后再试！');
+                    }
+                    return res.fastSend('文章更新成功！', 'ok');
+                });
+            });
+        } else {
+            const articleInfo = {
+                // 标题、内容、状态、分类id
+                ...req.body,
+                // 文章发布时间
+                pub_date: new Date()
+            };
+            db.query(sql, [articleInfo, req.body.id], (err, results) => {
+                if (err) {
+                    return res.fastSend(err);
+                }
+                if (results.affectedRows !== 1) {
+                    return res.fastSend('处理异常，请稍后再试！');
+                }
+                return res.fastSend('文章更新成功！', 'ok');
+            });
+        }
+    });
+};
+```
+
+## 5.6 根据id删除文章数据
+
+- schema\article.js
+
+```js
+// 根据 id 删除文章校验规则对象
+exports.delete_article_schema = {
+    params: {
+        id
+    }
+};
+```
+
+- router\article.js
+
+```js
+const { delete_article_schema } = require('../schema/article');
+// 获取文章详情
+router.get('/delete/:id', expressJoi(delete_article_schema), article_handler.deleteArticle);
+```
+
+- router_handler\article.js
+
+```js
+// 根据 id 删除文章数据处理函数
+exports.deleteArticle = (req, res) => {
+    // 更新文章分类 is_delete 字段
+    const sql = 'UPDATE ev_articles SET is_delete=1 WHERE id=?';
+    db.query(sql, req.params.id, (err, results) => {
+        if (err) {
+            return res.fastSend(err);
+        }
+        if (results.affectedRows === 0) {
+            return res.fastSend('文章不存在！');
+        } else if (results.affectedRows !== 1) {
+            return res.fastSend('删除文章异常，请稍后再试！');
+        }
+
+        res.fastSend('删除文章成功！', 'ok');
+    });
+};
+```
+
