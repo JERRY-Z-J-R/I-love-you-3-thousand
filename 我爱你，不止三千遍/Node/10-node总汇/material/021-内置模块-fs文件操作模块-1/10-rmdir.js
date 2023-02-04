@@ -2,15 +2,15 @@
  * @作者: kerwin
  * @公众号: 大前端私房菜
  */
-const fs = require("fs")
+const fs = require('fs');
 
-fs.readdir("./avatar",(err,data)=>{
+fs.readdir('./avatar', (err, data) => {
     // console.log(data)
-    data.forEach(item=>{
-        fs.unlink(`./avatar/${item}`,(err)=>{})
-    })
+    data.forEach(item => {
+        fs.unlink(`./avatar/${item}`, err => {});
+    });
 
-    fs.rmdir("./avatar",(err)=>{
-        console.log(err)
-    })
-})
+    fs.rmdir('./avatar', err => {
+        console.log(err);
+    });
+});

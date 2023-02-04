@@ -2,7 +2,7 @@
 
 > 作者：kerwin（千锋）
 >
-> > 在此基础上，JERRY-Z-J-R 进行了大量的文档优化和补充！
+> > 在此基础上，[JERRY-Z-J-R](https://github.com/JERRY-Z-J-R) 进行了大量的文档优化和补充！
 
 # 一、Node.js基础
 
@@ -20,7 +20,7 @@
 
 ### 1.1.2 浏览器环境 vs Node环境
 
-![image-20220209152247426](mark-img/image-20220209152247426.png)
+<img src="mark-img/image-20220209152247426.png" alt="image-20220209152247426" style="width:80%;" />
 
 Node.js 不包含浏览器的 API，即不包括 DOM、BOM 等！Node.js 的 API 所针对的是后端开发所用的 API。
 
@@ -67,7 +67,7 @@ Node.js 可以解析 JS 代码（没有浏览器安全级别的限制）提供�
 
 建议下载 LTS 长期支持版本！
 
-![image-20220210095903409](mark-img/image-20220210095903409.png)
+<img src="mark-img/image-20220210095903409.png" alt="image-20220210095903409" style="width:80%;" />
 
 下载后，双击下一步，默认安装即可。
 
@@ -79,7 +79,7 @@ Node.js 可以解析 JS 代码（没有浏览器安全级别的限制）提供�
 
 为了提高开发的工程化，让合理性、效率性、可维护性、安全性得到保证，所以 Node.js 项目的开发有：CommonJS、模块、包 的概念。
 
-![image-20220210100015768](mark-img/image-20220210100015768.png)
+<img src="mark-img/image-20220210100015768.png" alt="image-20220210100015768" style="width:80%;" />
 
 ### 1.3.1 CommonJS规范
 
@@ -87,11 +87,11 @@ CommonJS 规范是为了解决 JavaScript 的作用域问题而定义的模块�
 
 CommonJS 规范包含许多的内容，其中 模块、包 都属于其中的内容。
 
-<img src="mark-img/image-20220210101652166.png" alt="image-20220210101652166" style="zoom: 67%;" />
+<img src="mark-img/image-20220210101652166.png" alt="image-20220210101652166" style="width: 40%;" />
 
 CommonJS 只是一套规范，不包含实现，真正的实现是在 Node.js/Webpack 中来部分实现的。
 
-<img src="mark-img/image-20220210101720533.png" alt="image-20220210101720533" style="zoom: 67%;" />
+<img src="mark-img/image-20220210101720533.png" alt="image-20220210101720533" style="width: 40%;" />
 
 ### 1.3.2 modules模块化规范写法
 
@@ -138,6 +138,8 @@ gp19
 
 Node.js 有许多功能各式各样的自带模块和第三方模块，对于自带模块我们直接导入使用即可，对于第三方模块我们下载后导入使用即可，而对于业务代码或者自制模块，我们则需要自己实现模块代码并导出再导入使用。
 
+> Node.js 默认使用的是 CommonJS 模块化规范，但是目前新版本的 Node.js 也支持切换为 ES6 模块化写法！
+
 ## 1.4 Npm&Yarn
 
 npm（“Node 包管理器”）是 JavaScript 运行时 Node.js 的默认程序包管理器。
@@ -156,12 +158,12 @@ npm init	// 初始化项目，创建 package.json（记录了项目信息以及�
 npm install 包名 [–g] （uninstall、update）	// 安装、卸载、更新包（-g 参数，全局安装、卸载、更新）
 npm install 包名 --save-dev (uninstall、update)
 简单来说：
-使用命令 --save 或者说不写命令 --save  ,都会把信息记录到 dependencies 中；
+使用命令 --save 或者说不写命令 --save，都会把信息记录到 dependencies 中；
 dependencies 中记录的都是项目在运行时需要的文件；
 使用命令 --save-dev 则会把信息记录到 devDependencies 中；
 devDependencies 中记录的是项目在开发过程中需要使用的一些文件，在项目最终运行时是不需要的；
 也就是说我们开发完成后，最终的项目中是不需要这些文件的；
-————————————————
+————————————————————————————————————————————————————————————————————————————————————————————————
 npm list -g 		    // 不加 -g，列举当前目录下的安装包)
 npm info 包名			   // 查看包详细信息
 npm install md5@2		// 安装指定版本的 md5 包（这里直接指定大版本）
@@ -170,12 +172,12 @@ npm outdated			// 检查包是否已经过时
 npm install				// 根据 package.json 中记录的包依赖信息，下载还原所有包依赖
 
 // dependencies 注意点：
-"dependencies": {    "md5": "^2.1.0"  }  ^ 表示 如果 直接 npm install 将会安装 md5 2.*.* 最新版本
-"dependencies": {    "md5": "~2.1.0"  }  ~ 表示 如果 直接 npm install 将会安装 md5 2.1.* 最新版本
-"dependencies": {    "md5": "*"  }  * 表示 如果 直接 npm install 将会安装 md5 最新版本
+"dependencies": {    "md5": "^2.1.0"  }  	^ 表示 如果 直接 npm install 将会安装 md5 2.*.* 最新版本
+"dependencies": {    "md5": "~2.1.0"  }  	~ 表示 如果 直接 npm install 将会安装 md5 2.1.* 最新版本
+"dependencies": {    "md5": "*"  }  	 	* 表示 如果 直接 npm install 将会安装 md5 最新版本
 ```
 
-### 1.4.2 全局安装nrm  
+### 1.4.2 全局安装nrm 
 
 > NRM（npm registry manager）是 npm 的镜像源管理工具，有时候国外资源太慢，使用这个就可以快速地在 npm 源间切换。
 
@@ -207,7 +209,7 @@ npm install				// 根据 package.json 中记录的包依赖信息，下载还原
 
 ### 1.4.3 yarn使用
 
-> yarn 是 npm 的一个第三方升级版，不过目前 npm 也比较好用了，哪个用的习惯用哪个即可。
+> yarn 是 npm 的一个第三方升级版，不过目前的 npm 也比较好用了，哪个用的习惯用哪个即可。
 
 ```shell
 npm install -g yarn
@@ -340,7 +342,7 @@ http.createServer((req, res) => {
     console.log(req.url);
     // 解决浏览器默认会请求图标的问题
     if (req.url === '/favicon.ico') {
-        return
+        return;
     }
     // 当我们请求服务器时，req.url 包含我们所请求的地址，所以我们可以这样做：
     res.writeHead(renderStatus(req.url), { "Content-Type": "text/html; charset=utf-8" });
@@ -747,8 +749,9 @@ http.createServer((req,res) => {
 function httpget(cb){
     var data = "";
     https.get(`https://i.maoyan.com/api/mmdb/movie/v3/list/hot.json?ct=%E5%8C%97%E4%BA%AC&ci=1&channelId=4`,(res) => {
-        // 由于请求的数据比较多，是一段一段返回的，res.on('data') 表示每当有段数据返回就触发该函数
-        res.on("data",(chunk) => {
+        // 当请求体数据比较大时，是一段一段过来的，res.on('data') 表示每当有段数据返回就触发该函数
+        // chunk 表示每次到达的数据段
+        res.on("data", chunk => {
             data += chunk;
         });
 
@@ -828,20 +831,19 @@ function doPost() {
 var http = require("http");
 var https = require("https");
 var url = require("url");
-
 var cheerio = require("cheerio");
 
-http.createServer((req,res) => {
+http.createServer((req, res) => {
     var urlobj = url.parse(req.url, true);
 
-    res.writeHead(200,{
+    res.writeHead(200, {
         "Content-Type":"application/json;charset=utf-8",
         "access-control-allow-origin":"*"
     });
 
-    switch(urlobj.pathname){
+    switch(urlobj.pathname) {
         case "/api/aaa":
-            httpget((data) => {
+            httpget(data => {
                 res.end(spider(data));
             });
             break;
@@ -850,14 +852,14 @@ http.createServer((req,res) => {
     }
 }).listen(3000);
 
-function httpget(cb){
+function httpget(cb) {
     var data = "";
-    https.get(`https://i.maoyan.com/`,(res) => {
-        res.on("data",(chunk) => {
+    https.get(`https://i.maoyan.com/`, res => {
+        res.on("data", chunk => {
             data += chunk;
         });
 
-        res.on("end",() => {
+        res.on("end", () => {
             // data 就是 HTML 页面
             console.log(data);
             cb(data);
@@ -874,7 +876,7 @@ function spider(data) {
     let $moviewlist = $(".column.content");
     let movies = [];
 
-    $moviewlist.each((index,value)=>{
+    $moviewlist.each((index, value) => {
         movies.push({
             title:$(value).find(".title").text(),
             grade:$(value).find(".grade").text(),
@@ -955,69 +957,156 @@ function spider(data) {
 
 #### 05 event模块
 
+Node.js 提供的一种用来实现 “消息订阅与发布” 的模块。
+
+在一些场景中，比起回调函数来它非常的方便！
+
 ```js
-const EventEmitter = require('events')
+const EventEmitter = require('events');
 
-class MyEventEmitter extends EventEmitter {}
+const event = new EventEmitter();
 
-const event = new MyEventEmitter()
-
+// 订阅消息
 event.on('play', (movie) => {
-  console.log(movie)
-})
+    console.log(movie);
+});
 
-event.emit('play', '我和我的祖国')
-event.emit('play', '中国机长')
+// 发布消息
+event.emit('play', '我和我的祖国');
+event.emit('play', '中国机长');
+```
+
+改造我们之前的爬虫案例：
+
+```js
+var http = require("http");
+var https = require("https");
+var url = require("url");
+var cheerio = require("cheerio");
+const EventEmitter = require("events");
+
+var event = null;
+http.createServer((req, res) => {
+    var urlobj = url.parse(req.url, true);
+
+    res.writeHead(200,{
+        "Content-Type":"application/json;charset=utf-8",
+        "access-control-allow-origin":"*"
+    });
+
+    switch(urlobj.pathname) {
+        case "/api/aaa":
+            // 一定要在这里 new EventEmitter()，而不是最外层!
+            // 因为一但在最外层 new EventEmitter()，那么每次执行到此处，event 身上都会重复订阅新的 cb 消息，一但某处发布了 cb 消息，将会触发多个 cb 消息中的回调函数！
+            event = new EventEmitter();
+            event.on("cb", data => {
+                res.end(data);
+            });
+            httpget();
+            break;
+        default:
+            res.end("404");
+    }
+}).listen(3000);
+
+function httpget() {
+    var data = "";
+    https.get(`https://i.maoyan.com/`, res => {
+        res.on("data", chunk => {
+            data += chunk;
+        });
+
+        res.on("end", () => {
+            // data 就是 HTML 页面
+            console.log(data);
+            event.emit("cb");
+        });
+    });
+}
+
+function spider(data) {
+    // 我们可以使用正则表达式解析 HTML 获取我们想要的数据，但是太过于复杂，我们一般借助第三方库进行解析
+    // cheerio 模块可以帮助我们将 HTML 页面快速的转为 DOM 节点，方便我们进行页面的解析
+    // npm i cheerio 
+    let $ = cheerio.load(data);
+    
+    let $moviewlist = $(".column.content");
+    let movies = [];
+
+    $moviewlist.each((index, value) => {
+        movies.push({
+            title:$(value).find(".title").text(),
+            grade:$(value).find(".grade").text(),
+            actor:$(value).find(".actor").text()
+        })
+    })
+
+    console.log(movies);
+    return JSON.stringify(movies);
+}
 ```
 
 #### 06 fs文件操作模块
 
 ```js
-const fs = require('fs')
+const fs = require('fs');
 
 // 创建文件夹
-fs.mkdir('./logs', (err) => {
-  console.log('done.')
-})
+fs.mkdir('./avatar', err => {
+    // console.log(err)
+    if (err && err.code === 'EEXIST') {
+        console.log('目录已经存在');
+    }
+});
 
 // 文件夹改名
-fs.rename('./logs', './log', () => {
-  console.log('done')
-})
+fs.rename('./avatar', './avatar2', err => {
+    if (err && err.code === 'ENOENT') {
+        console.log('目录不存在');
+    }
+});
 
 // 删除文件夹
-fs.rmdir('./log', () => {
-  console.log('done.')
-})
-
-// 写内容到文件里
-fs.writeFile(
-  './logs/log1.txt',
-  'hello',
-  // 错误优先的回调函数
-  (err) => {
-    if (err) {
-      console.log(err.message)
-    } else {
-      console.log('文件创建成功')
+fs.rmdir('./avatar', err => {
+    if (err && err.code === 'ENOENT') {
+        console.log('目录不存在');
     }
-  }
-)
+    if (err && err.code === 'ENOTEMPTY') {
+        console.log('目录不为空');
+    }
+});
+
+// 写内容到文件里（没有文件会自动创建文件，有文件会直接覆盖，没有目录会报错）
+fs.writeFile('./avatar/a.txt', '你好', err => {
+    console.log(err);
+});
 
 // 给文件追加内容
-fs.appendFile('./logs/log1.txt', '\nworld', () => {
-  console.log('done.')
-})
+fs.appendFile('./avatar/a.txt', '\nhello world', err => {
+    console.log(err);
+});
 
 // 读取文件内容
-fs.readFile('./logs/log1.txt', 'utf-8', (err, data) => {
-  console.log(data)
-})
+fs.readFile('./avatar/a.txt', (err, data) => {
+    if (!err) {
+        // 默认 data 是一个 buffer 对象
+        console.log(data);
+        // 将 buffer 对象转为 utf-8 字符串
+        console.log(data.toString('utf-8'));
+    }
+});
+
+// 可以直接指定读取编码
+fs.readFile('./avatar/a.txt', 'utf-8', (err, data) => {
+    if (!err) {
+        console.log(data);
+    }
+});
 
 // 删除文件
-fs.unlink('./logs/log1.txt', (err) => {
-  console.log('done.')
-})
+fs.unlink('./avatar/a.txt', err => {
+    console.log(err);
+});
 
 // 批量写文件
 for (var i = 0; i < 10; i++) {
@@ -1026,157 +1115,243 @@ for (var i = 0; i < 10; i++) {
   })
 }
 
-// 读取文件/目录信息
-fs.readdir('./', (err, data) => {
-  data.forEach((value, index) => {
-    fs.stat(`./${value}`, (err, stats) => {
-      // console.log(value + ':' + stats.size)
-      console.log(value + ' is ' + (stats.isDirectory() ? 'directory' : 'file'))
-    })
-  })
-})
+// 读取目录信息
+fs.readdir('./avatar', (err, data) => {
+    if (!err) {
+        // data 是一个数组，元素是目录中的各文件或目录的名称
+        console.log(data);
+    }
+});
 
-// 同步读取文件
+// 读取目标的信息（类型，创建时间，大小……）
+fs.stat('./avatar/b.txt', (err, data) => {
+    // 是文件吗？
+    console.log(data.isFile());
+    // 是目录吗？
+    console.log(data.isDirectory());
+    // 大小是多少？单位：bytes
+    console.log(data.size());
+});
+
+// 清空目录后删除目录（rmdir 只能删除空目录）
+fs.readdir('./avatar', (err, data) => {
+    // 清空目录（目录中只有文件的情况，如果目录中还有目录，那要利用递归来解决）
+    data.forEach(item => {
+        fs.unlink(`./avatar/${item}`, err => {
+            console.log(err);
+        });
+    });
+
+    // 会报错！因为 fs.unlink 是异步进行的！并不会阻塞，在目录还未清空完时，就会执行 fs.rmdir 那么就会报错！
+    // 解决方法：方法1：利用 Promise 来封装，方法2：用计数器来记录 unlink 的成功次数……，方法3：将 unlink 改为 unlinkSync（同步模式，会阻塞等待结果返回再执行）
+    fs.rmdir('./avatar', err => {
+        console.log(err);
+    });
+});
+
+// 同步读取文件（在原有 API 的基础上加上 Sync，其他 API 同理）
+// 会阻塞等待结果返回再向后执行代码
+// 错误处理需要用 try catch
 try {
-  const content = fs.readFileSync('./logs/log-1.txt', 'utf-8')
-  console.log(content)
-  console.log(0)
-} catch (e) {
-  console.log(e.message)
+    const content = fs.readFileSync('./avatar/c.txt', 'utf-8');
+    console.log(content);
+    console.log('-----');
+} catch(err) {
+    console.log(err.message);
 }
 
-// 异步读取文件：方法一
-fs.readFile('./logs/log-0.txt', 'utf-8', (err, content) => {
-  console.log(content)
-  console.log(0)
-})
-console.log(1)
+// 异步读取文件：方法一（回调函数）
+fs.readFile('./avatar/c.txt', 'utf-8', (err, content) => {
+    console.log(content);
+    console.log('-----');
+});
+console.log('#####');
 
-// 异步读取文件：方法二
-const fs = require("fs").promises
-fs.readFile('./logs/log-0.txt', 'utf-8').then(result => {
-  console.log(result)
-})
+// 异步读取文件：方法二（Promise）
+const fs = require("fs").promises;
 
+fs.readFile('./avatar/c.txt', 'utf-8').then(result => {
+    console.log(result);
+}).catch(err => {
+    console.log(err);
+});
+
+// 清空目录后删除目录
+fs.readdir('./avatar').then(async data => {
+    let arr = [];
+    data.forEach(item => {
+        arr.push(fs.unlink(`./avatar/${item}`));
+    });
+    await Promise.all(arr);
+    await fs.rmdir('./avatar');
+});
+
+// 清空目录后删除目录
+fs.readdir('./avatar').then(async data => {
+    await Promise.all(data.map(item => fs.unlink(`./avatar/${item}`)));
+    await fs.rmdir('./avatar');
+});
 ```
 
-在`fs`模块中，提供同步方法是为了方便使用。那我们到底是应该用异步方法还是同步方法呢？
+在 `fs` 模块中，提供同步方法是为了方便使用。那我们到底是应该用异步方法还是同步方法呢？
 
-由于Node环境执行的JavaScript代码是服务器端代码，所以，绝大部分需要在服务器运行期反复执行业务逻辑的代码，*必须使用异步代码*，否则，同步代码在执行时期，服务器将停止响应，因为JavaScript只有一个执行线程。
+由于 Node 环境执行的 JavaScript 代码是服务器端代码，所以绝大部分需要在服务器运行期反复执行业务逻辑的代码，必须使用异步，否则同步代码在执行时期，服务器将停止响应，因为 JavaScript 只有一个执行线程。
 
 服务器启动时如果需要读取配置文件，或者结束时需要写入到状态文件时，可以使用同步代码，因为这些代码只在启动和结束时执行一次，不影响服务器正常运行时的异步执行。
 
 #### 07 stream流模块
 
-`stream`是Node.js提供的又一个仅在服务区端可用的模块，目的是支持“流”这种数据结构。
+`stream` 是 Node.js 提供的又一个仅在服务区端可用的模块，目的是支持 “流” 这种数据结构。
 
-什么是流？流是一种抽象的数据结构。想象水流，当在水管中流动时，就可以从某个地方（例如自来水厂）源源不断地到达另一个地方（比如你家的洗手池）。我们也可以把数据看成是数据流，比如你敲键盘的时候，就可以把每个字符依次连起来，看成字符流。这个流是从键盘输入到应用程序，实际上它还对应着一个名字：标准输入流（stdin）。
+什么是流？流是一种抽象的数据结构。想象水流，当在水管中流动时，就可以从某个地方（例如自来水厂）源源不断地到达另一个地方（比如你家的洗手池）。我们也可以把数据看成是数据流，比如你敲键盘的时候，就可以把每个字符依次连起来，看成字符流。这个流是从键盘输入到应用程序，实际上它还对应着一个名字：标准输入流。
 
-![image-20220407085931744](mark-img/image-20220407085931744.png)
+如果应用程序把字符一个一个输出到显示器上，这也可以看成是一个流，这个流也有名字：标准输出流。
 
-如果应用程序把字符一个一个输出到显示器上，这也可以看成是一个流，这个流也有名字：标准输出流（stdout）。流的特点是数据是有序的，而且必须依次读取，或者依次写入，不能像Array那样随机定位。
+流的特点是数据是有序的，而且必须依次读取，或者依次写入，不能像 Array 那样随机定位。
 
-有些流用来读取数据，比如从文件读取数据时，可以打开一个文件流，然后从文件流中不断地读取数据。有些流用来写入数据，比如向文件写入数据时，只需要把数据不断地往文件流中写进去就可以了。
+有些流用来读取数据，比如从文件读取数据时，可以打开一个文件流，然后从文件流中不断地读取数据。
 
-在Node.js中，流也是一个对象，我们只需要响应流的事件就可以了：`data`事件表示流的数据已经可以读取了，`end`事件表示这个流已经到末尾了，没有数据可以读取了，`error`事件表示出错了。
+有些流用来写入数据，比如向文件写入数据时，只需要把数据不断地往文件流中写进去就可以了。
+
+在 Node.js 中，流也是一个对象，我们只需要响应流的事件就可以了：`data` 事件表示流的数据已经可以读取了，`end` 事件表示这个流已经到末尾了，没有数据可以读取了，`error` 事件表示出错了。
+
+> 为什么需要流？
+>
+> 假如我们用 fs 读写一个特别大的文件，那么读写过程中这个文件的全部内容会直接被加载到 Node.js 的可用内存中，造成内存使用量的急剧升高！所以我们在操作大文件时需要用流的形式来操作！同样的对于 http 模块，如果我们接收请求或响应请求时为一个大文件，那么我们也需要使用流的形式来操作！
 
 ```js
 var fs = require('fs');
 
-// 打开一个流:
+// 打开一个流：
 var rs = fs.createReadStream('sample.txt', 'utf-8');
 
-rs.on('data', function (chunk) {
-    console.log('DATA:')
-    console.log(chunk);
+// data 事件：只要有数据流传递就会触发
+// data 事件可能会被触发多次！（小文件可能一次就完了，大文件就需要多次）
+// chunk 是每次收到的数据流片段
+rs.on('data', chunk => {
+    console.log('chunk' + chunk);
 });
 
-rs.on('end', function () {
+// end 事件：数据流全部传递完成触发
+// end 事件只会被触发一次！
+rs.on('end', () => {
     console.log('END');
 });
 
-rs.on('error', function (err) {
+// error 事件：发生错误时触发
+rs.on('error', err => {
     console.log('ERROR: ' + err);
 });
-
 ```
 
-要注意，`data`事件可能会有多次，每次传递的`chunk`是流的一部分数据。
+要注意，`data` 事件可能会有多次，每次传递的 `chunk` 是流的一部分数据。
 
-要以流的形式写入文件，只需要不断调用`write()`方法，最后以`end()`结束：
-
-
+要以流的形式写入文件，只需要不断调用 `write()` 方法，最后以 `end()` 结束：
 
 ```js
 var fs = require('fs');
 
-var ws1 = fs.createWriteStream('output1.txt', 'utf-8');
-ws1.write('使用Stream写入文本数据...\n');
-ws1.write('END.');
-ws1.end();
-
+var ws = fs.createWriteStream('output.txt', 'utf-8');
+// 每次 write 都是以一个流片段写入
+ws.write('使用Stream写入文本数据...\n');
+ws.write('END');
+ws.end();
 ```
 
-`pipe` 就像可以把两个水管串成一个更长的水管一样，两个流也可以串起来。一个`Readable`流和一个`Writable`流串起来后，所有的数据自动从`Readable`流进入`Writable`流，这种操作叫`pipe`。
+`pipe` 就像可以把两个水管串成一个更长的水管一样，两个流也可以串起来。
 
-在Node.js中，`Readable`流有一个`pipe()`方法，就是用来干这件事的。
+pipe：管道、传送
 
-让我们用`pipe()`把一个文件流和另一个文件流串起来，这样源文件的所有数据就自动写入到目标文件里了，所以，这实际上是一个复制文件的程序：
+一个 `Readable` 流和一个 `Writable` 流串起来后，所有的数据自动从 `Readable` 流进入 `Writable` 流，这种操作叫 `pipe`。
+
+我们用 pipe 就可以实现诸如：一边读数据流，一边把数据流写入文件的操作！从而以更高性能的实现大文件的复制！
+
+并且 `pipe()` 方法会自己协调读取与写入的流速差问题，完毕之后还会自动关闭！
+
+在 Node.js 中，`Readable` 流有一个 `pipe()` 方法，就是用来干这件事的。
+
+让我们用 `pipe()` 把一个文件流和另一个文件流串起来，这样源文件的所有数据就自动写入到目标文件里了，所以，这实际上是一个复制文件的程序：
 
 ```js
-const fs = require('fs')
+const fs = require('fs');
 
-const readstream = fs.createReadStream('./1.txt')
-const writestream = fs.createWriteStream('./2.txt')
+const readstream = fs.createReadStream('./1.txt');
+const writestream = fs.createWriteStream('./2.txt');
 
-readstream.pipe(writestream)
+// 输出 ————pipe————> 输入
+readstream.pipe(writestream);
 ```
 
 #### 08 zlib模块
 
+浏览器请求服务器的前端静态资源，服务器就会先读取静态资源再响应给浏览器，但是如果资源比较大，那么网络发送的延时就会比较高，我们可以对资源进行压缩发送，浏览器拿到后再进行解压就会比较快！压缩算法比较多，我们认识一个比较出名的 zlib
+
 <img src="mark-img/image-20220407105916114.png" alt="image-20220407105916114" style="zoom:50%;" />
 
 ```js
-const fs = require('fs')
-const zlib = require('zlib')
+const fs = require('fs');
+const zlib = require('zlib');
 
-const gzip = zlib.createGzip()
+const gzip = zlib.createGzip();
 
-const readstream = fs.createReadStream('./note.txt')
-const writestream = fs.createWriteStream('./note2.txt')
+const readstream = fs.createReadStream('./note.txt');
+const writestream = fs.createWriteStream('./note2.txt');
 
-readstream
-  .pipe(gzip)
-  .pipe(writestream)
+readstream.pipe(gzip).pipe(writestream);
+```
 
+静态资源案例
+```js
+const http = require('http');
+const fs = require('fs');
+const zlib = require('zlib');
+const gzip = zlib.createGzip();
+http.createServer((req, res) => {
+    // 实际上，req 和 res 都是流对象！
+    // 读取一个静态文件
+    const readStream = fs.createReadStream('./index.js');
+    res.writeHead(200, {
+        // 指定内存类型和字符集编码
+        'Content-Type': 'application/x-javascript;charset=utf-8',
+        // 指定内容编码
+        'Content-Encoding': 'gzip'
+    });
+    // 先把流交给 gzip 压缩，随即交给 res
+    readStream.pipe(gzip).pipe(res);
+}).listen(8080, () => {
+    console.log('server start');
+});
 ```
 
 #### 09 crypto模块
 
-crypto 模块的目的是为了提供通用的加密和哈希算法。用纯JavaScript代码实现这些功能不是不可能，但速度会非常慢。Nodejs用C/C++实现这些算法后，通过cypto这个模块暴露为JavaScript接口，这样用起来方便，运行速度也快。
+crypto 模块的目的是为了提供通用的加密和哈希算法。用纯 JavaScript 代码实现这些功能不是不可能，但速度会非常慢。Node.js 用 C/C++ 实现这些算法后，通过 cypto 这个模块暴露为 JavaScript 接口，这样用起来方便，运行速度也快。
 
-MD5是一种常用的哈希算法，用于给任意数据一个“签名”。这个签名通常用一个十六进制的字符串表示：
+MD5 是一种常用的哈希算法，用于给任意数据一个“签名”。这个签名通常用一个十六进制的字符串表示：
 
 ```js
 const crypto = require('crypto');
 
+// 创建 hash 方法（md5算法）
 const hash = crypto.createHash('md5');
 
-// 可任意多次调用update():
+// 可任意多次调用 update()
 hash.update('Hello, world!');
 hash.update('Hello, nodejs!');
 
-console.log(hash.digest('hex')); 
-
+// 以 16 进制的方式进行展示
+console.log(hash.digest('hex'));
+// 以 base64 的方式进行展示
+console.log(hash.digest('base64'));
 ```
 
-`update()`方法默认字符串编码为`UTF-8`，也可以传入Buffer。
+`update()` 方法默认字符串编码为 `UTF-8`，也可以传入 Buffer。
 
-如果要计算SHA1，只需要把`'md5'`改成`'sha1'`，就可以得到SHA1的结果`1f32b9c9932c02227819a4151feed43e131aca40`。
+如果要计算 SHA1，只需要把 `'md5'` 改成 `'sha1'`，就可以得到 SHA1 的结果。
 
-Hmac算法也是一种哈希算法，它可以利用MD5或SHA1等哈希算法。不同的是，Hmac还需要一个密钥：
+Hmac 算法也是一种哈希算法，它可以利用 MD5 或 SHA1 等哈希算法。不同的是，Hmac 还需要一个密钥：
 
-```
+```js
 const crypto = require('crypto');
 
 const hmac = crypto.createHmac('sha256', 'secret-key');
@@ -1184,118 +1359,361 @@ const hmac = crypto.createHmac('sha256', 'secret-key');
 hmac.update('Hello, world!');
 hmac.update('Hello, nodejs!');
 
-console.log(hmac.digest('hex')); // 80f7e22570...
-
+console.log(hmac.digest('hex'));
 ```
 
-只要密钥发生了变化，那么同样的输入数据也会得到不同的签名，因此，可以把Hmac理解为用随机数“增强”的哈希算法。
+只要密钥发生了变化，那么同样的输入数据也会得到不同的签名，因此可以把 Hmac 理解为用随机数 “增强” 的哈希算法。
 
-
-
-AES是一种常用的对称加密算法，加解密都用同一个密钥。crypto模块提供了AES支持，但是需要自己封装好函数，便于使用：
-
-```js
-const crypto = require("crypto");
-
-function encrypt (key, iv, data) {
-    let decipher = crypto.createCipheriv('aes-128-cbc', key, iv);
-    // decipher.setAutoPadding(true);
-    return decipher.update(data, 'binary', 'hex') + decipher.final('hex');
-}
-
-function decrypt (key, iv, crypted) {
-     crypted = Buffer.from(crypted, 'hex').toString('binary');
-     let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
-     return decipher.update(crypted, 'binary', 'utf8') + decipher.final('utf8');
-}
-key,iv必须是16个字节
-
-```
-
-可以看出，加密后的字符串通过解密又得到了原始内容。
+AES 是一种常用的对称加密算法，加解密都用同一个密钥。crypto 模块提供了 AES 支持，但是需要自己封装好函数，以便使用，此处不再展开。
 
 ### 1.5.2 路由
 
+> 后面我们会学习 Express 及 Koa，这些框架都是以 “路由 + 中间件” 为核心的！所以我们这里以纯 Node.js 的方式来模块化的方式实现一下基本的路由，同时设计 use 方法，来模拟中间件……
+
 #### 01 基础
 
-```js
-var fs = require("fs");
-var path = require("path");
+- index.js
 
-function render(res, path) {
-    res.writeHead(200, { "Content-Type": "text/html;charset=utf8" });
-    res.write(fs.readFileSync(path, "utf8"));
+```js
+const server = require('./server');
+const route = require('./route');
+const api = require('./api');
+
+//注册路由
+server.use(route);
+server.use(api);
+
+server.start();
+```
+
+- server.js
+
+```js
+const http = require('http');
+const Router = {};
+
+function use(obj) {
+    Object.assign(Router, obj);
+}
+
+function start() {
+    http.createServer((req, res) => {
+        const myURL = new URL(req.url, 'http://127.0.0.1');
+        try {
+            // Router 是一个对象，可以用 [] 访问属性
+            Router[myURL.pathname](res);
+        } catch (error) {
+            Router['/404'](res);
+        }
+    }).listen(3000, () => {
+        console.log('server start');
+    });
+}
+
+exports.start = start;
+exports.use = use;
+```
+
+- route.js
+
+```js
+const fs = require('fs');
+
+function render(res, path, type = '') {
+    res.writeHead(200, { 'Content-Type': `${type ? type : 'text/html'};charset=utf8` });
+    res.write(fs.readFileSync(path), 'utf-8');
+    res.end();
+}
+const route = {
+    '/login': res => {
+        render(res, './static/login.html');
+    },
+    '/home': res => {
+        render(res, './static/home.html');
+    },
+    '/404': res => {
+        res.writeHead(404, { 'Content-Type': 'text/html;charset=utf8' });
+        res.write(fs.readFileSync('./static/404.html'), 'utf-8');
+        res.end();
+    },
+    '/favicon.ico': res => {
+        render(res, './static/favicon.ico', 'image/x-icon');
+    }
+};
+
+module.exports = route;
+```
+
+- api.js
+
+```js
+function render(res, data, type = '') {
+    res.writeHead(200, { 'Content-Type': `${type ? type : 'application/json'};charset=utf8` });
+    res.write(data);
+    res.end();
+}
+const apiRouter = {
+    '/api/login': res => {
+        render(res, `{ok: 1}`);
+    }
+};
+
+module.exports = apiRouter;
+```
+
+#### 02 获取参数
+
+- index.js
+
+```js
+const server = require('./server');
+const route = require('./route');
+const api = require('./api');
+
+//注册路由
+server.use(route);
+server.use(api);
+
+server.start();
+```
+
+- server.js
+
+```js
+const http = require('http');
+const Router = {};
+
+function use(obj) {
+    Object.assign(Router, obj);
+}
+
+function start() {
+    http.createServer((req, res) => {
+        const myURL = new URL(req.url, 'http://127.0.0.1');
+
+        try {
+            Router[myURL.pathname](req, res);
+        } catch (error) {
+            Router['/404'](req, res);
+        }
+    }).listen(3000, () => {
+        console.log('server start');
+    });
+}
+
+exports.start = start;
+exports.use = use;
+```
+
+- route.js
+
+```js
+const fs = require('fs');
+
+function render(res, path, type = '') {
+    res.writeHead(200, { 'Content-Type': `${type ? type : 'text/html'};charset=utf8` });
+    res.write(fs.readFileSync(path), 'utf-8');
+    res.end();
+}
+const route = {
+    '/login': (req, res) => {
+        render(res, './static/login.html');
+    },
+    '/home': (req, res) => {
+        render(res, './static/home.html');
+    },
+    '/404': (req, res) => {
+        res.writeHead(404, { 'Content-Type': 'text/html;charset=utf8' });
+        res.write(fs.readFileSync('./static/404.html'), 'utf-8');
+        res.end();
+    },
+    '/favicon.ico': (req, res) => {
+        render(res, './static/favicon.ico', 'image/x-icon');
+    }
+};
+
+module.exports = route;
+```
+
+- api.js
+
+```js
+function render(res, data, type = '') {
+    res.writeHead(200, { 'Content-Type': `${type ? type : 'application/json'};charset=utf8` });
+    res.write(data);
     res.end();
 }
 
+const apiRouter = {
+    '/api/login': (req, res) => {
+        // 获取 Get 参数
+        const myURL = new URL(req.url, 'http://127.0.0.1');
 
-const route = {
-    "/login": (req, res) => {
-        render(res, "./static/login.html");
+        if (myURL.searchParams.get('username') === 'kerwin' && myURL.searchParams.get('password') === '123456') {
+            render(res, `{"ok": 1}`);
+        } else {
+            render(res, `{"ok": 0}`);
+        }
     },
 
-    "/home": (req, res) => {
-        render(res, "./static/home.html");
-    },
-    "/404": (req, res) => {
-        res.writeHead(404, { "Content-Type": "text/html;charset=utf8" });
-        res.write(fs.readFileSync("./static/404.html", "utf8"));
-    }
-};
-```
-
-###### 02   获取参数
-
-get请求
-
-```js
-"/api/login":(req,res)=>{
-    const myURL = new URL(req.url, 'http://127.0.0.1:3000');
-    console.log(myURL.searchParams.get("username"));
-    render(res,`{ok:1}`);
-}
-```
-
-post请求
-
-```js
-"/api/login": (req, res) => {
+    '/api/loginpost': (req, res) => {
+        // 获取 Post 参数
         var post = '';
-        // 通过req的data事件监听函数，每当接受到请求体的数据，就累加到post变量中
-        req.on('data', function (chunk) {
+        req.on('data', chunk => {
             post += chunk;
         });
 
-        // 在end事件触发后，通过querystring.parse将post解析为真正的POST请求格式，然后向客户端返回。
-        req.on('end', function () {
+        req.on('end', () => {
+            console.log(post);
             post = JSON.parse(post);
-            render(res, `{ok:1}`);
+            if (post.username === 'kerwin' && post.password === '123456') {
+                render(res, `{"ok": 1}`);
+            } else {
+                render(res, `{"ok": 0}`);
+            }
         });
+    }
 };
+
+module.exports = apiRouter;
 ```
 
+#### 03 静态资源处理
 
-
-###### 03   静态资源处理
+- index.js
 
 ```js
-function readStaticFile(req, res) {
-    const myURL = new URL(req.url, 'http://127.0.0.1:3000');
-    var filePathname = path.join(__dirname, "/static", myURL.pathname);
+const server = require('./server');
+const route = require('./route');
+const api = require('./api');
 
-    if (fs.existsSync(filePathname)) {
-        // console.log(1111);
-        res.writeHead(200, { "Content-Type": `${mime.getType(myURL.pathname.split(".")[1])};charset=utf8` });
-        res.write(fs.readFileSync(filePathname, "utf8"));
+//注册路由
+server.use(route);
+server.use(api);
+
+server.start();
+```
+
+- server.js
+
+```js
+const http = require('http');
+const Router = {};
+
+function use(obj) {
+    Object.assign(Router, obj);
+}
+
+function start() {
+    http.createServer((req, res) => {
+        const myURL = new URL(req.url, 'http://127.0.0.1');
+
+        try {
+            Router[myURL.pathname](req, res);
+        } catch (error) {
+            Router['/404'](req, res);
+        }
+    }).listen(3000, () => {
+        console.log('server start');
+    });
+}
+
+exports.start = start;
+exports.use = use;
+```
+
+- route.js
+
+```js
+const fs = require('fs');
+const path = require('path');
+const mime = require('mime');
+
+function render(res, path, type = '') {
+    res.writeHead(200, { 'Content-Type': `${type ? type : 'text/html'};charset=utf8` });
+    res.write(fs.readFileSync(path), 'utf-8');
+    res.end();
+}
+const route = {
+    '/login': (req, res) => {
+        render(res, './static/login.html');
+    },
+    '/': (req, res) => {
+        render(res, './static/home.html');
+    },
+    '/home': (req, res) => {
+        render(res, './static/home.html');
+    },
+    '/404': (req, res) => {
+        if (readStaticFile(req, res)) {
+            return;
+        }
+        res.writeHead(404, { 'Content-Type': 'text/html;charset=utf8' });
+        res.write(fs.readFileSync('./static/404.html'), 'utf-8');
         res.end();
+    }
+};
+
+// 静态资源管理
+function readStaticFile(req, res) {
+    // 获取路径
+    const myURL = new URL(req.url, 'http://127.0.0.1:3000');
+    const pathname = path.join(__dirname, '/static', myURL.pathname);
+    if (myURL.pathname === '/') return false;
+    if (fs.existsSync(pathname)) {
+        // 处理显示返回
+        render(res, pathname, mime.getType(myURL.pathname.split('.')[1]));
         return true;
     } else {
         return false;
     }
 }
+
+module.exports = route;
 ```
 
-#### 二、Express
+- api.js
+
+```js
+function render(res, data, type = '') {
+    res.writeHead(200, { 'Content-Type': `${type ? type : 'application/json'};charset=utf8` });
+    res.write(data);
+    res.end();
+}
+
+const apiRouter = {
+    '/api/login': (req, res) => {
+        const myURL = new URL(req.url, 'http://127.0.0.1');
+
+        if (myURL.searchParams.get('username') === 'kerwin' && myURL.searchParams.get('password') === '123456') {
+            render(res, `{"ok": 1}`);
+        } else {
+            render(res, `{"ok": 0}`);
+        }
+    },
+
+    '/api/loginpost': (req, res) => {
+        var post = '';
+        req.on('data', chunk => {
+            post += chunk;
+        });
+
+        req.on('end', () => {
+            console.log(post);
+            post = JSON.parse(post);
+            if (post.username === 'kerwin' && post.password === '123456') {
+                render(res, `{"ok": 1}`);
+            } else {
+                render(res, `{"ok": 0}`);
+            }
+        });
+    }
+};
+
+module.exports = apiRouter;
+```
+
+# 二、Express
 
 > https://www.expressjs.com.cn/
 
@@ -1579,8 +1997,6 @@ var cookieParser = require('cookie-parser')
 app.use(cookieParser())
 ```
 
-
-
 ##### 5. 获取请求参数
 
 get
@@ -1661,7 +2077,7 @@ npm i ejs
 
 <img src="mark-img/image-20220411104652068.png" alt="image-20220411104652068" style="zoom:50%;float:left" />
 
-#### 三、MongoDB
+# 三、MongoDB
 
 ##### 1.关系型与非关系型数据库
 
@@ -1774,7 +2190,7 @@ UserModel.updateOne({
 UserModel.deleteOne({_id})
 ```
 
-#### 四、接口规范与业务分层
+# 四、接口规范与业务分层
 
 ##### 1.接口规范
 
@@ -1786,7 +2202,7 @@ UserModel.deleteOne({_id})
 
 ![image-20220414094653807](mark-img/image-20220414094653807.png)
 
-#### 五、登录鉴权
+# 五、登录鉴权
 
 ##### 1. Cookie&Session
 
@@ -1965,7 +2381,7 @@ axios.interceptors.response.use(function (response) {
 
 ```
 
-#### 六、文件上传管理
+# 六、文件上传管理
 
 Multer 是一个 node.js 中间件，用于处理 `multipart/form-data` 类型的表单数据，它主要用于上传文件。
 
@@ -1998,42 +2414,10 @@ Multer 会添加一个 `body` 对象 以及 `file` 或 `files` 对象 到 expres
 //前后端分离-后端
 router.post('/upload', upload.single('kerwinfile'),function(req, res, next) {
 	console.log(req.file)
-})
+});
 ```
 
-#### 七、APIDOC - API 文档生成工具
-
-apidoc 是一个简单的 RESTful API 文档生成工具，它从代码注释中提取特定格式的内容生成文档。支持诸如 Go、Java、C++、Rust 等大部分开发语言，具体可使用 `apidoc lang` 命令行查看所有的支持列表。
-
-apidoc 拥有以下特点：
-
-1. 跨平台，linux、windows、macOS 等都支持；
-2. 支持语言广泛，即使是不支持，也很方便扩展；
-3. 支持多个不同语言的多个项目生成一份文档；
-4. 输出模板可自定义；
-5. 根据文档生成 mock 数据；
-
-```
-npm install -g apidoc
-```
-
-## ![image-20220415085343339](mark-img/image-20220415085343339.png)
-
-注意：
-
-(1) 在当前文件夹下 apidoc.json
-
-```json
-{
-	"name": "****接口文档",
-	"version": "1.0.0",
-	"description": "关于****的接口文档描述",
-	"title": "****"
-}
-```
-
-（2）可以利用vscode apidoc snippets 插件创建api
-#### 八、Koa2
+# 七、Koa2
 
 <img src="mark-img/image-20220417075653414.png" alt="image-20220417075653414" style="zoom:50%;" />
 
@@ -2203,8 +2587,6 @@ app.use(router.routes()).use(router.allowedMethods())
 app.listen(3000)
 ```
 
-
-
 ###### 4.2 router.allowedMethods作用
 
 ![image-20220417102845079](mark-img/image-20220417102845079.png)
@@ -2284,15 +2666,11 @@ app.use(router.routes()).use(router.allowedMethods())
 app.listen(3000)
 ```
 
-
-
 ###### 4.5 路由前缀
 
 ```js
 router.prefix('/api')
 ```
-
-
 
 ###### 4.6 路由重定向
 
@@ -2329,10 +2707,7 @@ app.use( async ( ctx ) => {
 app.listen(3000, () => {
   console.log('[demo] static-use-middleware is starting at port 3000')
 })
-
 ```
-
-
 
 ##### 6.  获取请求参数
 
@@ -2352,10 +2727,7 @@ const bodyParser = require('koa-bodyparser')
 
 // 使用ctx.body解析中间件
 app.use(bodyParser())
-
 ```
-
-
 
 ##### 7. ejs模板
 
@@ -2418,8 +2790,6 @@ app.listen(3000)
 </body>
 </html>
 ```
-
-
 
 ##### 8. cookie&session
 
@@ -2496,8 +2866,6 @@ app.use(async(ctx, next) => {
 })
    ```
 
-#####    
-
 ##### 10.上传文件
 
 > https://www.npmjs.com/package/@koa/multer
@@ -2530,8 +2898,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/kerwin_project")
 //插入集合和数据,数据库kerwin_project会自动创建
 ```
 
-
-
 ```js
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
@@ -2547,9 +2913,7 @@ const UserModel = mongoose.model("user",new Schema(UserType))
 module.exports = UserModel
 ```
 
-
-
-#### 九、MySQL
+# 八、MySQL
 
 ##### 1.介绍
 
@@ -2758,9 +3122,7 @@ promisePool.query(`delete from users where id=?`,[1])
 
 ```
 
-
-
-#### 十、Socket编程
+# 九、Socket编程
 
 ##### 1.websocket介绍
 
@@ -2779,8 +3141,6 @@ promisePool.query(`delete from users where id=?`,[1])
 - 体育实况更新
 
 - 股票基金报价实时更新
-
-
 
 WebSocket并不是全新的协议，而是利用了HTTP协议来建立连接。我们来看看WebSocket连接是如何创建的。
 
@@ -2957,8 +3317,6 @@ function sendBroadList(){
 }
 ```
 
-
-
 ##### 3.socket.io模块
 
 服务端：
@@ -3055,9 +3413,7 @@ send.onclick = () => {
 }
 ```
 
-
-
-#### 十一、mocha
+# 十、mocha
 
 单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作。
 
@@ -3116,11 +3472,7 @@ describe('#hello.js', () => {
 });
 ```
 
-
-
 ##### 2.chai断言库
-
-
 
 ![image-20220505113605440](mark-img/image-20220505113605440.png)
 
@@ -3176,10 +3528,7 @@ describe('expect Demo', function() {
         expect(value).to.have.length(5)
     })
 });
-
 ```
-
-
 
 ##### 3.异步测试
 
@@ -3192,8 +3541,6 @@ it('test async function',async function () {
     expect(data).to.equal('hello')
 });
 ```
-
-
 
 ##### 4.http测试
 
@@ -3217,8 +3564,6 @@ describe('#test koa app', () => {
     });
 });
 ```
-
-
 
 ##### 5.钩子函数
 
