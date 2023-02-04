@@ -348,6 +348,7 @@ exports.editArticle = (req, res) => {
             };
             db.query(sql, [articleInfo, req.body.id], (err, results) => {
                 if (err) {
+                    // 原则上，此处应该把新存入的图片删除……
                     return res.fastSend(err);
                 }
                 if (results.affectedRows !== 1) {
@@ -374,7 +375,7 @@ exports.editArticle = (req, res) => {
                     return res.fastSend(err);
                 }
                 if (results.affectedRows !== 1) {
-                    return res.fastSend('处理异常，请稍后再试！');
+                    return res.fastSend('文章已更新，但图片清理失败！');
                 }
                 return res.fastSend('文章更新成功！', 'ok');
             });
