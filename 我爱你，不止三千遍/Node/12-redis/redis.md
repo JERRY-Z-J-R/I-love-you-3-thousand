@@ -549,6 +549,11 @@ OK
 
 > 注意：以上操作只是 Redis 实际操作命令的一小部分，更多的内容请查看文档！
 
+> 这里推荐两款 Redis 可视化工具：
+>
+> - [RESP.app (formerly Redis Desktop Manager) - GUI for Redis ® available on Windows, macOS, iPad and Linux.](https://resp.app/)（体验好，功能强大，但是收费）
+> - [qishibo/AnotherRedisDesktopManager: 🚀🚀🚀A faster, better and more stable redis desktop manager GUI client, compatible with Linux, Windows, Mac. What's more, it won't crash when loading massive keys. (github.com)](https://github.com/qishibo/AnotherRedisDesktopManager)（开源，基本功能够用）
+
 # 五、持久化
 
 Redis 是一个内存数据库，当 Redis 服务器重启，或者计算机重启，数据会丢失，我们可以将 Redis 内存中的数据持久化保存到硬盘的文件中。
@@ -598,3 +603,335 @@ redis-server redis.windows.conf
 ```
 
 > 注意：虽然 Redis 有持久化机制，但是其持久化是存在一定风险的，还要根据具体业务具体分析！
+
+# 六、使用 Node.js 操作 Redis
+
+![image-20230206140917579](mark-img/image-20230206140917579.png)
+
+Redis 官方网站上为我们列举了各种语言操作 Redis 的工具库，其中 Node.js 中有两个最主要的：`node-redis`、`ioredis`，它们性能都非常高！但是 `ioredis` 功能要更丰富强大一些，所以我们下面就用 `ioredis` 来操作 Redis。
+
+- [redis - npm (npmjs.com)](https://www.npmjs.com/package/redis)
+- [ioredis - npm (npmjs.com)](https://www.npmjs.com/package/ioredis)
+
+**【ioredis 的基本使用】**
+
+官方文档：[ioredis (luin.github.io)](https://luin.github.io/ioredis/index.html)
+
+- 下载
+
+```
+npm install ioredis
+```
+
+- 基本用法
+
+```js
+// 导入 ioredis.
+// 也可以使用 import { Redis } from "ioredis"
+// 如果你要使用 TypeScript，仍然支持 import Redis from "ioredis"，但是在下一个主要版本中将被弃用
+const Redis = require("ioredis");
+
+// 创建一个 Redis 实例
+// 默认情况下该实例会连接到 localhost:6379.
+// 我们将很快介绍如何指定连接选项。
+const redis = new Redis();
+
+// 返回一个 Promise，当命令执行成功时，承诺将解析为 “OK”
+redis.set("mykey", "value"); 
+
+// ioredis 也支持 node.js 回调函数的写法
+redis.get("mykey", (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(result); // 打印 "value"
+  }
+});
+
+// 如果最后一个参数不是函数，ioredis 返回一个 Promise
+redis.get("mykey").then((result) => {
+  console.log(result); // 打印 "value"
+});
+
+redis.zadd("sortedSet", 1, "one", 2, "dos", 4, "quatro", 3, "three");
+redis.zrange("sortedSet", 0, 2, "WITHSCORES").then((elements) => {
+  // ["one"， "1"， "dos"， "2"， "three"， "3"] 就好像命令是 `redis> ZRANGE sortedSet 0 2 WITHSCORES`
+  console.log(elements);
+});
+
+// 所有参数都直接传递给 Redis 服务器，
+// 所以技术上 ioredis 支持所有的 Redis 命令。
+// 格式为：redis[SOME_REDIS_COMMAND_IN_LOWERCASE](ARGUMENTS_ARE_JOINED_INTO_COMMAND_STRING)
+// 因此下面的语句相当于 CLI: `redis> SET mykey hello EX 10`
+redis.set("mykey", "hello", "EX", 10);
+```
+
+- 连接配置
+
+当一个新的 “Redis” 实例被创建时，一个 Redis 的连接将同时被创建。
+
+你可以指定连接到哪个 Redis：
+
+```js
+new Redis(); // 连接到 127.0.0.1:6379
+new Redis(6380); // 127.0.0.1:6380
+new Redis(6379, "192.168.1.1"); // 192.168.1.1:6379
+new Redis("/tmp/redis.sock");
+new Redis({
+  port: 6379, // Redis 端口
+  host: "127.0.0.1", // Redis IP
+  username: "default",
+  password: "my-top-secret",
+  db: 0, // 默认选择 DB0
+});
+```
+
+- String 案例
+
+```js
+const Redis = require("ioredis");
+const redis = new Redis();
+
+async function main() {
+  const user = {
+    name: "Bob",
+    // Redis 键的值不能为数字。
+    // 我们可以在这里写入 age: 20，但 ioredis 无论如何都会将其转换为字符串。
+    age: "20",
+    description: "I am a programmer",
+  };
+
+  // 将多个键设置为多个值
+  await redis.mset(user);
+
+  const name = await redis.get("name");
+  console.log(name); // "Bob"
+
+  const age = await redis.get("age");
+  console.log(age); // "20"
+
+  // 获取所有给定键的值
+  // 或者 await redis.mget(["name", "age", "description"])
+  const all = await redis.mget("name", "age", "description");
+  console.log(all); // [ 'Bob', '20', 'I am a programmer' ]
+
+  // 或者 await redis.del("name", "description");
+  await redis.del(["name", "description"]);
+
+  // 查询一个 key 是否存在
+  const exists = await redis.exists("name");
+  console.log(exists); // 0 (表示为假，如果是1，表示为真)
+
+  // 将键的整数值增加给定的值
+  await redis.incrby("age", 1);
+  const newAge = await redis.get("age");
+  console.log(newAge); // 21
+
+  // 用 EX 设置 key 的过期时间
+  await redis.set("key_with_ttl", "hey", "EX", 1000);
+  // 以秒为单位返回 key 的剩余过期时间
+  const ttl = await redis.ttl("key_with_ttl");
+  console.log(ttl); // 小于等于 1000 的数字
+}
+
+main();
+```
+
+- Hash 案例
+
+```js
+const Redis = require("ioredis");
+const redis = new Redis();
+
+async function main() {
+  const user = {
+    name: "Bob",
+    // Redis 哈希键的字段只能是字符串。
+    // 我们可以在这里写入 age: 20，但 ioredis 无论如何都会将其转换为字符串。
+    age: "20",
+    description: "I am a programmer",
+  };
+
+  await redis.hmset("user-hash", user);
+
+  const name = await redis.hget("user-hash", "name");
+  console.log(name);	// "Bob"
+
+  const age = await redis.hget("user-hash", "age");
+  console.log(age);		// "20"
+
+  const all = await redis.hgetall("user-hash");
+  console.log(all);		// { age: '20', name: 'Bob', description: 'I am a programmer' }
+
+  // 或者 `await redis.hdel("user-hash", "name", "description")`;
+  await redis.hdel("user-hash", ["name", "description"]);
+
+  const exists = await redis.hexists("user-hash", "name");
+  console.log(exists); // 0 (表示为假，如果是1，表示为真)
+
+  await redis.hincrby("user-hash", "age", 1);
+  const newAge = await redis.hget("user-hash", "age");
+  console.log(newAge); // 21
+
+  await redis.hsetnx("user-hash", "age", 23);
+  console.log(await redis.hget("user-hash", "age")); // 21, as the field "age" already exists.
+}
+
+main();
+```
+
+- List 案例：
+
+```js
+const Redis = require("ioredis");
+const redis = new Redis();
+
+async function main() {
+  const numbers = [1, 3, 5, 7, 9];
+  await redis.lpush("user-list", numbers);
+
+  const popped = await redis.lpop("user-list");
+  console.log(popped); // 9
+
+  const all = await redis.lrange("user-list", 0, -1);
+  console.log(all); // [ '7', '5', '3', '1' ]
+
+  const position = await redis.lpos("user-list", 5);
+  console.log(position); // 1
+
+  setTimeout(() => {
+    // `redis` is in the block mode due to `redis.blpop()`,
+    // so we duplicate a new connection to invoke LPUSH command.
+    redis.duplicate().lpush("block-list", "hello");
+  }, 1200);
+  const blockPopped = await redis.blpop("block-list", 0); // Resolved after 1200ms.
+  console.log(blockPopped); // [ 'block-list', 'hello' ]
+}
+
+main();
+```
+
+- Set 案例：
+
+```js
+const Redis = require("ioredis");
+const redis = new Redis();
+
+async function main() {
+  const numbers = [1, 3, 5, 7, 9];
+  await redis.sadd("user-set", numbers);
+
+  const elementCount = await redis.scard("user-set");
+  console.log(elementCount); // 5
+
+  await redis.sadd("user-set", "1");
+  const newElementCount = await redis.scard("user-set");
+  console.log(newElementCount); // 5
+
+  const isMember = await redis.sismember("user-set", 3);
+  console.log(isMember); // 1 (表示为真，如果为0，表示为假)
+}
+
+main();
+```
+
+- SortedSet 案例：
+
+```js
+const Redis = require("ioredis");
+const redis = new Redis();
+
+async function main() {
+  const scores = [
+    { name: "Bob", score: 80 },
+    { name: "Jeff", score: 59.5 },
+    { name: "Tom", score: 100 },
+    { name: "Alex", score: 99.5 },
+  ];
+  await redis.zadd(
+    "user-zset",
+    ...scores.map(({ name, score }) => [score, name])
+  );
+
+  console.log(await redis.zrange("user-zset", 2, 3)); // [ 'Alex', 'Tom' ]
+  console.log(await redis.zrange("user-zset", 2, 3, "WITHSCORES")); // [ 'Alex', '99.5', 'Tom', '100' ]
+  console.log(await redis.zrange("user-zset", 2, 3, "REV")); // [ 'Bob', 'Jeff' ]
+  console.log(await redis.zrange("user-zset", 80, 100, "BYSCORE")); // [ 'Bob', 'Alex', 'Tom' ]
+  console.log(await redis.zrange("user-zset", 2, 3)); // [ 'Alex', 'Tom' ]
+}
+
+main();
+```
+
+【小技巧】
+
+> 需求：前端通过 Ajax 请求后端 API 获取一个班级成员列表，这个班级成员列表存储在 MySQL 数据库中，后端通过请求 MySQL 数据库获得班级成员列表数据并将其包装为 JSON 格式进行返回，由于班级成员列表数据很少会发生改变，每次请求都去访问 MySQL 数据库消耗太多性能资源，所以现需要利用 Redis 进行缓存……
+>
+> > 小技巧：对于 JSON 型的返回数据，直接把 JSON 字符串存到 Redis String 中更方便！
+
+![image-20220715225639397](mark-img/image-20220715225639397-1675658585598-1.png)
+
+后端逻辑：
+
+- 查询班级成员列表
+
+```js
+const express = require('express');
+const cors = require('cors');
+const mysql = require('mysql');
+const Redis = require('ioredis');
+
+const app = new express();
+const redis = new Redis();
+
+const db = mysql.createPool({
+    host: '127.0.0.1',
+    port: '3306',
+    user: 'root',
+    password: '123456',
+    database: 'redis_test'
+});
+
+app.use(cors());
+
+app.get('/getClass', async (req, res) => {
+    try {
+        // 从 Redis 中获取 'classMembers'
+        const classMembersJson = await redis.get('classMembers');
+        // 如果不存在 'classMembers' 或者 'classMembers' 为空字符串
+        if (classMembersJson === null || classMembersJson === '') {
+            // 那么就查询 MySQL 数据库
+            const sql = 'SELECT * FROM class_members';
+            db.query(sql, async (err, results) => {
+                if (err) {
+                    res.send(err);
+                }
+                // 将查询到的数据转为 JSON 字符串
+                const jsonData = JSON.stringify(results);
+                // 将 JSON 字符串写入进 Redis 的 'classMembers'
+                await redis.set('classMembers', jsonData);
+                res.send(jsonData);
+            });
+        } else {
+            res.send(classMembersJson);
+        }
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+app.listen(8080, () => {
+    console.log('http://127.0.0.1:8080');
+});
+```
+
+![image-20230206160747996](mark-img/image-20230206160747996.png)
+
+- 更新班级成员列表
+
+> 数据库的班级成员数据一但改变就需要更新 Redis 缓存！
+>
+> 发生改变的时机：对班级成员数据进行 “增、删、改” 完成后。
+>
+> 更新方法：在班级成员数据的 “增、删、改” 操作之后执行 `redis.del('classMembers');`，因为删除之后，在获取数据时就会去查 MySQL 数据库，并将新数据同步到 Redis 中。
+
