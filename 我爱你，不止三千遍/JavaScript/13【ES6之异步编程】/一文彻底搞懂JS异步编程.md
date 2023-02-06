@@ -1585,6 +1585,30 @@ fn().catch(console.log);
 
 async/await 的几个使用注意点：
 
+- **使用范围**
+
+await 只能在 async 函数的顶层使用！
+
+也就是说下面的做法是错误的！
+
+```js
+async function fn1() {
+    function fn2() {
+        // 报错：仅允许在异步函数和模块顶层使用 "await" 表达式！
+        await test();
+    }
+}
+
+// --------------------------------------------------------
+
+async function fn1() {
+    async function fn2() {
+        // OK!
+        await test();
+    }
+}
+```
+
 - **并行执行**
 
 ```js
