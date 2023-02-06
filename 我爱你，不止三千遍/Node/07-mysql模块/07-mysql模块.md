@@ -229,3 +229,228 @@ db.query('UPDATE USERS SET status=1 WHERE id=?', 8, (err, results) => {
 ```
 
 <img src="mark-img/image-20221215183404453.png" alt="image-20221215183404453" style="width:80%;" />
+
+## 1.4 其他补充
+
+### 1.4.1 关于连接
+
+实际上我们之前使用的 `mysql.createPool` 是创建连接池的方式，如果我们不需要连接池，那么应该这样：
+
+首先，使用以下语句导入 mysql 模块：
+
+```js
+const mysql = require('mysql');
+```
+
+其次，通过调用 createConnection() 方法并提供 MySQL 服务器上的详细信息（如主机，用户，密码和数据库），建立与 MySQL 数据库的连接，如下所示：
+
+```js
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'test'
+});
+```
+
+然后，在连接对象上调用 connect() 方法连接到 MySQL 数据库服务器：
+
+connect() 方法接受一个具有 err 参数的回调函数，如果发生任何错误，它将提供详细的错误。
+
+```js
+connection.connect(err => {
+  if (err) {
+    return console.error('error: ' + err.message);
+  }
+  console.log('Connected to the MySQL server.');
+});
+```
+
+完整的程序代码如下所示：
+
+```js
+const mysql = require('mysql');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'todoapp'
+});
+
+connection.connect(err => {
+  if (err) {
+    return console.error('error: ' + err.message);
+  }
+
+  console.log('Connected to the MySQL server.');
+});
+```
+
+我们来运行并测试一下：
+
+```
+F:\worksp\mysql\nodejs\nodejs-connect>node connect.js
+openssl config failed: error:02001003:system library:fopen:No such process
+Connected to the MySQL server.
+```
+
+如果看到如上所示的 “connected to the MySQL server” 的消息，那么恭喜，您已经从 Node.js 应用程序成功连接到 MySQL 数据库服务器。
+
+假设使用 MySQL 用户账号的密码有错，并尝试连接到数据，您将收到一条错误消息：
+
+```
+F:\worksp\mysql\nodejs\nodejs-connect>node connect.js
+openssl config failed: error:02001003:system library:fopen:No such process
+error: ER_ACCESS_DENIED_ERROR: Access denied for user 'root'@'localhost' (using password: YES)
+```
+
+请注意，今后你在 connection 对象上调用的每个方法都按顺序排队和执行。
+
+关闭 Node.js 与 MySQL 数据库连接
+
+要正常关闭数据库连接，请在 connection 对象上调用 end() 方法。
+
+end() 方法确保在数据库连接关闭之前始终执行所有剩余的查询。
+
+```js
+connection.end(err => {
+  if (err) {
+    return console.log('error:' + err.message);
+  }
+  console.log('Close the database connection.');
+});
+```
+
+要立即强制连接，可以使用 destroy() 方法。 destroy() 方法保证不会再为连接触发回调或事件。
+
+```js
+connection.destroy();
+```
+
+请注意，destroy() 方法不会像 end() 方法那样采取任何回调参数。
+
+使用举例：
+
+```js
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '123456',
+  database: 'my_db'
+});
+ 
+connection.connect();
+ 
+connection.query('SELECT 1 + 1 AS solution', (error, results) => {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].solution);
+});
+ 
+connection.end();
+```
+
+Node.js 模块的 MySQL 驱动程序提供了内置的连接池功能，假设您要创建一个具有 10 个连接的连接池：
+
+```js
+const pool = mysql.createPool({
+    connectionLimit: 10,	// 如果没有配置 connectionLimit 那么它默认就是 10
+    host: 'localhost',
+    user: 'root',
+    password: '123456', 
+    database: 'test'
+});
+
+pool.query('SELECT 1 + 1 AS solution', (error, results) => {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].solution);
+});
+```
+
+直接 pool.query() 的方式是 pool.getConnection() -> connection.query() -> connection.release() 代码流的快捷方式。
+
+要从池中获取连接，可以使用 getConnection() 方法：
+
+```js
+pool.getConnection((err, connection) => {
+  // 执行查询
+  // ...
+});
+```
+
+要在完成连接后将其释放到池中，可以调用 connection.release()。 之后，连接将在池中可用，并可以由其他业务再次使用。
+
+```js
+pool.getConnection((err, connection) => {
+  // 执行查询
+  // ...
+  connection.release();
+});
+```
+
+要关闭连接并将其从池中删除，请使用 connection.destroy() 方法。 如果下次需要，将在池中创建一个新的连接。
+
+```js
+pool.getConnection((err, connection) => {
+  // 执行查询
+  // ...
+  connection.destroy();
+});
+```
+
+请注意，连接由池惰性创建。如果将池配置为允许最多 100 个连接，但同时只使用 5 个，则只会建立 5 个连接。
+
+连接也是循环使用的，连接从池的顶部取出，然后返回到池的底部。
+
+当从池中检索到以前的连接时，会向服务器发送一个 ping 包，以检查连接是否仍然正常。
+
+当你完成使用池，你必须结束所有的连接，否则 Node.js 事件循环将保持活动，直到连接被 MySQL 服务器关闭。
+
+如果在脚本中使用该池，或者需要优雅地关闭服务器时，通常会在结束前这样做。
+
+要关闭池中的所有连接，请使用 pool 对象的 end() 方法，如下所示：
+
+```js
+pool.end(err => {
+  if (err) {
+    return console.log(err.message);
+  }
+  // 关闭所有连接
+});
+```
+
+注意：一旦执行了 pool.end()，那么 pool.getConnection 和其它操作将无法继续执行，如果已经在执行的任务那么会等待它执行完毕，新的任务则不再执行。
+
+使用 pool.getConnection() 可以为后续查询共享连接状态。而使用 pool.query() 的话，不同的两次调用可能使用的是两个不同的连接并行运行。
+
+```js
+var mysql = require('mysql');
+var pool  = mysql.createPool(...);
+
+pool.getConnection((err, connection) => {
+  if (err) throw err;
+
+  // 使用连接
+  connection.query('SELECT something FROM sometable', (error, results) => {
+    // 完成连接后就释放它
+    connection.release();
+
+    // 在释放后处理错误
+    if (error) throw error;
+
+    // 不要在这里使用连接，它已经返回到池中
+  });
+});
+```
+
+### 1.4.2 查询细节
+
+还是看文档吧：[[mysql - npm (npmjs.com)](https://www.npmjs.com/package/mysql)](https://github.com/mysqljs/mysql#readme)
+
+中文文档：[mysql - mysql中文文档翻译 - Breword 文档集合](https://www.breword.com/mysqljs-mysql)
+
+### 1.4.3 更优推荐
+
+- mysql2：[mysql2 - npm (npmjs.com)](https://www.npmjs.com/package/mysql2)，与 mysql 相同的 API，更快的性能，更多的功能，提供 Promise 封装！
+- sequelize：[sequelize - npm (npmjs.com)](https://www.npmjs.com/package/sequelize)，Node.js 的 ORM 工具，可以将关系型数据库表映射为 JS 对象，同时提供非常强大的功能！
