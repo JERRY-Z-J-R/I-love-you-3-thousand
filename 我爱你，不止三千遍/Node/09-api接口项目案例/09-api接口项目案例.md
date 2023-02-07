@@ -2250,3 +2250,27 @@ exports.deleteArticle = (req, res) => {
 };
 ```
 
+# 六、其他
+
+我们之前在响应状态时是直接以字符串 `ok` 和 `no` 的形式来返回，实际上我们应该构建一个 “状态结构体” 来约束一系列的状态，例如：
+
+```js
+// status.js
+exports.resStatus = {
+    success: 'ok',	// 成功处理
+    refuse: 'no',	// 拒绝处理
+    error: 'err'	// 处理失败
+}
+```
+
+```js
+const resStatus = require('../status');
+//...
+res.fastSend('数据', resStatus.success);
+```
+
+其次，我们之前的业务结构虽然已经把处理逻辑拆分为了 router 和 router_handler，但实际上还不够！
+
+我们可以把数据库的增删查改进行再拆分，也就是把 router_handler 中 SQL 查询业务的部分单独拆分到 model 中，并把 router_handler 改名为 controller，这就是 MVC 架构！
+
+<img src="mark-img/image-20230207163824542.png" alt="image-20230207163824542" style="width:60%;" />
