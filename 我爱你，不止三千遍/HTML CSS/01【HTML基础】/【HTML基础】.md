@@ -87,7 +87,7 @@ HTML 标签通常是成对出现的，例如：`<html>` 和 `</html>`，我们�
 
 > HTML5 规范中明确说明单标签 `/` 是可以忽略的，**实际开发中建议不要给单标签添加斜线**。
 
-> 任何标签都建议不要大写，即便是 `<!doctype html>` 标签。
+> 任何标签都建议不要大写，即便是 `<!doctype html>` 标签，不过貌似许多实际项目都大写了，^^~~~
 
 ### 2.1.2 标签关系
 
@@ -141,10 +141,10 @@ HTML 标签通常是成对出现的，例如：`<html>` 和 `</html>`，我们�
 
 ## 2.3 网页开发工具
 
-- `WebStorm`（生态、智能、收费）
-- `VSCode`（免费、插件、轻量）
+- `WebStorm`（强大、智能、收费）
+- `VSCode`（免费、插件、轻量、生态无敌）
 - `HBuilderX`（国产、跨端开发）
-- `Sublime Text`（插件、轻量、收费）
+- `Sublime Text`（插件、轻量）
 - `Atom`（免费、插件、轻量）
 - `Dreamweaver`（可视化、智能、收费）
 - `Notepad++`（免费、轻量）
@@ -268,7 +268,7 @@ HTML 提供了 6 个等级的网页标题，即：`<h1>` 到 `<h6>`。
 <h6>六级标题</h6>
 ```
 
-<img src="mark-img/image-20220115165012637.png" style="zoom: 50%;" />
+<img src="mark-img/image-20220115165012637.png" style="width: 30%;" />
 
 > 单词 head 的缩写，意为：头部、标题。
 
@@ -299,7 +299,7 @@ HTML 提供了 6 个等级的网页标题，即：`<h1>` 到 `<h6>`。
 
 - 文本在一个段落中会根据浏览器窗口的大小自动换行
 
-  > 对于中文段落来说无论如何都会自动换行，但是对于英文段落来说如果字母是连续的（aaa...），那么浏览器会认为该段落整体都是一个字母不会自动换行，要想英文段落自动换行字母之间得有空格。
+  > 对于中文段落来说无论如何都会自动换行，但是对于英文段落来说如果字母是连续的（aaa...），那么浏览器会认为该段落整体都是一个单词不会自动换行，要想英文段落自动换行字母之间得有空格。
 
 - 段落和段落之间保有空隙（段间距）
 
@@ -430,14 +430,14 @@ HTML 提供了 6 个等级的网页标题，即：`<h1>` 到 `<h6>`。
 
 - 网络地址
 
-   `https://github.com/JERRY-Z-J-R/JERRY-Z-J-R/blob/main/mark-img/readme.gif`
+   `https://github.com/JERRY-Z-J-R/I-love-you-3-thousand/raw/master/mark-img/I-Love-You.gif`
 
 **注意：**
 
 - 相对路径为 `/`（正斜杆），绝对路径为 `\`（反斜杆）
 - 实际开发中建议使用相对路径或网络地址（都是 `/` 正斜杆）
 
-> 这里所说的绝对路径为 `/`（正斜杠）指的是在 Windows 环境中，而 Linux 系统依旧是反斜杠。
+> 这里所说的绝对路径为 `\`（反斜杠）指的是在 Windows 环境中，而 Linux 系统依旧是正斜杠。
 
 ### 2.4.7 超链接标签
 
@@ -461,14 +461,14 @@ HTML 提供了 6 个等级的网页标题，即：`<h1>` 到 `<h6>`。
 **（2）链接分类**
 
 - **外部链接：**例如：`<a href="http://www.baidu.com">百度</a>` 
-- **内部链接：**网站内部页面之间相互链接，直接链接内部页面名称即可，例如： `<a href="index.html">首页</a>`
-- **空链接：**如果当时没有确定链接目标时， `<a href="javascript:void(0)">首页</a>"`，当用户点击链接时，void(0) 计算为 0，但 Javascript 上没有任何效果
-- **下载链接：**如果 href 里面地址是一个文件或者压缩包（前提：路径包含文件类型后缀名，如：`.exe`、`.zip` 等），便会下载这个文件
+- **内部链接：**网站内部页面之间相互链接，直接链接内部页面名称即可，例如： `<a href="./about.html">关于页</a>`
+- **空链接：**如果当时没有确定链接目标时，`<a href="javascript:void(0)">哪也不去</a>"`，当用户点击链接时 void(0) 计算为 0，但 Javascript 上没有任何效果
+- **下载链接：**如果 href 里面地址是一个文件或者压缩包（前提：路径包含文件类型后缀名，如：`.exe`、`.zip` 等），便会下载这个文件，如果是图片、视频、PDF则会打开一个新窗口预览
 - **网页元素链接：**在网页中的各种网页元素，如：文本、图像、表格、音频、视频等都可以添加超链接
 - **锚点链接：**点击链接，可以快速定位到当前页面中的某个位置
   - 在链接文本的 href 属性中，设置属性值的 `#名字` 的形式，如：`<a href="#two">第2集</a>`
   - 找到目标位置标签（此处以 h3 标签为例），里面添加一个 `id属性="刚才的名字"`，如：`<h3 id="two">第2集介绍</h3>`
-  - `<a href="#"></a>` 默认定位到页面顶部
+  - `<a href="#"></a>` 定位到页面顶部
 
 ## 2.5 HTML中的注释和特殊字符
 
@@ -660,7 +660,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 </html>
 ```
 
-<img src="mark-img/20210405002235373.jpg" style="zoom:50%;" />
+<img src="mark-img/20210405002235373.jpg" style="width:50%;" />
 
 【综合案例】
 
@@ -770,7 +770,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 - `<li>` 与 `</li>` 之间相当于一个容器，可以容纳所有的元素
 - 无序列表会带有自己的样式属性（比如圆点），但在实际开发中，我们会使用 CSS 来设置
 
-<img src="mark-img/20210409111633420-16422555387621.jpg" style="zoom:50%;" />
+<img src="mark-img/20210409111633420-16422555387621.jpg" style="width:30%;" />
 
 > 附：去除 li 前符号的方法：`style="list-style: none;"`
 
@@ -795,9 +795,11 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 - `<li>` 与 `</li>` 之间相当于一个容器，可以容纳所有的元素
 - 有序列表会带有自己样式属性（比如序号），但在实际使用时，我们会使用 CSS 来设置
 
-<img src="mark-img/20210409111633549-16422555479543.jpg" style="zoom:50%;" />
+<img src="mark-img/20210409111633549-16422555479543.jpg" style="width:30%;" />
 
 > 附：去除 li 前符号的方法：`style="list-style: none;"`
+
+> 注意：ol 是不会帮你主动排序数据的，它只是在列表项前加一个序号！
 
 ### 2.7.3 自定义列表
 
@@ -832,7 +834,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 ### 2.8.2 表单的组成
 
-在 HTML 中，一个完整的表单通常由 `表单域`、`表单控件`（也称为表单元素）和 `提示信息`  3 个部分构成。
+在 HTML 中，一个完整的表单通常由 `表单域`、`表单控件`（也称为表单元素）和 `提示信息` 3 个部分构成。
 
 ### 2.8.3 表单域
 
@@ -856,15 +858,15 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 | `method` | `get` / `post` | 用于设置表单数据的提交方式，其取值为 get 或 post   |
 | `name`   | 名称           | 用于指定表单的名称，以区分同一个页面中的多个表单域 |
 
-注意：对于 HTML 基础的学习来说，暂时不用考虑提交数据，只需写上 form 标签即可，后面学习服务端编程阶段会重新讲解。
+注意：对于 HTML 基础的学习来说，暂时不用考虑提交数据，只需写上 form 标签即可，后面学习服务端编程阶段再来了解。
 
 **form 表单中 method 的 get 和 post 区别：**
 
-> method 方法规定如何发送表单数据（form-data）（表单数据会被发送到在 action 属性中规定的页面中）。
+> method 方法规定如何发送表单数据（表单数据会被发送到在 action 属性规定的服务器地址中）。
 >
-> 表单数据可被作为 URL 变量的形式来发送（method="get"）或者作为 HTTP post 事务的形式来发送（method="post"）。
+> 表单数据可被作为 URL 变量的形式来发送（method="get"）或者作为 HTTP post 的形式来发送（method="post"）。
 >
-> **关于 GET 的注释：**
+> **关于 GET：**
 >
 > - 将表单数据以名/值对的形式附加到 URL 中
 > - URL 的长度是有限的（大约 3000 字符）
@@ -872,7 +874,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 > - 对于用户希望加入浏览器书签的表单很有用（因为信息记录在 URL 中，直接保存 URL 即可）
 > - GET 更适用于非安全数据，比如在 Google 中查询字符串
 >
-> **关于 POST 的注释：**
+> **关于 POST：**
 >
 > - 将表单数据附加到 HTTP 请求的 body 内（数据不显示在 URL 中）
 > - 没有长度限制
@@ -902,9 +904,9 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 </html>
 ```
 
-![](mark-img/06b66d16e62dca2951179ec536cc484a.png)
+<img src="mark-img/06b66d16e62dca2951179ec536cc484a.png" style="width:60%;" />
 
-![](mark-img/a280fd4d6fbdc45784adf7627e4a679e.png)
+<img src="mark-img/a280fd4d6fbdc45784adf7627e4a679e.png" style="width:60%;" />
 
 【POST案例】
 
@@ -929,9 +931,9 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 </html>
 ```
 
-![](mark-img/06b66d16e62dca2951179ec536cc484a-164225152462516.png)
+<img src="mark-img/06b66d16e62dca2951179ec536cc484a-164225152462516.png" style="width:60%;" />
 
-![](mark-img/2666b32b23643c2c8959491a1989a5af.png)
+<img src="mark-img/2666b32b23643c2c8959491a1989a5af.png" style="width:60%;" />
 
 ### 2.8.4 表单控件（表单元素）
 
@@ -944,10 +946,10 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 在 `<input>` 标签中，包含一个 type 属性，根据不同的 type 属性值，输入字段拥有很多种形式（可以是文本、字段、复选框、掩码后的文本控件、单选按钮、按钮等）。
 
 ```html
-<input type="属性值" />
+<input type="属性值">
 ```
 
-- `<input />` 标签为单标签
+- `<input>` 标签为单标签
 
 - type 属性设置不同的属性值用来指定不同的控件类型
 
@@ -1005,9 +1007,9 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 > </html>
 > ```
 >
-> ![](mark-img/685d11e4bfbb4d8094e722211359c634.png)
+> <img src="mark-img/685d11e4bfbb4d8094e722211359c634.png" style="width:60%;" />
 >
-> ![](mark-img/e6d3e820f2a14536b44b4dec9b7ab3c1.png)
+> <img src="mark-img/e6d3e820f2a14536b44b4dec9b7ab3c1.png" style="width:60%;" />
 
 **除 type 属性外，`<input>` 标签还有很多其他属性，其常用属性如下：**
 
@@ -1018,33 +1020,48 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 | `checked`   | checked      | 规定此 input 元素首次加载时应当被选中       |
 | `maxlength` | 正整数       | 规定输入字段中的字符的最大长度              |
 
-- `name` 和 `value` 是每个表单元素都有的属性值，主要给后台人员使用
-- `name` 表单元素的名字，要求：单选按钮和复选框要有相同的 name 值
+- `name` 和 `value` 是每个表单元素都必须有的属性值，主要给后台人员使用
+- `name` 表单元素的名字，要求：同一组单选按钮和复选框要有相同的 name 值
 - `checked` 属性主要针对于单选按钮和复选框，主要作用：打开页面时默认选中某个表单元素
 - `maxlength` 是用户可以在表单元素输入的最大字符数，一般很少使用
+
+> 如果 input 不指定 name 属性，对于页面的展示没有影响，但是当你提交表单到服务器时，提交的信息是不会包含没有 name 属性的那个 input 里的数据的！
 
 **<1>、有些表单元素刚打开页面就须要默认显示几个文字怎么做？**
 
 答：可以给这些表单元素设置 `value属性="值"`。
 
 ```html
-用户名：<iuput type="text" value="请输入用户名" />
+用户名：<iuput type="text" name="用户名" value="请输入用户名">
 ```
+
+> 注意：value 中提前设置好的值只是作为默认值，当用户在页面上修改了值后，value 的值就变为用户修改后的值了！
+>
+> name 和 value 属性是配对的！例如：
+>
+> ```html
+> <iuput type="text" name="name" value="请输入姓名">
+> <iuput type="text" name="age" value="请输入年龄">
+> ```
+>
+> 当用户先后输入 `迪丽热巴` `18` 后并提交表单到服务器时，实际上表单提交的数据是类似与这样的：`name=周吉瑞&age=18`，服务器拿到数据后就可以操作了……
+>
+> 通过上面的例子，你应该可以理解为什么 input 必须要有 name 和 value 属性了！因为如果没有它们，数据就标识不了！就没意义了！
 
 **<2>、页面中的表单元素很多，如何区别不同的表单元素？**
 
 答：name 属性：当前 input 表单的名字，后台可以通过这个 name 属性找到这个表单，页面中的表单很多，name 的主要作用就是用于区别不同的表单。
 
 ```html
-用户名：<input type="text" value="请输入用户名" name="username" />
+用户名：<input type="text" name="username" value="请输入用户名">
 ```
 
 - name 属性后面的值是自定义的
 - radio（或者 checkbox）如果是一组，我们必须给他们命名相同的名字
 
 ```html
-<input type="radio" name="sex" />男
-<input type="radio" name="sex" />女
+<input type="radio" name="sex">男
+<input type="radio" name="sex">女
 ```
 
 **<3>、如果页面一打开就让某个单选按钮或者复选框是选中状态？**
@@ -1053,21 +1070,21 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 ```html
 性 别：
-<input type="radio" name="sex" value="男" checked="checked" />男
-<input type="radio" name="sex" value="女" >女
+<input type="radio" name="sex" value="男" checked="checked">男
+<input type="radio" name="sex" value="女">女
 ```
 
 - \<label\> 标签
 
-`<label>` 标签为 input 元素定义标注（标签）。
+`<label>` 标签为 input 元素定义标注。
 
-`<label>` 标签用于绑定一个表单元素，当点击 `<label>` 标签内的文本时，浏览器就会自动将焦点（光标）转到或者选择对应的表单元素上，用来增加用户体验。
+`<label>` 标签用于绑定一个表单元素，当点击 `<label>` 标签内的任何东西时，浏览器就会自动将焦点（光标）转到或者选择对应的表单元素上，用来增加用户体验。
 
 **语法：**
 
 ```html
 <label for="sex">
-	男<input type="radio" name="sex" id="sex" />
+	男<input id="sex" type="radio" name="sex">
 </label>
 ```
 
@@ -1120,7 +1137,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 （1）表单元素我们学习了三大组 `input 输入表单元素`、`select 下拉表单元素`、`textarea 文本域表单元素`
 
-（2）这三组表单元素都应该包含在 `form 表单域` 里面，并且应该有 `name 属性`
+（2）这三组表单元素都应该包含在 `form 表单域` 里面，并且都应该有 `name 属性`
 
 ```html
 <form>
@@ -1140,7 +1157,9 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 > 表单中 name 属性的重要性：
 >
-> name 属性用于对提交到服务器后的表单数据进行标识。注意：只有设置了 name 属性的表单元素才能在提交表单时传递它们的值。简单来说，name 就是提交到后台的索引，比如在复选框中都要设置成name="hobby" 说明几个复选框都在 ”爱好“ 下。
+> name 属性用于对提交到服务器后的表单数据进行标识！注意：只有设置了 name 属性的表单元素才能在提交表单时传递它们的值。
+>
+> 简单来说，name 就是提交到后台的数据索引！
 >
 > 即：表单想要把数据提交到指定的位置，表单控件必须要有 name 属性。
 
@@ -1172,10 +1191,10 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
         <td>性别</td>
         <td>
             <label for="man">
-                <input id="man" name="sex" type="radio"/><img src="../image/man.png" width="15"/>男
+                <input id="man" type="radio" name="sex"><img src="../image/man.png" width="15">男
             </label>
             <label for="women">
-                <input id="women" name="sex" type="radio"/><img src="../image/women.png" width="15"/>女
+                <input id="women" type="radio" name="sex"><img src="../image/women.png" width="15">女
             </label>
         </td>
     </tr>
@@ -1212,7 +1231,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
     <tr>
         <td>所在地区</td>
         <td>
-            <input type="text" value="云南玉溪"/>
+            <input type="text" value="云南玉溪">
         </td>
     </tr>
 
@@ -1221,13 +1240,13 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
         <td>婚姻状况</td>
         <td>
             <label for="weihun">
-                <input checked="checked" id="weihun" name="marry" type="radio"/>未婚
+                <input id="weihun" type="radio" name="marry" checked="checked">未婚
             </label>
             <label for="yihun">
-                <input id="yihun" name="marry" type="radio"/>已婚
+                <input id="yihun" type="radio" name="marry">已婚
             </label>
             <label for="lihun">
-                <input id="lihun" name="marry" type="radio"/>离婚
+                <input id="lihun" type="radio" name="marry">离婚
             </label>
         </td>
     </tr>
@@ -1236,7 +1255,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
     <tr>
         <td>学历</td>
         <td>
-            <input type="text" value="幼儿园"/>
+            <input type="text" value="幼儿园">
         </td>
     </tr>
 
@@ -1244,11 +1263,11 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
     <tr>
         <td>喜欢的类型</td>
         <td>
-            <input name="love" type="checkbox"/>妩媚的
-            <input name="love" type="checkbox"/>可爱的
-            <input name="love" type="checkbox"/>小鲜肉
-            <input name="love" type="checkbox"/>老腊肉
-            <input checked="checked" name="love" type="checkbox"/>都喜欢
+            <input type="checkbox" name="love">妩媚的
+            <input type="checkbox" name="love">可爱的
+            <input type="checkbox" name="love">小鲜肉
+            <input type="checkbox" name="love">老腊肉
+            <input type="checkbox" name="love" checked="checked">都喜欢
         </td>
     </tr>
 
@@ -1264,7 +1283,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
     <tr>
         <td></td>
         <td>
-            <input type="submit" value="免费注册"/>
+            <input type="submit" value="免费注册">
         </td>
     </tr>
 
@@ -1272,7 +1291,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
     <tr>
         <td></td>
         <td>
-            <input checked="checked" type="checkbox"/>我同意注册条款和会员加入标准
+            <input type="checkbox" checked="checked">我同意注册条款和会员加入标准
         </td>
     </tr>
 
@@ -1280,7 +1299,7 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
     <tr>
         <td></td>
         <td>
-            <a href="#">我是会员，立即登录</a>
+            <a href="javascript:void(0)">我是会员，立即登录</a>
         </td>
     </tr>
 
@@ -1305,11 +1324,11 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 **效果：**
 
-<img src="mark-img/2021040501112593-164225533222026.png" style="zoom:50%;" />
+<img src="mark-img/2021040501112593-164225533222026.png" style="width:50%;" />
 
 **本质：**
 
-<img src="mark-img/20210405011125140-16422553843201.png" style="zoom:50%;" />
+<img src="mark-img/20210405011125140-16422553843201.png" style="width:50%;" />
 
 ## 2.10 内联框架
 
@@ -1334,14 +1353,14 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 属性默认以像素为单位，但是你可以指定其按比例显示（如："70%"）。
 
 ```html
-<iframe height="500px" src="https://www.bilibili.com/" width="70%"></iframe>
+<iframe src="https://www.bilibili.com/" width="70%" height="500px"></iframe>
 ```
 
 ![](mark-img/image-20220121173139191.png)
 
 > **提示：**您可以把需要的文本放置在 `<iframe>` 和 `</iframe>` 之间，这样就可以应对不支持 `<iframe>` 的浏览器。
 >
-> **提示：**使用 CSS 为 `<iframe>`（包括滚动条）定义样式。
+> **提示：**使用 CSS 可以为 `<iframe>`（包括滚动条）定义样式。
 
 使用 CSS 隐藏 `<iframe>` 滚动条
 
@@ -1349,14 +1368,14 @@ HTML 中的注释以：`<!--` 开头，以 `-->` 结束。
 
 ```html
 <div style="width: 400px; overflow: hidden">
-    <iframe height="480" src="https://www.runoob.com" width="415">您的浏览器不支持</iframe>
+    <iframe src="https://www.runoob.com" width="415" height="480">您的浏览器不支持</iframe>
 </div>
 ```
 
 - 新选择器原生移除滚动条：
 
 ```css
-<!-- 此方法目前暂不推荐使用 -->
+<!-- 兼容性不足 -->
 <head>
   <style>
     iframe::-webkit-scrollbar { 
@@ -1378,15 +1397,15 @@ SEO（Search Engine Optimization）：汉译为**搜索引擎优化**。是一�
 >
 > 反链：被其他页面链接，反链的源头质量越高、链接次数越高越好。
 
-- [Google PageRank算法 - 黄规速博客：学如逆水行舟，不进则退-CSDN博客](https://blog.csdn.net/hguisu/article/details/7996185)
+- [Google PageRank 算法 - 黄规速博客：学如逆水行舟，不进则退-CSDN博客](https://blog.csdn.net/hguisu/article/details/7996185)
 
 - [Google 段落排名算法（Passage Ranking）全解读 - 阿里云开发者社区 (aliyun.com)](https://developer.aliyun.com/article/782412)
 
 **【用户体验优化】**
 
-网站体验也可称为网站用户体验，如何做好这一步优化！ 首先得确定你的目标用户群体，了解他们的上网习惯，分析他们的心理。然后顺着用户的特征来一步步优化网站，从而获得用户的青睐，通过用户体验优化来提高转换率。
+网站体验也可称为网站用户体验，如何做好这一步优化！首先得确定你的目标用户群体，了解他们的上网习惯，分析他们的心理。然后顺着用户的特征来一步步优化网站，从而获得用户的青睐，通过用户体验优化来提高转换率。
 
-**UEO（用户体验优化）=PV/OR**
+**UEO（用户体验优化）= PV/OR**
 
 - PV：即页面浏览量或点击量
 

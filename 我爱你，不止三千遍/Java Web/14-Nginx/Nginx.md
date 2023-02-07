@@ -30,7 +30,7 @@ Nginx 在 Linux 中的安装比较复杂，手动安装请参照相关文档和�
 
 ```
 cd /usr/local/nginx/sbin/
-./nginx 			# 启动
+./nginx 			 # 启动
 ./nginx -s stop		 # 此方式相当于先查出 nginx 进程 id 再使用 kill 命令强制杀掉进程
 ./nginx -s quit		 # 此方式停止步骤是待 nginx 进程处理任务完毕进行停止
 ./nginx -s reload 	 # 重启（推荐先 ./nginx -s quit，再 ./nginx）
@@ -38,7 +38,7 @@ cd /usr/local/nginx/sbin/
 ps aux | grep nginx	 # 查询 nginx 进程
 ```
 
-# 二、 Nginx 配置文件
+# 二、Nginx 配置文件
 
 > 当修改过配置文件后，需要重启 Nginx 才会生效！
 
