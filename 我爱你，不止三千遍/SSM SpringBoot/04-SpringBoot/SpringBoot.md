@@ -1583,20 +1583,20 @@ spring:
 
 <img src="assets/image-20210917230702072.png" alt="image-20210917230702072" style="zoom:80%;" />
 
+## 6、SpringBoot图片上传和预览
 
+## 7、SpringBoot文件上传与下载
 
-## 6、SpringBoot文件上传与下载
+## 8、SpringBoot整合Redis缓存
 
-## 7、SpringBoot整合Redis缓存
+## 9、SpringBoot拦截器
 
-## 8、SpringBoot拦截器
+## 10、SpringBoot实现加密解密
 
-## 9、SpringBoot实现MD5加密
+## 11、SpringBoot整合WebSocket
 
-## 10、SpringBoot整合WebSocket
+## 12、SpringBoot实现富文本编辑器
 
-## 11、SpringBoot实现富文本编辑器
+## 13、SpringBoot整合Excle表格处理
 
-## 12、SpringBoot整合Excle表格
-
-## 13、SpringBoot传输视频流及音频流
+## 14、SpringBoot传输视频流及音频流
