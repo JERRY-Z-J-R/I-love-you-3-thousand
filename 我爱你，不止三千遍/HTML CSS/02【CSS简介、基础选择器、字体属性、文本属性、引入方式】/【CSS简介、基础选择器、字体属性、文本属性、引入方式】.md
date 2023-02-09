@@ -6,7 +6,7 @@
 
 **CSS 的主要使用场景就是布局网页，美化页面的。**
 
-## 1.1 HTML的局限性
+## 1.1 HTML的局限性            
 
 HTML 只关注内容的语义，虽然 HTML 可以做简单的样式，但是带来的是无尽的臃肿、繁琐和难以维护……
 
@@ -57,7 +57,7 @@ CSS 规则由两个主要的部分构成：`选择器` 以及 `一条或多条�
 
 注意：`<style>` 标签可以写到其他标签内部并作用与该标签区域内，但是强烈不推荐这种写法！
 
-> `type="text/css"` 可以省略。
+> 目前 `type="text/css"` 可以省略。
 
 ## 1.4 CSS代码风格
 
@@ -200,7 +200,7 @@ h1 {
 
 ## 2.4 类选择器
 
-如果想要差异化选择不同的标签，单独选一个或者某几个标签，可以使用 `类选择器` 。
+如果想要差异化选择不同的标签，单独选一个或者某几个标签，可以使用 `类选择器`。
 
 **CSS 语法：**
 
@@ -503,7 +503,7 @@ div {
 >
 > ```css
 > body {
->    	font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif
+>        font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 > }
 > ```
 
@@ -511,7 +511,7 @@ div {
 >
 > ```css
 > body {
->    	font-family: -apple-system, BlinkMacSystemFont,"Segoe UI", Roboto, Helvetica, Arial, sans-serif
+>        font-family: -apple-system, BlinkMacSystemFont,"Segoe UI", Roboto, Helvetica, Arial, sans-serif
 > }
 > ```
 
@@ -519,7 +519,7 @@ div {
 >
 >```css
 >body {
->    	font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif
+>        font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif
 >}
 >```
 
@@ -527,7 +527,7 @@ div {
 >
 > ```css
 > body {
->     font-family: PingFangSC-Regular, Helvetica, Arial, Microsoft Yahei, sans-serif
+>        font-family: PingFangSC-Regular, Helvetica, Arial, Microsoft Yahei, sans-serif
 > }
 > ```
 
@@ -1049,7 +1049,7 @@ em 是一个相对单位，就是当前元素 (font-size) 1 个文字的大小�
         p {
             font-size: 24px;
             /* 文本的首行缩进多少距离，不仅可以为正值，还可以为负值 */
-            /* text-indent: 20px; */
+            /* text-indent: 48px; */
             /* em 为相对于当前元素的大小单位 */
             text-indent: 2em;
         }
@@ -1193,7 +1193,7 @@ p {
 | 属性   | 作用                                                         |
 | ------ | ------------------------------------------------------------ |
 | `rel`  | 定义当前文档与被链接文档之间的关系，在这里**需要指定为 "stylesheet"**，表示被链接的文档是一个样式表文件 |
-| `type` | 定被链接文档的 MIME 类型，该属性最常见的 MIME 类型是 "text/css"，该类型描述样式表，目前的浏览器**已经支持省略 "type" 属性** |
+| `type` | 定义被链接文档的 MIME 类型，该属性最常见的 MIME 类型是 "text/css"，该类型描述样式表，目前的浏览器**已经支持省略 "type" 属性** |
 | `href` | 定义所链接外部样式表文件的 URL，可以是相对路径，也可以是绝对路径 |
 
 **注意：**使用外部样式表设定 CSS，通常也被称为 `外链式` 或 `链接式引入`，这种方式是开发中常用的方式。
