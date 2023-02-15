@@ -21,7 +21,8 @@
 # 二、盒子模型（Box Model）组成
 
 所谓盒子模型：就是把 HTML 页面中的布局元素看作是一个矩形的盒子，也就是一个盛**装内容的容器**。
-CSS 盒子模型本质上是一个盒子，封装周围的 HTML 元素，它包括：`边框`、`外边距`、`内边距`、和 `内容`。
+
+CSS 盒子模型本质上是一个盒子，封装周围的 HTML 元素，它包括：`外边距`、`边框`、`内边距`、和 `内容`。
 
 ![](mark-img/20210406122442654.png)
 
@@ -103,7 +104,7 @@ border-top: 1px solid red; 		/* 只设定上边框，其余同理 */
 </html>
 ```
 
-![](mark-img/20210406123444188.jpg)
+<img src="mark-img/20210406123444188.jpg" style="width:50%;" />
 
 ## 3.1 表格的细线边框
 
@@ -225,15 +226,15 @@ border-collapse: collapse;
 - `border-collapse: collapse;` 表示相邻边框合并在一起
 
 ```css
-	table,
-	td,
-	th {
-	    border: 1px solid black;
-	    /* 合并相邻的边框 */
-	    border-collapse: collapse;
-	    font-size: 14px;
-	    text-align: center;
-	}
+table,
+td,
+th {
+    border: 1px solid black;
+    /* 合并相邻的边框 */
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: center;
+}
 ```
 
 ![](mark-img/image-20220116025315666.png)
@@ -340,7 +341,7 @@ padding 属性（简写属性）可以有一到四个值。
 </html>
 ```
 
-![](mark-img/00914ec7f1e04382af64f589013d6d59.png)
+<img src="mark-img/00914ec7f1e04382af64f589013d6d59.png" style="width:50%;" />
 
 ```html
 <!doctype html>
@@ -368,7 +369,7 @@ padding 属性（简写属性）可以有一到四个值。
 </html>
 ```
 
-![](mark-img/6d3ff73d65154f358ba03b447f9daec8.png)
+<img src="mark-img/6d3ff73d65154f358ba03b447f9daec8.png" style="width:50%;" />
 
 案例：
 
@@ -513,7 +514,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](mark-img/20210406132137553.gif)
+<img src="mark-img/20210406132137553.gif" style="width:40%;" />
 
 # 五、外边距（margin）
 
@@ -585,7 +586,7 @@ padding 的使用技巧：
 </html>
 ```
 
-![](mark-img/20210406133231459.jpg)
+<img src="mark-img/20210406133231459.jpg" style="width:30%;" />
 
 ```html
 <!doctype html>
@@ -811,7 +812,7 @@ padding 的使用技巧：
 </html>
 ```
 
-<img src="mark-img/20210406134634343-164227252890423.jpg" style="zoom:50%;" />
+<img src="mark-img/20210406134634343-164227252890423.jpg" style="width:40%;" />
 
 **注意：外边距的合并在利用盒子布局页面的时候是经常发生的！**
 
@@ -928,7 +929,7 @@ padding 的使用技巧：
 </html>
 ```
 
-<img src="mark-img/20210406135403703.jpg" style="zoom:50%;" />
+<img src="mark-img/20210406135403703.jpg" style="width:30%;" />
 
 ```html
 <!doctype html>
@@ -1007,15 +1008,15 @@ padding 的使用技巧：
 </html>
 ```
 
-![](mark-img/20210406135403715.gif)
+<img src="mark-img/20210406135403715.gif" style="width:40%;" />
 
 # 八、总结
 
 ### a、布局为啥用不同盒子，我只想用 div？
 
-标签都是有语义的，合理的地方用合理的标签。比如产品标题就用 `h`，大量文字段落就用 `p`。
+标签都是有语义的，合理的地方用合理的标签。比如标题就用 `h`，文字段落就用 `p`。
 
-### b、为啥用辣么多类名？
+### b、为啥用那么多类名？
 
 类名就是给每个盒子起了一个名字，可以更好的找到这个盒子，选取盒子更容易，后期维护也更方便。
 
@@ -1029,4 +1030,4 @@ padding 的使用技巧：
 
 布局有很多种实现方式，可以开始先模仿大牛的写法，然后再做出自己的风格。
 
-最后一定多运用辅助工具，比如屏幕画笔，PS 等等。
+最后一定多运用辅助工具，比如屏幕画笔，PS 等。
