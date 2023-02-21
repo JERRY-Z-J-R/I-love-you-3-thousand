@@ -123,7 +123,7 @@
 </html>
 ```
 
-<img src="mark-img/2021041022482559.gif" style="zoom:50%;" />
+<img src="mark-img/2021041022482559.gif" style="width:50%;" />
 
 ## 1.5 绝对定位 absolute（重要）
 
@@ -183,7 +183,7 @@
 </html>
 ```
 
-<img src="mark-img/20210410225323359.gif" style="zoom:50%;" />
+<img src="mark-img/20210410225323359.gif" style="width:50%;" />
 
 ---
 
@@ -228,7 +228,7 @@
 </html>
 ```
 
-<img src="mark-img/20210410225829682.gif" style="zoom:50%;" />
+<img src="mark-img/20210410225829682.gif" style="width:50%;" />
 
 ---
 
@@ -280,7 +280,7 @@
 </html>
 ```
 
-<img src="mark-img/20210410230310223.gif" style="zoom:50%;" />
+<img src="mark-img/20210410230310223.gif" style="width:50%;" />
 
 ---
 
@@ -329,7 +329,7 @@
 </html>
 ```
 
-<img src="mark-img/20210410231150803.gif" style="zoom:50%;" />
+<img src="mark-img/20210410231150803.gif" style="width:50%;" />
 
 **问题：**
 
@@ -356,7 +356,7 @@
 
 答案：用浮动做某些布局远远没有定位简单和方便！例如，轮播图。
 
-<img src="mark-img/20210410231958333-164233328088033.jpg" style="zoom:50%;" />
+<img src="mark-img/20210410231958333-164233328088033.jpg" style="width:50%;" />
 
 - 左右两边的图片切换按钮，利用浮动也可以做。但是，假如放置图片的盒子是在切换按钮之前添加的，那么根据浮动元素只能影响后面盒子的特性，切换按钮就只可能在图片底部之下，不可能浮于图片之上！
 - 就算切换按钮用浮动实现了，但是左下角的轮播序号点图如果也用浮动实现，结果就是轮播序号点图会与切换按钮在一行并排浮动！
@@ -455,7 +455,7 @@
 
 应用举例：
 
-<img src="mark-img/20210411000419348.gif" style="zoom:50%;" />
+<img src="mark-img/20210411000419348.gif" style="width:50%;" />
 
 ```html
 <!doctype html>
@@ -537,7 +537,7 @@
 </html>
 ```
 
-<img src="mark-img/20210411002138603.gif" style="zoom:50%;" />
+<img src="mark-img/20210411002138603.gif" style="width:50%;" />
 
 ## 1.8 固定定位小技巧：固定在版心右侧位置
 
@@ -613,7 +613,7 @@ Sticky 粘性的。
 
 应用举例：
 
-<img src="mark-img/20210411000442416.gif" style="zoom:50%;" />
+<img src="mark-img/20210411000442416.gif" style="width:50%;" />
 
 ```html
 <!doctype html>
