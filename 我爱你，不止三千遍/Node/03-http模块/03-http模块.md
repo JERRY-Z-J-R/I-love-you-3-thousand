@@ -17,9 +17,9 @@ const http = require('http');
 
 # 二、进一步了解http模块的作用
 
-服务器和普通电脑的区别在于，服务器上安装了 web 服务器软件，例如：IIS、Apache、Nginx 等。通过安装这些服务器软件，就能把一台普通的电脑变成一台 web 服务器。
+服务器和普通电脑的区别在于，服务器上安装了 Web 服务器软件，例如：IIS、Apache、Nginx 等。通过安装这些服务器软件，就能把一台普通的电脑变成一台 web 服务器。
 
-在 Node.js 中，我们不需要使用 IIS、Apache、Nginx 等这些第三方 web 服务器软件。因为我们可以基于 Node.js 提供的 http 模块，通过几行简单的代码，就能轻松的手写一个服务器软件，从而对外提供 web 服务。
+在 Node.js 中，我们不需要使用 IIS、Apache、Nginx 等这些第三方 Web 服务器软件。因为我们可以基于 Node.js 提供的 http 模块，通过几行简单的代码，就能轻松的手写一个服务器软件，从而对外提供 Web 服务。
 
 # 三、服务器相关的概念
 
@@ -27,7 +27,9 @@ const http = require('http');
 
 IP 地址就是互联网上每台计算机的唯一地址，因此 IP 地址具有唯一性，只有在知道对方的 IP 地址的前提下，才能与对应的电脑之间进行数据通信。
 
-IP 地址的格式：通常使用 “点分十进制” 表示成（a.b.c.d）的形式，其中，a,b,c,d 都是 0~255 之间的十进制整数。例如：用点分十进制表示的 IP 地址（192.168.54.2）
+IP 地址的格式：通常使用 “点分十进制” 表示成（a.b.c.d）的形式，其中，a,b,c,d 都是 0~255 之间的十进制整数。
+
+例如：用点分十进制表示的 IP 地址（192.168.54.2）
 
 > 在开发期间，自己的电脑既是一台服务器，也是一个客服端，其中：127.0.0.1 这个 IP 地址为本机地址，也就是本机作为服务器时的地址。
 
@@ -35,7 +37,7 @@ IP 地址的格式：通常使用 “点分十进制” 表示成（a.b.c.d）�
 
 尽管 IP 地址能够唯一标记网络上的计算机，但 IP 地址是一长串数字，不直观，而且不便于记忆，于是人们又发明了另外一套字符型的地址方案，即所谓的域名（Domain Name）地址。
 
-IP 地址和域名是一一对应的关系，这份对应关系存在一种叫作 “域名服务器”（DNS，Domain name server）的电脑中，使用者只需通过好记的域名访问对应的服务器即可，对应的转换工作由域名服务器实现。因此，域名服务器就是提供 IP 地址和域名之间的转换服务的服务器。
+IP 地址和域名是一一对应的关系，这份对应关系存在一种叫作 “域名服务器”（DNS，Domain name server）的公共服务器中，使用者只需通过好记的域名访问对应的服务器即可，对应的转换工作由域名服务器实现。因此，域名服务器就是提供 IP 地址和域名之间的转换服务的服务器。
 
 > 特殊的：`127.0.0.1` 对应的域名是 `localhost`，它们都代表：本机。
 
@@ -43,7 +45,7 @@ IP 地址和域名是一一对应的关系，这份对应关系存在一种叫�
 
 如果把计算机比喻成一栋大楼，那么计算机中的端口号就好像是每户的门牌号一样。
 
-同样的道理，在一台电脑中，可以运行成白上千个 web 服务，每个 web 服务都对应一个唯一的端口号。客户端发送过来的网络请求，通过端口号，可以被准确地交给对应的 web 服务进行处理。
+同样的道理，在一台电脑中，可以运行成百上千个 web 服务，每个 web 服务都对应一个唯一的端口号。客户端发送过来的网络请求，通过端口号，可以被准确地交给对应的 web 服务进行处理。
 
 注意：
 
@@ -81,7 +83,7 @@ const server = http.createServer();
 // 使用服务器实例的 .on() 方法绑定事件，为服务器绑定一个 request 事件
 server.on('request', (req, res) => {
     // 只要客户端来请求服务器，就会触发 request 事件，从而调用这个事件处理回调函数
-    console.log('Someone visit our web server.')
+    console.log('Someone visit our web server.');
 });
 ```
 
@@ -119,7 +121,27 @@ server.listen(8080, () => {
 
 <img src="mark-img/image-20221203181752490.png" alt="image-20221203181752490" style="width:60%;" />
 
-web 服务器成功接收到了客服端（浏览器）的请求，并在控制台打印 `Someone visit our web server.`，而浏览器窗口之所以一直处于加载中，那时因为目前 web 服务器并没有响应任何数据给客服端（浏览器），所以浏览器一直在等待响应。
+web 服务器成功接收到了客服端（浏览器）的请求，并在控制台打印 `Someone visit our web server.`，而浏览器窗口之所以一直处于加载中，那是因为目前 web 服务器并没有响应任何数据给客服端（浏览器），所以浏览器一直在等待响应。
+
+优化：
+
+```js
+const http = require('http');
+
+const server = http.createServer();
+
+server.on('request', (req, res) => {
+    console.log('Someone visit our web server.')
+});
+
+server.listen(8080, err => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('http server running at http://127.0.0.1:8080');   
+    }
+});
+```
 
  ## 4.3 req请求对象
 
@@ -130,7 +152,7 @@ req（request【请求】）
 如果想要在事件处理函数中，访问与客户端相关的数据或属性，可以使用如下方式：
 
 ```javascript
-server.on('request', (req) => {
+server.on('request', req => {
     // req 是请求对象，它包含了与客户端相关的数据和属性，例如：
     // req.url 是客户端请求的 URL 地址
     // req.method 是客户端的 method 请求类型
@@ -146,7 +168,7 @@ const http = require('http');
 
 const server = http.createServer();
 
-server.on('request', (req) => {
+server.on('request', req => {
     // req 是请求对象，它包含了与客户端相关的数据和属性，例如：
     // req.url 是客户端请求的 URL 地址
     // req.method 是客户端的 method 请求类型
@@ -221,7 +243,7 @@ server.listen(80, () => {
 
 ## 4.5 解决中文乱码问题
 
-当调用 res.end() 方法，向客户端发送中文内容的时候，会出现乱码问题，此时，需要手动设置内容的编码格式：
+当调用 res.end() 方法，向客户端发送中文内容的时候，会出现乱码问题！此时，需要手动设置内容的编码格式：
 
 乱码情况：
 

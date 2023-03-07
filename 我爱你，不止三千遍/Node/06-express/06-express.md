@@ -36,7 +36,7 @@ Express 的中文文档：http://nodejs.cn/express/
 
 思考：http 内置模块与 Express 是什么关系？
 
-答案：类似于浏览器中 Web API 和 jQuery 的关系。后者是基于前者进一步封装出来的。
+答案：类似于浏览器中 Web API 和 jQuery 的关系，后者是基于前者进一步封装出来的。
 
 **（3）Express 能做什么？**
 
