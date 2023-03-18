@@ -121,7 +121,7 @@ console.log('Hello Node.js');
 
 在 hello.js 文件所在路径下打开终端执行命令：`node hello.js`，控制台成功输出 **Hello Node.js** 即为成功。
 
-> 如果 `.js` 文件不在终端所处的当前路径下，那么执行命令中需要带上文件路径：`node ..\code\hello.js`。
+> 如果 `.js` 文件不在终端所处的当前路径下，那么执行命令中需要带上文件路径：`node ../code/hello.js`。
 
 > 终端使用技巧：
 >
