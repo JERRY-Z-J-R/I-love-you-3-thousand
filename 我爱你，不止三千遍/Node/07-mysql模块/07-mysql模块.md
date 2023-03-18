@@ -444,13 +444,27 @@ pool.getConnection((err, connection) => {
 });
 ```
 
-### 1.4.2 查询细节
+### 1.4.2 SQL注入
+
+sql 语句中使用 `?` 作为查询参数占位符，值以数组的形式传入，那么这种方式默认就是防止 SQL 注入的！
+
+如果 sql 是直接拼接的字符串值，那么为了防止 SQL 注入，必须对参数值事先调用 `mysql.escape()` 来过滤：
+
+```js
+status = mysql.escape(status);
+id = mysql.escape(id);
+connection.query(`update tbl_module set module_status = ${status} where id = ${id}`);
+```
+
+实际上，`?` 占位符在背后就是自动调用了 `mysql.escape()`。
+
+### 1.4.3 查询细节
 
 还是看文档吧：[[mysql - npm (npmjs.com)](https://www.npmjs.com/package/mysql)](https://github.com/mysqljs/mysql#readme)
 
 中文文档：[mysql - mysql中文文档翻译 - Breword 文档集合](https://www.breword.com/mysqljs-mysql)
 
-### 1.4.3 更优推荐
+### 1.4.4 更优推荐
 
 - mysql2：[mysql2 - npm (npmjs.com)](https://www.npmjs.com/package/mysql2)，与 mysql 相同的 API，更快的性能，更多的功能，提供 Promise 封装！
 - sequelize：[sequelize - npm (npmjs.com)](https://www.npmjs.com/package/sequelize)，Node.js 的 ORM 工具，可以将关系型数据库表映射为 JS 对象，同时提供非常强大的功能！
