@@ -1589,6 +1589,10 @@ fn().catch(console.log);
 
 async/await 的几个使用注意点：
 
+- **异步注意**
+
+async 函数是异步的！所以 async 函数后面的逻辑代码会在阻塞期限截止前先于 async 函数执行。
+
 - **使用范围**
 
 await 只能在 async 函数的顶层使用！

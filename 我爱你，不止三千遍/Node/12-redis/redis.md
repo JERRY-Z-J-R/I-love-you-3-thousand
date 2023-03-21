@@ -4,8 +4,8 @@
 >
 > - [Documentation | Redis](https://redis.io/docs/)
 >
-> - [Redis中文网](https://www.redis.net.cn/)
-> - [Redis开发与运维技术、Redis教程、使用手册](https://redis.com.cn/)
+> - [Redis 中文网](https://www.redis.net.cn/)
+> - [Redis 开发与运维技术、Redis 教程、使用手册](https://redis.com.cn/)
 > - [Redis 教程 | 菜鸟教程 (runoob.com)](https://www.runoob.com/redis/redis-tutorial.html)
 
 # 一、概述
