@@ -1553,3 +1553,590 @@ app.get('/api/jsonp', (req, res) => {
     res.send(scriptStr);
 });
 ```
+
+# 五、Express中使用async
+
+借助第三方库：[express-async-errors - npm (npmjs.com)](https://www.npmjs.com/package/express-async-errors)
+
+---
+
+[如何在 Express4.x 中愉快地使用 async - 掘金 (juejin.cn)](https://juejin.cn/post/6895888535301062670)
+
+【前言】
+
+为了能够更好地处理异步流程，一般开发者会选择 async 语法。
+
+在 express 框架中可以直接利用 async 来声明中间件方法，但是对于该中间件的错误，无法通过错误捕获中间件来劫持到。
+
+【错误处理中间件】
+
+```js
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    const message = doSomething();
+    res.send(message);
+});
+
+// 错误处理中间件
+app.use(function (err, req, res, next) {
+    return res.status(500).send('内部错误！');
+});
+
+app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
+```
+
+以上述代码为例，中间件方法并没有通过 async 语法来声明，如果 doSomething 方法内部抛出异常，那么就可以在错误处理中间件中捕获到错误，从而进行相应地异常处理。
+
+```js
+app.get('/', async (req, res) => {
+    const message = doSomething();
+    res.send(message);
+});
+```
+
+而采用 async 语法来声明中间件时，一旦 doSomething 内部抛出异常，则错误处理中间件无法捕获到。
+
+> 虽然可以利用 process 监听 unhandledRejection 事件来捕获，但是无法正确地处理后续流程。
+
+【try/catch】
+
+对于 async 声明的函数，可以通过 try/catch 来捕获其内部的错误，再使用 next 函数将错误递交给错误处理中间件，即可处理该场景：
+
+```js
+app.get('/', async (req, res, next) => {
+    try {
+        const message = doSomething();
+        res.send(message);
+    } catch(err) {
+        next(err);
+    }
+});
+```
+
+> 这种写法简单易懂，但是满屏的 try/catch 语法，对代码结构具有入侵性，会显得非常繁琐且不优雅。
+
+【高阶函数】
+
+对于基础扎实的开发来说，都知道 async 函数最终返回一个 Promise 对象，而对于 Promsie 对象应该利用其提供的 catch 方法来捕获异常。
+
+那么在将 async 语法声明的中间件方法传入 use 之前，需要包裹一层 Promise 函数的异常处理逻辑，这时就需要利用高阶函数来完成这样的操作。
+
+```js
+function asyncUtil(fn) {
+    return function asyncUtilWrap(...args) {
+        const fnReturn = fn(args);
+        const next = args[args.length - 1];
+        return Promise.resolve(fnReturn).catch(next);
+    }
+}
+
+app.use(asyncUtil(async (req, res, next) => {
+    const message = doSomething();
+    res.send(message);
+}));
+```
+
+> 相比较第一种方法，**「高阶函数减少了冗余代码，在一定程度上提高了代码的可读性。」**
+
+上述两种方案基于扎实的 JavaScript 基础以及 Express 框架的熟练使用，接下来从源码的角度思考合适的解决方案。
+
+【中间件机制】
+
+Express 中主要包含三种中间件：
+
+- 应用级别中间件
+- 路由级别中间件
+- 错误处理中间件
+
+```js
+app.use = function use(fn) {
+    var path = '/';
+    
+    // 省略参数处理逻辑...
+
+    // 初始化内置中间件
+    this.lazyrouter();
+    var router = this._router;
+
+    fns.forEach(function (fn) {
+        // non-express app
+        if (!fn || !fn.handle || !fn.set) {
+            return router.use(path, fn);
+        }
+        
+        // ...
+    }, this);
+    
+    return this;
+};
+```
+
+应用级别中间件通过 app.use 方法注册，**「其本质上也是调用路由对象上的中间件注册方法，只不过其默认路由为 '/'」**。
+
+```js
+proto.use = function use(fn) {
+    var offset = 0;
+    var path = '/';
+
+    // 省略参数处理逻辑...
+
+    var callbacks = flatten(slice.call(arguments, offset));
+
+    for (var i = 0; i < callbacks.length; i++) {
+        var fn = callbacks[i];
+        
+        // ...
+
+        // add the middleware
+        debug('use %o %s', path, fn.name || '<anonymous>')
+
+        var layer = new Layer(path, {
+            sensitive: this.caseSensitive,
+            strict: false,
+            end: false
+        }, fn);
+
+        layer.route = undefined;
+
+        this.stack.push(layer);
+    }
+
+    return this;
+};
+```
+
+中间件的所有注册方式最终会调用上述代码，根据 path 和中间件处理函数生成 layer 实例，再通过栈来维护这些 layer 实例。
+
+```js
+// 部分核心代码
+proto.handle = function handle(req, res, out) {
+    var self = this;
+    var idx = 0;
+    var stack = self.stack;
+    
+    next();
+
+    function next(err) {
+        var layerError = err === 'route' ? null : err;
+    
+    if (idx >= stack.length) {
+        return;
+    }
+
+    var path = getPathname(req);
+
+    // find next matching layer
+    var layer;
+    var match;
+    var route;
+
+        while (match !== true && idx < stack.length) {
+            layer = stack[idx++];
+            match = matchLayer(layer, path);
+            route = layer.route;
+        
+            if (match !== true) {
+                continue;
+            }
+        }
+
+        // no match
+        if (match !== true) {
+            return done(layerError);
+        }
+
+        // this should be done for the layer
+        self.process_params(layer, paramcalled, req, res, function (err) {
+            if (err) {
+                return next(layerError || err);
+            }
+
+            if (route) {
+                return layer.handle_request(req, res, next);
+            }
+            
+            trim_prefix(layer, layerError, layerPath, path);
+        });
+    }
+    
+    function trim_prefix(layer, layerError, layerPath, path) {
+        if (layerError) {
+            layer.handle_error(layerError, req, res, next);
+        } else {
+            layer.handle_request(req, res, next);
+        }
+    }
+};
+```
+
+Express 内部通过 handle 方法来处理中间件执行逻辑，其利用**「闭包的特性」**缓存 idx 来记录当前遍历的状态。
+
+该方法内部又实现了 next 方法来匹配当前需要执行的中间件，从遍历的代码可以明白**「中间件注册的顺序是非常重要的」**。
+
+如果该流程存在异常，则调用 layer 实例的 handle.error 方法，这里仍然是**「遵循了 Node.js 错误优先的设计理念」**：
+
+```js
+Layer.prototype.handle_error = function handle_error(error, req, res, next) {
+    var fn = this.handle;
+    
+    if (fn.length !== 4) {
+        // not a standard error handler
+        return next(error);
+    }
+
+    try {
+        fn(error, req, res, next);
+    } catch (err) {
+        next(err);
+    }
+};
+```
+
+**「内部通过判断函数的形参个数过滤掉非错误处理中间件」**。
+
+如果 next 函数内部没有异常情况，则调用 layer 实例的 handle_request 方法：
+
+```js
+Layer.prototype.handle_request = function handle(req, res, next) {
+    var fn = this.handle;
+    
+    if (fn.length > 3) {
+        // not a standard request handler
+        return next();
+    }
+
+    try {
+        fn(req, res, next);
+    } catch (err) {
+        next(err);
+    }
+};
+```
+
+**「handle 方法初始化执行了一次 next 方法，但是该方法每次调用最多只能匹配一个中间件」**，所以在执行 handle_error 和 handle_request 方法时，会将 next 方法透传给中间件，这样开发者就可以通过手动调用 next 方法的方式来执行接下来的中间件。
+
+从上述中间件的执行流程中可以知晓，**「用户注册的中间件方法在执行的时候都会包裹一层 try/catch，但是 try/catch 无法捕获 async 函数内部的异常，这也就是为什么 Express 中无法通过注册错误处理中间件来拦截到 async 语法声明的中间件的异常的原因」**。
+
+【修改源码】
+
+找到本质原因之后，可以通过修改源码的方法来进行适配：
+
+```js
+Layer.prototype.handle_request = function handle(req, res, next) {
+    var fn = this.handle;
+
+    if (fn.length > 3) {
+        // not a standard request handler
+        return next();
+    }
+    
+    // 针对 async 语法函数特殊处理
+    if (Object.prototype.toString.call(fn) === '[object AsyncFunction]') {
+        return fn(req, res, next).catch(next);
+    }
+
+    try {
+        fn(req, res, next);
+    } catch (err) {
+        next(err);
+    }
+};
+```
+
+上述代码在 handle_request 方法内部判断了中间件方法通过 async 语法声明的情况，从而采用 Promise 对象的 catch 方法来向下传递异常。
+
+**「这种方式可以减少上层冗余的代码，但是实现该方式，可能需要 fork 一份 Express4.x 的源码，然后发布一个修改之后的版本，后续还要跟进官方版本的新特性，相应的维护成本非常高。」**
+
+> express5.x 中将 router 部分剥离出了单独的路由库 —— router
+
+【AOP（面向切面编程）】
+
+为了解决上述方案存在的问题，我们可以尝试利用 AOP 技术在不修改源码的基础上对已有方法进行增强。
+
+```js
+app.use(async function () {
+    const message = doSomething();
+    res.send(message);
+});
+```
+
+以注册应用级别中间件为例，可以对 app.use 方法进行 AOP 增强：
+
+```js
+const originAppUseMethod = app.use.bind(app);
+app.use = function (fn) {
+    if (Object.prototype.toString.call(fn) === '[object AsyncFunction]') {
+        const asyncWrapper = function(req, res, next) {
+            fn(req, res, next).then(next).catch(next);
+        }
+        return originAppUseMethod(asyncWrapper);
+    }
+    return originAppUseMethod(fn);
+}
+```
+
+前面源码分析的过程中，app.use 内部是有 this 调用的，所以这里需要**「利用 bind 方法来避免后续调用过程中 this 指向出现问题。」**
+
+然后就是利用 AOP 的核心思想，重写原始的 app.use 方法，通过不同的分支逻辑代理到原始的 app.use 方法上。
+
+**「该方法相比较修改源码的方式，维护成本低。但是缺点也很明显，需要重写所有可以注册中间件的方法，不能够像修改源码那样一步到位。」**
+
+【写在最后】
+
+本文介绍了 Express 中使用 async 语法的四种解决方案：
+
+- try/catch
+- 高阶函数
+- 修改源码
+- AOP
+
+除了 try/catch 方法性价比比较低，其它三种方法都需要根据实际情况去取舍，举个栗子：
+
+如果你需要写一个 Express 中间件提供给各个团队使用，那么修改源码的方式肯定走不通，而 AOP 的方式对于你的风险太大，相比较下，第二种方案是最佳的实践方案。
+
+> 评论区补充：
+>
+> ```
+> npm i express-async-errors
+> ```
+>
+> ```js
+> const express = require('express')
+> // 异步异常捕获
+> require('express-async-errors');
+> 
+> // 后续无需任何操作，直接使用异步中间件即可！错误中间件能成功捕获异常
+> ```
+>
+> 这个库的实现非常巧妙，结合了高阶函数和AOP！
+
+---
+
+[让 Express 支持 async/await | NiuNiu's Note (liu-xin.me)](https://liu-xin.me/2017/10/07/让Express支持async-await/)
+
+随着 Node.js v8 的发布，Node.js 已原生支持 async/await 函数，Web 框架 Koa 也随之发布了 Koa2 正式版，支持 async/await 中间件，为处理异步回调带来了极大的方便。
+
+既然 Koa2 已经支持 async/await 中间件了，为什么不直接用 Koa，而还要去改造 Express 让其支持 async/await 中间件呢？因为 Koa2 正式版发布才不久，而很多老项目用的都还是 Express，不可能将其推倒用 Koa 重写，这样成本太高，但又想用到新语法带来的便利，那就只能对 Express 进行改造了，而且这种改造必须是对业务无侵入的，不然会带来很多的麻烦。
+
+【直接使用 async/await】
+
+让我们先来看下在 Express 中直接使用 async/await 函数的情况。
+
+```js
+const express = require('express');
+const app = express();
+const { promisify } = require('util');
+const { readFile } = require('fs');
+const readFileAsync = promisify(readFile);
+   
+app.get('/', async function (req, res, next) {
+    const data = await readFileAsync('./package.json');
+    res.send(data.toString());
+});
+
+// Error Handler
+app.use(function (err, req, res, next) {
+    console.error('Error:', err);
+    res.status(500).send('Service Error');
+});
+   
+app.listen(3000, '127.0.0.1', function () {
+    console.log(`Server running at http://${ this.address().address }:${ this.address().port }/`);
+});
+```
+
+上面是没有对 Express 进行改造，直接使用 async/await 函数来处理请求，当请求 `http://127.0.0.1:3000/` 时，发现请求能正常请求，响应也能正常响应。这样似乎不对 Express 做任何改造也能直接使用 async/await 函数，但如果 async/await 函数里发生了错误呢？这个错误能不能被我们的错误处理中间件处理呢？现在我们去读取一个不存在文件，例如将之前读取的 `package.json` 换成 `age.json`。
+
+```js
+app.get('/', async function (req, res, next) {
+    const data = await readFileAsync('./age.json');
+    res.send(data.toString());
+});
+```
+
+现在我们去请求 `http://127.0.0.1:3000/` 时，发现请求迟迟不能响应，最终会超时。
+
+而在终端报了如下的错误：
+
+![UnhandlerRejectionError](mark-img/unhandlererror.png)
+发现错误并没有被错误处理中间件处理，而是抛出了一个 `unhandledRejection` 异常，现在如果我们用 try/catch 来手动捕获错误会是什么情况呢？
+
+```js
+app.get('/', async function (req, res, next) {
+    try {
+        const data = await readFileAsync('./age.json');
+        res.send(datas.toString());
+    } catch(e) {
+        next(e);
+    }
+});
+```
+
+发现请求被错误处理中间件处理了，说明我们手动显式的来捕获错误是可以的，但是如果在每个中间件或请求处理函数里面加一个 try/catch 也太不优雅了，对业务代码有一定的侵入性，代码也显得难看。所以通过直接使用 async/await 函数的实验，我们发现对 Express 改造的方向就是能够接收 async/await 函数里面抛出的错误，又对业务代码没有侵入性。
+
+【改造 Express】
+
+在 Express 中有两种方式来处理路由和中间件，一种是通过 Express 创建的 app，直接在 app 上添加中间件和处理路由，像下面这样：
+
+```js
+const express = require('express');
+const app = express();
+   
+app.use(function (req, res, next) {
+    next();
+});
+
+app.get('/', function (req, res, next) {
+    res.send('hello, world');
+});
+
+app.post('/', function (req, res, next) {
+    res.send('hello, world');
+});
+   
+app.listen(3000, '127.0.0.1', function () {
+    console.log(`Server running at http://${ this.address().address }:${ this.address().port }/`);
+});
+```
+
+另外一种是通过 Express 的 Router 创建的路由实例，直接在路由实例上添加中间件和处理路由，像下面这样：
+
+```js
+const express = require('express');
+const app = express();
+const router = express.Router();
+app.use(router);
+   
+router.get('/', function (req, res, next) {
+    res.send('hello, world');
+});
+
+router.post('/', function (req, res, next) {
+    res.send('hello, world');
+});
+   
+app.listen(3000, '127.0.0.1', function () {
+    console.log(`Server running at http://${ this.address().address }:${ this.address().port }/`);
+});
+```
+
+这两种方法可以混合起来用，现在我们思考一下怎样才能让一个形如 `app.get('/', async function(req, res, next){})` 的函数，让里面的 async 函数抛出的错误能被统一处理呢？要让错误被统一的处理当然要调用 `next(err)` 来让错误被传递到错误处理中间件，又由于 async 函数返回的是 Promise，所以肯定是形如这样的 `asyncFn().then().catch(function(err){ next(err) })`，所以按这样改造一下就有如下的代码：
+
+```js
+app.get = function (...data) {
+    const params = [];
+    for (let item of data) {
+        if (Object.prototype.toString.call(item) !== '[object AsyncFunction]') {
+            params.push(item);
+            continue;
+        }
+        const handle = function (...data) {
+            const [ req, res, next ] = data;
+            item(req, res, next).then(next).catch(next);
+        };
+        params.push(handle);
+    }
+    app.get(...params);
+}
+```
+
+上面的这段代码中，我们判断 `app.get()` 这个函数的参数中，若有 async 函数，就采用 `item(req, res, next).then(next).catch(next);` 来处理，这样就能捕获函数内抛出的错误，并传到错误处理中间件里面去。但是这段代码有一个明显的错误就是最后调用 app.get()，这样就递归了，破坏了 app.get 的功能，也根本处理不了请求，因此还需要继续改造。
+我们之前说 Express 两种处理路由和中间件的方式可以混用，那么我们就混用这两种方式来避免递归，代码如下：
+
+```js
+const express = require('express');
+const app = express();
+const router = new express.Router();
+app.use(router);
+    
+app.get = function (...data) {
+    const params = [];
+    for (let item of data) {
+        if (Object.prototype.toString.call(item) !== '[object AsyncFunction]') {
+            params.push(item);
+            continue;
+        }
+        const handle = function (...data) {
+            const [ req, res, next ] = data;
+            item(req, res, next).then(next).catch(next);
+        };
+        params.push(handle);
+    }
+    router.get(...params);
+}
+```
+
+像上面这样改造之后似乎一切都能正常工作了，能正常处理请求了。但通过查看 Express 的源码，发现这样破坏了 app.get() 这个方法，因为 app.get() 不仅能用来处理路由，而且还能用来获取应用的配置，在 Express 中对应的源码如下：
+
+```js
+methods.forEach(function(method) {
+    app[method] = function(path) {
+        if (method === 'get' && arguments.length === 1) {
+            // app.get(setting)
+            return this.set(path);
+        }
+    
+        this.lazyrouter();
+        
+        var route = this._router.route(path);
+        route[method].apply(route, slice.call(arguments, 1));
+        return this;
+    };
+});
+```
+
+所以在改造时，我们也需要对 app.get 做特殊处理。在实际的应用中我们不仅有 get 请求，还有 post、put 和 delete 等请求，所以我们最终改造的代码如下：
+
+```js
+const { promisify } = require('util');
+const { readFile } = require('fs');
+const readFileAsync = promisify(readFile);
+const express = require('express');
+const app = express();
+const router = new express.Router();
+const methods = [ 'get', 'post', 'put', 'delete' ];
+app.use(router);
+    
+for (let method of methods) {
+    app[method] = function (...data) {
+        if (method === 'get' && data.length === 1) return app.set(data[0]);
+        const params = [];
+        for (let item of data) {
+            if (Object.prototype.toString.call(item) !== '[object AsyncFunction]') {
+                params.push(item);
+                continue;
+            }
+            const handle = function (...data) {
+                const [ req, res, next ] = data;
+                item(req, res, next).then(next).catch(next);
+            };
+            params.push(handle);
+        }
+        router[method](...params);
+    };
+}
+      
+app.get('/', async function (req, res, next) {
+    const data = await readFileAsync('./package.json');
+    res.send(data.toString());
+});
+      
+app.post('/', async function (req, res, next) {
+    const data = await readFileAsync('./age.json');
+    res.send(data.toString());
+});
+    
+router.use(function (err, req, res, next) {
+    console.error('Error:', err);
+    res.status(500).send('Service Error');
+}); 
+     
+app.listen(3000, '127.0.0.1', function () {
+    console.log(`Server running at http://${ this.address().address }:${ this.address().port }/`);
+});
+```
+
+现在就改造完了，我们只需要加一小段代码，就可以直接用 async function 作为 handler 处理请求，对业务也毫无侵入性，抛出的错误也能传递到错误处理中间件。
