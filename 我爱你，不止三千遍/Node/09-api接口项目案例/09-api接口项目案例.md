@@ -1614,7 +1614,7 @@ module.exports = router;
 npm i multer@1.4.2
 ```
 
-2. 在 `/router_handler/article.js` 模块中导入并配置 `multer`：
+2. 在 `/router/article.js` 模块中导入并配置 `multer`：
 
 ```js
 // 导入解析 formdata 格式表单数据的包
