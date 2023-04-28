@@ -14,10 +14,10 @@
             };
 
             /*
-            Object.defineProperty() 方法可以直接在一个对象上定义一个新属性，或者修改该对象的现有属性，并返回此对象。
-            备注：只能在 Object 构造器对象上调用此方法，而不能在任意一个 Object 类型的实例上调用。
+            Object.defineProperty() 方法可以直接在一个 JS 对象上定义一个新属性，或者修改该对象的现有属性，并返回此对象。
+            备注：只能在 Object 构造器对象上调用此方法，而不能在任意一个 Object 类型的实例上直接调用。
             defineProperty：定义属性（中文翻译）
-             */
+            */
 
             /*
             Object.defineProperty() 可以对添加的属性进行很多高级的限制
@@ -25,7 +25,7 @@
                 参数 1：给哪个对象添加属性
                 参数 2：添加的属性名
                 参数 3：配置项（以对象的方式配置）
-             */
+            */
 
             // 向 person 对象中增加 age: 18 属性
             Object.defineProperty(person, 'age', {
@@ -58,6 +58,7 @@
             // {name: "张三", sex: "男"}
 
             // 利用 defineProperty 增加的属性默认是不参与枚举的，除非在配置项中指定 enumerable: true
+            // Object.keys() 是 JavaScript 中的一个内置方法，它会返回一个对象的属性名（键）数组。它接受一个对象作为参数，并返回一个包含对象所有可枚举属性的数组。
             console.log(Object.keys(person));
             // ["name", "sex"]
 
@@ -68,13 +69,13 @@
             /*
             name
             sex
-             */
+            */
 
             console.log(person.age);
             /*
             getter被调用！
             18
-             */
+            */
 
             person.age = 24;
             // 有人修改了age属性，且值是： 24
@@ -83,7 +84,7 @@
             /*
             getter被调用！
             24
-             */
+            */
 
             console.log(number);
             // 24

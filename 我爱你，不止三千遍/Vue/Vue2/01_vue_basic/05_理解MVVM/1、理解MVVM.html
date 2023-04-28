@@ -11,12 +11,12 @@
         MVVM模型：
             1、M：模型（Model）：data 中的数据
             2、V：视图（View）：模板（'#root'）
-            3、VM：视图模型（ViewModel）：Vue 实例对象（vm）
+            3、VM：视图模型（ViewModel）- Vue 实例对象（vm）
                  ------------- DOM监听 ----------- >
             View               Vue（VM）             Model
                  < ----------- 数据绑定 -------------
             人话翻译：Vue 实例对象作为一个中介，将一堆乱七八糟的数据与界面联系起来！
-         -->
+        -->
         <!-- View -->
         <div id="root">
             <h1>学校名称：{{name}}</h1>
@@ -27,7 +27,7 @@
             <h1>测试一下2：{{$options}}</h1>
             <h1>测试一下3：{{$emit}}</h1>
             <h1>测试一下4：{{_c}}</h1>
-             -->
+            -->
         </div>
         <script>
             Vue.config.productionTip = false;

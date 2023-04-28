@@ -16,7 +16,7 @@
             通过 Object.defineProperty() 把 data 对象中所有属性添加到 vm 上
             为每一个添加到 vm 上的属性，都指定一个 getter/setter
             在 getter/setter 内部去操作（读/写）data 中对应的属性
-         -->
+        -->
         <div id="root">
             <!--
             // 我们直接 data.name 是会报错的，因为 data 只是用来实例化 Vue 的一个参数，最终 vm 上并不在存在 data 属性，data 属性实际上是被实例化 vm 中的 _data 属性代替了！
@@ -25,7 +25,7 @@
             // 见：图1、图2
             <h1>学校名称：{{_data.name}}</h1>
             <h2>学校地址：{{_data.address}}</h2>
-             -->
+            -->
             <h1>学校名称：{{name}}</h1>
             <h2>学校地址：{{address}}</h2>
         </div>

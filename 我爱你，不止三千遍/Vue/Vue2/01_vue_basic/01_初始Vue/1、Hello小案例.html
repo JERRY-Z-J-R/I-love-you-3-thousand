@@ -12,7 +12,7 @@
         1、想让 Vue 工作，就必须首先创建一个 Vue 实例，且要传入一个配置对象（即：参数是一个对象）。
         2、root 容器里的代码依然符合 HTML 规范，只不过混入了一些特殊的 Vue 语法，例如：插值表达式 {{}}。
         3、root 容器里的代码被称为：模板
-         -->
+        -->
 
         <!-- 准备一个容器 -->
         <div id="root">
@@ -34,14 +34,14 @@
             // 所以，我们创建 Vue 实例（实例化 Vue 对象），并传入一个配置对象（即：参数是一个对象）。
             let vm = new Vue({
                 // el: 指 Element “元素”，用于指定当前 Vue 实例为哪个容器服务，值 “通常” 为 css 选择器字符串。
-                // 之所以说 “通常” 是因为还可以这样写（不推荐）  el: document.getElementById('root')
+                // 之所以说 “通常” 是因为还可以这样写（不推荐）el: document.getElementById('root')
                 // 注意：若为 class 类选择器的话那么应该写为 el: '.root'，其它选择器同理
                 el: '#root',
 
                 // data 中用于存储数据，数据仅供 el 所指定的容器使用，其值暂时先写成一个对象，每条数据对应一条 key: value
                 // 注意：目前先写成对象，在后续实际应用中还有更科学的替代方式。
                 data: {
-                    // 'name': 'Jerry' 与 name: 'Jerry' 是等价的！（JS 对象语法复习）
+                    // 'name': 'Jerry' 与 name: 'Jerry' 是等价的！当对象的 key 符合 JS 变量命名规则时就可以省略引号（JS 对象语法复习）
                     // 如果 key 与 value 相同，那么可以只写 key，比如：window: window 等同于 window（JS 对象语法复习）
                     name: 'Jerry'
                 }
