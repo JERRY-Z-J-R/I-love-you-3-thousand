@@ -46,7 +46,7 @@
                         // 在 Vue 中，后来直接添加（vm._data.stu.sex = '男'）的数据的确可以在内存中添加上去，但是 Vue 是不会对其做监视的（无响应式）
                         // 原因是，直接添加的数据没有 get set，就形成不了响应式，好在 Vue 为我们提供了专门的 API 来解决这个添加问题
                         // 利用 Vue.set()（或者 vm.$set()） API 能够添加的属性变为响应式属性
-                        // 注意：对象不能是 Vue 实例（如 vm），或者 Vue 实例的根数据对象（如 data，methods……）。
+                        // 注意：对象不能是 Vue 实例（如 vm），或者 Vue 实例的根数据对象（如 data，methods……）！
                         // Vue.set(this._date.stu, 'sex', '男');
                         // 由于 Vue 做了数据代理，所以 this._data.stu 可以直接用 this.stu 代替
                         Vue.set(this.stu, 'sex', '男');
