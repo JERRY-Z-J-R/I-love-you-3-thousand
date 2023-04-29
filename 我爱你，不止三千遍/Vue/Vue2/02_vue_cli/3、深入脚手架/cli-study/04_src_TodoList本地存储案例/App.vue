@@ -13,7 +13,7 @@
 <script>
 import MyHeader from './components/MyHeader';
 import MyList from './components/MyList';
-import MyFooter from './components/MyFooter.vue';
+import MyFooter from './components/MyFooter';
 
 export default {
     name: 'App',

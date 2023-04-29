@@ -17,7 +17,7 @@
 // 如果实在不方便用双词汇，那么可以在每个组件名之前加一个项目或业务缩写作为前缀！！！
 import MyHeader from './components/MyHeader';
 import MyList from './components/MyList';
-import MyFooter from './components/MyFooter.vue';
+import MyFooter from './components/MyFooter';
 
 export default {
     name: 'App',

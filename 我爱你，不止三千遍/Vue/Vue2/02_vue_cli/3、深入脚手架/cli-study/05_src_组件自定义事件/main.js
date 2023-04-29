@@ -9,8 +9,8 @@ new Vue({
     /*
     // 3 秒后销毁 vm 及子组件 vc 及其自定义事件（原生 DOM 事件不受影响）
     mounted() {
-		setTimeout(()=>{
-			this.$destroy()
+      setTimeout(()=>{
+        this.$destroy()
 		}, 3000)
 	}
 	*/
