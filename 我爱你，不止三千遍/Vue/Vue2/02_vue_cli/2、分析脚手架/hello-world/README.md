@@ -26,7 +26,7 @@ npm run build
 
 ### Lints and fixes files
 
-> 检查代码（利用 Vue 官方的 ESLint 规则，基本不用！）
+> 检查代码（利用 Vue 官方的 ESLint 规则）
 
 ```
 npm run lint
