@@ -10,7 +10,7 @@
             姓：<input type="text" v-model="firstName" /> <br />
             名：<input type="text" v-model="lastName" /> <br />
             <!-- 姓只取前三位 -->
-            <!-- 因为是要获取函数调用的返回值，所以肯定要加 ()，这里请区别于 v-on 中的可加可不加 -->
+            <!-- 因为是要获取函数调用的返回值，所以插值表达式中调用函数肯定要加 ()，这里请区别于 v-on 中的可加可不加 -->
             全名：<span>{{fullName()}}</span>
         </div>
         <script>
