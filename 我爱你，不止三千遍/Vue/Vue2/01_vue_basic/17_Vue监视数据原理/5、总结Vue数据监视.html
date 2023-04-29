@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>总结数据监视</title>
+        <title>总结Vue数据监视</title>
         <style>
             button {
                 margin-top: 10px;
@@ -34,6 +34,8 @@
 
             特别注意：Vue.set() 和 vm.$set() 不能给 vm 或 vm 的根数据对象 添加属性！！！
             特别注意：修改对象的属性是可以直接修改的！但新增属性则必须通过 Vue.set() 和 vm.$set()
+                    但是对于要删除对象的属性，set() 是无法做到的，只能用 delete this.obj.xxx，但是仅仅这样无法触发响应式，需要我们手动重新渲染页面 this.$forceUpdate()
+                    请注意，$forceUpdate 可能会导致性能问题和其他副作用，因此应谨慎使用。如果可能，请尝试通过修改数据来触发响应式更新，而不是手动调用 $forceUpdate。
             特别注意：区别于对象，数组无论新增、删除、修改元素都必须通过特定 API 或 Vue.set() 和 vm.$set()
          -->
         <!-- 准备好一个容器-->

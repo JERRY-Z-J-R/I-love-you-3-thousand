@@ -38,6 +38,7 @@
                         (2) v-model 绑定的 data 属性的初始值不是数组，那么 v-model 绑定的就是 checked 的值（true 或 false），且只要有一个选中便都选中！只要有一个取消勾选便全部取消勾选！
                 <select>：<option> 中 v-model 自动绑定 value 属性，即：v-model="" 等同于 v-model:value="" 
                 <textarea>：v-model 自动绑定 value 属性，即：v-model="" 等同于 v-model:value=""
+            总之：单选和多选，一定给我配置好 value 属性！！！，否则情况非常乱！！！并且，对于多选来说 data 中绑定的数据请配置为数组类型（单个多选除外）！！！
 
             注意：Vue 表单默认选中以及默认值不要使用原生 HTML 的 checked="checked"、selected="selected"、value="..."，而是直接在 data 中指定好初始数据即可！
 
