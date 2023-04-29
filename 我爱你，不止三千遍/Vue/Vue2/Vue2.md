@@ -66,9 +66,8 @@
         }
         ```
         
-    
-      - 第四种方式（只接受）：`$attrs`，例如：JS 中 `this.$attrs.name`，模板中 `{{$attrs.name}}`，注意，props 与 $attrs 最好不要混用，因为 props 接收了的 $attrs 中就不接收了，$attrs 只接收 props 没有接收完的，如果 props 全部接收了，那 $attrs 里什么也没有，如果 props 一个也没接收，那 $attrs 自动全部接收……
-    
+    - 第四种方式（只接受）：`$attrs`，例如：JS 中 `this.$attrs.name`、模板中 `{{$attrs.name}}`，注意，props 与 $attrs 最好不要混用，因为 props 接收了的 $attrs 中就不接收了，$attrs 只接收 props 没有接收完的，如果 props 全部接收了，那 $attrs 里什么也没有，如果 props 一个也没接收，那 $attrs 自动全部接收……
+   
 > 备注：props 中的内容会去到 vc 身上，也就是 this 上，但 props 是只读的，Vue 底层会监测你对 props 的修改，如果进行了修改，就会发出警告！若业务需求确实需要修改，那么请复制 props 的内容到 data 中一份，然后去修改 data 中的数据。
 
 > 备注：$attrs 中的内容不会去到 vc（this）身上，我们直接修改 $attrs 中的属性虽然不会发出警告，但是这是没有响应式的！页面不会同步更新，所以请复制 $attrs 的内容到 data 中一份，然后去修改 data 中的数据。
