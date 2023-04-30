@@ -28,7 +28,7 @@ import App from './App.vue';
     ]
   ]
 }
- */
+*/
 // 注意：新版的 vue-cli 已经没有了 .babelrc 文件，应该在 babel.config.js 中配置：
 /*
 module.exports = {
@@ -46,7 +46,7 @@ module.exports = {
         ]
     ]
 }
- */
+*/
 
 // 第二步：单独引入需要的组件
 import { Button, Row, DatePicker } from 'element-ui';

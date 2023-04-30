@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li v-for="m in messageList" :key="m.id">
-                <!-- 跳转路由并携带 query 参数（get请求形式），to 的字符串写法【借助绑定及模板字符串】（不推荐） -->
+                <!-- 跳转路由并携带 query 参数，to 的字符串写法【借助绑定及模板字符串】（不推荐） -->
                 <!-- <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">{{ m.title }}</router-link> -->
 
                 <!-- 跳转路由并携带 query 参数，to 的对象写法（推荐） -->

@@ -39,8 +39,9 @@ export default new VueRouter({
                             // 这种方法使用较少，因为只能收到 params 型参数
                             // props: true
 
-                            // props 的第三种写法，值为函数（使用较多）
+                            // props 的第三种写法，值为函数（使用较多），该函数返回的对象中每一组 key-value 都会通过 props 传给 Detail 组件
                             // props: function () {}
+                            // 我们可以利用第三种方式实现 query 参数用 props 传递
                             // 简写
                             props($route) {
                                 return {
@@ -52,6 +53,17 @@ export default new VueRouter({
                                     b: 'hello'
                                 };
                             }
+                            // 连续解构赋值简写^^
+                            // props({ query: { id, title } }) {
+                            //     return {
+                            //         // 返回接收到的参数
+                            //         id,
+                            //         title,
+                            //         // 也可以返回固定值
+                            //         a: 1,
+                            //         b: 'hello'
+                            //     };
+                            // }
                         }
                     ]
                 }

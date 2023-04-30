@@ -41,7 +41,7 @@ export default {
         subject() {
           return this.$store.state.subject;
         },
-         */
+        */
 
         // 方式二：借助 mapState 生成计算属性，从 State 中读取数据
         // 原理：Vuex 提供了 mapState API，可以把 State 中的数据提取成一个一个的计算属性函数返回（用一个对象包裹）

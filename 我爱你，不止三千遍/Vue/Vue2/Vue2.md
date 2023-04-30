@@ -858,9 +858,9 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
    }
    ```
 
-> 备注：mapActions 与 mapMutations 使用时，若需要传递参数需要：在模板中绑定事件时传递好参数，否则参数是事件对象。
+> 备注：mapActions 与 mapMutations 使用时，若需要传递参数需要：在模板中绑定事件时传递好参数，否则参数是事件对象 event。
 
-### 7、模块化+命名空间
+### 7、模块化+命名空间  
 
 1. 目的：让代码更好维护，让多种数据分类更加明确。
 
@@ -1254,20 +1254,21 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
         // props:true
 
         // 第三种写法：props值为函数，该函数返回的对象中每一组key-value都会通过props传给Detail组件
-        props(route){
+        // 我们可以利用第三种方式实现 query 参数用 props 传递
+        props($route){
             return {
-                id: route.query.id,
-                title: route.query.title
+                id: $route.query.id,
+                title: $route.query.title
             }
-    }
+    	}
 }
 ```
 
 ### 9、`<router-link>` 的replace属性
 
 1. 作用：控制路由跳转时操作浏览器历史记录的模式
-2. 浏览器的历史记录有两种写入方式：分别为 `push` 和 `replace` ，`push` 是追加历史记录，`replace` 
-   是替换当前记录，路由跳转时候默认为 `push`
+2. 浏览器的历史记录有两种写入方式：分别为 `push` 和 `replace` ，`push` 是追加历史记录（压栈），`replace` 
+   是替换当前记录（压栈时替换顶部记录），路由跳转时候默认为 `push`
 3. 如何开启 `replace` 模式：`<router-link replace .......>News</router-link>`
 
 ### 10、编程式路由导航
@@ -1296,7 +1297,7 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
    
    this.$router.forward()	 // 前进
    this.$router.back() 	 // 后退
-   this.$router.go() 		 // 可前进也可后退
+   this.$router.go() 		 // 可前进也可后退（需要传入一个整数，正数表示前进，负数表示后退，数值表示步数）
    ```
 
 ### 11、缓存路由组件
@@ -1306,9 +1307,12 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
 2. 具体编码：
 
    ```vue
+   <!-- keep-alive 标签中需要配置 include 即需要对哪个组件进行缓存，如果不配置，那么默认对所有组件都缓存 -->
    <keep-alive include="News"> 
        <router-view></router-view>
    </keep-alive>
+   
+   <!-- 如果需要对多个组件缓存那么： <keep-alive :include="['News', 'Message']">  -->
    ```
 
 ### 12、两个新的生命周期钩子
@@ -1321,7 +1325,7 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
 
 3. 与 mounted 和 beforeDestroy 的区别：
 
-    如果我们的组件既有输入框又有定时器逻辑，当我们缓存了路由组件后，我们切走了组件虽然数据被缓存了，但是定时器也会一直再后台执行即便我们已经切走了页面，而 activated 和 deactivated 就可以解决这个问题。
+    如果我们的组件既有输入框又有定时器逻辑，因为需要保存输入内容，所以我们缓存了路由组件，但是我们缓存了路由组件后，我们切走了组件，数据被缓存了的同时，定时器也会一直再后台执行，即便我们已经切走了组件，而 activated 和 deactivated 就可以解决这个问题。
 
 ### 13、路由守卫
 
@@ -1329,14 +1333,14 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
 
 2. 分类：全局守卫、独享守卫、组件内守卫
 
-3. 全局守卫:
+3. 全局守卫：
 
    ```js
    // 全局前置守卫：初始化时执行、每次路由切换前执行
    router.beforeEach((to,from,next) => {
    	console.log('beforeEach', to, from);
    	if(to.meta.isAuth) {	// 判断当前路由是否需要进行权限控制
-   		if(localStorage.getItem('school') === 'atguigu') {	// 权限控制的具体规则
+   		if (localStorage.getItem('school') === 'atguigu') {	// 权限控制的具体规则
    			next();	// 放行
    		} else {
    			alert('暂无权限查看');
@@ -1358,7 +1362,7 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
    });
    ```
 
-4. 独享守卫:
+4. 独享守卫：
 
    ```js
    beforeEnter(to, from, next) {
@@ -1426,5 +1430,10 @@ State：状态（数据）、Vue Components：组件、Actions：动作集、Mut
 > 如何解决 history 的 404 问题呢？靠前端是不行的，要靠后端来解决，当后端服务器接收到请求地址时，需要先对请求地址进行处理，然后再来请求资源，便可以解决问题。 （详解：代码资料的 server 文件夹）
 >
 > 注意： history 的 404 问题是在打包发布到服务器上后才会出现的问题，在开发时 npm run serve 是不会有问题的！
+>
+> 拒绝方案：
+>
+> 1. Nginx
+> 2. 后端代码验证（例如：Node.js 的 connect-history-api-fallback 中间件）
 
 ​	 
