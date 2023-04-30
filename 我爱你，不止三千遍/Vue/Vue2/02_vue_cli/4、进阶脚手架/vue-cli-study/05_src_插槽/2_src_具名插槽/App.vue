@@ -26,7 +26,7 @@
                     指定插槽名称：slot="插槽名" 或 v-slot:插槽名
 
             注意！！！！在 Vue 2.6.0 之后，已经废弃了 slot 写法，请一律使用 template 的 v-slot 写法！！！！
-             -->
+            -->
         </Category>
 
         <Category title="电影">
