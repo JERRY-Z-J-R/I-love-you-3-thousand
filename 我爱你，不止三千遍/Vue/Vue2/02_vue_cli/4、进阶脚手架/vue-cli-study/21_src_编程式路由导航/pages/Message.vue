@@ -37,7 +37,7 @@ export default {
         /*
         $router：路由器中（实际是其原型对象上）包含控制路由跳转的API $router.push $router.replace
         其中：$router.push 是压栈、$router.replace 是压栈后替换
-         */
+        */
         pushShow(m) {
             this.$router.push({
                 name: 'xiangqing',
