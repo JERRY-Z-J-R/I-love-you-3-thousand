@@ -12,25 +12,6 @@
 >
 > 拉取更新：`git pull`
 >
-> 仓库的所有文档均是在 [Typora](https://typora.io/) 中完成编辑的，这也是我最推荐的 Markdown 工具。
+> 仓库的所有文档均是在 [Typora](https://typora.io/) 中完成编辑的，这也是我目前较为推荐的 Markdown 工具。
 >
 > Typora 主题推荐：[JERRY-Z-J-R/Typora-DrakeVue3-Gruvbox: Typora Theme Drake-Vue3 & Gruvbox (github.com)](https://github.com/JERRY-Z-J-R/Typora-DrakeVue3-Gruvbox)
-
-### 赞助
-
-> 本仓库开源，完全免费！作为独立开发爱好者，我并没有稳定的开发收入，本项目的初衷在于维护好一个适合于初学者的资料库，希望获得帮助的朋友，可以请我喝杯咖啡^^
-
-<img src="../mark-img/pay.png" alt="pay" width="42%" />
-
-### License
-
-> Copyright (c) 2023 周吉瑞（JERRY）
->
-> - 绝大部分内容为原创，转载请[注明出处](https://github.com/JERRY-Z-J-R/I-love-you-3-thousand)！
->
-> - 未经许可，一切内容不可用于商业用途！
->
-> - 本人拥有仓库资料的所有权，严禁盗用！
-
-
-
